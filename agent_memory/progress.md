@@ -37,4 +37,4 @@
 - 已为 `portfolio-site` 初始化独立 Git 仓库，默认分支为 `main`。
 - 已补充仓库级 `README.md`、`AGENTS.md` 和完整 `.gitignore`。
 - `npm run build` 已通过。
-- 待完成：创建 `Yang-lab1/portfolio-site` GitHub 仓库并推送首次提交。
+- 已创建公开仓库 `https://github.com/Yang-lab1/portfolio-site`，并将本地 `main` 完整推送到 `origin/main`。
