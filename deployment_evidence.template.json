@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "publicUrl": "https://your-domain.example",
+  "hosting": {
+    "provider": "EdgeOne Pages",
+    "regionOrAvailabilityZone": "global excluding Chinese mainland",
+    "package": "release/portfolio-site-china-YYYYMMDD-HHMMSS.zip",
+    "costPlan": "free or low-cost",
+    "usesDefaultPreviewDomain": false,
+    "icpStatus": "none"
+  },
+  "automatedReports": {
+    "domainReadinessJson": "release/domain-check.json",
+    "liveUrlJson": "release/live-domain-check.json"
+  },
+  "regionalChecks": {
+    "hongKong": {
+      "vpnDisabled": true,
+      "result": "pass",
+      "checkedAt": "YYYY-MM-DDTHH:mm:ss+08:00",
+      "networkOrIsp": "for example: office Wi-Fi / mobile data / ISP name",
+      "approxFirstLoadSeconds": 3,
+      "evidence": "screenshot, screen recording, or tester note path"
+    },
+    "shenzhenMainland": {
+      "vpnDisabled": true,
+      "result": "pass",
+      "checkedAt": "YYYY-MM-DDTHH:mm:ss+08:00",
+      "networkOrIsp": "for example: China Mobile / China Telecom / office Wi-Fi",
+      "approxFirstLoadSeconds": 5,
+      "repeatedOpensPassed": true,
+      "evidence": "screenshot, screen recording, or tester note path"
+    }
+  }
+}
