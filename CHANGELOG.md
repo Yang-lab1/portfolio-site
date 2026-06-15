@@ -3,6 +3,12 @@
 This file records recoverable milestones. Detailed implementation notes remain in
 `task_plan.md`, `findings.md`, `progress.md` and `agent_memory/`.
 
+## v1.1.1-archive - 2026-06-16
+
+- Upgraded Vite from `8.0.14` to `8.0.16`.
+- Cleared the Windows path-handling advisories reported by `npm audit`.
+- Revalidated the production build after the dependency update.
+
 ## v1.1-archive - 2026-06-16
 
 - Added historical China/Hong Kong deployment packages.
@@ -36,4 +42,3 @@ Their screenshots and machine-readable QA results are preserved in:
 
 - `archive/qa-evidence/qa-evidence-part-1.zip`
 - `archive/qa-evidence/qa-evidence-part-2.zip`
-
