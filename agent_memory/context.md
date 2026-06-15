@@ -69,3 +69,11 @@
 - Production site: `https://portfolio-site-three-rose.vercel.app`.
 - The repository includes website source, public portfolio assets, Hero video, 25 Hero source frames, Remotion source, deployment tools, planning files and AI memory.
 - Generated dependencies, build output, caches, logs, local Vercel metadata and environment secrets are excluded.
+
+## 2026-06-16 Cloud-First Archive
+- GitHub `main` is the authoritative source for the current website.
+- Historical deployment packages are stored in `archive/legacy-builds/`.
+- Historical QA screenshots and verification output are stored in two archives under `archive/qa-evidence/`.
+- The user-generated Hero candidate video is stored under `archive/source-assets/`.
+- A fresh clone must be able to install and build without the original workstation.
+- Sensitive conversation exports, account data and third-party reference recordings must remain private; see `docs/PRIVATE_ARCHIVE_MANIFEST.md`.

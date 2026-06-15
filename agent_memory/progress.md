@@ -38,3 +38,9 @@
 - 已补充仓库级 `README.md`、`AGENTS.md` 和完整 `.gitignore`。
 - `npm run build` 已通过。
 - 已创建公开仓库 `https://github.com/Yang-lab1/portfolio-site`，并将本地 `main` 完整推送到 `origin/main`。
+
+## 2026-06-16 云端归档
+- 已建立 `archive/`、`docs/` 和 `CHANGELOG.md`，补齐恢复、交接、资产与隐私边界。
+- 已归档 10 个旧部署包、两卷历史 QA 证据和用户生成的 Hero 候选视频。
+- 已生成 SHA-256 校验清单。
+- 待完成：提交、推送、建立版本标签，并再次从 GitHub 全新克隆验证。

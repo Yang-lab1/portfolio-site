@@ -28,6 +28,8 @@ npm run build
 - `remotion-hero/`: Remotion source used to render Hero motion assets
 - `supabase/`: optional Supabase health-check scaffold and setup notes
 - `tools/`: build, deployment and verification scripts
+- `archive/`: historical builds, QA evidence and non-reproducible source assets
+- `docs/`: restoration, handoff and repository data policies
 - `task_plan.md`, `findings.md`, `progress.md`: implementation history and current decisions
 - `agent_memory/`: compact project context, progress and known risks for AI handoff
 
@@ -64,3 +66,6 @@ Before changing visual behavior, read:
 6. `findings.md`
 
 Preserve the original product form in any image edit. Product structure, color, material and proportions must not be changed.
+
+For a clean-machine restore and AI handoff, read `docs/RESTORE_AND_HANDOFF.md`.
+For storage boundaries and local-dependency rules, read `docs/DATA_AND_ASSET_POLICY.md`.
