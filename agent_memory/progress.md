@@ -60,3 +60,9 @@
   - `npm run build` 通过。
   - 已重新部署到 Vercel production，最新部署 id 为 `dpl_9NLXvXQvSpmTjvNat47N3j6hPD9q`。
   - 当前线上别名仍为 `https://portfolio-site-three-rose.vercel.app`。
+
+## 2026-06-16 React Bits 交互移植
+- 已把产品三卡区从阈值切换改为连续拖拽、惯性滑动、松手吸附到最近作品。
+- 已把 React Bits GooeyNav 思路移植到当前顶部导航，增强 `作品 / 关于` 的 pill 与粒子反馈；语言切换保持独立按钮。
+- 未使用 `npx shadcn add`，因为当前站点是 React + Vite + 普通 CSS 架构，不是 shadcn/Next/Tailwind 项目。
+- `cmd /c npm run build` 已通过。

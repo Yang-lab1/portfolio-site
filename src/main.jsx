@@ -1515,16 +1515,142 @@ function App() {
   );
 }
 
+function GooeyNav({ items, initialActiveIndex = 0 }) {
+  const containerRef = useRef(null);
+  const navRef = useRef(null);
+  const filterRef = useRef(null);
+  const textRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+
+  const noise = (amount = 1) => amount / 2 - Math.random() * amount;
+
+  const getXY = (distance, pointIndex, totalPoints) => {
+    const angle = ((360 + noise(8)) / totalPoints) * pointIndex * (Math.PI / 180);
+    return [distance * Math.cos(angle), distance * Math.sin(angle)];
+  };
+
+  const updateEffectPosition = (element) => {
+    if (!containerRef.current || !filterRef.current || !textRef.current) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const itemRect = element.getBoundingClientRect();
+    const styles = {
+      left: `${itemRect.x - containerRect.x}px`,
+      top: `${itemRect.y - containerRect.y}px`,
+      width: `${itemRect.width}px`,
+      height: `${itemRect.height}px`,
+    };
+    Object.assign(filterRef.current.style, styles);
+    Object.assign(textRef.current.style, styles);
+    textRef.current.textContent = element.textContent;
+  };
+
+  const makeParticles = (element) => {
+    const particleCount = 10;
+    const particleDistances = [54, 8];
+    const particleRadius = 70;
+    const animationTime = 520;
+
+    element.querySelectorAll('.particle').forEach((particle) => particle.remove());
+    element.classList.remove('active');
+    void element.offsetWidth;
+    element.classList.add('active');
+
+    for (let index = 0; index < particleCount; index += 1) {
+      const start = getXY(particleDistances[0], particleCount - index, particleCount);
+      const end = getXY(particleDistances[1] + noise(5), particleCount - index, particleCount);
+      const time = animationTime + noise(180);
+      const rotate = noise(particleRadius / 10) * 10;
+
+      window.setTimeout(() => {
+        const particle = document.createElement('span');
+        const point = document.createElement('span');
+        particle.className = 'particle';
+        point.className = 'point';
+        particle.style.setProperty('--start-x', `${start[0]}px`);
+        particle.style.setProperty('--start-y', `${start[1]}px`);
+        particle.style.setProperty('--end-x', `${end[0]}px`);
+        particle.style.setProperty('--end-y', `${end[1]}px`);
+        particle.style.setProperty('--time', `${time}ms`);
+        particle.style.setProperty('--scale', `${1 + noise(0.18)}`);
+        particle.style.setProperty('--rotate', `${rotate}deg`);
+        particle.appendChild(point);
+        element.appendChild(particle);
+        window.setTimeout(() => particle.remove(), time);
+      }, 24);
+    }
+  };
+
+  const activateItem = (element, index) => {
+    if (!element) return;
+    setActiveIndex(index);
+    updateEffectPosition(element);
+    if (textRef.current) {
+      textRef.current.classList.remove('active');
+      void textRef.current.offsetWidth;
+      textRef.current.classList.add('active');
+    }
+    if (filterRef.current) makeParticles(filterRef.current);
+  };
+
+  useEffect(() => {
+    const activeItem = navRef.current?.querySelectorAll('li')[activeIndex];
+    if (activeItem) {
+      updateEffectPosition(activeItem);
+      textRef.current?.classList.add('active');
+    }
+
+    if (!containerRef.current || typeof ResizeObserver === 'undefined') return undefined;
+    const observer = new ResizeObserver(() => {
+      const currentActiveItem = navRef.current?.querySelectorAll('li')[activeIndex];
+      if (currentActiveItem) updateEffectPosition(currentActiveItem);
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [activeIndex, items]);
+
+  return (
+    <div className="gooey-nav-container" ref={containerRef}>
+      <nav aria-label="Primary">
+        <ul ref={navRef}>
+          {items.map((item, index) => (
+            <li key={item.href} className={activeIndex === index ? 'active' : ''}>
+              <a
+                href={item.href}
+                onClick={(event) => activateItem(event.currentTarget.parentElement, index)}
+                onKeyDown={(event) => {
+                  if (event.key === ' ') {
+                    event.preventDefault();
+                    activateItem(event.currentTarget.parentElement, index);
+                    window.location.hash = item.href.replace('#', '');
+                  }
+                }}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <span className="effect filter" ref={filterRef} aria-hidden="true" />
+      <span className="effect text" ref={textRef} aria-hidden="true" />
+    </div>
+  );
+}
+
 function Header({ lang, setLang }) {
+  const navItems = useMemo(() => [
+    { label: copy[lang].work, href: '#work' },
+    { label: copy[lang].about, href: '#about' },
+  ], [lang]);
+
   return (
     <header className="site-header">
       <a className="brand-button" href="#top" aria-label="Portfolio home">
         <span className="brand-mark">AI</span>
         <span>{copy[lang].brand}</span>
       </a>
-      <nav>
-        <a href="#work">{copy[lang].work}</a>
-        <a href="#about">{copy[lang].about}</a>
+      <nav className="header-actions">
+        <GooeyNav key={lang} items={navItems} />
         <button className="language-toggle" data-magnetic type="button" onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}>
           <Languages size={15} />
           <span>{lang === 'en' ? '中文' : 'EN'}</span>
@@ -1586,22 +1712,39 @@ function AchievementCards({ lang }) {
 
 function ProductShowcase3D({ lang, onOpenProject }) {
   const productProjects = useMemo(() => getProjectsByIds(productShowcaseIds).filter((project) => project.image), []);
-  const [activeIndex, setActiveIndex] = useState(() => (productProjects.length > 1 ? 1 : 0));
-  const [dragOffset, setDragOffset] = useState(0);
-  const dragRef = useRef({ active: false, startX: 0, moved: false, cleanup: null });
   const count = productProjects.length;
+  const initialPosition = count > 1 ? 1 : 0;
+  const [orbitPosition, setOrbitPosition] = useState(initialPosition);
+  const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1440 : window.innerWidth));
+  const positionRef = useRef(initialPosition);
+  const targetRef = useRef(initialPosition);
+  const frameRef = useRef(0);
+  const dragRef = useRef({
+    active: false,
+    startX: 0,
+    lastX: 0,
+    lastTime: 0,
+    moved: false,
+    velocity: 0,
+    origin: initialPosition,
+    itemWidth: 240,
+    cleanup: null,
+  });
 
-  const move = (delta) => {
-    if (!count) return;
-    setActiveIndex((index) => (index + delta + count) % count);
+  const wrapIndex = (value) => {
+    if (!count) return 0;
+    return ((value % count) + count) % count;
   };
 
-  const offsetFor = (index) => {
-    if (!count) return 0;
-    let offset = index - activeIndex;
-    if (offset > count / 2) offset -= count;
-    if (offset < -count / 2) offset += count;
-    return offset;
+  const clamp = (min, value, max) => Math.min(max, Math.max(min, value));
+
+  const dragUnit = () => Math.max(170, Math.min(340, window.innerWidth * 0.16));
+
+  const cardWidthFor = (offset) => {
+    const centerWidth = clamp(620, viewportWidth * 0.46, 940);
+    const sideWidth = clamp(250, viewportWidth * 0.17, 330);
+    const progress = Math.min(1, Math.abs(offset));
+    return centerWidth - (centerWidth - sideWidth) * progress;
   };
 
   const cleanupDragListeners = () => {
@@ -1611,33 +1754,82 @@ function ProductShowcase3D({ lang, onOpenProject }) {
     }
   };
 
+  useEffect(() => {
+    positionRef.current = initialPosition;
+    targetRef.current = initialPosition;
+    setOrbitPosition(initialPosition);
+  }, [initialPosition]);
+
+  useEffect(() => {
+    const handleResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const tick = () => {
+      const ease = dragRef.current.active ? 0.42 : 0.115;
+      const delta = targetRef.current - positionRef.current;
+      if (Math.abs(delta) > 0.0008) {
+        positionRef.current += delta * ease;
+        setOrbitPosition(positionRef.current);
+      } else if (positionRef.current !== targetRef.current) {
+        positionRef.current = targetRef.current;
+        setOrbitPosition(positionRef.current);
+      }
+      frameRef.current = requestAnimationFrame(tick);
+    };
+
+    frameRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameRef.current);
+  }, []);
+
   const updateDrag = (clientX) => {
     const drag = dragRef.current;
     if (!drag.active) return;
     const delta = clientX - drag.startX;
-    if (Math.abs(delta) > 8) drag.moved = true;
-    setDragOffset(Math.max(-120, Math.min(120, delta)));
+    const now = performance.now();
+    const elapsed = Math.max(1, now - drag.lastTime);
+    if (Math.abs(delta) > 6) drag.moved = true;
+    drag.velocity = (clientX - drag.lastX) / elapsed;
+    drag.lastX = clientX;
+    drag.lastTime = now;
+    targetRef.current = drag.origin - delta / drag.itemWidth;
   };
 
   const finishDrag = (clientX) => {
     const drag = dragRef.current;
     if (!drag.active) return;
     const delta = clientX - drag.startX;
-    if (Math.abs(delta) > 76) {
-      move(delta < 0 ? 1 : -1);
-    }
+    if (Math.abs(delta) > 6) drag.moved = true;
+    const inertia = clamp(-4.2, (-drag.velocity * 360) / drag.itemWidth, 4.2);
+    targetRef.current = Math.round(targetRef.current + (drag.moved ? inertia : 0));
     drag.active = false;
     cleanupDragListeners();
-    setDragOffset(0);
   };
 
   const startDrag = (event) => {
     if (!count) return;
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
     cleanupDragListeners();
-    dragRef.current = { active: true, startX: event.clientX, moved: false, cleanup: null };
-    setDragOffset(0);
+    const now = performance.now();
+    dragRef.current = {
+      active: true,
+      startX: event.clientX,
+      lastX: event.clientX,
+      lastTime: now,
+      moved: false,
+      velocity: 0,
+      origin: positionRef.current,
+      itemWidth: dragUnit(),
+      cleanup: null,
+    };
+    targetRef.current = positionRef.current;
 
-    const handleMove = (moveEvent) => updateDrag(moveEvent.clientX);
+    const handleMove = (moveEvent) => {
+      moveEvent.preventDefault();
+      updateDrag(moveEvent.clientX);
+    };
     const handleUp = (upEvent) => finishDrag(upEvent.clientX);
     window.addEventListener('pointermove', handleMove);
     window.addEventListener('pointerup', handleUp, { once: true });
@@ -1661,33 +1853,39 @@ function ProductShowcase3D({ lang, onOpenProject }) {
         className="product-orbit-stage"
         onPointerDown={startDrag}
       >
-        {productProjects.map((project, index) => {
-          const offset = offsetFor(index);
-          const visible = Math.abs(offset) <= 1;
-          if (!visible) return null;
-          const dragInfluence = offset === 0 ? dragOffset * 0.08 : dragOffset * 0.05;
-          const xPosition = offset === 0 ? 0 : offset * 43.4;
+        {(count ? [-1, 0, 1] : []).map((slot) => {
+          const centerVirtualIndex = Math.round(orbitPosition);
+          const virtualIndex = centerVirtualIndex + slot;
+          const project = productProjects[wrapIndex(virtualIndex)];
+          const offset = virtualIndex - orbitPosition;
+          const absOffset = Math.abs(offset);
+          const isActive = absOffset < 0.5;
+          const xPosition = offset * 43.4;
           const rotate = 0;
           const scale = 1;
-          const depth = offset === 0 ? 0 : -24;
-          const sideClass = offset < 0 ? ' is-side-left' : offset > 0 ? ' is-side-right' : '';
-          const width = offset === 0 ? 'clamp(620px, 46vw, 940px)' : 'clamp(250px, 17vw, 330px)';
+          const depth = isActive ? 0 : -24;
+          const sideClass = isActive ? '' : offset < 0 ? ' is-side-left' : ' is-side-right';
+          const width = `${cardWidthFor(offset)}px`;
           return (
             <button
               type="button"
-              className={`product-orbit-card${offset === 0 ? ' is-active' : ''}${sideClass}${project.imageFit === 'contain' ? ' is-contain' : ''}`}
+              className={`product-orbit-card${isActive ? ' is-active' : ''}${sideClass}${project.imageFit === 'contain' ? ' is-contain' : ''}`}
               key={project.id}
               style={{
                 '--orbit-offset': offset,
-                zIndex: 20 - Math.abs(offset),
+                zIndex: Math.round(30 - absOffset * 10),
                 width,
                 transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center center',
-                transform: `translate3d(calc(-50% + ${xPosition}vw + ${dragInfluence}px), -50%, ${depth}px) rotateY(${rotate}deg) scale(${scale})`,
+                opacity: absOffset > 1.28 ? 0.72 : 1,
+                transform: `translate3d(calc(-50% + ${xPosition}vw), -50%, ${depth}px) rotateY(${rotate}deg) scale(${scale})`,
               }}
               onClick={() => {
                 if (dragRef.current.moved) return;
-                if (offset === 0 && !dragRef.current.moved) onOpenProject(project.id);
-                if (offset !== 0) setActiveIndex(index);
+                if (Math.abs(offset) < 0.35) {
+                  onOpenProject(project.id);
+                  return;
+                }
+                targetRef.current += offset;
               }}
             >
               <img src={project.image} alt="" draggable="false" loading="lazy" />

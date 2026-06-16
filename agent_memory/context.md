@@ -84,3 +84,9 @@
 - Current implementation uses a smaller center width, lighter side-card `rotateY`, shallower negative depth, and a moderate outward offset so side cards feel cropped by the viewport rather than stacked under the center card.
 - Temporary `orbit-shot` scroll helper and local screenshot test artifacts were removed after verification; they must not be reintroduced unless needed for one-off QA.
 - Latest refinement changed side-card perspective from card-wide rotation to trapezoid clipping: the inner edge toward the center stays full height, while the outer edge is vertically inset so each side card narrows toward the screen edge.
+
+## 2026-06-16 React Bits Interaction Pass
+- Product showcase interaction now follows the React Bits carousel model conceptually: continuous floating scroll position, `requestAnimationFrame` easing, pointer velocity inertia, and snap-to-nearest item after release.
+- Do not restore the old discrete behavior where dragging only switches one card after a threshold and then freezes.
+- Header navigation uses an in-repo React/Vite adaptation of React Bits GooeyNav for the Work/About links. The project is not a shadcn/Next/Tailwind app, so React Bits snippets should be pasted as React component + CSS source, not installed with `npx shadcn add`.
+- Keep the language toggle outside GooeyNav so it remains a direct state button instead of an anchor-style nav item.

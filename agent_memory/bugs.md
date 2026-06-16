@@ -68,3 +68,8 @@
   2. center card is largest,
   3. side cards are still mostly visible,
   4. side cards do not touch or slide under the center card.
+
+## 2026-06-16 Product Orbit Interaction Guardrail
+- Do not reintroduce threshold-only drag behavior in the product showcase. The expected behavior is continuous pointer-following drag, velocity-based inertial movement, and snap-to-nearest-card after release.
+- If React Bits snippets are pasted later, adapt them to the current React + Vite + CSS architecture unless the user explicitly asks to change the stack.
+- Keep GooeyNav scoped to Work/About; language switching must stay a direct button action.
