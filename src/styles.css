@@ -2232,10 +2232,11 @@ img {
   overflow: hidden;
   display: grid;
   align-items: center;
-  min-height: 100svh;
+  min-height: 92svh;
   padding: 0;
   background: #ffffff;
   color: #050505;
+  scroll-margin-top: 72px;
 }
 
 .product-orbit-copy {
@@ -2265,11 +2266,11 @@ img {
 .product-orbit-stage {
   position: relative;
   width: 100%;
-  height: calc(100svh - 68px);
+  height: min(74svh, 820px);
   min-height: 640px;
   margin: 0;
   overflow: visible;
-  perspective: 1900px;
+  perspective: 2300px;
   perspective-origin: 50% 50%;
   cursor: grab;
   touch-action: pan-y;
@@ -2284,20 +2285,20 @@ img {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: clamp(720px, 46.5vw, 900px);
-  height: min(64svh, 620px);
-  min-height: 430px;
+  width: clamp(620px, 46vw, 940px);
+  height: clamp(470px, 59svh, 640px);
+  min-height: 470px;
   padding: 0;
   overflow: hidden;
   color: #050505;
-  background: #f3f3f3;
+  background: #f7f7f5;
   border: 0;
-  border-radius: 4px;
-  box-shadow: 0 22px 62px rgba(0, 0, 0, 0.09);
+  border-radius: 2px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.035);
   cursor: pointer;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, filter 260ms ease;
+  transition: transform 560ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease, filter 260ms ease, opacity 260ms ease;
 }
 
 .product-orbit-card img {
@@ -2313,36 +2314,21 @@ img {
   padding: clamp(16px, 2vw, 32px);
 }
 
-.product-orbit-open {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  width: 58px;
-  height: 58px;
-  place-items: center;
-  color: #ffffff;
-  background: rgba(5, 5, 5, 0.32);
-  border-radius: 2px;
-  backdrop-filter: blur(14px);
-  transform: translate(-50%, -50%);
-}
-
 .product-orbit-card.is-active {
-  box-shadow: 0 26px 76px rgba(0, 0, 0, 0.12);
-}
-
-.product-orbit-card:not(.is-active) {
-  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.08);
-  filter: saturate(0.96) contrast(0.98);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.045);
 }
 
 .product-orbit-card.is-side-left {
-  clip-path: polygon(0 4.8%, 100% 0, 100% 100%, 0 95.2%);
+  clip-path: polygon(0 9%, 100% 0, 100% 100%, 0 91%);
 }
 
 .product-orbit-card.is-side-right {
-  clip-path: polygon(0 0, 100% 4.8%, 100% 95.2%, 0 100%);
+  clip-path: polygon(0 0, 100% 9%, 100% 91%, 0 100%);
+}
+
+.product-orbit-card:not(.is-active) {
+  box-shadow: none;
+  filter: saturate(0.985) contrast(0.995);
 }
 
 .product-orbit-controls {

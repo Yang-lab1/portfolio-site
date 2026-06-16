@@ -77,3 +77,10 @@
 - The user-generated Hero candidate video is stored under `archive/source-assets/`.
 - A fresh clone must be able to install and build without the original workstation.
 - Sensitive conversation exports, account data and third-party reference recordings must remain private; see `docs/PRIVATE_ARCHIVE_MANIFEST.md`.
+
+## 2026-06-16 Aircenter Product Orbit Tuning
+- Homepage product showcase was retuned again against the Aircenter three-card reference.
+- Current intended geometry: center card visibly smaller than the previous oversized build, left/right cards separated from the center with clear white gaps, and side cards remain mostly visible instead of collapsing into thin edge slivers.
+- Current implementation uses a smaller center width, lighter side-card `rotateY`, shallower negative depth, and a moderate outward offset so side cards feel cropped by the viewport rather than stacked under the center card.
+- Temporary `orbit-shot` scroll helper and local screenshot test artifacts were removed after verification; they must not be reintroduced unless needed for one-off QA.
+- Latest refinement changed side-card perspective from card-wide rotation to trapezoid clipping: the inner edge toward the center stays full height, while the outer edge is vertically inset so each side card narrows toward the screen edge.

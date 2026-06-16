@@ -46,3 +46,17 @@
 - 已提交、推送并建立 `v1.0-handoff`、`v1.1-archive` 版本标签。
 - GitHub 全新克隆后归档哈希校验无错误，`npm install` 与 `npm run build` 通过。
 - 验收时发现 Vite 8.0.14 安全公告，已升级到 8.0.16；`npm audit` 返回 0 漏洞。
+
+## 2026-06-16 Aircenter 三卡产品段微调
+- 已按用户最新反馈修正首页三卡产品段：不再让左右卡片几乎消失，也不再与中间卡片叠压。
+- 已完成的具体调整：
+  - 缩小中间主卡宽度，恢复与 Aircenter 更接近的版心比例。
+  - 降低左右卡片透视倾角与后退深度，避免“折成薄片”。
+  - 重算左右卡片水平偏移，让两侧卡片保持可见，同时与中间卡片留出明显空隙。
+  - 将左右侧卡从整体 `rotateY` 改为梯形裁切：靠中间的一边保持不变，越往屏幕边缘上下越向内收。
+  - 移除临时 `orbit-shot` 自动滚动调试代码。
+  - 删除本轮临时截图与 `tmp-product-orbit.spec.ts` 废文件。
+- 本轮验证：
+  - `npm run build` 通过。
+  - 已重新部署到 Vercel production，最新部署 id 为 `dpl_9NLXvXQvSpmTjvNat47N3j6hPD9q`。
+  - 当前线上别名仍为 `https://portfolio-site-three-rose.vercel.app`。

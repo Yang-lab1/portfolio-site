@@ -1586,7 +1586,7 @@ function AchievementCards({ lang }) {
 
 function ProductShowcase3D({ lang, onOpenProject }) {
   const productProjects = useMemo(() => getProjectsByIds(productShowcaseIds).filter((project) => project.image), []);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(() => (productProjects.length > 1 ? 1 : 0));
   const [dragOffset, setDragOffset] = useState(0);
   const dragRef = useRef({ active: false, startX: 0, moved: false, cleanup: null });
   const count = productProjects.length;
@@ -1652,7 +1652,11 @@ function ProductShowcase3D({ lang, onOpenProject }) {
   useEffect(() => () => cleanupDragListeners(), []);
 
   return (
-    <section className="product-orbit-section" aria-label={copy[lang].productShowcaseLabel}>
+    <section
+      id="product-showcase"
+      className="product-orbit-section"
+      aria-label={copy[lang].productShowcaseLabel}
+    >
       <div
         className="product-orbit-stage"
         onPointerDown={startDrag}
@@ -1661,12 +1665,13 @@ function ProductShowcase3D({ lang, onOpenProject }) {
           const offset = offsetFor(index);
           const visible = Math.abs(offset) <= 1;
           if (!visible) return null;
-          const dragInfluence = offset === 0 ? dragOffset * 0.16 : dragOffset * 0.08;
-          const xPosition = offset === 0 ? 0 : offset * 47.3;
+          const dragInfluence = offset === 0 ? dragOffset * 0.08 : dragOffset * 0.05;
+          const xPosition = offset === 0 ? 0 : offset * 43.4;
           const rotate = 0;
-          const scale = offset === 0 ? 1 : 0.78;
-          const depth = offset === 0 ? 0 : -30;
+          const scale = 1;
+          const depth = offset === 0 ? 0 : -24;
           const sideClass = offset < 0 ? ' is-side-left' : offset > 0 ? ' is-side-right' : '';
+          const width = offset === 0 ? 'clamp(620px, 46vw, 940px)' : 'clamp(250px, 17vw, 330px)';
           return (
             <button
               type="button"
@@ -1675,6 +1680,7 @@ function ProductShowcase3D({ lang, onOpenProject }) {
               style={{
                 '--orbit-offset': offset,
                 zIndex: 20 - Math.abs(offset),
+                width,
                 transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center center',
                 transform: `translate3d(calc(-50% + ${xPosition}vw + ${dragInfluence}px), -50%, ${depth}px) rotateY(${rotate}deg) scale(${scale})`,
               }}
@@ -1685,11 +1691,6 @@ function ProductShowcase3D({ lang, onOpenProject }) {
               }}
             >
               <img src={project.image} alt="" draggable="false" loading="lazy" />
-              {offset === 0 && (
-                <span className="product-orbit-open" aria-hidden="true">
-                  <ChevronRight size={22} />
-                </span>
-              )}
             </button>
           );
         })}

@@ -57,3 +57,14 @@
 - Do not reintroduce stagger on `.air-letter` scroll collection unless verifying every mid-scroll checkpoint for overlap.
 - Do not measure collected targets from active transformed `getBoundingClientRect()` values; reset GSAP `x/y/scale` before measuring the base layout.
 - Regression check: run `node tmp\verify-air-hero-yang-midstates.mjs https://portfolio-site-three-rose.vercel.app`.
+
+## 2026-06-16 Product Orbit Guardrails
+- Do not restore the old oversized center-card sizing (`clamp(900px, 44.5vw, 950px)`); that layout leaves no room for readable side cards on common desktop widths.
+- Do not push side cards back to extreme outward offsets or heavy `rotateY` angles. The rejected symptom is: center card dominates the viewport and left/right cards are reduced to narrow edge strips.
+- Do not collapse the three-card layout back into overlap. The accepted direction is: center largest, left/right smaller, visible, and separated by white gaps.
+- Do not use broad side-card `rotateY` as the primary perspective method. The latest accepted direction uses side-specific `clip-path` trapezoids so the edge facing the center stays fixed and the outer edge shrinks inward.
+- If this section is retuned again, compare directly against the Aircenter reference screenshot and re-check these four points together:
+  1. only three cards are visible,
+  2. center card is largest,
+  3. side cards are still mostly visible,
+  4. side cards do not touch or slide under the center card.
