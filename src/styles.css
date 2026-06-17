@@ -2490,6 +2490,12 @@ img {
   padding: clamp(16px, 2vw, 32px);
 }
 
+.product-orbit-card.is-side-left img,
+.product-orbit-card.is-side-right img {
+  object-fit: cover;
+  padding: 0;
+}
+
 .product-orbit-card.is-active {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.045);
 }
