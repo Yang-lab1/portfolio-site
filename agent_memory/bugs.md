@@ -77,3 +77,4 @@
 ## 2026-06-17 Achievement CountUp Guardrail
 - Do not change the achievement counter trigger back to `once: true`; the accepted behavior is replay on section re-entry from either scroll direction.
 - Do not rely on the spring alone for final numbers. Keep the explicit final text settlement so the cards end exactly on `21`, `10+`, `9+`, and `4`.
+- Keep the accepted CountUp duration at `1.3s` unless the user asks for another timing adjustment.

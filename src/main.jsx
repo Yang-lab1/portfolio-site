@@ -1820,7 +1820,7 @@ function AchievementCards({ lang }) {
         return (
           <article className="achievement-card" key={card.value}>
             <strong className="achievement-value" aria-label={card.value}>
-              <CountUp from={0} to={number} separator="," direction="up" duration={1} className="count-up-text" delay={0} />
+              <CountUp from={0} to={number} separator="," direction="up" duration={1.3} className="count-up-text" delay={0} />
               {suffix ? <span className="achievement-suffix" aria-hidden="true">{suffix}</span> : null}
             </strong>
             <span className="achievement-label">{t(card.label, lang)}</span>
