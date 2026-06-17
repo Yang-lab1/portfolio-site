@@ -90,3 +90,8 @@
 - Do not restore the old discrete behavior where dragging only switches one card after a threshold and then freezes.
 - Header navigation uses an in-repo React/Vite adaptation of React Bits GooeyNav for the Work/About links. The project is not a shadcn/Next/Tailwind app, so React Bits snippets should be pasted as React component + CSS source, not installed with `npx shadcn add`.
 - Keep the language toggle outside GooeyNav so it remains a direct state button instead of an anchor-style nav item.
+
+## 2026-06-17 Achievement CountUp
+- The achievement cards now use a local React Bits-style `CountUp` component backed by `motion/react`.
+- The counters are intentionally configured with `useInView(... once: false ...)`: scrolling into the section from either direction should replay the count-up.
+- The spring animation is forced to the exact final text at the end of the duration so the cards settle on `21`, `10+`, `9+`, and `4`.

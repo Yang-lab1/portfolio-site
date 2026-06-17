@@ -73,3 +73,7 @@
 - Do not reintroduce threshold-only drag behavior in the product showcase. The expected behavior is continuous pointer-following drag, velocity-based inertial movement, and snap-to-nearest-card after release.
 - If React Bits snippets are pasted later, adapt them to the current React + Vite + CSS architecture unless the user explicitly asks to change the stack.
 - Keep GooeyNav scoped to Work/About; language switching must stay a direct button action.
+
+## 2026-06-17 Achievement CountUp Guardrail
+- Do not change the achievement counter trigger back to `once: true`; the accepted behavior is replay on section re-entry from either scroll direction.
+- Do not rely on the spring alone for final numbers. Keep the explicit final text settlement so the cards end exactly on `21`, `10+`, `9+`, and `4`.

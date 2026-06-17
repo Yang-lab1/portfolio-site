@@ -68,3 +68,8 @@
 - `cmd /c npm run build` 已通过。
 - 已提交并推送到 GitHub `main`，最新提交 `8e86bdc`。
 - 已触发 Vercel production 部署，公开别名 `https://portfolio-site-three-rose.vercel.app` 已确认加载新构建资源 `index-CphfTT75.js`。
+
+## 2026-06-17 Achievement CountUp
+- 已按用户提供的 React Bits CountUp 思路，为成就数字区接入 `motion/react` 计数动画。
+- 成就数字进入视口时从 0 计数到 `21`、`10+`、`9+`、`4`；离开后再次进入会重新播放。
+- 已验证 `cmd /c npm run build` 通过，并用本地 Chrome 脚本确认首次进入和二次进入最终数值都能稳定回到目标值。

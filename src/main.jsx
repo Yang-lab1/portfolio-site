@@ -1,5 +1,6 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
+import { useInView, useMotionValue, useSpring } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -1696,16 +1697,137 @@ function Hero({ lang }) {
   );
 }
 
+function getAchievementValueParts(value) {
+  const normalized = String(value);
+  const match = normalized.match(/^([\d,.]+)(.*)$/);
+  return {
+    number: match ? Number(match[1].replace(/,/g, '')) : 0,
+    suffix: match ? match[2] : '',
+  };
+}
+
+function CountUp({
+  to,
+  from = 0,
+  direction = 'up',
+  delay = 0,
+  duration = 1,
+  className = '',
+  startWhen = true,
+  separator = '',
+  onStart,
+  onEnd,
+}) {
+  const ref = useRef(null);
+  const completedRef = useRef(false);
+  const motionValue = useMotionValue(direction === 'down' ? to : from);
+
+  const damping = 20 + 40 * (1 / duration);
+  const stiffness = 100 * (1 / duration);
+
+  const springValue = useSpring(motionValue, {
+    damping,
+    stiffness,
+  });
+
+  const isInView = useInView(ref, { once: false, margin: '0px 0px -10% 0px' });
+
+  const getDecimalPlaces = (num) => {
+    const str = num.toString();
+
+    if (str.includes('.')) {
+      const decimals = str.split('.')[1];
+
+      if (parseInt(decimals, 10) !== 0) {
+        return decimals.length;
+      }
+    }
+
+    return 0;
+  };
+
+  const maxDecimals = Math.max(getDecimalPlaces(from), getDecimalPlaces(to));
+
+  const formatValue = useCallback(
+    (latest) => {
+      const hasDecimals = maxDecimals > 0;
+
+      const options = {
+        useGrouping: Boolean(separator),
+        minimumFractionDigits: hasDecimals ? maxDecimals : 0,
+        maximumFractionDigits: hasDecimals ? maxDecimals : 0,
+      };
+
+      const formattedNumber = Intl.NumberFormat('en-US', options).format(latest);
+
+      return separator ? formattedNumber.replace(/,/g, separator) : formattedNumber;
+    },
+    [maxDecimals, separator],
+  );
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.textContent = formatValue(direction === 'down' ? to : from);
+    }
+  }, [from, to, direction, formatValue]);
+
+  useEffect(() => {
+    if (!isInView || !startWhen) {
+      completedRef.current = false;
+      motionValue.set(direction === 'down' ? to : from);
+      return undefined;
+    }
+
+    completedRef.current = false;
+    if (typeof onStart === 'function') onStart();
+
+    const timeoutId = window.setTimeout(() => {
+      motionValue.set(direction === 'down' ? from : to);
+    }, delay * 1000);
+
+    const durationTimeoutId = window.setTimeout(() => {
+      completedRef.current = true;
+      if (ref.current) {
+        ref.current.textContent = formatValue(direction === 'down' ? from : to);
+      }
+      if (typeof onEnd === 'function') onEnd();
+    }, delay * 1000 + duration * 1000);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      window.clearTimeout(durationTimeoutId);
+    };
+  }, [isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
+
+  useEffect(() => {
+    const unsubscribe = springValue.on('change', (latest) => {
+      if (ref.current) {
+        ref.current.textContent = completedRef.current ? formatValue(direction === 'down' ? from : to) : formatValue(latest);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [springValue, formatValue, direction, from, to]);
+
+  return <span className={className} ref={ref} />;
+}
+
 function AchievementCards({ lang }) {
   return (
     <section className="achievement-section" aria-label={copy[lang].achievementLabel}>
-      {achievementCards.map((card) => (
-        <article className="achievement-card" key={card.value}>
-          <strong>{card.value}</strong>
-          <span>{t(card.label, lang)}</span>
-          <p>{t(card.note, lang)}</p>
-        </article>
-      ))}
+      {achievementCards.map((card) => {
+        const { number, suffix } = getAchievementValueParts(card.value);
+        return (
+          <article className="achievement-card" key={card.value}>
+            <strong className="achievement-value" aria-label={card.value}>
+              <CountUp from={0} to={number} separator="," direction="up" duration={1} className="count-up-text" delay={0} />
+              {suffix ? <span className="achievement-suffix" aria-hidden="true">{suffix}</span> : null}
+            </strong>
+            <span className="achievement-label">{t(card.label, lang)}</span>
+            <p>{t(card.note, lang)}</p>
+          </article>
+        );
+      })}
     </section>
   );
 }
