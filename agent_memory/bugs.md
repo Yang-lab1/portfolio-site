@@ -78,3 +78,7 @@
 - Do not change the achievement counter trigger back to `once: true`; the accepted behavior is replay on section re-entry from either scroll direction.
 - Do not rely on the spring alone for final numbers. Keep the explicit final text settlement so the cards end exactly on `21`, `10+`, `9+`, and `4`.
 - Keep the accepted CountUp duration at `1.3s` unless the user asks for another timing adjustment.
+## 2026-06-18 Tresmares Expansion Guardrails
+- 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
+- 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。
+- 当前照片使用外链临时欧洲城市图，后续若替换成作品图或自有资产，只应替换 `expansionCards` 的 `image` 字段，不要破坏 scroll timeline。

@@ -1080,6 +1080,68 @@ const achievementCards = [
 const productShowcaseIds = ['cross-ripple', 'smart-waste', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'offer-quest'];
 
+const expansionCards = [
+  {
+    id: 'france',
+    country: 'France',
+    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=680&q=82',
+    initial: { x: -45, y: 47, rotate: -24, scale: 0.82, opacity: 0.82 },
+    middle: { x: -32, y: 3, rotate: -18, scale: 0.92, opacity: 1 },
+    end: { x: -54, y: -35, rotate: -30, scale: 0.68, opacity: 0.38 },
+  },
+  {
+    id: 'netherlands',
+    country: 'Netherlands',
+    image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=680&q=82',
+    initial: { x: -14, y: 45, rotate: 7, scale: 0.86, opacity: 0.92 },
+    middle: { x: -17, y: -5, rotate: -15, scale: 0.96, opacity: 1 },
+    end: { x: -27, y: -45, rotate: -4, scale: 0.74, opacity: 0.42 },
+  },
+  {
+    id: 'norway',
+    country: 'Norway',
+    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=760&q=86',
+    active: true,
+    initial: { x: 4, y: 47, rotate: 3, scale: 0.84, opacity: 0.96 },
+    middle: { x: 0, y: -12, rotate: 3, scale: 1.02, opacity: 1 },
+    end: { x: 7, y: -54, rotate: 10, scale: 0.72, opacity: 0.36 },
+  },
+  {
+    id: 'italy',
+    country: 'Italy',
+    image: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=680&q=82',
+    initial: { x: 23, y: 46, rotate: -8, scale: 0.84, opacity: 0.9 },
+    middle: { x: 22, y: -2, rotate: 15, scale: 0.96, opacity: 1 },
+    end: { x: 34, y: -37, rotate: 24, scale: 0.7, opacity: 0.4 },
+  },
+  {
+    id: 'sweden',
+    country: 'Sweden',
+    image: 'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&w=680&q=82',
+    initial: { x: 45, y: 50, rotate: 22, scale: 0.78, opacity: 0.78 },
+    middle: { x: 42, y: 16, rotate: -16, scale: 0.82, opacity: 0.9 },
+    end: { x: 63, y: -19, rotate: -28, scale: 0.6, opacity: 0.24 },
+  },
+  {
+    id: 'spain',
+    country: 'Spain',
+    image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=680&q=82',
+    initial: { x: -54, y: 58, rotate: 14, scale: 0.7, opacity: 0.5 },
+    middle: { x: -49, y: 33, rotate: -39, scale: 0.78, opacity: 0.86 },
+    end: { x: -69, y: 2, rotate: -52, scale: 0.58, opacity: 0.18 },
+    mobileExtra: true,
+  },
+  {
+    id: 'uk',
+    country: 'United Kingdom',
+    image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=680&q=82',
+    initial: { x: 56, y: 58, rotate: -18, scale: 0.72, opacity: 0.48 },
+    middle: { x: 54, y: 36, rotate: 29, scale: 0.8, opacity: 0.82 },
+    end: { x: 76, y: 9, rotate: 43, scale: 0.55, opacity: 0.18 },
+    mobileExtra: true,
+  },
+];
+
 function getProjectsByIds(ids) {
   return ids.map((id) => projects.find((project) => project.id === id)).filter(Boolean);
 }
@@ -1507,7 +1569,7 @@ function App() {
           <DigitalCaseScroller lang={lang} onOpenProject={openProject} motionEnabled={pinEnabled} />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <CapabilitySummary lang={lang} />
-          <About lang={lang} />
+          <About lang={lang} motionEnabled={!motion.reduced} />
           <AirFooter lang={lang} />
         </>
       )}
@@ -2816,14 +2878,118 @@ function processCopy(project, lang, index) {
   return (lang === 'zh' ? zh : en)[index];
 }
 
-function About({ lang }) {
+function About({ lang, motionEnabled }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (!sectionRef.current || !motionEnabled) return undefined;
+
+    const ctx = gsap.context(() => {
+      const section = sectionRef.current;
+      const cards = expansionCards
+        .map((card) => ({
+          data: card,
+          node: section.querySelector(`[data-expansion-card="${card.id}"]`),
+        }))
+        .filter((item) => item.node);
+
+      gsap.set('.expansion-title-stack', { y: 0, autoAlpha: 1 });
+      gsap.set('.expansion-active-meta', { autoAlpha: 0, y: 18 });
+      gsap.set('.expansion-description', { autoAlpha: 0, y: 34 });
+      gsap.set('.expansion-card', { xPercent: -50, yPercent: -50, transformOrigin: '50% 50%' });
+
+      const timeline = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => (window.matchMedia('(max-width: 820px)').matches ? '+=1450' : '+=2200'),
+          scrub: true,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      timeline
+        .to('.expansion-title-stack', { y: '-42vh', scale: 0.98, duration: 0.64 }, 0)
+        .to('.expansion-title-stack', { autoAlpha: 0.82, duration: 0.28 }, 0.66)
+        .to('.expansion-active-meta', { autoAlpha: 1, y: 0, duration: 0.22 }, 0.31)
+        .to('.expansion-description', { autoAlpha: 1, y: 0, duration: 0.22 }, 0.38)
+        .to('.expansion-active-meta', { autoAlpha: 0.72, duration: 0.18 }, 0.82)
+        .to('.expansion-description', { autoAlpha: 0.72, y: -10, duration: 0.18 }, 0.86);
+
+      cards.forEach(({ data, node }) => {
+        timeline
+          .fromTo(
+            node,
+            {
+              x: `${data.initial.x}vw`,
+              y: `${data.initial.y}vh`,
+              rotate: data.initial.rotate,
+              scale: data.initial.scale,
+              autoAlpha: data.initial.opacity,
+            },
+            {
+              x: `${data.middle.x}vw`,
+              y: `${data.middle.y}vh`,
+              rotate: data.middle.rotate,
+              scale: data.middle.scale,
+              autoAlpha: data.middle.opacity,
+              duration: data.active ? 0.58 : 0.5,
+            },
+            0,
+          )
+          .to(
+            node,
+            {
+              x: `${data.end.x}vw`,
+              y: `${data.end.y}vh`,
+              rotate: data.end.rotate,
+              scale: data.end.scale,
+              autoAlpha: data.end.opacity,
+              duration: data.active ? 0.42 : 0.5,
+            },
+            data.active ? 0.58 : 0.5,
+          );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [motionEnabled]);
+
   return (
-    <section id="about" className="about-section">
-      <div>
-        <span>{copy[lang].about}</span>
-        <h2>{copy[lang].aboutTitle}</h2>
+    <section id="about" className={`about-section expansion-section${motionEnabled ? '' : ' is-static'}`} ref={sectionRef}>
+      <div className="expansion-orbit" aria-hidden="true" />
+      <div className="expansion-title-stack">
+        <span>Our expansion</span>
+        <h2>
+          <span>We join forces with</span>
+          <span>
+            <strong>Banco Santander</strong> to reach
+          </span>
+          <span>further</span>
+        </h2>
       </div>
-      <p>{copy[lang].aboutCopy}</p>
+      <div className="expansion-cards" aria-hidden="true">
+        {expansionCards.map((card) => (
+          <figure
+            className={`expansion-card${card.active ? ' is-active' : ''}${card.mobileExtra ? ' is-mobile-extra' : ''}`}
+            data-expansion-card={card.id}
+            key={card.id}
+          >
+            <img src={card.image} alt="" draggable="false" loading="lazy" />
+          </figure>
+        ))}
+      </div>
+      <div className="expansion-active-meta">
+        <span className="expansion-red-dot" aria-hidden="true" />
+        <strong>Norway</strong>
+      </div>
+      <p className="expansion-description">
+        Thanks to the international support of Banco Santander for our independent management, we serve all of continental
+        Europe from our offices in Madrid, London, and Frankfurt.
+      </p>
     </section>
   );
 }

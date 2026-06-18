@@ -99,3 +99,8 @@
 ## 2026-06-17 Achievement CountUp Timing Update
 - Current CountUp duration is `1.3s`.
 - `playwright` is installed as a dev dependency for local browser verification.
+
+## 2026-06-18 Tresmares Expansion Interaction
+- About block is being replaced by a Tresmares-inspired pinned scroll section: white background, centered `Our expansion` headline, red `Banco Santander`, parallax photo cards, active `Norway` marker, and bottom explanatory copy.
+- Implementation uses the existing React/Vite/GSAP stack with `ScrollTrigger` pin + scrub. Keep the animation scroll-driven; do not turn it into autoplay or static layout.
+- Desktop and mobile must keep `overflow-x` at zero. Headline rows need explicit spacing so the `j` descender does not collide with the red `Banco Santander` row.
