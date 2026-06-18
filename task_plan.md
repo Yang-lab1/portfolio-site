@@ -478,5 +478,5 @@ Phase 25 is in progress as a local preview reliability pass: the current "URL ca
 - [x] Preserve GSAP ScrollTrigger pinned + scrub behavior, active country label, red dot, bottom copy fade, and no horizontal overflow.
 - [x] Run `cmd /c npm run build`.
 - [x] Run Playwright orbit QA locally at desktop/mobile progress checkpoints.
-- [ ] Redeploy to Vercel production and verify the public alias.
-- **Status:** local geometry and build complete; production deployment pending.
+- [x] Redeploy to Vercel production and verify the public alias.
+- **Status:** complete.

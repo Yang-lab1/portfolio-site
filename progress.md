@@ -837,7 +837,7 @@
   - Need to configure Vercel production env vars and redeploy.
 
 ## Session: 2026-06-18 Tresmares Seven-Card Orbit Geometry
-- **Status:** local implementation and verification complete; production deployment pending.
+- **Status:** complete and deployed.
 - Actions completed:
   - Reworked the Expansion photo orbit to show one centered active card plus three cards on each side on desktop.
   - Locked the visible orbit to seven slots so the layout no longer exposes eight or more images.
@@ -848,5 +848,5 @@
   - Playwright local QA passed at desktop/mobile checkpoints with `overflowX=0`.
   - Desktop `1440px` QA showed seven visible cards at progress `0.38`, `0.42`, `0.62`, and `0.82`.
   - At progress `0.42`, the card centers were symmetric around center x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
-- Remaining:
-  - Commit, push, redeploy Vercel production, and verify the public alias.
+  - Vercel production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` completed and alias `https://portfolio-site-three-rose.vercel.app/` returned `200`.
+  - Deployed Playwright QA confirmed desktop visible card count `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`, with `overflowX=0`.

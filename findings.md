@@ -563,3 +563,5 @@
 - Local QA at `1440px` width confirms visible card count is `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`; horizontal overflow is `0` and title overlap is `false`.
 - At progress `0.42`, measured card center x positions are `116 / 276 / 486 / 720 / 954 / 1164 / 1324`, proving left/right symmetry around the `720px` viewport center.
 - Mobile intentionally keeps fewer visible cards to avoid horizontal overflow; QA measured overflow `0`.
+- Vercel production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` is aliased to `https://portfolio-site-three-rose.vercel.app/` and returns `200 OK`.
+- Deployed QA matches local: desktop visible count is `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`; overflow remains `0`.

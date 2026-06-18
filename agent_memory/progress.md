@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-18 Tresmares Seven-Card Orbit Geometry
+- Completed the stricter desktop orbit correction: exactly seven visible cards, with one centered card and three mirrored cards on each side.
+- The cards now use a shared bottom-center circle origin. Their rotation is calculated from each card center back to that origin, so the visible cards read as tangent to one semicircle.
+- Local and deployed QA both passed. Desktop `1440px` showed seven visible cards at progress `0.38`, `0.42`, `0.62`, and `0.82`; horizontal overflow stayed `0`.
+- At progress `0.42`, measured card centers were symmetric around x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
+- GitHub `main` includes the code work at commit `3264d7c`; production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。
 - 需要真实 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`，并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`。

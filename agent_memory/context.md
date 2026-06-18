@@ -117,3 +117,4 @@
 - Card rotation is derived from the card center back to the shared bottom circle center so each card stays tangent to the same arc.
 - Latest local desktop QA at progress `0.42` measured symmetric centers around x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
 - Keep mobile reduced-card behavior if needed for `overflow-x: 0`.
+- Latest production deployment for this pass is `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R`; public alias `https://portfolio-site-three-rose.vercel.app/` returned `200` and deployed QA kept desktop visible card count at `7`.
