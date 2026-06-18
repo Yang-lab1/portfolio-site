@@ -1085,59 +1085,37 @@ const expansionCards = [
     id: 'france',
     country: 'France',
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=680&q=82',
-    initial: { x: -45, y: 47, rotate: -24, scale: 0.82, opacity: 0.82 },
-    middle: { x: -32, y: 3, rotate: -18, scale: 0.92, opacity: 1 },
-    end: { x: -54, y: -35, rotate: -30, scale: 0.68, opacity: 0.38 },
   },
   {
-    id: 'netherlands',
-    country: 'Netherlands',
+    id: 'luxembourg',
+    country: 'Luxembourg',
     image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=680&q=82',
-    initial: { x: -14, y: 45, rotate: 7, scale: 0.86, opacity: 0.92 },
-    middle: { x: -17, y: -5, rotate: -15, scale: 0.96, opacity: 1 },
-    end: { x: -27, y: -45, rotate: -4, scale: 0.74, opacity: 0.42 },
   },
   {
     id: 'norway',
     country: 'Norway',
     image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=760&q=86',
-    active: true,
-    initial: { x: 4, y: 47, rotate: 3, scale: 0.84, opacity: 0.96 },
-    middle: { x: 0, y: -12, rotate: 3, scale: 1.02, opacity: 1 },
-    end: { x: 7, y: -54, rotate: 10, scale: 0.72, opacity: 0.36 },
   },
   {
-    id: 'italy',
-    country: 'Italy',
+    id: 'denmark',
+    country: 'Denmark',
     image: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=680&q=82',
-    initial: { x: 23, y: 46, rotate: -8, scale: 0.84, opacity: 0.9 },
-    middle: { x: 22, y: -2, rotate: 15, scale: 0.96, opacity: 1 },
-    end: { x: 34, y: -37, rotate: 24, scale: 0.7, opacity: 0.4 },
   },
   {
     id: 'sweden',
     country: 'Sweden',
     image: 'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&w=680&q=82',
-    initial: { x: 45, y: 50, rotate: 22, scale: 0.78, opacity: 0.78 },
-    middle: { x: 42, y: 16, rotate: -16, scale: 0.82, opacity: 0.9 },
-    end: { x: 63, y: -19, rotate: -28, scale: 0.6, opacity: 0.24 },
   },
   {
-    id: 'spain',
-    country: 'Spain',
+    id: 'finland',
+    country: 'Finland',
     image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=680&q=82',
-    initial: { x: -54, y: 58, rotate: 14, scale: 0.7, opacity: 0.5 },
-    middle: { x: -49, y: 33, rotate: -39, scale: 0.78, opacity: 0.86 },
-    end: { x: -69, y: 2, rotate: -52, scale: 0.58, opacity: 0.18 },
     mobileExtra: true,
   },
   {
-    id: 'uk',
-    country: 'United Kingdom',
+    id: 'germany',
+    country: 'Germany',
     image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=680&q=82',
-    initial: { x: 56, y: 58, rotate: -18, scale: 0.72, opacity: 0.48 },
-    middle: { x: 54, y: 36, rotate: 29, scale: 0.8, opacity: 0.82 },
-    end: { x: 76, y: 9, rotate: 43, scale: 0.55, opacity: 0.18 },
     mobileExtra: true,
   },
 ];
@@ -2880,12 +2858,17 @@ function processCopy(project, lang, index) {
 
 function About({ lang, motionEnabled }) {
   const sectionRef = useRef(null);
+  const [activeExpansionCountry, setActiveExpansionCountry] = useState('Norway');
+  const activeExpansionCountryRef = useRef('Norway');
 
   useLayoutEffect(() => {
     if (!sectionRef.current || !motionEnabled) return undefined;
 
     const ctx = gsap.context(() => {
       const section = sectionRef.current;
+      const title = section.querySelector('.expansion-title-stack');
+      const meta = section.querySelector('.expansion-active-meta');
+      const description = section.querySelector('.expansion-description');
       const cards = expansionCards
         .map((card) => ({
           data: card,
@@ -2893,65 +2876,121 @@ function About({ lang, motionEnabled }) {
         }))
         .filter((item) => item.node);
 
-      gsap.set('.expansion-title-stack', { y: 0, autoAlpha: 1 });
-      gsap.set('.expansion-active-meta', { autoAlpha: 0, y: 18 });
-      gsap.set('.expansion-description', { autoAlpha: 0, y: 34 });
-      gsap.set('.expansion-card', { xPercent: -50, yPercent: -50, transformOrigin: '50% 50%' });
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+      const clamp01 = (value) => clamp(value, 0, 1);
+      const easeOutCubic = (value) => 1 - (1 - value) ** 3;
 
-      const timeline = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: () => (window.matchMedia('(max-width: 820px)').matches ? '+=1450' : '+=2200'),
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
+      const updateActiveCountry = (country) => {
+        if (activeExpansionCountryRef.current !== country) {
+          activeExpansionCountryRef.current = country;
+          setActiveExpansionCountry(country);
+        }
+      };
 
-      timeline
-        .to('.expansion-title-stack', { y: '-42vh', scale: 0.98, duration: 0.64 }, 0)
-        .to('.expansion-title-stack', { autoAlpha: 0.82, duration: 0.28 }, 0.66)
-        .to('.expansion-active-meta', { autoAlpha: 1, y: 0, duration: 0.22 }, 0.31)
-        .to('.expansion-description', { autoAlpha: 1, y: 0, duration: 0.22 }, 0.38)
-        .to('.expansion-active-meta', { autoAlpha: 0.72, duration: 0.18 }, 0.82)
-        .to('.expansion-description', { autoAlpha: 0.72, y: -10, duration: 0.18 }, 0.86);
+      const renderExpansion = (progress = 0) => {
+        const width = section.offsetWidth;
+        const height = section.offsetHeight;
+        const mobile = window.matchMedia('(max-width: 820px)').matches;
+        const visibleCards = cards.filter(({ data }) => !(mobile && data.mobileExtra));
+        const hiddenCards = cards.filter(({ data }) => mobile && data.mobileExtra);
+        const intro = easeOutCubic(clamp01((progress - 0.04) / 0.28));
+        const orbitProgress = clamp01((progress - 0.2) / 0.68);
+        const centerIndex = 2 + orbitProgress * (mobile ? 1.75 : 3.05);
+        const step = mobile ? 31 : 23.5;
+        const centerX = width * 0.5;
+        const centerY = height * (mobile ? 1.17 : 1.28);
+        const radiusX = width * (mobile ? 0.58 : 0.47);
+        const radiusY = height * (mobile ? 0.72 : 0.87);
+        const introDrop = (1 - intro) * height * (mobile ? 0.34 : 0.42);
+        let activeCard = visibleCards[0];
+        let activeDistance = Number.POSITIVE_INFINITY;
+        let activeGeometry = null;
 
-      cards.forEach(({ data, node }) => {
-        timeline
-          .fromTo(
-            node,
-            {
-              x: `${data.initial.x}vw`,
-              y: `${data.initial.y}vh`,
-              rotate: data.initial.rotate,
-              scale: data.initial.scale,
-              autoAlpha: data.initial.opacity,
-            },
-            {
-              x: `${data.middle.x}vw`,
-              y: `${data.middle.y}vh`,
-              rotate: data.middle.rotate,
-              scale: data.middle.scale,
-              autoAlpha: data.middle.opacity,
-              duration: data.active ? 0.58 : 0.5,
-            },
-            0,
-          )
-          .to(
-            node,
-            {
-              x: `${data.end.x}vw`,
-              y: `${data.end.y}vh`,
-              rotate: data.end.rotate,
-              scale: data.end.scale,
-              autoAlpha: data.end.opacity,
-              duration: data.active ? 0.42 : 0.5,
-            },
-            data.active ? 0.58 : 0.5,
-          );
+        hiddenCards.forEach(({ node }) => {
+          gsap.set(node, { autoAlpha: 0, pointerEvents: 'none' });
+        });
+
+        visibleCards.forEach(({ data, node }, index) => {
+          const angle = 90 + (centerIndex - index) * step;
+          const radians = (angle * Math.PI) / 180;
+          const x = centerX + Math.cos(radians) * radiusX;
+          const y = centerY - Math.sin(radians) * radiusY + introDrop;
+          const topDistance = Math.abs(angle - 90);
+          const bottomFade = clamp01((y - height * 0.68) / (height * 0.28));
+          const offArcFade = clamp01((Math.abs(angle - 90) - 92) / 42);
+          const topFocus = clamp01(1 - topDistance / 88);
+          const scale = (0.62 + topFocus * 0.42) * (1 - bottomFade * 0.16);
+          const rotate = (90 - angle) * 0.62;
+          const opacity = intro * clamp(1 - bottomFade * 0.76 - offArcFade * 0.62, 0, 1);
+          const blur = bottomFade * 8 + offArcFade * 5;
+
+          if (topDistance < activeDistance) {
+            activeDistance = topDistance;
+            activeCard = { data, node };
+            activeGeometry = { x, y, scale, size: node.offsetWidth };
+          }
+
+          gsap.set(node, {
+            x,
+            y,
+            xPercent: -50,
+            yPercent: -50,
+            rotate,
+            scale,
+            autoAlpha: opacity,
+            zIndex: Math.round(100 + topFocus * 80 - bottomFade * 30),
+            filter: `blur(${blur.toFixed(2)}px)`,
+            transformOrigin: '50% 50%',
+          });
+        });
+
+        const titleProgress = clamp01(progress / 0.56);
+        const titleLift = -height * (mobile ? 0.56 : 0.55) * titleProgress;
+        const titleOpacity = clamp(1 - clamp01((progress - 0.72) / 0.22) * 0.22, 0.72, 1);
+        const textReveal = easeOutCubic(clamp01((progress - 0.32) / 0.22));
+        const textExit = clamp01((progress - 0.88) / 0.1);
+        const textOpacity = textReveal * (1 - textExit * 0.28);
+
+        if (title) {
+          gsap.set(title, {
+            y: titleLift,
+            scale: 1 - titleProgress * 0.03,
+            autoAlpha: titleOpacity,
+          });
+        }
+
+        if (description) {
+          gsap.set(description, {
+            y: (1 - textReveal) * 34 - textExit * 12,
+            autoAlpha: textOpacity,
+          });
+        }
+
+        if (meta && activeGeometry) {
+          const activeSize = activeGeometry.size * activeGeometry.scale;
+          gsap.set(meta, {
+            x: activeGeometry.x,
+            y: activeGeometry.y + activeSize * 0.62 + (mobile ? 18 : 24),
+            xPercent: -50,
+            autoAlpha: textOpacity * clamp01(1 - activeDistance / 42),
+          });
+        }
+
+        updateActiveCountry(activeCard?.data.country ?? 'Norway');
+      };
+
+      renderExpansion(0);
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: () => (window.matchMedia('(max-width: 820px)').matches ? '+=1650' : '+=2400'),
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => renderExpansion(self.progress),
+        onRefresh: (self) => renderExpansion(self.progress),
       });
     }, sectionRef);
 
@@ -2974,7 +3013,7 @@ function About({ lang, motionEnabled }) {
       <div className="expansion-cards" aria-hidden="true">
         {expansionCards.map((card) => (
           <figure
-            className={`expansion-card${card.active ? ' is-active' : ''}${card.mobileExtra ? ' is-mobile-extra' : ''}`}
+            className={`expansion-card${card.mobileExtra ? ' is-mobile-extra' : ''}`}
             data-expansion-card={card.id}
             key={card.id}
           >
@@ -2984,7 +3023,7 @@ function About({ lang, motionEnabled }) {
       </div>
       <div className="expansion-active-meta">
         <span className="expansion-red-dot" aria-hidden="true" />
-        <strong>Norway</strong>
+        <strong>{activeExpansionCountry}</strong>
       </div>
       <p className="expansion-description">
         Thanks to the international support of Banco Santander for our independent management, we serve all of continental

@@ -104,3 +104,9 @@
 - About block is being replaced by a Tresmares-inspired pinned scroll section: white background, centered `Our expansion` headline, red `Banco Santander`, parallax photo cards, active `Norway` marker, and bottom explanatory copy.
 - Implementation uses the existing React/Vite/GSAP stack with `ScrollTrigger` pin + scrub. Keep the animation scroll-driven; do not turn it into autoplay or static layout.
 - Desktop and mobile must keep `overflow-x` at zero. Headline rows need explicit spacing so the `j` descender does not collide with the red `Banco Santander` row.
+
+## 2026-06-18 Tresmares Semicircle Orbit Update
+- The Tresmares-inspired About/expansion section now uses a bottom-center semicircle orbit instead of scattered independent card paths.
+- Scroll progress advances the active card along the arc; current sampled active sequence is `Norway` -> `Denmark` -> `Sweden` -> `Finland`.
+- Bottom/edge cards intentionally fade and blur as they leave the readable arc. The active marker/country label follows the active card instead of staying static.
+- Verification artifacts for this pass are under `tmp/tresmares-video-frames/` and `tmp/tresmares-orbit-qa/`; these are temporary QA outputs and should not become committed product assets.

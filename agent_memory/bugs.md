@@ -82,3 +82,8 @@
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。
 - 当前照片使用外链临时欧洲城市图，后续若替换成作品图或自有资产，只应替换 `expansionCards` 的 `image` 字段，不要破坏 scroll timeline。
+## 2026-06-18 Tresmares Semicircle Orbit Guardrails
+- 不要再把 expansion 卡片改回随机散点或普通照片墙；用户明确要求按参考视频做“底部中心点半圆轨道”。
+- 不要把该段改成自动播放；核心验收仍然是 GSAP ScrollTrigger pinned section + scrub，用户停止滚动时动画停在当前状态。
+- 后续如果替换图片，只替换 `expansionCards` 的图片资源和国家/标签文本，不要破坏 `renderExpansion(progress)` 的轨道公式。
+- 回归检查至少要覆盖 0.22、0.42、0.62、0.82 四个滚动进度点，并确认 active label、红点、底部 blur、说明文字淡入和 `overflow-x = 0`。
