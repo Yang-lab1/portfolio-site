@@ -555,3 +555,11 @@
   - Add the same vars to Vercel production and redeploy.
 - `cmd /c npm run build` still passes after the handoff update.
 - `cmd /c npm run verify:supabase` still fails with `reason=missing-env`, which is correct until real URL/key values are provided.
+
+## 2026-06-18 Tresmares Seven-Card Orbit Findings
+- The latest user correction is geometry-specific: desktop should show exactly seven cards at once, not eight or more, and the visible set must be symmetric: three left, one center, three right.
+- Updated `renderExpansion(progress)` so the desktop orbit uses fixed visible semicircle slots around a bottom-center origin. Cards outside `delta = -3...3` are hidden.
+- Each visible card now computes rotation from its card center back to the bottom circle center, so the card edge reads as tangent to the same semicircle instead of using arbitrary individual angles.
+- Local QA at `1440px` width confirms visible card count is `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`; horizontal overflow is `0` and title overlap is `false`.
+- At progress `0.42`, measured card center x positions are `116 / 276 / 486 / 720 / 954 / 1164 / 1324`, proving left/right symmetry around the `720px` viewport center.
+- Mobile intentionally keeps fewer visible cards to avoid horizontal overflow; QA measured overflow `0`.

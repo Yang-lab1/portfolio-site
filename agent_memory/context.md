@@ -110,3 +110,10 @@
 - Scroll progress advances the active card along the arc; current sampled active sequence is `Norway` -> `Denmark` -> `Sweden` -> `Finland`.
 - Bottom/edge cards intentionally fade and blur as they leave the readable arc. The active marker/country label follows the active card instead of staying static.
 - Verification artifacts for this pass are under `tmp/tresmares-video-frames/` and `tmp/tresmares-orbit-qa/`; these are temporary QA outputs and should not become committed product assets.
+
+## 2026-06-18 Tresmares Seven-Card Orbit Geometry
+- Current desktop target for the Expansion orbit is strict: exactly seven visible image cards, with one active center card and three mirrored cards on each side.
+- The orbit should read as a single bottom-center semicircle. Do not return to scattered positions or show more than seven desktop cards.
+- Card rotation is derived from the card center back to the shared bottom circle center so each card stays tangent to the same arc.
+- Latest local desktop QA at progress `0.42` measured symmetric centers around x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
+- Keep mobile reduced-card behavior if needed for `overflow-x: 0`.

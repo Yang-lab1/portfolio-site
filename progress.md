@@ -835,3 +835,18 @@
   - Need real Supabase URL/key.
   - Need to run `supabase/portfolio_health.sql` in the target Supabase project.
   - Need to configure Vercel production env vars and redeploy.
+
+## Session: 2026-06-18 Tresmares Seven-Card Orbit Geometry
+- **Status:** local implementation and verification complete; production deployment pending.
+- Actions completed:
+  - Reworked the Expansion photo orbit to show one centered active card plus three cards on each side on desktop.
+  - Locked the visible orbit to seven slots so the layout no longer exposes eight or more images.
+  - Recomputed card rotation from the shared bottom-center circle origin so each image follows the same tangent relationship.
+  - Preserved the pinned scroll/scrub section, active label/red dot, faded lower cards, and bottom explanatory copy.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Playwright local QA passed at desktop/mobile checkpoints with `overflowX=0`.
+  - Desktop `1440px` QA showed seven visible cards at progress `0.38`, `0.42`, `0.62`, and `0.82`.
+  - At progress `0.42`, the card centers were symmetric around center x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
+- Remaining:
+  - Commit, push, redeploy Vercel production, and verify the public alias.

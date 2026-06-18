@@ -1087,6 +1087,21 @@ const expansionCards = [
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=680&q=82',
   },
   {
+    id: 'italy',
+    country: 'Italy',
+    image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'holland',
+    country: 'Holland',
+    image: 'https://images.unsplash.com/photo-1505164995999-4827c832c5f8?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'belgium',
+    country: 'Belgium',
+    image: 'https://images.unsplash.com/photo-1518128958364-65859d70aa41?auto=format&fit=crop&w=680&q=82',
+  },
+  {
     id: 'luxembourg',
     country: 'Luxembourg',
     image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=680&q=82',
@@ -1110,12 +1125,48 @@ const expansionCards = [
     id: 'finland',
     country: 'Finland',
     image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=680&q=82',
-    mobileExtra: true,
   },
   {
     id: 'germany',
     country: 'Germany',
     image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'austria',
+    country: 'Austria',
+    image: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'spain',
+    country: 'Spain',
+    image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'portugal',
+    country: 'Portugal',
+    image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'switzerland',
+    country: 'Switzerland',
+    image: 'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?auto=format&fit=crop&w=680&q=82',
+  },
+  {
+    id: 'iceland',
+    country: 'Iceland',
+    image: 'https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=680&q=82',
+    mobileExtra: true,
+  },
+  {
+    id: 'greece',
+    country: 'Greece',
+    image: 'https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=680&q=82',
+    mobileExtra: true,
+  },
+  {
+    id: 'czechia',
+    country: 'Czechia',
+    image: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=680&q=82',
     mobileExtra: true,
   },
 ];
@@ -2879,6 +2930,11 @@ function About({ lang, motionEnabled }) {
       const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
       const clamp01 = (value) => clamp(value, 0, 1);
       const easeOutCubic = (value) => 1 - (1 - value) ** 3;
+      const wrapDelta = (value, total) => {
+        if (!total) return 0;
+        const half = total / 2;
+        return ((((value + half) % total) + total) % total) - half;
+      };
 
       const updateActiveCountry = (country) => {
         if (activeExpansionCountryRef.current !== country) {
@@ -2893,15 +2949,23 @@ function About({ lang, motionEnabled }) {
         const mobile = window.matchMedia('(max-width: 820px)').matches;
         const visibleCards = cards.filter(({ data }) => !(mobile && data.mobileExtra));
         const hiddenCards = cards.filter(({ data }) => mobile && data.mobileExtra);
-        const intro = easeOutCubic(clamp01((progress - 0.04) / 0.28));
-        const orbitProgress = clamp01((progress - 0.2) / 0.68);
-        const centerIndex = 2 + orbitProgress * (mobile ? 1.75 : 3.05);
-        const step = mobile ? 31 : 23.5;
+        const totalCards = Math.max(visibleCards.length, 1);
+        const intro = easeOutCubic(clamp01((progress - 0.02) / 0.26));
+        const orbitProgress = clamp01((progress - 0.14) / 0.78);
+        const titleProgress = clamp01(progress / 0.42);
+        const rawCenterIndex = 2 + orbitProgress * (mobile ? totalCards * 0.58 : totalCards * 0.72);
+        const centerIndex = Math.round(rawCenterIndex);
+        const step = mobile ? 31 : 19;
+        const visibleSlots = mobile ? 2 : 3;
+        const maxVisibleDelta = visibleSlots;
         const centerX = width * 0.5;
-        const centerY = height * (mobile ? 1.17 : 1.28);
-        const radiusX = width * (mobile ? 0.58 : 0.47);
-        const radiusY = height * (mobile ? 0.72 : 0.87);
-        const introDrop = (1 - intro) * height * (mobile ? 0.34 : 0.42);
+        const centerY = height * (mobile ? 1.1 : 1.12);
+        const orbitRadius = mobile ? height * 0.78 : Math.min(width * 0.5, height * 0.86);
+        const introDrop = (1 - intro) * height * (mobile ? 0.3 : 0.36);
+        const safeTopRatio = mobile
+          ? clamp(0.66 - titleProgress * 0.3, 0.34, 0.66)
+          : clamp(0.96 - titleProgress * 0.74, 0.2, 0.68);
+        const safeTop = height * safeTopRatio;
         let activeCard = visibleCards[0];
         let activeDistance = Number.POSITIVE_INFINITY;
         let activeGeometry = null;
@@ -2911,21 +2975,34 @@ function About({ lang, motionEnabled }) {
         });
 
         visibleCards.forEach(({ data, node }, index) => {
-          const angle = 90 + (centerIndex - index) * step;
-          const radians = (angle * Math.PI) / 180;
-          const x = centerX + Math.cos(radians) * radiusX;
-          const y = centerY - Math.sin(radians) * radiusY + introDrop;
-          const topDistance = Math.abs(angle - 90);
-          const bottomFade = clamp01((y - height * 0.68) / (height * 0.28));
-          const offArcFade = clamp01((Math.abs(angle - 90) - 92) / 42);
-          const topFocus = clamp01(1 - topDistance / 88);
-          const scale = (0.62 + topFocus * 0.42) * (1 - bottomFade * 0.16);
-          const rotate = (90 - angle) * 0.62;
-          const opacity = intro * clamp(1 - bottomFade * 0.76 - offArcFade * 0.62, 0, 1);
-          const blur = bottomFade * 8 + offArcFade * 5;
+          const delta = wrapDelta(index - centerIndex, totalCards);
+          const absDelta = Math.abs(delta);
+          if (absDelta > visibleSlots) {
+            gsap.set(node, { autoAlpha: 0, pointerEvents: 'none' });
+            return;
+          }
 
-          if (topDistance < activeDistance) {
-            activeDistance = topDistance;
+          const angle = 90 - delta * step;
+          const radians = (angle * Math.PI) / 180;
+          const rawX = centerX + Math.cos(radians) * orbitRadius;
+          const rawY = centerY - Math.sin(radians) * orbitRadius + introDrop;
+          const topFocus = clamp01(1 - absDelta / (maxVisibleDelta + 0.28));
+          const baseScale = mobile ? 0.78 + topFocus * 0.14 : 0.78 + topFocus * 0.16;
+          const cardHalf = (node.offsetWidth * baseScale) / 2;
+          const x = rawX;
+          const y = rawY;
+          const titleGuardFade = clamp01((safeTop + cardHalf - rawY) / (height * (mobile ? 0.12 : 0.1)));
+          const bottomFade = clamp01((y - height * 0.74) / (height * 0.24));
+          const scale = baseScale * (1 - bottomFade * 0.1);
+          const cardToCenterX = centerX - x;
+          const cardToCenterY = centerY - y;
+          const rotate = -(Math.atan2(cardToCenterX, Math.max(1, cardToCenterY)) * 180) / Math.PI;
+          const opacity = intro * clamp(1 - bottomFade * 0.48 - titleGuardFade * 0.92, 0, 1);
+          const blur = bottomFade * 9 + titleGuardFade * 4;
+
+          const activeScore = Math.abs(delta) + titleGuardFade * 0.6;
+          if (activeScore < activeDistance) {
+            activeDistance = activeScore;
             activeCard = { data, node };
             activeGeometry = { x, y, scale, size: node.offsetWidth };
           }
@@ -2944,9 +3021,8 @@ function About({ lang, motionEnabled }) {
           });
         });
 
-        const titleProgress = clamp01(progress / 0.56);
-        const titleLift = -height * (mobile ? 0.56 : 0.55) * titleProgress;
-        const titleOpacity = clamp(1 - clamp01((progress - 0.72) / 0.22) * 0.22, 0.72, 1);
+        const titleLift = -height * (mobile ? 0.54 : 0.48) * titleProgress;
+        const titleOpacity = clamp(1 - clamp01((progress - 0.24) / 0.36) * 0.5, 0.46, 1);
         const textReveal = easeOutCubic(clamp01((progress - 0.32) / 0.22));
         const textExit = clamp01((progress - 0.88) / 0.1);
         const textOpacity = textReveal * (1 - textExit * 0.28);
@@ -2956,6 +3032,8 @@ function About({ lang, motionEnabled }) {
             y: titleLift,
             scale: 1 - titleProgress * 0.03,
             autoAlpha: titleOpacity,
+            '--title-mask-start': `${clamp(6 + titleProgress * 22, 6, 28)}%`,
+            '--title-mask-end': `${clamp(88 - titleProgress * 18, 64, 88)}%`,
           });
         }
 
@@ -2972,7 +3050,7 @@ function About({ lang, motionEnabled }) {
             x: activeGeometry.x,
             y: activeGeometry.y + activeSize * 0.62 + (mobile ? 18 : 24),
             xPercent: -50,
-            autoAlpha: textOpacity * clamp01(1 - activeDistance / 42),
+            autoAlpha: textOpacity * clamp01(1 - activeDistance / 1.25),
           });
         }
 
@@ -3017,7 +3095,16 @@ function About({ lang, motionEnabled }) {
             data-expansion-card={card.id}
             key={card.id}
           >
-            <img src={card.image} alt="" draggable="false" loading="lazy" />
+            <img
+              src={card.image}
+              alt=""
+              draggable="false"
+              loading="eager"
+              decoding="async"
+              onError={(event) => {
+                event.currentTarget.style.opacity = '0';
+              }}
+            />
           </figure>
         ))}
       </div>

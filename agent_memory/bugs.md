@@ -78,6 +78,11 @@
 - Do not change the achievement counter trigger back to `once: true`; the accepted behavior is replay on section re-entry from either scroll direction.
 - Do not rely on the spring alone for final numbers. Keep the explicit final text settlement so the cards end exactly on `21`, `10+`, `9+`, and `4`.
 - Keep the accepted CountUp duration at `1.3s` unless the user asks for another timing adjustment.
+
+## 2026-06-18 Tresmares Seven-Card Orbit Guardrail
+- Do not expose eight or more desktop cards in the Expansion orbit. The current accepted target is exactly seven: three left, one centered active card, three right.
+- Do not use arbitrary per-card rotation. Rotation must be calculated from the card position toward the same bottom-center circle origin so every card reads as tangent to one shared semicircle.
+- Regression check: at desktop progress `0.42`, centers should remain symmetric around viewport center. Latest local baseline is `116 / 276 / 486 / 720 / 954 / 1164 / 1324` at `1440px` width.
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。

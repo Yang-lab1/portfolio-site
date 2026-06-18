@@ -1699,13 +1699,18 @@ img {
 }
 
 .expansion-title-stack {
+  --title-mask-start: 6%;
+  --title-mask-end: 88%;
   position: absolute;
+  z-index: 3;
   left: 50%;
   top: clamp(128px, 19vh, 210px);
   width: min(1480px, calc(100vw - var(--page-x) * 2));
   transform: translateX(-50%);
   text-align: center;
   will-change: transform, opacity;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 var(--title-mask-start), #000 var(--title-mask-end), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 var(--title-mask-start), #000 var(--title-mask-end), transparent 100%);
 }
 
 .expansion-title-stack > span {
@@ -1749,9 +1754,9 @@ img {
   position: absolute;
   inset: auto -4vw 0;
   z-index: 20;
-  height: 28vh;
+  height: 34vh;
   content: "";
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 82%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), #fff 74%);
   pointer-events: none;
 }
 

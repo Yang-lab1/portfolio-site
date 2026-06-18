@@ -469,3 +469,14 @@ Phase 25 is in progress as a local preview reliability pass: the current "URL ca
 - [ ] Run `supabase/portfolio_health.sql` in the target Supabase project.
 - [ ] Redeploy after env vars are configured and verify browser status becomes `connected`.
 - **Status:** handoff hardened; real connection remains blocked by missing Supabase credentials.
+
+### Phase 42: Tresmares Expansion Seven-Card Orbit Geometry
+- [x] Re-check the latest user correction: desktop should expose exactly seven cards, with one centered active card and three cards on each side.
+- [x] Change the expansion orbit from a loose/scattered continuous layout to fixed visible semicircle slots driven by a bottom-center circle origin.
+- [x] Keep left and right cards symmetric around the viewport center and rotate each card so its local vertical normal points toward the bottom circle center.
+- [x] Hide cards outside the three-left/three-right visible slots so the section no longer shows eight or more images at once.
+- [x] Preserve GSAP ScrollTrigger pinned + scrub behavior, active country label, red dot, bottom copy fade, and no horizontal overflow.
+- [x] Run `cmd /c npm run build`.
+- [x] Run Playwright orbit QA locally at desktop/mobile progress checkpoints.
+- [ ] Redeploy to Vercel production and verify the public alias.
+- **Status:** local geometry and build complete; production deployment pending.
