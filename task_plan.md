@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 43 is in progress as a focused Tresmares orbit correction. The current priority is not new layout exploration: keep the pinned expansion section, expose exactly seven desktop cards (one centered active card plus three mirrored cards on each side), and replace whole-card blur with white edge/bottom wash so edge cards feel partially erased rather than Gaussian blurred.
+Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The current approved visual state has been preserved as fallback tag `fallback-tresmares-orbit-2026-06-19`; this pass may only tune scroll-progress smoothing and label update smoothness, without changing the accepted seven-card geometry, white erase treatment, copy, or layout.
 
 ## Phases
 
@@ -502,3 +502,15 @@ Phase 43 is in progress as a focused Tresmares orbit correction. The current pri
 - [x] Run local Playwright orbit QA and deployed Playwright orbit QA.
 - [x] Redeploy to Vercel production and verify the public alias.
 - **Status:** complete. Latest production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
+### Phase 45: Tresmares Orbit Smooth Scroll Experiment
+- [x] Preserve the current accepted version as fallback tag `fallback-tresmares-orbit-2026-06-19`.
+- [x] Keep the accepted seven-card semicircle geometry, sharp center image, white edge erase, and pinned Tresmares section unchanged.
+- [x] Replace raw `ScrollTrigger.create(... onUpdate)` progress handling with a scrubbed GSAP proxy tween so scroll progress eases continuously instead of stepping directly with wheel events.
+- [x] Move active country label updates out of React state during scroll, preventing re-renders while the orbit is moving.
+- [x] Soften active label opacity around card handoff without changing the visible card positions.
+- [x] Run production build.
+- [x] Run local Playwright orbit QA for desktop/mobile card count, image-loaded checks, title overlap, blur state, and horizontal overflow.
+- [ ] Redeploy to Vercel production and verify the public alias.
+- [ ] Run deployed Playwright orbit QA.
+- **Status:** implementation and local QA complete; deployment pending.

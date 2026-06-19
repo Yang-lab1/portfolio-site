@@ -881,3 +881,16 @@
   - Local Playwright QA passed: at desktop progress `0.32`, the center card is `holland`, `centerLoaded=true`, `broken=none`, `blur=none`, `visible=7`, `overflow=0`, and `overlap=false`.
   - Deployed Playwright QA passed with the same image-loaded checks.
   - Vercel production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` completed and the public alias remains `https://portfolio-site-three-rose.vercel.app/`.
+
+## Session: 2026-06-19 Tresmares Orbit Smooth Scroll Experiment
+- **Status:** implementation and local QA complete; production deployment pending.
+- Fallback:
+  - Created and pushed Git tag `fallback-tresmares-orbit-2026-06-19` at commit `2232277` before changing the scroll feel.
+- Actions completed:
+  - Kept the accepted seven-card semicircle geometry unchanged.
+  - Replaced raw ScrollTrigger `onUpdate` progress with a GSAP scrubbed proxy tween, so the orbit follows eased scroll progress instead of raw wheel steps.
+  - Updated the active country label through a DOM ref during scroll to avoid React re-render churn.
+  - Softened label/dot opacity around active-card handoff while preserving card positions.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Local Playwright QA passed on desktop and mobile: desktop keeps seven visible loaded cards, mobile keeps five, visible card filters stay at `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.

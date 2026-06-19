@@ -580,3 +580,11 @@
 - Updated `tmp/verify-tresmares-orbit.mjs` so QA now records `imageLoaded` for each visible card; this catches broken image URLs in addition to card count, overflow, and blur checks.
 - Local and deployed QA now confirm desktop `1440x900` progress `0.32` has `visible=7`, centered `holland`, `centerLoaded=true`, `broken=none`, `blur=none`, `overflow=0`, and `overlap=false`.
 - Latest production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
+## 2026-06-19 Tresmares Orbit Smoothness Findings
+- The accepted visual baseline is protected by Git tag `fallback-tresmares-orbit-2026-06-19`, pointing to commit `2232277`.
+- The remaining smoothness issue was not the orbit geometry. The raw `ScrollTrigger.create(... onUpdate)` callback followed wheel-progress updates directly, so fast scroll could still feel slightly stepped.
+- A scrubbed GSAP proxy tween now owns the progress value, and `renderExpansion(progressState.value)` reads from that tween. This lets GSAP smooth the scroll progress while preserving pinned, scroll-driven behavior.
+- Active country text is now updated through a DOM ref during scroll instead of React state, reducing render work while the orbit moves.
+- The country label/dot opacity now eases around the active-card handoff, reducing the feeling of a hard switch.
+- Local QA after this experiment kept the accepted geometry: desktop `1440x900` shows seven visible cards at the checked progress points, mobile keeps five, all visible cards report loaded images and `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.

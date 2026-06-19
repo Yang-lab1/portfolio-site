@@ -128,3 +128,9 @@
 
 ## 2026-06-19 Tresmares Center Image Clarity
 - If the Expansion center card appears gray or soft, first check the image URL. The `holland` card previously looked blurred because its external URL returned `404`; QA now records `imageLoaded` for visible cards.
+
+## 2026-06-19 Tresmares Orbit Smoothness Baseline
+- Current accepted fallback is protected by tag `fallback-tresmares-orbit-2026-06-19` at commit `2232277`.
+- The latest experiment must not change the seven-card semicircle geometry, white edge/bottom erasure, sharp center card, or pinned section structure.
+- Smoothness is handled by a GSAP scrubbed proxy tween driving `renderExpansion(progressState.value)`, not by snapping cards or adding autoplay.
+- Active country text should avoid React state updates during scroll; use the DOM ref approach unless a future refactor proves it unnecessary.

@@ -95,6 +95,11 @@
 - Regression QA must check that every visible Expansion card image has `complete === true` and `naturalWidth > 0`.
 - If a card looks blurry, first check the actual image URL status before changing orbit math or reintroducing blur/opacity workarounds.
 
+## 2026-06-19 Tresmares Smoothness Guardrail
+- Do not revert the smoothness fix back to raw `ScrollTrigger.create(... onUpdate)` progress if the user asks for smoother scroll feel; raw wheel progress was the cause of the slightly stepped handoff.
+- Keep the orbit scroll-driven. It should freeze when scrolling stops and move faster only when scroll progress changes faster; do not replace it with autoplay.
+- If this experiment feels worse visually, rollback to tag `fallback-tresmares-orbit-2026-06-19`.
+
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。

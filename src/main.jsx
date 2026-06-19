@@ -2909,7 +2909,7 @@ function processCopy(project, lang, index) {
 
 function About({ lang, motionEnabled }) {
   const sectionRef = useRef(null);
-  const [activeExpansionCountry, setActiveExpansionCountry] = useState('Norway');
+  const activeExpansionCountryLabelRef = useRef(null);
   const activeExpansionCountryRef = useRef('Norway');
 
   useLayoutEffect(() => {
@@ -2920,6 +2920,7 @@ function About({ lang, motionEnabled }) {
       const title = section.querySelector('.expansion-title-stack');
       const meta = section.querySelector('.expansion-active-meta');
       const description = section.querySelector('.expansion-description');
+      const countryLabel = activeExpansionCountryLabelRef.current;
       const cards = expansionCards
         .map((card) => ({
           data: card,
@@ -2939,7 +2940,9 @@ function About({ lang, motionEnabled }) {
       const updateActiveCountry = (country) => {
         if (activeExpansionCountryRef.current !== country) {
           activeExpansionCountryRef.current = country;
-          setActiveExpansionCountry(country);
+          if (countryLabel) {
+            countryLabel.textContent = country;
+          }
         }
       };
 
@@ -3076,11 +3079,12 @@ function About({ lang, motionEnabled }) {
 
         if (meta && activeGeometry) {
           const activeSize = activeGeometry.size * activeGeometry.scale;
+          const activeFocus = clamp01(1 - activeDistance / 0.55);
           gsap.set(meta, {
             x: activeGeometry.x,
-            y: activeGeometry.y + activeSize * 0.62 + (mobile ? 18 : 24),
+            y: activeGeometry.y + activeSize * 0.62 + (mobile ? 18 : 24) + (1 - activeFocus) * 10,
             xPercent: -50,
-            autoAlpha: textOpacity * clamp01(1 - activeDistance / 1.25),
+            autoAlpha: textOpacity * (0.42 + activeFocus * 0.58),
           });
         }
 
@@ -3089,16 +3093,24 @@ function About({ lang, motionEnabled }) {
 
       renderExpansion(0);
 
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: () => (window.matchMedia('(max-width: 820px)').matches ? '+=1650' : '+=2400'),
-        scrub: true,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => renderExpansion(self.progress),
-        onRefresh: (self) => renderExpansion(self.progress),
+      const progressState = { value: 0 };
+      gsap.to(progressState, {
+        value: 1,
+        ease: 'none',
+        onUpdate: () => renderExpansion(progressState.value),
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => (window.matchMedia('(max-width: 820px)').matches ? '+=1650' : '+=2400'),
+          scrub: 0.48,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          onRefresh: (self) => {
+            progressState.value = self.progress;
+            renderExpansion(progressState.value);
+          },
+        },
       });
     }, sectionRef);
 
@@ -3140,7 +3152,9 @@ function About({ lang, motionEnabled }) {
       </div>
       <div className="expansion-active-meta">
         <span className="expansion-red-dot" aria-hidden="true" />
-        <strong>{activeExpansionCountry}</strong>
+        <strong className="expansion-country-label" ref={activeExpansionCountryLabelRef}>
+          Norway
+        </strong>
       </div>
       <p className="expansion-description">
         Thanks to the international support of Banco Santander for our independent management, we serve all of continental

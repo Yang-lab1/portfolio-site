@@ -22,6 +22,14 @@
 - `tmp/verify-tresmares-orbit.mjs` now checks `imageLoaded` for visible cards, so future QA catches broken external image sources.
 - Latest deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
+## 2026-06-19 Tresmares Orbit Smooth Scroll Experiment
+- Protected the current accepted version with Git tag `fallback-tresmares-orbit-2026-06-19` at commit `2232277`.
+- Implemented a GSAP scrubbed proxy progress tween so the pinned orbit feels less stepped during fast wheel input.
+- Moved active country label updates to a DOM ref to avoid React re-renders during continuous scroll movement.
+- `cmd /c npm run build` passed.
+- Local Playwright QA passed for desktop/mobile card counts, image-loaded checks, `blur(0px)`, title overlap, and horizontal overflow.
+- Production deployment and deployed QA are pending.
+
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。
 - 需要真实 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`，并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`。
