@@ -511,6 +511,6 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Soften active label opacity around card handoff without changing the visible card positions.
 - [x] Run production build.
 - [x] Run local Playwright orbit QA for desktop/mobile card count, image-loaded checks, title overlap, blur state, and horizontal overflow.
-- [ ] Redeploy to Vercel production and verify the public alias.
-- [ ] Run deployed Playwright orbit QA.
-- **Status:** implementation and local QA complete; deployment pending.
+- [x] Redeploy to Vercel production and verify the public alias.
+- [x] Run deployed Playwright orbit QA.
+- **Status:** complete. Latest production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` is aliased to `https://portfolio-site-three-rose.vercel.app/`.

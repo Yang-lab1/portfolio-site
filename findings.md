@@ -588,3 +588,5 @@
 - Active country text is now updated through a DOM ref during scroll instead of React state, reducing render work while the orbit moves.
 - The country label/dot opacity now eases around the active-card handoff, reducing the feeling of a hard switch.
 - Local QA after this experiment kept the accepted geometry: desktop `1440x900` shows seven visible cards at the checked progress points, mobile keeps five, all visible cards report loaded images and `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
+- Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Deployed QA passed with the same acceptance checks: desktop seven-card orbit, mobile five-card orbit, loaded images, `blur(0px)`, no title overlap, and no horizontal overflow.

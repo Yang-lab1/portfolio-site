@@ -28,7 +28,8 @@
 - Moved active country label updates to a DOM ref to avoid React re-renders during continuous scroll movement.
 - `cmd /c npm run build` passed.
 - Local Playwright QA passed for desktop/mobile card counts, image-loaded checks, `blur(0px)`, title overlap, and horizontal overflow.
-- Production deployment and deployed QA are pending.
+- Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Deployed Playwright QA passed with the same desktop/mobile checks.
 
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。

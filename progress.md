@@ -883,7 +883,7 @@
   - Vercel production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` completed and the public alias remains `https://portfolio-site-three-rose.vercel.app/`.
 
 ## Session: 2026-06-19 Tresmares Orbit Smooth Scroll Experiment
-- **Status:** implementation and local QA complete; production deployment pending.
+- **Status:** complete; deployed and verified on production.
 - Fallback:
   - Created and pushed Git tag `fallback-tresmares-orbit-2026-06-19` at commit `2232277` before changing the scroll feel.
 - Actions completed:
@@ -894,3 +894,5 @@
 - Verification:
   - `cmd /c npm run build` passed.
   - Local Playwright QA passed on desktop and mobile: desktop keeps seven visible loaded cards, mobile keeps five, visible card filters stay at `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
+  - Vercel production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+  - Deployed Playwright QA passed with the same desktop/mobile orbit checks.

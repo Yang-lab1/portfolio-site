@@ -134,3 +134,4 @@
 - The latest experiment must not change the seven-card semicircle geometry, white edge/bottom erasure, sharp center card, or pinned section structure.
 - Smoothness is handled by a GSAP scrubbed proxy tween driving `renderExpansion(progressState.value)`, not by snapping cards or adding autoplay.
 - Active country text should avoid React state updates during scroll; use the DOM ref approach unless a future refactor proves it unnecessary.
+- Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` is the first deployed smoothness experiment after the fallback tag.
