@@ -7,6 +7,21 @@
 - At progress `0.42`, measured card centers were symmetric around x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
 - GitHub `main` includes the code work at commit `3264d7c`; production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
+## 2026-06-19 Tresmares Seven-Card White-Erase Fix
+- Updated the Expansion orbit so the seven desktop cards remain visibly present instead of fading edge cards below readability.
+- Replaced the whole-card blur/fade impression with white edge/bottom wash overlays. This keeps the card image itself sharp while making bottom/edge cards look partially erased by white.
+- `cmd /c npm run build` passed.
+- Local and deployed Playwright QA passed: desktop `1440x900` has seven visible cards at progress `0.32`, `0.38`, `0.42`, `0.62`, and `0.82`; mobile `390x844` keeps five visible cards from progress `0.32` through `0.82`.
+- Visible cards all report `blur(0px)`, horizontal overflow stays `0`, and the edge/bottom disappearance is handled by white wash overlays rather than Gaussian blur.
+- Vercel production deployment `dpl_98VtvFfq5xvdg2wB6g5BQgMAV2EF` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Follow-up title-area correction: desktop cards no longer use title-proximity wash, because it made a mid-orbit card appear blurred near `further`. Desktop spacing is handled by lowering the orbit origin; white wash remains only for edge/bottom erasure.
+
+## 2026-06-19 Tresmares Center Image Clarity Guard
+- The centered Expansion card looked blurred because the `holland` image URL was broken (`404`), not because the orbit should use blur.
+- Replaced the `holland` image URL with a valid source and kept visible Expansion card filters at `blur(0px)`.
+- `tmp/verify-tresmares-orbit.mjs` now checks `imageLoaded` for visible cards, so future QA catches broken external image sources.
+- Latest deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。
 - 需要真实 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`，并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`。

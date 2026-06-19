@@ -83,6 +83,18 @@
 - Do not expose eight or more desktop cards in the Expansion orbit. The current accepted target is exactly seven: three left, one centered active card, three right.
 - Do not use arbitrary per-card rotation. Rotation must be calculated from the card position toward the same bottom-center circle origin so every card reads as tangent to one shared semicircle.
 - Regression check: at desktop progress `0.42`, centers should remain symmetric around viewport center. Latest local baseline is `116 / 276 / 486 / 720 / 954 / 1164 / 1324` at `1440px` width.
+
+## 2026-06-19 Tresmares Edge-Erase Guardrail
+- Do not weaken edge/bottom cards by applying whole-card Gaussian blur. The user explicitly rejected that look.
+- The accepted edge treatment is white erasure/wash at the side and bottom edges, implemented through `.expansion-card::after` gradients.
+- Regression check must include desktop visible count `7` at progress `0.32`, `0.38`, `0.42`, `0.62`, and `0.82`, plus visible card filters staying `blur(0px)`.
+- Do not use title-proximity wash on desktop cards. It makes mid-orbit cards look blurred/washed near `further`; lower the orbit or delay entry instead.
+
+## 2026-06-19 Tresmares Image Load Guardrail
+- Do not judge the Expansion orbit only by geometry. External image URLs can fail and make a centered card look gray/blurred even when CSS is correct.
+- Regression QA must check that every visible Expansion card image has `complete === true` and `naturalWidth > 0`.
+- If a card looks blurry, first check the actual image URL status before changing orbit math or reintroducing blur/opacity workarounds.
+
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。

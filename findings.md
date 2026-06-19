@@ -565,3 +565,18 @@
 - Mobile intentionally keeps fewer visible cards to avoid horizontal overflow; QA measured overflow `0`.
 - Vercel production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` is aliased to `https://portfolio-site-three-rose.vercel.app/` and returns `200 OK`.
 - Deployed QA matches local: desktop visible count is `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`; overflow remains `0`.
+
+## 2026-06-19 Tresmares Edge-Erase Findings
+- The latest correction is not a new layout direction; it is a strict acceptance refinement for the same Tresmares Expansion section.
+- Desktop must visibly show exactly seven cards: one center card and three symmetric cards on each side. A state that computes seven but fades one below readability is still wrong.
+- Whole-card Gaussian blur is the wrong treatment for the lowest/edge cards. The closer reference behavior is white edge/bottom erasure, so the implementation now uses CSS gradient wash overlays while keeping the image itself at `blur(0px)`.
+- Local Playwright QA after the fix confirms desktop visible count `7` at progress `0.32`, `0.38`, `0.42`, `0.62`, and `0.82`; visible cards all report `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
+- Deployed QA after production deployment `dpl_98VtvFfq5xvdg2wB6g5BQgMAV2EF` confirms the public alias is `200 OK`; desktop `1440x900` keeps seven visible cards from progress `0.32` through `0.82`, mobile `390x844` keeps five visible cards from progress `0.32` through `0.82`, and all visible cards remain `blur(0px)`.
+- Follow-up image comparison against `C:\Users\Yang\Desktop\屏幕录制 2026-06-18 185101.mp4` showed the reference keeps mid-orbit cards sharp near the title. The desktop title-proximity wash was therefore removed from card opacity/edge wash; cards are separated from the title by lowering the orbit origin instead.
+
+## 2026-06-19 Tresmares Center Image Clarity Findings
+- The centered card blur report was caused by a broken external image URL, not just geometry or CSS. The `holland` Expansion card URL returned `404`, which made the active center card render as a gray/soft block.
+- Replaced the `holland` image URL with a loadable source and kept visible Expansion cards at `blur(0px)`.
+- Updated `tmp/verify-tresmares-orbit.mjs` so QA now records `imageLoaded` for each visible card; this catches broken image URLs in addition to card count, overflow, and blur checks.
+- Local and deployed QA now confirm desktop `1440x900` progress `0.32` has `visible=7`, centered `holland`, `centerLoaded=true`, `broken=none`, `blur=none`, `overflow=0`, and `overlap=false`.
+- Latest production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.

@@ -850,3 +850,34 @@
   - At progress `0.42`, the card centers were symmetric around center x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
   - Vercel production deployment `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R` completed and alias `https://portfolio-site-three-rose.vercel.app/` returned `200`.
   - Deployed Playwright QA confirmed desktop visible card count `7` at progress `0.38`, `0.42`, `0.62`, and `0.82`, with `overflowX=0`.
+
+## Session: 2026-06-19 Tresmares Seven-Card White-Erase Fix
+- **Status:** complete; deployed and verified on production.
+- Actions completed:
+  - Rechecked the user's latest correction: the Expansion orbit must prioritize exactly seven desktop images and edge erasure, not whole-image blur.
+  - Updated `src/main.jsx` so visible desktop cards keep enough opacity to actually show all seven images: one active center card plus three on each side.
+  - Kept the scroll-driven continuous orbit behavior; this is still GSAP ScrollTrigger pin + scrub, not card-by-card snapping.
+  - Removed opacity/blur as the main edge treatment. Edge and lower cards now use CSS white wash overlays through `--edge-wash-opacity` and `--bottom-wash-opacity`.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Playwright local QA passed at desktop/mobile checkpoints.
+  - Desktop `1440x900` shows seven visible cards at progress `0.32`, `0.38`, `0.42`, `0.62`, and `0.82`; horizontal overflow is `0`, title overlap is `false`, and visible cards report `blur(0px)`.
+  - Mobile keeps five visible cards to avoid horizontal overflow.
+  - Vercel production deployment `dpl_98VtvFfq5xvdg2wB6g5BQgMAV2EF` completed and `https://portfolio-site-three-rose.vercel.app/` returned `200`.
+  - Deployed Playwright QA matches local: desktop `1440x900` keeps seven visible cards from progress `0.32` through `0.82`; mobile `390x844` keeps five visible cards from progress `0.32` through `0.82`; all visible cards report `blur(0px)`.
+  - Follow-up correction: removed the desktop title-proximity wash that made a mid-orbit card look blurred/washed near `further`; desktop cards now avoid the title by a lower orbit origin, while white wash remains limited to edge/bottom erasure.
+
+## Session: 2026-06-19 Tresmares Center Image Clarity Guard
+- **Status:** complete; deployed and verified on production.
+- User symptom:
+  - The centered image in the Tresmares Expansion orbit still looked blurry/gray.
+- Actions completed:
+  - Checked the active centered card image source and found the `holland` image URL returned `404`.
+  - Replaced the broken `holland` URL with a valid image source.
+  - Kept visible card CSS filters at `blur(0px)` and left the edge/bottom disappearance to white wash overlays only.
+  - Extended `tmp/verify-tresmares-orbit.mjs` to record `imageLoaded` for visible card images.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Local Playwright QA passed: at desktop progress `0.32`, the center card is `holland`, `centerLoaded=true`, `broken=none`, `blur=none`, `visible=7`, `overflow=0`, and `overlap=false`.
+  - Deployed Playwright QA passed with the same image-loaded checks.
+  - Vercel production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` completed and the public alias remains `https://portfolio-site-three-rose.vercel.app/`.

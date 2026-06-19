@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 25 is in progress as a local preview reliability pass: the current "URL cannot open" issue was traced to no local server listening on the preview port, not to a failed build. The overall deployment goal is still not complete until a real domain, automated reports, and Hong Kong/Shenzhen no-VPN evidence exist.
+Phase 43 is in progress as a focused Tresmares orbit correction. The current priority is not new layout exploration: keep the pinned expansion section, expose exactly seven desktop cards (one centered active card plus three mirrored cards on each side), and replace whole-card blur with white edge/bottom wash so edge cards feel partially erased rather than Gaussian blurred.
 
 ## Phases
 
@@ -480,3 +480,25 @@ Phase 25 is in progress as a local preview reliability pass: the current "URL ca
 - [x] Run Playwright orbit QA locally at desktop/mobile progress checkpoints.
 - [x] Redeploy to Vercel production and verify the public alias.
 - **Status:** complete.
+
+### Phase 43: Tresmares Seven-Card + White Erase Edge Fix
+- [x] Re-check the latest user correction: treat seven-card count and edge erasure as primary acceptance criteria.
+- [x] Keep the desktop orbit at exactly seven visible cards: one active center card, three cards on the left, and three cards on the right.
+- [x] Preserve continuous scroll-driven orbit motion rather than discrete card switching.
+- [x] Remove whole-card Gaussian blur from the expansion cards.
+- [x] Add white gradient wash overlays on side/bottom edge cards so they look partially erased by white, matching the reference more closely than blur.
+- [x] Run `cmd /c npm run build`.
+- [x] Run Playwright orbit QA locally at desktop/mobile progress checkpoints.
+- [x] Redeploy to Vercel production and verify the public alias.
+- **Status:** complete. Latest production deployment `dpl_ASjZbz5GHEVyrPYCMmroDHsfS6Us` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
+### Phase 44: Tresmares Center Image Clarity Guard
+- [x] Re-check the reported issue: the centered Expansion orbit image still looked blurred/gray.
+- [x] Identify the root cause: the active centered `holland` card image URL returned `404`, so the card could render as a soft gray block even when CSS blur was disabled.
+- [x] Replace the broken `holland` image URL with a loadable image source.
+- [x] Keep visible Expansion cards at `blur(0px)` and preserve the white edge/bottom erase treatment only through overlays.
+- [x] Extend `tmp/verify-tresmares-orbit.mjs` so QA checks whether each visible card image is actually loaded.
+- [x] Run `cmd /c npm run build`.
+- [x] Run local Playwright orbit QA and deployed Playwright orbit QA.
+- [x] Redeploy to Vercel production and verify the public alias.
+- **Status:** complete. Latest production deployment `dpl_6cSzBzGeeGQGxcjPoErDgBW1rAmU` is aliased to `https://portfolio-site-three-rose.vercel.app/`.

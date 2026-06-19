@@ -118,3 +118,13 @@
 - Latest local desktop QA at progress `0.42` measured symmetric centers around x `720`: `116 / 276 / 486 / 720 / 954 / 1164 / 1324`.
 - Keep mobile reduced-card behavior if needed for `overflow-x: 0`.
 - Latest production deployment for this pass is `dpl_2UpeNFJ7Uf5Kby16sXBMyC4vqs5R`; public alias `https://portfolio-site-three-rose.vercel.app/` returned `200` and deployed QA kept desktop visible card count at `7`.
+
+## 2026-06-19 Tresmares Edge-Erase Refinement
+- Current accepted Expansion orbit target is stricter than before: desktop must visibly show exactly seven cards throughout the readable scroll section, not merely compute seven internally.
+- The lowest/edge cards should look partially erased by white at the edges/bottom. Do not use whole-card Gaussian blur for this effect.
+- The implementation uses CSS variables `--edge-wash-opacity` and `--bottom-wash-opacity` on `.expansion-card::after`; visible card filters should stay `blur(0px)`.
+- Latest local QA baseline: desktop `1440x900` shows seven visible cards at progress `0.32`, `0.38`, `0.42`, `0.62`, and `0.82`; mobile intentionally keeps five cards to prevent overflow.
+- Desktop mid-orbit cards must stay sharp near the title. Do not feed title proximity into card opacity or edge wash; avoid title collision by orbit spacing instead.
+
+## 2026-06-19 Tresmares Center Image Clarity
+- If the Expansion center card appears gray or soft, first check the image URL. The `holland` card previously looked blurred because its external URL returned `404`; QA now records `imageLoaded` for visible cards.

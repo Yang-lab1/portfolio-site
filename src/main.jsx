@@ -1094,7 +1094,7 @@ const expansionCards = [
   {
     id: 'holland',
     country: 'Holland',
-    image: 'https://images.unsplash.com/photo-1505164995999-4827c832c5f8?auto=format&fit=crop&w=680&q=82',
+    image: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=680&q=82',
   },
   {
     id: 'belgium',
@@ -2950,57 +2950,82 @@ function About({ lang, motionEnabled }) {
         const visibleCards = cards.filter(({ data }) => !(mobile && data.mobileExtra));
         const hiddenCards = cards.filter(({ data }) => mobile && data.mobileExtra);
         const totalCards = Math.max(visibleCards.length, 1);
-        const intro = easeOutCubic(clamp01((progress - 0.02) / 0.26));
-        const orbitProgress = clamp01((progress - 0.14) / 0.78);
+        const introStart = mobile ? 0.22 : 0.16;
+        const introSpan = mobile ? 0.22 : 0.28;
+        const intro = easeOutCubic(clamp01((progress - introStart) / introSpan));
+        const orbitStart = mobile ? 0.36 : 0.36;
+        const orbitSpan = mobile ? 0.58 : 0.56;
+        const orbitProgress = clamp01((progress - orbitStart) / orbitSpan);
         const titleProgress = clamp01(progress / 0.42);
-        const rawCenterIndex = 2 + orbitProgress * (mobile ? totalCards * 0.58 : totalCards * 0.72);
-        const centerIndex = Math.round(rawCenterIndex);
-        const step = mobile ? 31 : 19;
-        const visibleSlots = mobile ? 2 : 3;
-        const maxVisibleDelta = visibleSlots;
+        const orbitPhase = 2 + orbitProgress * totalCards * (mobile ? 0.72 : 0.96);
+        const step = mobile ? 28 : 20.25;
+        const maxVisibleDelta = mobile ? 2.05 : 3.08;
+        const edgeWindow = mobile ? 0.5 : 0.42;
         const centerX = width * 0.5;
-        const centerY = height * (mobile ? 1.1 : 1.12);
-        const orbitRadius = mobile ? height * 0.78 : Math.min(width * 0.5, height * 0.86);
+        const orbitOriginY = height * (mobile ? 1.14 : 1.22);
+        const orbitRadius = mobile ? height * 0.76 : Math.min(width * 0.545, height * 0.82);
         const introDrop = (1 - intro) * height * (mobile ? 0.3 : 0.36);
         const safeTopRatio = mobile
-          ? clamp(0.66 - titleProgress * 0.3, 0.34, 0.66)
-          : clamp(0.96 - titleProgress * 0.74, 0.2, 0.68);
+          ? clamp(0.56 - titleProgress * 0.22, 0.3, 0.56)
+          : clamp(0.66 - titleProgress * 0.48, 0.16, 0.58);
         const safeTop = height * safeTopRatio;
         let activeCard = visibleCards[0];
         let activeDistance = Number.POSITIVE_INFINITY;
         let activeGeometry = null;
+        const targetVisibleCount = Math.min(mobile ? 5 : 7, totalCards);
+        const activeCardIndexes = new Set(
+          visibleCards
+            .map((_, index) => ({
+              index,
+              delta: wrapDelta(index - orbitPhase, totalCards),
+            }))
+            .sort((a, b) => Math.abs(a.delta) - Math.abs(b.delta))
+            .slice(0, targetVisibleCount)
+            .map((item) => item.index),
+        );
 
         hiddenCards.forEach(({ node }) => {
           gsap.set(node, { autoAlpha: 0, pointerEvents: 'none' });
         });
 
         visibleCards.forEach(({ data, node }, index) => {
-          const delta = wrapDelta(index - centerIndex, totalCards);
+          const delta = wrapDelta(index - orbitPhase, totalCards);
           const absDelta = Math.abs(delta);
-          if (absDelta > visibleSlots) {
-            gsap.set(node, { autoAlpha: 0, pointerEvents: 'none' });
+          if (!activeCardIndexes.has(index)) {
+            gsap.set(node, {
+              autoAlpha: 0,
+              pointerEvents: 'none',
+              filter: 'blur(0px)',
+              '--edge-wash-opacity': 0,
+              '--bottom-wash-opacity': 0,
+            });
+            node.dataset.orbitDelta = delta.toFixed(3);
+            node.dataset.orbitRotate = '0';
             return;
           }
 
-          const angle = 90 - delta * step;
+          const angle = delta * step;
           const radians = (angle * Math.PI) / 180;
-          const rawX = centerX + Math.cos(radians) * orbitRadius;
-          const rawY = centerY - Math.sin(radians) * orbitRadius + introDrop;
-          const topFocus = clamp01(1 - absDelta / (maxVisibleDelta + 0.28));
-          const baseScale = mobile ? 0.78 + topFocus * 0.14 : 0.78 + topFocus * 0.16;
+          const rawX = centerX + Math.sin(radians) * orbitRadius;
+          const rawY = orbitOriginY - Math.cos(radians) * orbitRadius + introDrop;
+          const topFocus = clamp01(1 - absDelta / (maxVisibleDelta + 0.18));
+          const baseScale = mobile ? 0.76 + topFocus * 0.15 : 0.74 + topFocus * 0.18;
           const cardHalf = (node.offsetWidth * baseScale) / 2;
           const x = rawX;
           const y = rawY;
-          const titleGuardFade = clamp01((safeTop + cardHalf - rawY) / (height * (mobile ? 0.12 : 0.1)));
-          const bottomFade = clamp01((y - height * 0.74) / (height * 0.24));
-          const scale = baseScale * (1 - bottomFade * 0.1);
-          const cardToCenterX = centerX - x;
-          const cardToCenterY = centerY - y;
-          const rotate = -(Math.atan2(cardToCenterX, Math.max(1, cardToCenterY)) * 180) / Math.PI;
-          const opacity = intro * clamp(1 - bottomFade * 0.48 - titleGuardFade * 0.92, 0, 1);
-          const blur = bottomFade * 9 + titleGuardFade * 4;
+          const cardTop = rawY - cardHalf;
+          const titleGuardFade = mobile ? clamp01((safeTop - cardTop) / (height * 0.14)) : 0;
+          const bottomFade = clamp01((y - height * 0.7) / (height * 0.24));
+          const edgeFade = clamp01((absDelta - (mobile ? 1.52 : 2.54)) / edgeWindow);
+          const scale = baseScale * (1 - bottomFade * 0.05 - edgeFade * 0.015);
+          const rotate = (Math.atan2(x - centerX, orbitOriginY - y) * 180) / Math.PI;
+          const opacityFloor = mobile ? 0.46 : 1;
+          const opacity = intro * clamp(1 - titleGuardFade * 0.78, opacityFloor, 1);
+          const blur = 0;
+          const edgeWash = clamp01(edgeFade * 0.88);
+          const bottomWash = clamp01(bottomFade * 0.95);
 
-          const activeScore = Math.abs(delta) + titleGuardFade * 0.6;
+          const activeScore = Math.abs(delta);
           if (activeScore < activeDistance) {
             activeDistance = activeScore;
             activeCard = { data, node };
@@ -3018,7 +3043,12 @@ function About({ lang, motionEnabled }) {
             zIndex: Math.round(100 + topFocus * 80 - bottomFade * 30),
             filter: `blur(${blur.toFixed(2)}px)`,
             transformOrigin: '50% 50%',
+            '--edge-wash-angle': `${delta < 0 ? 90 : 270}deg`,
+            '--edge-wash-opacity': edgeWash.toFixed(3),
+            '--bottom-wash-opacity': bottomWash.toFixed(3),
           });
+          node.dataset.orbitDelta = delta.toFixed(3);
+          node.dataset.orbitRotate = rotate.toFixed(3);
         });
 
         const titleLift = -height * (mobile ? 0.54 : 0.48) * titleProgress;
