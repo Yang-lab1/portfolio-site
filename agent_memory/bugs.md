@@ -105,9 +105,10 @@
 - A future AI should not start from the live URL alone. The authoritative handoff path is GitHub repo + `NEXT_AGENT_HANDOFF.md` + planning files + `agent_memory/`.
 
 ## 2026-06-20 Agent Entry Guardrail
-- Do not reintroduce the Agent panel title, helper paragraph, preset chips, hidden/restore row, or old black restore icon. The accepted default panel is close button plus bottom input only.
-- Keep the floating entry visually close to an iPhone AssistiveTouch dot: small, gray, low emphasis, no logo-like SVG.
+- Do not reintroduce the Agent panel title, helper paragraph, preset chips, hidden/restore row, top-right close X, or old black restore icon. The accepted default panel is answer/results plus bottom input only.
+- Keep the floating entry visually close to an iPhone AssistiveTouch dot: small and quiet, but visible enough not to be missed.
 - Current search is local rule-based matching. Do not claim it is a real LLM agent until an API/model integration is explicitly added and secrets are configured.
+- The user's name in assistant answers is `林杨`, not `羚羊`.
 
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。

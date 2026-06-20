@@ -525,10 +525,21 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 
 ### Phase 47: Agent Entry Cleanup + Local Portfolio Search
 - [x] Remove the Agent panel title, explainer text, preset suggestion chips, and hide-entry row.
-- [x] Keep only the top-right close control and the bottom search/chat input in the initial open panel.
+- [x] Keep only the bottom search/chat input in the initial open panel.
 - [x] Replace the old black icon/restore affordance with an Apple AssistiveTouch-style floating dot.
 - [x] Add local rule-based project/profile search so queries can either answer briefly or open a matched project.
 - [x] Verify `拍立食` search opens the project and the initial panel has no unwanted helper content.
 - [x] Run `cmd /c npm run build`.
 - [x] Push to GitHub `main` and deploy to Vercel production.
 - **Status:** complete. Public alias verified at `https://portfolio-site-three-rose.vercel.app/`.
+
+### Phase 48: Agent RAG Product Plan + UI Correction
+- [x] Correct profile replies from `羚羊` to `林杨`.
+- [x] Replace the fixed profile answer with a dynamic answer assembled from current portfolio project data.
+- [x] Remove the Agent panel close `X`; the panel now closes by clicking the orb again or clicking outside the panel.
+- [x] Increase the AssistiveTouch orb visibility while preserving its quiet Apple-like floating control feel.
+- [x] Add `docs/PORTFOLIO_RAG_AGENT_PLAN.md` documenting the future RAG evidence chain, explainable reasoning summary, and confidence/self-doubt scoring layer.
+- [x] Run `cmd /c npm run build`.
+- [x] Run minimal browser QA for Agent open, outside-click close, `林杨` profile answer, and project search.
+- [ ] Push and deploy after validation.
+- **Status:** implementation and local verification complete; push/deploy pending.

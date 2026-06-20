@@ -10,7 +10,6 @@ import {
   Mic,
   Search,
   Send,
-  X,
 } from 'lucide-react';
 import { warmSupabaseConnection } from './lib/supabaseClient.js';
 import './styles.css';
@@ -3184,7 +3183,7 @@ const agentProjectAliases = {
 };
 
 const agentOpenKeywords = ['找', '打开', '跳转', '位置', '页面', '项目', '在哪里', '在哪', 'find', 'open', 'show', 'go'];
-const agentProfileKeywords = ['羚羊', '杨', 'yang', '设计师', '什么样的人', '是谁', '介绍', '能力', '简历', 'portfolio', '作品集', 'profile'];
+const agentProfileKeywords = ['林杨', 'linyang', 'lin yang', 'yang', '设计师', '什么样的人', '是谁', '介绍', '能力', '简历', 'portfolio', '作品集', 'profile'];
 
 function normalizeAgentText(value) {
   return String(value || '').trim().toLowerCase();
@@ -3263,11 +3262,26 @@ function wantsAgentOpen(query) {
   return agentOpenKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
 }
 
-function getAgentProfileReply(lang) {
+function getAgentProfileReply(lang, query) {
+  const compact = compactAgentText(query);
+  const total = projects.length;
+  const categoryCount = new Set(projects.map((project) => project.category).filter(Boolean)).size;
+  const representativeProjects = ['miro', 'palifood', 'libai', 'smart-waste', 'xiaomi-cmf']
+    .map((id) => projects.find((project) => project.id === id))
+    .filter(Boolean)
+    .slice(0, 4)
+    .map((project) => t(project.title, lang));
+
   if (lang === 'zh') {
-    return '羚羊是一名复合型设计师：把工业设计、AI 交互、CMF、Web 原型和数据系统放进同一条作品证据链里，强项是把问题、流程和原型组织成可展示的完整案例。';
+    if (compact.includes('能力') || compact.includes('擅长')) {
+      return `按站内作品资料看，林杨的能力集中在工业设计、AI 交互、CMF、Web 原型和数据系统。当前作品集有 ${total} 个入口、${categoryCount} 类方向，代表项目包括 ${representativeProjects.join('、')}。`;
+    }
+    return `林杨是一名复合型设计师，作品集把产品硬件、界面原型、AI 交互和数据系统串成可验证的案例链。站内目前整理了 ${total} 个作品入口，能直接搜索项目名进入对应案例。`;
   }
-  return 'Yang is a hybrid designer connecting industrial design, AI interaction, CMF, web prototypes, and data systems into evidence-led portfolio cases.';
+  if (compact.includes('skill') || compact.includes('ability') || compact.includes('capability')) {
+    return `Based on the site content, Lin Yang's strengths sit across industrial design, AI interaction, CMF, web prototyping, and data systems. The portfolio currently has ${total} entries across ${categoryCount} tracks, including ${representativeProjects.join(', ')}.`;
+  }
+  return `Lin Yang is a hybrid designer connecting product hardware, interface prototypes, AI interaction, and data systems into evidence-led portfolio cases. You can search a project name here and jump straight into it.`;
 }
 
 function AgentOrb({ lang, onOpenProject }) {
@@ -3277,7 +3291,15 @@ function AgentOrb({ lang, onOpenProject }) {
   const [reply, setReply] = useState('');
   const [results, setResults] = useState([]);
   const [position, setPosition] = useState({ x: 24, y: 24 });
+  const panelRef = useRef(null);
+  const orbRef = useRef(null);
   const dragRef = useRef({ active: false, startX: 0, startY: 0, x: 24, y: 24, moved: false });
+
+  const closePanel = () => {
+    setOpen(false);
+    setReply('');
+    setResults([]);
+  };
 
   useEffect(() => {
     let timer = null;
@@ -3299,6 +3321,17 @@ function AgentOrb({ lang, onOpenProject }) {
       window.removeEventListener('wheel', soften);
       window.removeEventListener('pointermove', onPointerMove);
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const onPointerDown = (event) => {
+      if (panelRef.current?.contains(event.target)) return;
+      if (orbRef.current?.contains(event.target)) return;
+      closePanel();
+    };
+    window.addEventListener('pointerdown', onPointerDown);
+    return () => window.removeEventListener('pointerdown', onPointerDown);
   }, [open]);
 
   const startDrag = (event) => {
@@ -3335,12 +3368,6 @@ function AgentOrb({ lang, onOpenProject }) {
     setQuery('');
   };
 
-  const closePanel = () => {
-    setOpen(false);
-    setReply('');
-    setResults([]);
-  };
-
   const submit = (event) => {
     event.preventDefault();
     const rawQuery = query.trim();
@@ -3353,7 +3380,7 @@ function AgentOrb({ lang, onOpenProject }) {
     }
 
     if (isAgentProfileQuestion(rawQuery)) {
-      setReply(getAgentProfileReply(lang));
+      setReply(getAgentProfileReply(lang, rawQuery));
       setResults([]);
       return;
     }
@@ -3371,12 +3398,7 @@ function AgentOrb({ lang, onOpenProject }) {
   return (
     <div className={`agent-layer ${open ? 'open' : ''} ${subtle ? 'is-subtle' : ''}`} style={{ right: position.x, bottom: position.y }}>
       {open ? (
-        <div className="agent-panel">
-          <div className="agent-close-row">
-            <button type="button" onClick={closePanel} aria-label={lang === 'zh' ? '关闭搜索' : 'Close search'}>
-              <X size={16} />
-            </button>
-          </div>
+        <div className="agent-panel" ref={panelRef}>
           {reply ? <div className="agent-response">{reply}</div> : null}
           {results.length ? (
             <div className="agent-results">
@@ -3406,6 +3428,7 @@ function AgentOrb({ lang, onOpenProject }) {
       ) : null}
       <button
         className="agent-orb"
+        ref={orbRef}
         type="button"
         onClick={() => {
           if (!dragRef.current.moved) setOpen((value) => !value);

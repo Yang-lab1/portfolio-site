@@ -598,6 +598,9 @@
 
 ## 2026-06-20 Agent Entry Findings
 - The current Agent entry is a lightweight local portfolio assistant, not a connected LLM agent. It uses project aliases and keyword scoring from local portfolio data.
+- The future connected version should be documented as RAG, not IG. Raw hidden CoT should not be displayed; use a concise evidence/reasoning summary plus confidence/self-doubt scoring instead.
+- The accepted Agent panel no longer has a top-right close X. It closes via the floating orb or an outside click.
+- Profile answers must say `林杨`, not `羚羊`, and should be assembled from current portfolio data rather than a fixed canned sentence.
 - This pass does not require API keys, Supabase secrets, or account credentials.
 - Initial panel content should stay minimal: close button plus search/chat input only. Reintroducing title text, guidance copy, suggestion chips, or hide/restore rows would regress the user's latest request.
 - Local QA confirmed the direct navigation path with `帮我找一下拍立食`; more aliases can be added in `agentProjectAliases` when new project names or nicknames appear.

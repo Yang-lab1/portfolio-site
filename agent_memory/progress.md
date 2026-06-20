@@ -133,3 +133,10 @@
 - 底部和边缘卡片已加入淡出与 blur，说明文字使用渐变 mask 淡入，标题继续向上裁切。
 - 最终验证：`npm run build` 通过；Playwright QA 在 0.22/0.42/0.62/0.82 进度点截图通过，横向 overflow 为 0。
 - 已提交并推送到 GitHub `main`：`992e49b`。Vercel production 部署 `dpl_8r9cirCqpbcLuAEuRiNQpYFhDd1v` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`。
+
+## 2026-06-20 Agent RAG Plan + UI Correction
+- 已把 Agent 个人回答从 `羚羊` 改为 `林杨`，并从当前项目数据动态组织能力/定位回答。
+- 已移除 Agent 面板右上角关闭 X；现在通过点击浮球或面板外空白关闭。
+- 已提高 AssistiveTouch 浮球可见度，避免过暗导致访客忽略。
+- 已新增 `docs/PORTFOLIO_RAG_AGENT_PLAN.md`，明确未来 API 版使用 RAG 证据检索、可解释推理摘要和综合置信度/自我怀疑机制；不展示原始隐藏 CoT。
+- `cmd /c npm run build` 已通过；`node tmp\verify-agent-panel.mjs` 已验证 Agent 打开、无关闭叉、外部点击关闭、`林杨` 回答和 `拍立食` 跳转。

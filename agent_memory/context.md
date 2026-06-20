@@ -145,6 +145,7 @@
 
 ## 2026-06-20 Agent Entry Current State
 - The floating Agent entry is now a minimal AssistiveTouch-style dot. The old black restore icon and hide-entry affordance should not be brought back unless the user asks.
-- When opened, the Agent panel intentionally starts with only a close button and bottom search/chat input. No visible title, explanatory copy, or preset chips should appear in the default state.
-- The current search behavior is local and rule-based: project aliases can open matching projects, and profile-style questions can return a short portfolio summary.
-- This is not yet a real external LLM/agent integration. Future API work should first define model provider, environment variables, privacy boundary, and response-routing rules.
+- When opened, the Agent panel intentionally starts with bottom search/chat input only, plus answer/results when available. No visible title, close X, explanatory copy, preset chips, or hide row should appear in the default state.
+- The current search behavior is local and rule-based: project aliases can open matching projects, and profile-style questions now return a dynamic summary from current portfolio project data.
+- The user's name is `林杨`; do not answer as `羚羊`.
+- This is not yet a real external LLM/agent integration. Future API work should follow `docs/PORTFOLIO_RAG_AGENT_PLAN.md`: RAG evidence retrieval first, visible reasoning summary second, confidence/self-doubt scoring third.

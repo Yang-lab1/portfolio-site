@@ -32,6 +32,7 @@
 - Remotion 工具链：Hero 螺旋视频生成和素材处理相关工具仍在仓库内。
 - Playwright：本地和线上 UI 回归验证。
 - Supabase：代码和 SQL 已准备，但真实环境变量尚未配置完成。
+- Agent / RAG 方案见 `docs/PORTFOLIO_RAG_AGENT_PLAN.md`。当前前端只做本地动态检索和跳转，尚未接入真实 LLM API。
 
 ## 当前已接受的关键状态
 
@@ -49,6 +50,14 @@
 - 交互应连续拖拽、惯性滑动、松手吸附最近卡片；不要回到阈值切换后卡住的旧逻辑。
 - 不要加大标题、大段说明或底部切换按钮。
 - 如果用 React Bits 代码，当前项目应粘贴 React 组件源码 + CSS，不要使用 `npx shadcn add`，因为这不是 shadcn/Next/Tailwind 项目。
+
+### Agent 入口
+
+- 右下角入口是 AssistiveTouch 风格浮球，默认可见但不抢主视觉。
+- 打开面板后只保留底部搜索/对话输入和回答/结果区域；不要恢复标题、说明文、预设 chips、隐藏入口行或右上角关闭叉。
+- 关闭方式：点击浮球切换，或点击面板外空白区域关闭。
+- 当前回答必须使用“林杨”，不要写成“羚羊”。
+- 当前只是本地站内检索助手：可用项目别名、项目数据和作品入口做动态回答与跳转。真正 API 版应按 `docs/PORTFOLIO_RAG_AGENT_PLAN.md` 的 RAG + 可解释摘要 + 置信度评估方案接入。
 
 ### Tresmares Expansion 区
 
@@ -136,7 +145,7 @@ git switch main
 可以把下面这段直接发给新的 Codex 窗口：
 
 ```text
-请继续开发这个作品集网站。GitHub 仓库是 https://github.com/Yang-lab1/portfolio-site ，线上站点是 https://portfolio-site-three-rose.vercel.app 。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、task_plan.md、findings.md、progress.md 和 agent_memory/ 下的 context/progress/bugs，再开始任何修改。当前重点是延续已接受的 Aircenter 首页、产品三卡区、Tresmares Expansion 七卡半圆滚动交互，不要破坏 fallback-tresmares-orbit-2026-06-19 之后的已验证状态。任何 UI 修改都要构建并用 Playwright/现有 QA 脚本验证。
+请继续开发这个作品集网站。GitHub 仓库是 https://github.com/Yang-lab1/portfolio-site ，线上站点是 https://portfolio-site-three-rose.vercel.app 。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、task_plan.md、findings.md、progress.md、docs/PORTFOLIO_RAG_AGENT_PLAN.md 和 agent_memory/ 下的 context/progress/bugs，再开始任何修改。当前重点是延续已接受的 Aircenter 首页、产品三卡区、Tresmares Expansion 七卡半圆滚动交互，以及右下角 Agent 的本地检索/RAG 规划，不要破坏 fallback-tresmares-orbit-2026-06-19 之后的已验证状态。任何 UI 修改都要构建并用 Playwright/现有 QA 脚本验证。
 ```
 
 ## 关于本地文件夹是否能删除

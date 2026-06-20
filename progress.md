@@ -913,9 +913,22 @@
   - Replaced the old floating/restore icon behavior with a single AssistiveTouch-style dot button.
   - Added local rule-based search for portfolio projects and profile-style questions.
   - Project-intent queries such as `帮我找一下拍立食` now open the matched project directly.
-  - Profile questions such as `羚羊是一个什么样的人` now return a short portfolio summary in the panel.
+  - Profile questions now return a short portfolio summary in the panel.
 - Verification:
   - `cmd /c npm run build` passed.
   - Local Playwright QA passed: initial Agent panel contains close/search only, no suggestion chips/hide row/old SVG icon, and `拍立食` search opened the project.
   - Production deployment completed and was aliased to `https://portfolio-site-three-rose.vercel.app/`.
   - Public Playwright QA passed with the same Agent panel and `拍立食` project-open checks.
+
+## Session: 2026-06-20 Agent RAG Plan + UI Correction
+- **Status:** implementation and local verification complete; push/deploy pending.
+- Actions completed:
+  - Corrected profile matching and replies from `羚羊` to `林杨`.
+  - Replaced the fixed profile answer with a dynamic answer assembled from current portfolio project data.
+  - Removed the Agent panel top-right close X.
+  - Added outside-click close behavior while keeping the AssistiveTouch orb as the panel toggle.
+  - Increased the orb's visibility so it remains discoverable.
+  - Added `docs/PORTFOLIO_RAG_AGENT_PLAN.md` for future API integration: RAG evidence retrieval, explainable reasoning summary, confidence/self-doubt scoring, API shape, environment variables, and acceptance criteria.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - `node tmp\verify-agent-panel.mjs` passed against local preview: Agent opens, close X is absent, outside click closes the panel, `林杨的能力怎么样` returns a dynamic answer containing `林杨` and not `羚羊`, and `帮我找一下拍立食` opens the project detail page.
