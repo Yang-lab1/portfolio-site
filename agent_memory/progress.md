@@ -31,6 +31,11 @@
 - Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 - Deployed Playwright QA passed with the same desktop/mobile checks.
 
+## 2026-06-20 Next Agent Handoff
+- Added `NEXT_AGENT_HANDOFF.md` at the repository root.
+- The handoff records URLs, version anchors, accepted UI states, guardrails, blockers, validation commands, and rollback instructions for the next AI window.
+- The handoff package is intended to be committed and pushed to GitHub `main` with this documentation update.
+
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。
 - 需要真实 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`，并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`。

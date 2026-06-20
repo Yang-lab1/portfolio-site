@@ -590,3 +590,8 @@
 - Local QA after this experiment kept the accepted geometry: desktop `1440x900` shows seven visible cards at the checked progress points, mobile keeps five, all visible cards report loaded images and `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
 - Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 - Deployed QA passed with the same acceptance checks: desktop seven-card orbit, mobile five-card orbit, loaded images, `blur(0px)`, no title overlap, and no horizontal overflow.
+
+## 2026-06-20 Handoff Findings
+- A site URL alone is not enough for a lossless continuation. The next AI should use the GitHub repository plus `NEXT_AGENT_HANDOFF.md`, root planning files, and `agent_memory/`.
+- GitHub contains committed code, public assets, planning docs, QA scripts, archives, and memory files, but it intentionally does not contain secrets, account credentials, `.env.local`, raw private conversation exports, or untracked local-only source folders.
+- The safest transition path is: clone the GitHub repo, read `AGENTS.md` and `NEXT_AGENT_HANDOFF.md`, run `cmd /c npm install`, run `cmd /c npm run build`, then continue from the current `main` branch.

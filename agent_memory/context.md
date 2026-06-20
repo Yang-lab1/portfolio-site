@@ -135,3 +135,10 @@
 - Smoothness is handled by a GSAP scrubbed proxy tween driving `renderExpansion(progressState.value)`, not by snapping cards or adding autoplay.
 - Active country text should avoid React state updates during scroll; use the DOM ref approach unless a future refactor proves it unnecessary.
 - Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` is the first deployed smoothness experiment after the fallback tag.
+
+## 2026-06-20 Next Agent Handoff
+- `NEXT_AGENT_HANDOFF.md` is now the canonical first-read file for future Codex / AI windows.
+- Current public site: `https://portfolio-site-three-rose.vercel.app`.
+- Current GitHub repo: `https://github.com/Yang-lab1/portfolio-site`.
+- A future agent should not rely only on the live URL. It must read `AGENTS.md`, `NEXT_AGENT_HANDOFF.md`, root planning files, and `agent_memory/` before changing UI code.
+- Do not delete the local project folder until a fresh GitHub clone has been verified and all user-only source assets are confirmed archived or intentionally excluded.

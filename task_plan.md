@@ -514,3 +514,11 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Redeploy to Vercel production and verify the public alias.
 - [x] Run deployed Playwright orbit QA.
 - **Status:** complete. Latest production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
+### Phase 46: Next Agent Handoff Package
+- [x] Create `NEXT_AGENT_HANDOFF.md` as the first-read document for the next Codex / AI window.
+- [x] Record authoritative links: GitHub repository, production site, latest deployment, and Tresmares fallback tag.
+- [x] Summarize accepted visual states, strict guardrails, current blockers, validation commands, and rollback path.
+- [x] Update planning and agent memory files so the handoff is discoverable from both root docs and `agent_memory/`.
+- [x] Push the handoff package to GitHub `main`.
+- **Status:** complete.

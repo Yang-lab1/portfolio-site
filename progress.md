@@ -896,3 +896,12 @@
   - Local Playwright QA passed on desktop and mobile: desktop keeps seven visible loaded cards, mobile keeps five, visible card filters stay at `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
   - Vercel production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
   - Deployed Playwright QA passed with the same desktop/mobile orbit checks.
+
+## Session: 2026-06-20 Next Agent Handoff Package
+- **Status:** complete.
+- Actions completed:
+  - Added `NEXT_AGENT_HANDOFF.md` as the first-read handoff document for the next Codex / AI window.
+  - Recorded the production site, GitHub repository, current deployment id, fallback tag, core architecture, accepted visual states, and strict guardrails.
+  - Documented the exact startup prompt that can be pasted into a new chat.
+- GitHub:
+  - Handoff package is intended to be committed and pushed to GitHub `main` with this documentation update.

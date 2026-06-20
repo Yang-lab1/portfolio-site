@@ -100,6 +100,10 @@
 - Keep the orbit scroll-driven. It should freeze when scrolling stops and move faster only when scroll progress changes faster; do not replace it with autoplay.
 - If this experiment feels worse visually, rollback to tag `fallback-tresmares-orbit-2026-06-19`.
 
+## 2026-06-20 Handoff Guardrail
+- Do not tell the user that the local folder can be deleted solely because GitHub exists. First verify a fresh clone can build and confirm all user-only source assets have either been archived, committed, or intentionally excluded.
+- A future AI should not start from the live URL alone. The authoritative handoff path is GitHub repo + `NEXT_AGENT_HANDOFF.md` + planning files + `agent_memory/`.
+
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。
