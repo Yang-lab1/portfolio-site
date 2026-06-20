@@ -595,3 +595,9 @@
 - A site URL alone is not enough for a lossless continuation. The next AI should use the GitHub repository plus `NEXT_AGENT_HANDOFF.md`, root planning files, and `agent_memory/`.
 - GitHub contains committed code, public assets, planning docs, QA scripts, archives, and memory files, but it intentionally does not contain secrets, account credentials, `.env.local`, raw private conversation exports, or untracked local-only source folders.
 - The safest transition path is: clone the GitHub repo, read `AGENTS.md` and `NEXT_AGENT_HANDOFF.md`, run `cmd /c npm install`, run `cmd /c npm run build`, then continue from the current `main` branch.
+
+## 2026-06-20 Agent Entry Findings
+- The current Agent entry is a lightweight local portfolio assistant, not a connected LLM agent. It uses project aliases and keyword scoring from local portfolio data.
+- This pass does not require API keys, Supabase secrets, or account credentials.
+- Initial panel content should stay minimal: close button plus search/chat input only. Reintroducing title text, guidance copy, suggestion chips, or hide/restore rows would regress the user's latest request.
+- Local QA confirmed the direct navigation path with `帮我找一下拍立食`; more aliases can be added in `agentProjectAliases` when new project names or nicknames appear.

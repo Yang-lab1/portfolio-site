@@ -142,3 +142,9 @@
 - Current GitHub repo: `https://github.com/Yang-lab1/portfolio-site`.
 - A future agent should not rely only on the live URL. It must read `AGENTS.md`, `NEXT_AGENT_HANDOFF.md`, root planning files, and `agent_memory/` before changing UI code.
 - Do not delete the local project folder until a fresh GitHub clone has been verified and all user-only source assets are confirmed archived or intentionally excluded.
+
+## 2026-06-20 Agent Entry Current State
+- The floating Agent entry is now a minimal AssistiveTouch-style dot. The old black restore icon and hide-entry affordance should not be brought back unless the user asks.
+- When opened, the Agent panel intentionally starts with only a close button and bottom search/chat input. No visible title, explanatory copy, or preset chips should appear in the default state.
+- The current search behavior is local and rule-based: project aliases can open matching projects, and profile-style questions can return a short portfolio summary.
+- This is not yet a real external LLM/agent integration. Future API work should first define model provider, environment variables, privacy boundary, and response-routing rules.

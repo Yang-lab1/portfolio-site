@@ -905,3 +905,15 @@
   - Documented the exact startup prompt that can be pasted into a new chat.
 - GitHub:
   - Handoff package is intended to be committed and pushed to GitHub `main` with this documentation update.
+
+## Session: 2026-06-20 Agent Entry Cleanup + Local Search
+- **Status:** in progress; local implementation and QA are complete, GitHub/Vercel sync remains.
+- Actions completed:
+  - Removed the Agent panel's visible title, guidance paragraph, preset chips, and hide-entry control.
+  - Replaced the old floating/restore icon behavior with a single AssistiveTouch-style dot button.
+  - Added local rule-based search for portfolio projects and profile-style questions.
+  - Project-intent queries such as `帮我找一下拍立食` now open the matched project directly.
+  - Profile questions such as `羚羊是一个什么样的人` now return a short portfolio summary in the panel.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Local Playwright QA passed: initial Agent panel contains close/search only, no suggestion chips/hide row/old SVG icon, and `拍立食` search opened the project.

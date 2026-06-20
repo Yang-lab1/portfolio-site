@@ -104,6 +104,11 @@
 - Do not tell the user that the local folder can be deleted solely because GitHub exists. First verify a fresh clone can build and confirm all user-only source assets have either been archived, committed, or intentionally excluded.
 - A future AI should not start from the live URL alone. The authoritative handoff path is GitHub repo + `NEXT_AGENT_HANDOFF.md` + planning files + `agent_memory/`.
 
+## 2026-06-20 Agent Entry Guardrail
+- Do not reintroduce the Agent panel title, helper paragraph, preset chips, hidden/restore row, or old black restore icon. The accepted default panel is close button plus bottom input only.
+- Keep the floating entry visually close to an iPhone AssistiveTouch dot: small, gray, low emphasis, no logo-like SVG.
+- Current search is local rule-based matching. Do not claim it is a real LLM agent until an API/model integration is explicitly added and secrets are configured.
+
 ## 2026-06-18 Tresmares Expansion Guardrails
 - 不要把 Tresmares expansion section 改成普通静态 About 排版；核心验收是 pinned section + scroll progress scrub。
 - 标题行距不能再回到 `gap: 0` / `line-height: 0.92`，否则 `j` 会和下一行红色标题碰撞。

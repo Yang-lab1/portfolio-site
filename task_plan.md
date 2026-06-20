@@ -522,3 +522,13 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Update planning and agent memory files so the handoff is discoverable from both root docs and `agent_memory/`.
 - [x] Push the handoff package to GitHub `main`.
 - **Status:** complete.
+
+### Phase 47: Agent Entry Cleanup + Local Portfolio Search
+- [x] Remove the Agent panel title, explainer text, preset suggestion chips, and hide-entry row.
+- [x] Keep only the top-right close control and the bottom search/chat input in the initial open panel.
+- [x] Replace the old black icon/restore affordance with an Apple AssistiveTouch-style floating dot.
+- [x] Add local rule-based project/profile search so queries can either answer briefly or open a matched project.
+- [x] Verify `拍立食` search opens the project and the initial panel has no unwanted helper content.
+- [x] Run `cmd /c npm run build`.
+- [ ] Push to GitHub `main` and deploy to Vercel production.
+- **Status:** in progress.

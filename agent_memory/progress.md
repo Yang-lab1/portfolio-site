@@ -36,6 +36,13 @@
 - The handoff records URLs, version anchors, accepted UI states, guardrails, blockers, validation commands, and rollback instructions for the next AI window.
 - The handoff package is intended to be committed and pushed to GitHub `main` with this documentation update.
 
+## 2026-06-20 Agent Entry Cleanup + Local Search
+- Removed the Agent panel title, explanatory text, preset suggestion chips, and hide-entry row.
+- Replaced the old floating/restore icon with a single Apple AssistiveTouch-style dot.
+- Added local project alias matching and profile-question replies inside `AgentOrb`.
+- Verified locally that `帮我找一下拍立食` opens the matched project.
+- `cmd /c npm run build` passed.
+
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。
 - 需要真实 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`，并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`。

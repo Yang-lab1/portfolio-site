@@ -4,17 +4,12 @@ import { useInView, useMotionValue, useSpring } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  Bot,
   ChevronLeft,
   ChevronRight,
-  EyeOff,
-  Grip,
   Languages,
-  MessageCircle,
   Mic,
   Search,
   Send,
-  Settings,
   X,
 } from 'lucide-react';
 import { warmSupabaseConnection } from './lib/supabaseClient.js';
@@ -3164,11 +3159,123 @@ function About({ lang, motionEnabled }) {
   );
 }
 
+const agentProjectAliases = {
+  miro: ['miro', '跨文化', '沟通', 'ai rehearsal', 'collaboration', 'prototype'],
+  palifood: ['拍立食', '派利时', '派利食', 'palifood', 'pai li shi', '食物识别', '饮食', '健康反馈'],
+  libai: ['李白', 'libai', '诗歌', '唐诗', '互动网站', 'poetry'],
+  'tcm-kg': ['中医', '知识图谱', 'tcm', '草药', '药材', '图谱'],
+  'offer-quest': ['求职', 'offer', 'job learning quest', '面试', '职业'],
+  momenta: ['momenta', '自动驾驶', '驾驶', 'map', '地图'],
+  'cross-ripple': ['水疗', 'watsu', '复健', '康复', '训练设备', 'hydrotherapy'],
+  'cup-cup': ['杯', 'cup', '复合转盘', '小家电'],
+  'heart-bracelet': ['心脏病', '手环', '健康辅助', 'bracelet'],
+  'opera-ruler': ['川剧', '儿童', '绘画尺', '文化教育'],
+  'capstone-device': ['毕业设计', '水疗', '复健', '训练设备'],
+  'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '材料', '量产'],
+  'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],
+  'smart-waste': ['智能废料箱', '废料箱', '垃圾', '回收', 'waste'],
+  'baling-press': ['压缩打包机', '打包机', 'baling', 'press'],
+  'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
+  cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],
+  'miro-governance': ['miro governance', '系统', '治理', '协作'],
+  'tcm-systems': ['中医系统', '知识图谱系统', '数据结构'],
+  'libai-data': ['李白数据', '诗歌数据', '网络'],
+  'food-health-model': ['食物健康', '健康模型', 'nutrition'],
+};
+
+const agentOpenKeywords = ['找', '打开', '跳转', '位置', '页面', '项目', '在哪里', '在哪', 'find', 'open', 'show', 'go'];
+const agentProfileKeywords = ['羚羊', '杨', 'yang', '设计师', '什么样的人', '是谁', '介绍', '能力', '简历', 'portfolio', '作品集', 'profile'];
+
+function normalizeAgentText(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function compactAgentText(value) {
+  return normalizeAgentText(value).replace(/[\s,，。.!！?？/\\|:：;；'"“”‘’（）()\[\]{}<>《》_-]+/g, '');
+}
+
+function getAgentProjectSearchText(project) {
+  return [
+    project.id,
+    project.category,
+    t(project.title, 'en'),
+    t(project.title, 'zh'),
+    t(project.type, 'en'),
+    t(project.type, 'zh'),
+    t(project.summary, 'en'),
+    t(project.summary, 'zh'),
+    t(project.evidence, 'en'),
+    t(project.evidence, 'zh'),
+    t(project.source, 'en'),
+    t(project.source, 'zh'),
+    getProjectShort(project, 'en'),
+    getProjectShort(project, 'zh'),
+    ...(agentProjectAliases[project.id] || []),
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase();
+}
+
+function scoreAgentProject(project, query) {
+  const normalized = normalizeAgentText(query);
+  const compact = compactAgentText(query);
+  const titleZh = compactAgentText(t(project.title, 'zh'));
+  const titleEn = compactAgentText(t(project.title, 'en'));
+  const id = compactAgentText(project.id);
+  const haystack = getAgentProjectSearchText(project);
+  const compactHaystack = compactAgentText(haystack);
+  let score = 0;
+
+  if (compact && (compact === id || compact === titleZh || compact === titleEn)) score += 80;
+  if (compact && (id.includes(compact) || titleZh.includes(compact) || titleEn.includes(compact))) score += 34;
+  if (normalized && haystack.includes(normalized)) score += 18;
+  if (compact && compactHaystack.includes(compact)) score += 18;
+
+  (agentProjectAliases[project.id] || []).forEach((alias) => {
+    const aliasCompact = compactAgentText(alias);
+    if (!aliasCompact) return;
+    if (compact.includes(aliasCompact) || aliasCompact.includes(compact)) score += aliasCompact.length > 2 ? 26 : 10;
+  });
+
+  normalized.split(/\s+/).forEach((token) => {
+    if (token.length > 1 && haystack.includes(token)) score += 3;
+  });
+
+  return score;
+}
+
+function getAgentMatches(query) {
+  return projects
+    .map((project) => ({ project, score: scoreAgentProject(project, query) }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+}
+
+function isAgentProfileQuestion(query) {
+  const compact = compactAgentText(query);
+  return agentProfileKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
+}
+
+function wantsAgentOpen(query) {
+  const compact = compactAgentText(query);
+  return agentOpenKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
+}
+
+function getAgentProfileReply(lang) {
+  if (lang === 'zh') {
+    return '羚羊是一名复合型设计师：把工业设计、AI 交互、CMF、Web 原型和数据系统放进同一条作品证据链里，强项是把问题、流程和原型组织成可展示的完整案例。';
+  }
+  return 'Yang is a hybrid designer connecting industrial design, AI interaction, CMF, web prototypes, and data systems into evidence-led portfolio cases.';
+}
+
 function AgentOrb({ lang, onOpenProject }) {
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const [subtle, setSubtle] = useState(false);
   const [query, setQuery] = useState('');
+  const [reply, setReply] = useState('');
+  const [results, setResults] = useState([]);
   const [position, setPosition] = useState({ x: 24, y: 24 });
   const dragRef = useRef({ active: false, startX: 0, startY: 0, x: 24, y: 24, moved: false });
 
@@ -3220,51 +3327,74 @@ function AgentOrb({ lang, onOpenProject }) {
     dragRef.current.active = false;
   };
 
-  const submit = (event) => {
-    event.preventDefault();
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return;
-    const match =
-      projects.find((project) => project.id.includes(normalized)) ||
-      projects.find((project) => [project.title.en, project.title.zh, project.type.en, project.type.zh].join(' ').toLowerCase().includes(normalized)) ||
-      projects[0];
-    onOpenProject(match.id);
+  const openAgentProject = (projectId) => {
+    onOpenProject(projectId);
     setOpen(false);
+    setReply('');
+    setResults([]);
+    setQuery('');
   };
 
-  if (hidden) {
-    return (
-      <button className="agent-restore" type="button" onClick={() => setHidden(false)}>
-        <Bot size={16} />
-        Agent
-      </button>
-    );
-  }
+  const closePanel = () => {
+    setOpen(false);
+    setReply('');
+    setResults([]);
+  };
+
+  const submit = (event) => {
+    event.preventDefault();
+    const rawQuery = query.trim();
+    if (!rawQuery) return;
+
+    const matches = getAgentMatches(rawQuery);
+    if (matches.length && (wantsAgentOpen(rawQuery) || matches[0].score >= 42)) {
+      openAgentProject(matches[0].project.id);
+      return;
+    }
+
+    if (isAgentProfileQuestion(rawQuery)) {
+      setReply(getAgentProfileReply(lang));
+      setResults([]);
+      return;
+    }
+
+    if (matches.length) {
+      setReply(lang === 'zh' ? '找到这些相关项目，点一个可以直接进入。' : 'I found these related projects. Pick one to open it.');
+      setResults(matches.slice(0, 3));
+      return;
+    }
+
+    setReply(lang === 'zh' ? '暂时没有匹配到项目。可以试试“拍立食”“李白”“中医图谱”“废料箱”或“CMF”。' : 'No close match yet. Try Miro, Pai Li Shi, Li Bai, TCM, waste bin, or CMF.');
+    setResults([]);
+  };
 
   return (
     <div className={`agent-layer ${open ? 'open' : ''} ${subtle ? 'is-subtle' : ''}`} style={{ right: position.x, bottom: position.y }}>
       {open ? (
         <div className="agent-panel">
-          <div className="agent-panel-head">
-            <div>
-              <Bot size={18} />
-              <span>{copy[lang].agentTitle}</span>
-            </div>
-            <button type="button" onClick={() => setOpen(false)} aria-label="Close agent">
+          <div className="agent-close-row">
+            <button type="button" onClick={closePanel} aria-label={lang === 'zh' ? '关闭搜索' : 'Close search'}>
               <X size={16} />
             </button>
           </div>
-          <p>{copy[lang].agentCopy}</p>
-          <div className="agent-suggestions">
-            {copy[lang].suggestions.map(([label, id]) => (
-              <button type="button" key={id} onClick={() => { onOpenProject(id); setOpen(false); }}>
-                {label}
-              </button>
-            ))}
-          </div>
+          {reply ? <div className="agent-response">{reply}</div> : null}
+          {results.length ? (
+            <div className="agent-results">
+              {results.map(({ project }) => (
+                <button type="button" key={project.id} onClick={() => openAgentProject(project.id)}>
+                  <span>{t(project.title, lang)}</span>
+                  <small>{getProjectShort(project, lang)}</small>
+                </button>
+              ))}
+            </div>
+          ) : null}
           <form onSubmit={submit} className="agent-search">
             <Search size={15} />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={copy[lang].agentInput} />
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder={lang === 'zh' ? '搜索项目、能力、关键词...' : 'Search projects, skills, keywords...'}
+            />
             <button type="button" aria-label="Voice placeholder">
               <Mic size={15} />
             </button>
@@ -3272,10 +3402,6 @@ function AgentOrb({ lang, onOpenProject }) {
               <Send size={15} />
             </button>
           </form>
-          <button className="agent-hide" type="button" onClick={() => { setHidden(true); setOpen(false); }}>
-            <EyeOff size={14} />
-            {copy[lang].hideAgent}
-          </button>
         </div>
       ) : null}
       <button
@@ -3288,21 +3414,11 @@ function AgentOrb({ lang, onOpenProject }) {
         onPointerMove={moveDrag}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        aria-label={copy[lang].agentTitle}
+        aria-label={lang === 'zh' ? '作品搜索助手' : 'Portfolio search assistant'}
       >
-        <SparkIcon />
-        <Grip size={13} className="orb-grip" />
+        <span className="assistive-dot" aria-hidden="true" />
       </button>
     </div>
-  );
-}
-
-function SparkIcon() {
-  return (
-    <span className="spark-icon">
-      <MessageCircle size={19} />
-      <Settings size={12} />
-    </span>
   );
 }
 
