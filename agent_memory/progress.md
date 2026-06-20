@@ -42,6 +42,7 @@
 - Added local project alias matching and profile-question replies inside `AgentOrb`.
 - Verified locally that `帮我找一下拍立食` opens the matched project.
 - `cmd /c npm run build` passed.
+- Pushed to GitHub `main`, deployed to Vercel production, and verified `https://portfolio-site-three-rose.vercel.app/` with public Playwright QA.
 
 ## 进行中
 - Supabase 真实连接仍未完成，当前权威状态是 `missing-env`。

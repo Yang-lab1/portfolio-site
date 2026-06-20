@@ -530,5 +530,5 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Add local rule-based project/profile search so queries can either answer briefly or open a matched project.
 - [x] Verify `拍立食` search opens the project and the initial panel has no unwanted helper content.
 - [x] Run `cmd /c npm run build`.
-- [ ] Push to GitHub `main` and deploy to Vercel production.
-- **Status:** in progress.
+- [x] Push to GitHub `main` and deploy to Vercel production.
+- **Status:** complete. Public alias verified at `https://portfolio-site-three-rose.vercel.app/`.

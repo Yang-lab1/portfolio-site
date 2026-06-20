@@ -907,7 +907,7 @@
   - Handoff package is intended to be committed and pushed to GitHub `main` with this documentation update.
 
 ## Session: 2026-06-20 Agent Entry Cleanup + Local Search
-- **Status:** in progress; local implementation and QA are complete, GitHub/Vercel sync remains.
+- **Status:** complete; pushed to GitHub and deployed to production.
 - Actions completed:
   - Removed the Agent panel's visible title, guidance paragraph, preset chips, and hide-entry control.
   - Replaced the old floating/restore icon behavior with a single AssistiveTouch-style dot button.
@@ -917,3 +917,5 @@
 - Verification:
   - `cmd /c npm run build` passed.
   - Local Playwright QA passed: initial Agent panel contains close/search only, no suggestion chips/hide row/old SVG icon, and `拍立食` search opened the project.
+  - Production deployment completed and was aliased to `https://portfolio-site-three-rose.vercel.app/`.
+  - Public Playwright QA passed with the same Agent panel and `拍立食` project-open checks.
