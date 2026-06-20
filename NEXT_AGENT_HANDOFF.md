@@ -19,7 +19,7 @@
 - 生产网站：[https://portfolio-site-three-rose.vercel.app](https://portfolio-site-three-rose.vercel.app)
 - GitHub 仓库：[https://github.com/Yang-lab1/portfolio-site](https://github.com/Yang-lab1/portfolio-site)
 - 当前主分支：`main`
-- 当前最新生产部署：`dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR`
+- 当前最新生产部署：`dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk`
 - Tresmares 交互保底版本 tag：`fallback-tresmares-orbit-2026-06-19`
 - 保底版本对应 commit：`2232277`
 

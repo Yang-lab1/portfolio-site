@@ -921,7 +921,7 @@
   - Public Playwright QA passed with the same Agent panel and `拍立食` project-open checks.
 
 ## Session: 2026-06-20 Agent RAG Plan + UI Correction
-- **Status:** implementation and local verification complete; push/deploy pending.
+- **Status:** complete; pushed to GitHub and deployed to production.
 - Actions completed:
   - Corrected profile matching and replies from `羚羊` to `林杨`.
   - Replaced the fixed profile answer with a dynamic answer assembled from current portfolio project data.
@@ -932,3 +932,6 @@
 - Verification:
   - `cmd /c npm run build` passed.
   - `node tmp\verify-agent-panel.mjs` passed against local preview: Agent opens, close X is absent, outside click closes the panel, `林杨的能力怎么样` returns a dynamic answer containing `林杨` and not `羚羊`, and `帮我找一下拍立食` opens the project detail page.
+  - Pushed commit `5569c0e` to GitHub `main`.
+  - Vercel production deployment `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+  - Public Playwright QA passed against `https://portfolio-site-three-rose.vercel.app`: Agent opens, close X is absent, outside click closes the panel, `林杨` profile answer is dynamic, and `拍立食` opens the project detail page.

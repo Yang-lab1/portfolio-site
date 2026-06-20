@@ -589,6 +589,7 @@
 - The country label/dot opacity now eases around the active-card handoff, reducing the feeling of a hard switch.
 - Local QA after this experiment kept the accepted geometry: desktop `1440x900` shows seven visible cards at the checked progress points, mobile keeps five, all visible cards report loaded images and `blur(0px)`, title overlap is `false`, and horizontal overflow is `0`.
 - Production deployment `dpl_Dd24jd7oDvcBAgUZ6Q726W7ZZQjR` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- 2026-06-20 Agent/RAG UI correction deployed as production deployment `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk`, aliased to `https://portfolio-site-three-rose.vercel.app/`; public QA confirmed no close X, outside-click close, dynamic `林杨` profile answer, and `拍立食` project navigation.
 - Deployed QA passed with the same acceptance checks: desktop seven-card orbit, mobile five-card orbit, loaded images, `blur(0px)`, no title overlap, and no horizontal overflow.
 
 ## 2026-06-20 Handoff Findings

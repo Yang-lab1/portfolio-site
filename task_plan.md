@@ -541,5 +541,5 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Add `docs/PORTFOLIO_RAG_AGENT_PLAN.md` documenting the future RAG evidence chain, explainable reasoning summary, and confidence/self-doubt scoring layer.
 - [x] Run `cmd /c npm run build`.
 - [x] Run minimal browser QA for Agent open, outside-click close, `林杨` profile answer, and project search.
-- [ ] Push and deploy after validation.
-- **Status:** implementation and local verification complete; push/deploy pending.
+- [x] Push and deploy after validation.
+- **Status:** complete. GitHub `main` includes commit `5569c0e`; latest production deployment `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` is aliased to `https://portfolio-site-three-rose.vercel.app/`.

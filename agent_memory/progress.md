@@ -140,3 +140,4 @@
 - 已提高 AssistiveTouch 浮球可见度，避免过暗导致访客忽略。
 - 已新增 `docs/PORTFOLIO_RAG_AGENT_PLAN.md`，明确未来 API 版使用 RAG 证据检索、可解释推理摘要和综合置信度/自我怀疑机制；不展示原始隐藏 CoT。
 - `cmd /c npm run build` 已通过；`node tmp\verify-agent-panel.mjs` 已验证 Agent 打开、无关闭叉、外部点击关闭、`林杨` 回答和 `拍立食` 跳转。
+- 已提交并推送 GitHub `main`（commit `5569c0e`），Vercel production 部署 `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`；线上 QA 确认 Agent 无关闭叉、外部点击关闭、`林杨` 动态回答和 `拍立食` 跳转均通过。
