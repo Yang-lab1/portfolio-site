@@ -147,3 +147,5 @@
 - 已加入 `拍历史`、`派历史` 等拍立食误识别别名。
 - 项目结果卡片已增加 `查看项目` / `View case` 的可点击提示，并保留点击跳转详情页。
 - `cmd /c npm run build` 已通过；本地 Playwright QA 已验证评价回答、卡片提示和拍立食详情页跳转。
+- 已提交并推送 GitHub `main`（commit `359c67d`）；Vercel production 部署 `dpl_CyUSw8w1Ds9T9tMFogDGrkLNwpZK` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`。
+- 线上 Playwright QA 已通过：Agent 评价回答、`查看项目` 提示和拍立食详情页跳转均正常。

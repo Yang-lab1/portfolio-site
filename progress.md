@@ -944,3 +944,6 @@
 - Verification:
   - `cmd /c npm run build` passed.
   - Local Playwright QA passed: the Agent answer contains `拍立食整体`, does not show the old generic discovery copy, shows `查看项目`, and opens the Pai Li Shi detail page.
+  - Pushed commit `359c67d` to GitHub `main`.
+  - Vercel production deployment `dpl_CyUSw8w1Ds9T9tMFogDGrkLNwpZK` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+  - Public Playwright QA passed against `https://portfolio-site-three-rose.vercel.app/`: Agent evaluation answer, visible `查看项目`, and Pai Li Shi detail navigation all passed.

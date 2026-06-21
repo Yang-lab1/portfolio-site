@@ -551,5 +551,6 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Make Agent result cards visibly clickable with a `查看项目` / `View case` affordance and arrow icon.
 - [x] Run `cmd /c npm run build`.
 - [x] Run local browser QA for the Agent evaluation answer, clickable card affordance, and Pai Li Shi detail navigation.
-- [ ] Push to GitHub and deploy production.
-- **Status:** implementation and local QA complete; GitHub/Vercel publishing is next.
+- [x] Push to GitHub and deploy production.
+- [x] Run public Playwright QA against `https://portfolio-site-three-rose.vercel.app/`.
+- **Status:** complete. GitHub `main` includes commit `359c67d`; Vercel production deployment `dpl_CyUSw8w1Ds9T9tMFogDGrkLNwpZK` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
