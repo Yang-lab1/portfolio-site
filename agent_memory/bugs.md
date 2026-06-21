@@ -119,3 +119,8 @@
 - 不要把该段改成自动播放；核心验收仍然是 GSAP ScrollTrigger pinned section + scrub，用户停止滚动时动画停在当前状态。
 - 后续如果替换图片，只替换 `expansionCards` 的图片资源和国家/标签文本，不要破坏 `renderExpansion(progress)` 的轨道公式。
 - 回归检查至少要覆盖 0.22、0.42、0.62、0.82 四个滚动进度点，并确认 active label、红点、底部 blur、说明文字淡入和 `overflow-x = 0`。
+
+## 2026-06-21 Agent Evaluation Guardrail
+- 不要把评价类问题退回成通用搜索提示。比如 `你觉得拍立食做得怎么样` 必须给出对拍立食的实际评价。
+- 项目结果卡片必须保持明显可点击，至少包含 `查看项目` / `View case` 这类行动提示。
+- 当前实现仍是本地规则层，不要在页面或文档中声称它已经是接入外部模型的真实 RAG Agent。

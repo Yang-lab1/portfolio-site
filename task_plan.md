@@ -543,3 +543,13 @@ Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The 
 - [x] Run minimal browser QA for Agent open, outside-click close, `林杨` profile answer, and project search.
 - [x] Push and deploy after validation.
 - **Status:** complete. GitHub `main` includes commit `5569c0e`; latest production deployment `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+
+## Phase 49 - Agent Project Evaluation Answers
+- [x] Detect evaluation-style Agent queries such as `你觉得拍立食做得怎么样`.
+- [x] Add common speech-to-text aliases for Pai Li Shi, including `拍历史` and `派历史`.
+- [x] Replace the generic project-discovery reply with a project-specific evaluation when the query asks for judgement or opinion.
+- [x] Make Agent result cards visibly clickable with a `查看项目` / `View case` affordance and arrow icon.
+- [x] Run `cmd /c npm run build`.
+- [x] Run local browser QA for the Agent evaluation answer, clickable card affordance, and Pai Li Shi detail navigation.
+- [ ] Push to GitHub and deploy production.
+- **Status:** implementation and local QA complete; GitHub/Vercel publishing is next.

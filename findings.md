@@ -603,5 +603,11 @@
 - The accepted Agent panel no longer has a top-right close X. It closes via the floating orb or an outside click.
 - Profile answers must say `林杨`, not `羚羊`, and should be assembled from current portfolio data rather than a fixed canned sentence.
 - This pass does not require API keys, Supabase secrets, or account credentials.
+
+## 2026-06-21 Agent Evaluation Findings
+- Evaluation-style questions should answer with judgement and evidence, not the generic “found related projects” discovery copy.
+- For `你觉得拍立食做得怎么样`, the expected behavior is an evaluative paragraph about the project plus a clickable Pai Li Shi project card.
+- The result card needs an explicit visual affordance (`查看项目` / `View case`) so visitors understand it can jump to the detail page.
+- The Agent is still local and rule-based in this pass. The future RAG/API version should replace this local response layer without regressing the minimal panel UI.
 - Initial panel content should stay minimal: close button plus search/chat input only. Reintroducing title text, guidance copy, suggestion chips, or hide/restore rows would regress the user's latest request.
 - Local QA confirmed the direct navigation path with `帮我找一下拍立食`; more aliases can be added in `agentProjectAliases` when new project names or nicknames appear.

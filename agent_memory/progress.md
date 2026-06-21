@@ -141,3 +141,9 @@
 - 已新增 `docs/PORTFOLIO_RAG_AGENT_PLAN.md`，明确未来 API 版使用 RAG 证据检索、可解释推理摘要和综合置信度/自我怀疑机制；不展示原始隐藏 CoT。
 - `cmd /c npm run build` 已通过；`node tmp\verify-agent-panel.mjs` 已验证 Agent 打开、无关闭叉、外部点击关闭、`林杨` 回答和 `拍立食` 跳转。
 - 已提交并推送 GitHub `main`（commit `5569c0e`），Vercel production 部署 `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`；线上 QA 确认 Agent 无关闭叉、外部点击关闭、`林杨` 动态回答和 `拍立食` 跳转均通过。
+
+## 2026-06-21 Agent Project Evaluation Answers
+- 已新增评价意图判断：当用户问 `你觉得拍立食做得怎么样` 这类问题时，Agent 会输出项目评价，而不是固定搜索提示。
+- 已加入 `拍历史`、`派历史` 等拍立食误识别别名。
+- 项目结果卡片已增加 `查看项目` / `View case` 的可点击提示，并保留点击跳转详情页。
+- `cmd /c npm run build` 已通过；本地 Playwright QA 已验证评价回答、卡片提示和拍立食详情页跳转。

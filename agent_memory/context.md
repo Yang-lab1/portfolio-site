@@ -149,3 +149,8 @@
 - The current search behavior is local and rule-based: project aliases can open matching projects, and profile-style questions now return a dynamic summary from current portfolio project data.
 - The user's name is `林杨`; do not answer as `羚羊`.
 - This is not yet a real external LLM/agent integration. Future API work should follow `docs/PORTFOLIO_RAG_AGENT_PLAN.md`: RAG evidence retrieval first, visible reasoning summary second, confidence/self-doubt scoring third.
+
+## 2026-06-21 Agent Evaluation Context
+- Agent now distinguishes project evaluation queries from project lookup queries. Example: `你觉得拍立食做得怎么样` should return an evaluative paragraph, not a generic “找到这些相关项目” message.
+- Pai Li Shi aliases include `拍立食`, `拍历史`, and `派历史`.
+- Agent result cards should keep a visible `查看项目` / `View case` affordance and open the relevant detail page.

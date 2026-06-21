@@ -4,6 +4,7 @@ import { useInView, useMotionValue, useSpring } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
+  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   Languages,
@@ -3160,7 +3161,7 @@ function About({ lang, motionEnabled }) {
 
 const agentProjectAliases = {
   miro: ['miro', '跨文化', '沟通', 'ai rehearsal', 'collaboration', 'prototype'],
-  palifood: ['拍立食', '派利时', '派利食', 'palifood', 'pai li shi', '食物识别', '饮食', '健康反馈'],
+  palifood: ['拍立食', '拍历史', '派历史', '派利时', '派利食', 'palifood', 'pai li shi', '食物识别', '饮食', '健康反馈'],
   libai: ['李白', 'libai', '诗歌', '唐诗', '互动网站', 'poetry'],
   'tcm-kg': ['中医', '知识图谱', 'tcm', '草药', '药材', '图谱'],
   'offer-quest': ['求职', 'offer', 'job learning quest', '面试', '职业'],
@@ -3184,6 +3185,7 @@ const agentProjectAliases = {
 
 const agentOpenKeywords = ['找', '打开', '跳转', '位置', '页面', '项目', '在哪里', '在哪', 'find', 'open', 'show', 'go'];
 const agentProfileKeywords = ['林杨', 'linyang', 'lin yang', 'yang', '设计师', '什么样的人', '是谁', '介绍', '能力', '简历', 'portfolio', '作品集', 'profile'];
+const agentEvaluationKeywords = ['怎么样', '做得怎么样', '做的怎么样', '如何', '好吗', '好不好', '评价', '看法', '亮点', '优势', '表现', 'review', 'evaluate', 'opinion', 'what do you think'];
 
 function normalizeAgentText(value) {
   return String(value || '').trim().toLowerCase();
@@ -3260,6 +3262,36 @@ function isAgentProfileQuestion(query) {
 function wantsAgentOpen(query) {
   const compact = compactAgentText(query);
   return agentOpenKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
+}
+
+function wantsAgentEvaluation(query) {
+  const compact = compactAgentText(query);
+  return agentEvaluationKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
+}
+
+function getAgentProjectEvaluationReply(project, lang) {
+  const title = t(project.title, lang);
+  const short = getProjectShort(project, lang);
+  const type = t(project.type, lang);
+  const role = t(project.role, lang);
+
+  if (project.id === 'palifood') {
+    return lang === 'zh'
+      ? '拍立食整体是一个完成度比较高的移动端 AI 体验：它把拍照识别、食物信息、健康反馈和记录闭环串起来，场景清楚，交互链路也比较完整。亮点是把 AI 识别能力落到日常饮食管理里，而不是只展示技术本身；作为作品集案例，能体现林杨对用户流程、信息层级和移动端原型的把控。'
+      : 'Pai Li Shi works well as a focused mobile AI case: capture, food recognition, health feedback, and record keeping form a clear loop. Its strength is that the AI capability lands in a practical daily-diet scenario, so the project shows control over user flow, information hierarchy, and mobile prototyping.';
+  }
+
+  return lang === 'zh'
+    ? `${title}整体更像一个${type}案例：${short} 它的价值在于${role}，能作为作品集中证明相关能力的入口。`
+    : `${title} reads as a ${type} case: ${short} Its value sits in ${role}, making it a useful proof point in the portfolio.`;
+}
+
+function getAgentProjectDiscoveryReply(project, lang) {
+  const title = t(project.title, lang);
+  const short = getProjectShort(project, lang);
+  return lang === 'zh'
+    ? `${title}和这个问题最相关：${short} 下方卡片可以直接打开详情页。`
+    : `${title} is the closest match: ${short} The card below opens the case page.`;
 }
 
 function getAgentProfileReply(lang, query) {
@@ -3374,6 +3406,12 @@ function AgentOrb({ lang, onOpenProject }) {
     if (!rawQuery) return;
 
     const matches = getAgentMatches(rawQuery);
+    if (matches.length && wantsAgentEvaluation(rawQuery)) {
+      setReply(getAgentProjectEvaluationReply(matches[0].project, lang));
+      setResults([matches[0]]);
+      return;
+    }
+
     if (matches.length && (wantsAgentOpen(rawQuery) || matches[0].score >= 42)) {
       openAgentProject(matches[0].project.id);
       return;
@@ -3386,7 +3424,7 @@ function AgentOrb({ lang, onOpenProject }) {
     }
 
     if (matches.length) {
-      setReply(lang === 'zh' ? '找到这些相关项目，点一个可以直接进入。' : 'I found these related projects. Pick one to open it.');
+      setReply(getAgentProjectDiscoveryReply(matches[0].project, lang));
       setResults(matches.slice(0, 3));
       return;
     }
@@ -3406,6 +3444,10 @@ function AgentOrb({ lang, onOpenProject }) {
                 <button type="button" key={project.id} onClick={() => openAgentProject(project.id)}>
                   <span>{t(project.title, lang)}</span>
                   <small>{getProjectShort(project, lang)}</small>
+                  <em>
+                    {lang === 'zh' ? '查看项目' : 'View case'}
+                    <ArrowUpRight size={12} strokeWidth={2.5} />
+                  </em>
                 </button>
               ))}
             </div>

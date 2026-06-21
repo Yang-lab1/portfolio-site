@@ -935,3 +935,12 @@
   - Pushed commit `5569c0e` to GitHub `main`.
   - Vercel production deployment `dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk` completed and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
   - Public Playwright QA passed against `https://portfolio-site-three-rose.vercel.app`: Agent opens, close X is absent, outside click closes the panel, `林杨` profile answer is dynamic, and `拍立食` opens the project detail page.
+
+## 2026-06-21 Agent Project Evaluation Answers
+- Implemented evaluation-intent handling for Agent questions like `你觉得拍立食做得怎么样`.
+- Added Pai Li Shi speech/typing aliases including `拍历史` and `派历史`.
+- Replaced the generic discovery sentence with a project-specific Pai Li Shi evaluation paragraph when the visitor asks for judgement.
+- Added a visible clickable affordance on result cards: `查看项目` / `View case` with an arrow icon.
+- Verification:
+  - `cmd /c npm run build` passed.
+  - Local Playwright QA passed: the Agent answer contains `拍立食整体`, does not show the old generic discovery copy, shows `查看项目`, and opens the Pai Li Shi detail page.
