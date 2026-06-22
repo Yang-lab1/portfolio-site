@@ -4,11 +4,9 @@ import { useInView, useMotionValue, useSpring } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   Languages,
-  Mic,
   Search,
   Send,
 } from 'lucide-react';
@@ -3346,7 +3344,7 @@ function getAgentResultProjectsV2(decision, matches) {
   return [...new Set(ids)]
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean)
-    .slice(0, 3);
+    .slice(0, 1);
 }
 
 function AgentOrb({ lang, onOpenProject }) {
@@ -3461,6 +3459,7 @@ function AgentOrb({ lang, onOpenProject }) {
       });
 
       const relatedProjects = getAgentResultProjectsV2(decision, matches);
+      const primaryProject = relatedProjects[0] || null;
 
       if (decision.mode === 'navigate' && decision.projectId) {
         openAgentProject(decision.projectId);
@@ -3474,7 +3473,7 @@ function AgentOrb({ lang, onOpenProject }) {
           : 'I interpreted the request from the portfolio data and attached the closest project entry below.');
 
       setReply(nextReply);
-      setResults(decision.mode === 'answer' ? [] : relatedProjects);
+      setResults(decision.mode === 'answer_with_navigation' && primaryProject ? [primaryProject] : []);
     } catch (error) {
       console.warn('[AgentOrb] Agent request failed, keeping UI alive with a local fallback.', error);
       const fallbackDecision = resolveAgentFallbackDecision({
@@ -3490,13 +3489,18 @@ function AgentOrb({ lang, onOpenProject }) {
       }
 
       const fallbackProjects = getAgentResultProjectsV2(fallbackDecision, matches);
+      const primaryFallbackProject = fallbackProjects[0] || null;
       setReply(
         fallbackDecision.answer ||
           (lang === 'zh'
             ? '我在站内资料里还没锁定到足够准确的结果，你可以换一个项目名或关键词再试。'
             : 'I could not lock onto a confident project from the site data yet. Try another project name or keyword.')
       );
-      setResults(fallbackDecision.mode === 'answer' ? [] : fallbackProjects);
+      setResults(
+        fallbackDecision.mode === 'answer_with_navigation' && primaryFallbackProject
+          ? [primaryFallbackProject]
+          : []
+      );
     } finally {
       setLoading(false);
     }
@@ -3513,20 +3517,17 @@ function AgentOrb({ lang, onOpenProject }) {
               </span>
             </div>
           ) : reply ? (
-            <div className="agent-response">{reply}</div>
-          ) : null}
-          {results.length ? (
-            <div className="agent-results">
-              {results.map((project) => (
-                <button type="button" key={project.id} onClick={() => openAgentProject(project.id)}>
-                  <span>{t(project.title, lang)}</span>
-                  <small>{getProjectShort(project, lang)}</small>
-                  <em>
-                    {lang === 'zh' ? '点击进入项目页' : 'Open case page'}
-                    <ArrowUpRight size={12} strokeWidth={2.5} />
-                  </em>
+            <div className="agent-response">
+              <p>{reply}</p>
+              {results[0] ? (
+                <button
+                  type="button"
+                  className="agent-response-action"
+                  onClick={() => openAgentProject(results[0].id)}
+                >
+                  {lang === 'zh' ? '点击进入项目页' : 'Open case page'}
                 </button>
-              ))}
+              ) : null}
             </div>
           ) : null}
           <form onSubmit={submit} className="agent-search">
@@ -3536,9 +3537,6 @@ function AgentOrb({ lang, onOpenProject }) {
               onChange={(event) => setQuery(event.target.value)}
               placeholder={lang === 'zh' ? '搜索项目、能力、问题...' : 'Ask about a project, skill, or case...'}
             />
-            <button type="button" aria-label="Voice placeholder" disabled={loading}>
-              <Mic size={15} />
-            </button>
             <button type="submit" aria-label="Send" disabled={loading}>
               <Send size={15} />
             </button>

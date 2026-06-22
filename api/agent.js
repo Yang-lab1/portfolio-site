@@ -1,6 +1,92 @@
 const DEFAULT_MODEL = process.env.OPENAI_MODEL || 'gpt-4o-mini';
 const DEFAULT_BASE_URL = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/+$/, '');
 
+const DIRECT_OPEN_HINTS = [
+  '打开',
+  '进入',
+  '带我去',
+  '跳到',
+  '直接去',
+  '直接打开',
+  'open',
+  'jump to',
+  'take me to',
+  'go to',
+];
+
+const LOCATION_HINTS = [
+  '找',
+  '找一下',
+  '找不到',
+  '找出来',
+  '帮我找',
+  '帮我找出来',
+  '在哪',
+  '在哪里',
+  '位置',
+  '页面',
+  'where',
+  'find',
+  'locate',
+  'show me',
+];
+
+const INFO_HINTS = [
+  '是干嘛的',
+  '干嘛',
+  '做什么',
+  '是什么',
+  '介绍',
+  '说明',
+  '解决',
+  '痛点',
+  '服务',
+  '用户',
+  '目标用户',
+  '为什么做',
+  '你觉得',
+  '怎么样',
+  '怎么看',
+  '评价',
+  '亮点',
+  '优势',
+  '表现',
+  'what',
+  'why',
+  'how',
+  'problem',
+  'user',
+  'audience',
+  'review',
+  'evaluate',
+  'opinion',
+  'think',
+  'introduce',
+  'explain',
+];
+
+function normalizeText(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function includesAny(query, hints) {
+  const text = normalizeText(query);
+  return hints.some((hint) => text.includes(normalizeText(hint)));
+}
+
+function detectRequestIntent(query) {
+  const directOpen = includesAny(query, DIRECT_OPEN_HINTS);
+  const location = includesAny(query, LOCATION_HINTS);
+  const info = includesAny(query, INFO_HINTS);
+
+  return {
+    directOpen,
+    location,
+    info,
+    pureNavigation: (directOpen || location) && !info,
+  };
+}
+
 function parseBody(body) {
   if (!body) return {};
   if (typeof body === 'string') {
@@ -44,10 +130,10 @@ function buildSystemPrompt() {
     '5) or a not-found result.',
     'Use only the provided profile and candidates context.',
     'Do not invent facts, years, awards, users, pain points, process details, or project names that are not grounded in the provided data.',
-    'Use mode "navigate" only when the user is explicit that they want to open or jump right now, such as direct open, enter, go to, or take me there.',
-    'If the user asks to find a project, asks where it is, asks what it does, who it serves, what problem it solves, or how good it is, prefer mode "answer_with_navigation" rather than immediate navigate.',
-    'For answer_with_navigation, answer first in natural portfolio language and also return the best projectId so the UI can offer a jump card.',
-    'When the query clearly matches one project, return only that project in relatedProjectIds. Do not add loosely related projects.',
+    'Use mode "navigate" when the user is only trying to locate or open a known project: examples include "where is Miro", "I cannot find Pai Li Shi", "help me find this project", "open it", "jump to it", or "take me there".',
+    'Use mode "answer_with_navigation" when the user asks what a project is, who it serves, its pain point, what problem it solves, how it works, how good it is, or any mixed request that asks both about content and location.',
+    'For answer_with_navigation, answer first in natural portfolio language and also return the single best projectId so the UI can show one "open project" button.',
+    'When the query clearly matches one project, return exactly one project in relatedProjectIds. Do not add loosely related projects.',
     'For project explanations, cover what the project is, who it serves, the user pain point, and what problem it solves when those fields are available.',
     'Use mode "answer" for profile questions or explanation-only questions when no project jump card is needed.',
     'If the request is ambiguous, use mode "clarify" and ask one short clarifying question.',
@@ -70,19 +156,37 @@ function cleanupAnswerText(value) {
     .replace(/\s+/g, ' ');
 }
 
-function sanitizeDecision(parsed, candidates) {
+function sanitizeDecision(parsed, candidates, query) {
+  const intent = detectRequestIntent(query);
   const candidateIds = new Set((candidates || []).map((item) => item.projectId).filter(Boolean));
   let mode = ['navigate', 'answer', 'answer_with_navigation', 'clarify', 'not_found'].includes(parsed?.mode)
     ? parsed.mode
     : 'clarify';
 
-  const projectId = typeof parsed?.projectId === 'string' && candidateIds.has(parsed.projectId) ? parsed.projectId : null;
+  let projectId = typeof parsed?.projectId === 'string' && candidateIds.has(parsed.projectId) ? parsed.projectId : null;
+  const topCandidate = candidates?.[0] || null;
+  const parsedCandidate = candidates.find((item) => item.projectId === projectId);
+  const topScore = Number(topCandidate?.score || 0);
+  const parsedScore = Number(parsedCandidate?.score || 0);
+
+  if (
+    topCandidate?.projectId &&
+    candidateIds.has(topCandidate.projectId) &&
+    topScore >= 48 &&
+    (!projectId || topScore - parsedScore >= 16)
+  ) {
+    projectId = topCandidate.projectId;
+  }
+
   let relatedProjectIds = Array.isArray(parsed?.relatedProjectIds)
     ? parsed.relatedProjectIds.filter((value) => typeof value === 'string' && candidateIds.has(value)).slice(0, 4)
     : projectId
       ? [projectId]
       : [];
 
+  if (projectId && intent.pureNavigation) mode = 'navigate';
+  if (projectId && mode === 'navigate' && !intent.pureNavigation) mode = 'answer_with_navigation';
+  if (projectId && mode === 'answer' && (intent.info || intent.location)) mode = 'answer_with_navigation';
   if (mode === 'navigate' && !projectId) mode = 'clarify';
   if (mode === 'answer_with_navigation' && !projectId) mode = 'answer';
   if ((mode === 'navigate' || mode === 'answer_with_navigation') && projectId) {
@@ -161,7 +265,7 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json(sanitizeDecision(parsed, candidates));
+    return res.status(200).json(sanitizeDecision(parsed, candidates, query));
   } catch (error) {
     return res.status(502).json({
       mode: 'fallback',

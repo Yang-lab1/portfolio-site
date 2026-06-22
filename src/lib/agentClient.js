@@ -33,6 +33,10 @@ const DIRECT_OPEN_HINTS = [
 const LOCATION_HINTS = [
   '\u627e',
   '\u627e\u4e00\u4e0b',
+  '\u627e\u4e0d\u5230',
+  '\u627e\u51fa\u6765',
+  '\u5e2e\u6211\u627e',
+  '\u5e2e\u6211\u627e\u51fa\u6765',
   '\u5728\u54ea',
   '\u5728\u54ea\u91cc',
   '\u4f4d\u7f6e',
@@ -211,6 +215,14 @@ function detectIntent(query, ranked) {
   };
 }
 
+function isPureNavigationIntent(intent) {
+  return Boolean((intent.directOpen || intent.asksLocation) && !intent.asksExplanation);
+}
+
+function shouldAttachProjectNavigation(intent, mode) {
+  return Boolean(intent.asksExplanation || intent.asksLocation || mode === 'answer_with_navigation');
+}
+
 function buildProfileAnswer(profile, lang, query) {
   const displayName = profile?.displayName || 'Lin Yang';
   const focus = getLocalized(profile?.focus, lang);
@@ -311,14 +323,30 @@ function buildClarifyAnswer(ranked, lang) {
 function normalizeRemoteDecision(data, candidates, query, lang, profile) {
   if (!data || data.mode === 'fallback' || !ALLOWED_MODES.has(data.mode)) return null;
 
+  const ranked = rankCandidates(candidates, query);
+  const intent = detectIntent(query, ranked);
   const candidateIds = new Set((candidates || []).map((candidate) => candidate.projectId).filter(Boolean));
-  const projectId = typeof data.projectId === 'string' && candidateIds.has(data.projectId) ? data.projectId : null;
+  let projectId = typeof data.projectId === 'string' && candidateIds.has(data.projectId) ? data.projectId : null;
+  const localTop = intent.top;
+  const remoteCandidate = ranked.find((candidate) => candidate.projectId === projectId);
+
+  if (
+    localTop &&
+    intent.hasStrongProject &&
+    (!projectId || localTop.semanticScore - (remoteCandidate?.semanticScore || 0) >= 16)
+  ) {
+    projectId = localTop.projectId;
+  }
+
   let relatedProjectIds = dedupeProjectIds(
     Array.isArray(data.relatedProjectIds) ? data.relatedProjectIds.filter((id) => candidateIds.has(id)) : projectId ? [projectId] : [],
     3
   );
   let mode = data.mode;
 
+  if (projectId && isPureNavigationIntent(intent)) mode = 'navigate';
+  if (projectId && mode === 'navigate' && !isPureNavigationIntent(intent)) mode = 'answer_with_navigation';
+  if (projectId && mode === 'answer' && shouldAttachProjectNavigation(intent, mode)) mode = 'answer_with_navigation';
   if (mode === 'navigate' && !projectId) mode = 'clarify';
   if (mode === 'answer_with_navigation' && !projectId) mode = 'answer';
   if ((mode === 'navigate' || mode === 'answer_with_navigation') && projectId) {
@@ -335,7 +363,7 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile) {
   };
 
   if (!base.answer && (base.mode === 'answer' || base.mode === 'answer_with_navigation')) {
-    const candidate = candidates.find((item) => item.projectId === projectId) || candidates[0];
+    const candidate = candidates.find((item) => item.projectId === projectId) || ranked[0] || candidates[0];
     if (candidate) {
       base.answer = cleanupAnswerText(buildProjectAnswer(candidate, query, lang));
     } else if (base.mode === 'answer') {
@@ -403,7 +431,7 @@ export function resolveAgentFallbackDecision({ query, lang = 'zh', profile, cand
     };
   }
 
-  if (intent.ambiguousProject && !intent.directOpen) {
+  if (intent.ambiguousProject && !isPureNavigationIntent(intent)) {
     return {
       mode: 'clarify',
       answer: buildClarifyAnswer(ranked, lang),
@@ -417,7 +445,7 @@ export function resolveAgentFallbackDecision({ query, lang = 'zh', profile, cand
   const answer = cleanupAnswerText(buildProjectAnswer(top, query, lang));
   const relatedProjectIds = top?.projectId ? [top.projectId] : [];
 
-  if (intent.directOpen && !intent.asksExplanation) {
+  if (isPureNavigationIntent(intent)) {
     return {
       mode: 'navigate',
       answer: '',

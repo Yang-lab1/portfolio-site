@@ -170,3 +170,13 @@
 - 已收紧项目匹配：`帮我找一下拍立食` 只返回拍立食，不再混出 Miro。
 - `cmd /c npm run build` 已通过；本地 Playwright QA 已验证 Siri loader 可见、旧思考文字不存在、浮球思考时仍可见、拍立食只返回 1 个结果并可进入详情。
 - 已推送 GitHub `main`，提交 `946bd2a`，并建立版本标签 `v1.3-agent-siri-20260622`。Vercel production 部署 `dpl_5G3Mk7hz7UPg9Rs3QEEbd4mQy5ix` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`；线上 Playwright QA 同样通过。
+
+## 2026-06-22 Agent Intent Split Refinement
+- 已按最新规则修正 Agent 意图分流：纯位置/找不到/打开/跳转类问题直接进入项目详情页；项目介绍、痛点、服务对象、解决问题、评价类问题先回答，再给一个 `点击进入项目页` 按钮。
+- 混合意图按“先回答信息，再给按钮”处理，避免用户问项目内容时被直接跳走。
+- 已删除独立项目结果卡片区域；回答文本和进入按钮现在在同一个回答块里，只显示一个黑色按钮，不再显示项目标题、项目摘要或第二张结果卡。
+- 已移除输入栏语音按钮，当前只保留搜索图标、输入框和发送按钮。
+- 已更新 `/api/agent` prompt 和本地 fallback：模型/本地逻辑统一返回 `navigate`、`answer_with_navigation`、`answer` 等模式，并在清晰项目匹配时只保留一个目标项目。
+- `cmd /c npm run build` 已通过。
+- 本地 Playwright 关键用例已通过：`拍立食是干嘛的` 显示回答 + 单个进入按钮且不混入 Miro；`拍历史在哪里我找不到了` 直接进入拍立食详情页；`miro项目介绍一下` 显示回答 + 单个进入按钮；`Miro在哪里` 直接进入 Miro 详情页；`林杨的能力怎么样` 只回答能力总结且不显示项目按钮。
+- 待完成：GitHub 新提交和 Vercel 可回滚部署。
