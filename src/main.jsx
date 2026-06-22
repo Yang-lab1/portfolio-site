@@ -3240,8 +3240,141 @@ function buildAgentProfileSnapshotV2() {
       zh: '工业设计、AI 交互、CMF、Web 原型与数据系统',
       en: 'industrial design, AI interaction, CMF, web prototyping, and data systems',
     },
+    achievements: achievementCards.map((card) => ({
+      value: card.value,
+      label: {
+        zh: t(card.label, 'zh'),
+        en: t(card.label, 'en'),
+      },
+      note: {
+        zh: t(card.note, 'zh'),
+        en: t(card.note, 'en'),
+      },
+    })),
     representativeProjects,
   };
+}
+
+function buildAgentKnowledgeBaseV2() {
+  const projectDocs = projects.map((project) => {
+    const titleZh = t(project.title, 'zh');
+    const titleEn = t(project.title, 'en');
+    const typeZh = t(project.type, 'zh');
+    const typeEn = t(project.type, 'en');
+    const summaryZh = getProjectShort(project, 'zh');
+    const summaryEn = getProjectShort(project, 'en');
+    const roleZh = t(project.role, 'zh');
+    const roleEn = t(project.role, 'en');
+    const targetUserZh = t(project.targetUser, 'zh');
+    const targetUserEn = t(project.targetUser, 'en');
+    const painPointZh = t(project.painPoint, 'zh');
+    const painPointEn = t(project.painPoint, 'en');
+    const solutionZh = t(project.solution, 'zh');
+    const solutionEn = t(project.solution, 'en');
+    const sourceZh = t(project.source, 'zh');
+    const sourceEn = t(project.source, 'en');
+    const evidenceZh = t(project.evidence, 'zh');
+    const evidenceEn = t(project.evidence, 'en');
+
+    return {
+      id: `project-${project.id}`,
+      kind: 'project',
+      projectId: project.id,
+      route: `/?project=${project.id}`,
+      category: project.category || null,
+      title: {
+        zh: titleZh,
+        en: titleEn,
+      },
+      content: {
+        zh: [
+          `${titleZh}是${typeZh || '作品集项目'}。`,
+          summaryZh,
+          roleZh ? `角色/能力：${roleZh}。` : '',
+          targetUserZh ? `目标用户：${targetUserZh}。` : '',
+          painPointZh ? `痛点：${painPointZh}。` : '',
+          solutionZh ? `解决方式：${solutionZh}。` : '',
+          sourceZh ? `资料来源：${sourceZh}。` : '',
+          Array.isArray(evidenceZh) ? evidenceZh.join(' ') : evidenceZh,
+        ]
+          .filter(Boolean)
+          .join(' '),
+        en: [
+          `${titleEn} is a ${typeEn || 'portfolio case'}.`,
+          summaryEn,
+          roleEn ? `Role/capability: ${roleEn}.` : '',
+          targetUserEn ? `Target user: ${targetUserEn}.` : '',
+          painPointEn ? `Pain point: ${painPointEn}.` : '',
+          solutionEn ? `Solution: ${solutionEn}.` : '',
+          sourceEn ? `Source: ${sourceEn}.` : '',
+          Array.isArray(evidenceEn) ? evidenceEn.join(' ') : evidenceEn,
+        ]
+          .filter(Boolean)
+          .join(' '),
+      },
+      keywords: [
+        project.id,
+        project.category,
+        titleZh,
+        titleEn,
+        typeZh,
+        typeEn,
+        roleZh,
+        roleEn,
+        targetUserZh,
+        targetUserEn,
+        painPointZh,
+        painPointEn,
+        solutionZh,
+        solutionEn,
+        ...(agentProjectAliases[project.id] || []),
+      ].filter(Boolean),
+    };
+  });
+
+  const achievementDocs = achievementCards.map((card, index) => {
+    const labelZh = t(card.label, 'zh');
+    const labelEn = t(card.label, 'en');
+    const noteZh = t(card.note, 'zh');
+    const noteEn = t(card.note, 'en');
+
+    return {
+      id: `achievement-${index}`,
+      kind: 'achievement',
+      title: {
+        zh: labelZh,
+        en: labelEn,
+      },
+      value: card.value,
+      note: {
+        zh: noteZh,
+        en: noteEn,
+      },
+      content: {
+        zh: `站内成就卡「${labelZh}」记录为 ${card.value}，说明为：${noteZh}。`,
+        en: `The portfolio achievement card "${labelEn}" is ${card.value}. Note: ${noteEn}.`,
+      },
+      keywords: [labelZh, labelEn, noteZh, noteEn, card.value, '成就', '数字', '奖项', '荣誉', '客户', '作品', '能力', 'award', 'honor', 'client', 'work', 'direction'],
+    };
+  });
+
+  const profileDocs = [
+    {
+      id: 'profile-overview',
+      kind: 'profile',
+      title: {
+        zh: '林杨个人定位',
+        en: 'Lin Yang profile',
+      },
+      content: {
+        zh: '林杨是一名复合型设计师，作品集围绕工业设计、AI 交互、CMF、Web 原型与数据系统展开，强调把问题、流程、原型和结果组织成可展示的证据链。',
+        en: 'Lin Yang is a hybrid designer focused on industrial design, AI interaction, CMF, web prototyping, and data systems, with portfolio evidence connecting problems, process, prototypes, and outcomes.',
+      },
+      keywords: ['林杨', 'Lin Yang', '能力', '简历', '个人', '设计师', 'AI', 'CMF', '工业设计', 'Web'],
+    },
+  ];
+
+  return [...profileDocs, ...achievementDocs, ...projectDocs];
 }
 
 const agentProjectAliases = {
@@ -3358,12 +3491,24 @@ function AgentOrb({ lang, onOpenProject }) {
   const panelRef = useRef(null);
   const orbRef = useRef(null);
   const dragRef = useRef({ active: false, startX: 0, startY: 0, x: 24, y: 24, moved: false });
+  const requestSeqRef = useRef(0);
 
-  const closePanel = () => {
-    setOpen(false);
+  const resetAgentSession = () => {
+    requestSeqRef.current += 1;
+    setQuery('');
     setReply('');
     setResults([]);
     setLoading(false);
+  };
+
+  const closePanel = () => {
+    resetAgentSession();
+    setOpen(false);
+  };
+
+  const openPanel = () => {
+    resetAgentSession();
+    setOpen(true);
   };
 
   useEffect(() => {
@@ -3426,6 +3571,7 @@ function AgentOrb({ lang, onOpenProject }) {
   };
 
   const openAgentProject = (projectId) => {
+    requestSeqRef.current += 1;
     onOpenProject(projectId);
     setOpen(false);
     setReply('');
@@ -3445,6 +3591,8 @@ function AgentOrb({ lang, onOpenProject }) {
 
     const matches = rankedProjects.filter(({ score }) => score > 0).slice(0, 6);
     const candidates = rankedProjects.slice(0, 10).map(({ project, score }) => buildAgentCandidateV2(project, score));
+    const requestId = requestSeqRef.current + 1;
+    requestSeqRef.current = requestId;
 
     setLoading(true);
     setReply('');
@@ -3456,7 +3604,9 @@ function AgentOrb({ lang, onOpenProject }) {
         lang,
         profile: buildAgentProfileSnapshotV2(),
         candidates,
+        knowledgeBase: buildAgentKnowledgeBaseV2(),
       });
+      if (requestSeqRef.current !== requestId) return;
 
       const relatedProjects = getAgentResultProjectsV2(decision, matches);
       const primaryProject = relatedProjects[0] || null;
@@ -3475,12 +3625,14 @@ function AgentOrb({ lang, onOpenProject }) {
       setReply(nextReply);
       setResults(decision.mode === 'answer_with_navigation' && primaryProject ? [primaryProject] : []);
     } catch (error) {
+      if (requestSeqRef.current !== requestId) return;
       console.warn('[AgentOrb] Agent request failed, keeping UI alive with a local fallback.', error);
       const fallbackDecision = resolveAgentFallbackDecision({
         query: rawQuery,
         lang,
         profile: buildAgentProfileSnapshotV2(),
         candidates,
+        knowledgeBase: buildAgentKnowledgeBaseV2(),
       });
 
       if (fallbackDecision.mode === 'navigate' && fallbackDecision.projectId) {
@@ -3502,7 +3654,7 @@ function AgentOrb({ lang, onOpenProject }) {
           : []
       );
     } finally {
-      setLoading(false);
+      if (requestSeqRef.current === requestId) setLoading(false);
     }
   };
 
@@ -3548,7 +3700,10 @@ function AgentOrb({ lang, onOpenProject }) {
         ref={orbRef}
         type="button"
         onClick={() => {
-          if (!dragRef.current.moved) setOpen((value) => !value);
+          if (!dragRef.current.moved) {
+            if (open) closePanel();
+            else openPanel();
+          }
         }}
         onPointerDown={startDrag}
         onPointerMove={moveDrag}

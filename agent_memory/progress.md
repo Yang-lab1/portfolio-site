@@ -182,3 +182,12 @@
 - 已推送 GitHub `main`，代码提交 `767b464`；准备建立版本标签 `v1.4-agent-intent-split-20260622`。
 - Vercel production 部署已完成：`https://portfolio-site-krs13ffo3-yangs-projects-d2ad4c9e.vercel.app`，固定线上地址 `https://portfolio-site-three-rose.vercel.app/` 已验证为最新行为。
 - 线上 Playwright 关键用例同样通过，验证内容与本地一致。
+## 2026-06-22 Agent 作品集助手行为修正
+- 本次只修正当前已接入 AGNES 的站内 Agent 行为，没有替换模型供应商、没有新增 OpenAI provider，也没有暴露 API key 到前端。
+- Agent 定位为“林杨 / Yang 个人网站 AI 作品集助手”：优先基于当前网站项目数据、成就数字和站内知识库回答，回答风格自然、积极但克制。
+- 模式已统一为 `navigate`、`answer_with_navigation`、`answer`、`clarify`、`refusal`：纯导航直接跳转；项目介绍/评价先回答再给一个 `点击进入项目页` 黑色按钮；人物/能力/统计/闲聊只回答；外部实时问题温和拒答。
+- 前端提交时会把当前站内项目、成就数字和个人能力概览组织为 `knowledgeBase` 传给 `/api/agent`，本地 fallback 也使用同一份知识库，避免每个新问题都要手工补规则。
+- 项目匹配已收紧：`拍立食`、`拍历史`、`Pai Li Shi`、`pailishi` 等明确别名只命中 `palifood`，不会再被候选旧分数带到 `Miro AI 演练系统`。
+- 搜索框 collapse / re-expand 会清空 input、reply、results、loading 等当前会话状态；请求中 collapse 会递增 request id，旧请求返回后不会写回 UI。
+- 当前输入框继续只保留搜索图标、输入框和发送按钮；不恢复语音按钮，不恢复独立项目结果卡片，不显示 CoT、置信度分数或 debug。
+- 本地验证：`node --check api/agent.js`、`node --check src/lib/agentClient.js`、`npm run build` 均通过；临时意图测试覆盖了拍立食介绍/导航、Miro 介绍/导航、林杨奖项、股票实时问题。
