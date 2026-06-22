@@ -179,4 +179,6 @@
 - 已更新 `/api/agent` prompt 和本地 fallback：模型/本地逻辑统一返回 `navigate`、`answer_with_navigation`、`answer` 等模式，并在清晰项目匹配时只保留一个目标项目。
 - `cmd /c npm run build` 已通过。
 - 本地 Playwright 关键用例已通过：`拍立食是干嘛的` 显示回答 + 单个进入按钮且不混入 Miro；`拍历史在哪里我找不到了` 直接进入拍立食详情页；`miro项目介绍一下` 显示回答 + 单个进入按钮；`Miro在哪里` 直接进入 Miro 详情页；`林杨的能力怎么样` 只回答能力总结且不显示项目按钮。
-- 待完成：GitHub 新提交和 Vercel 可回滚部署。
+- 已推送 GitHub `main`，代码提交 `767b464`；准备建立版本标签 `v1.4-agent-intent-split-20260622`。
+- Vercel production 部署已完成：`https://portfolio-site-krs13ffo3-yangs-projects-d2ad4c9e.vercel.app`，固定线上地址 `https://portfolio-site-three-rose.vercel.app/` 已验证为最新行为。
+- 线上 Playwright 关键用例同样通过，验证内容与本地一致。
