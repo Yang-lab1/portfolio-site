@@ -115,13 +115,13 @@
 
 ## 2026-06-17 Achievement CountUp
 - 已按用户提供的 React Bits CountUp 思路，为成就数字区接入 `motion/react` 计数动画。
-- 成就数字进入视口时从 0 计数到 `21`、`10+`、`9+`、`4`；离开后再次进入会重新播放。
+- 成就数字进入视口时从 0 计数到 `51`、`20+`、`12+`、`4`；离开后再次进入会重新播放。
 - 已验证 `cmd /c npm run build` 通过，并用本地 Chrome 脚本确认首次进入和二次进入最终数值都能稳定回到目标值。
 
 ## 2026-06-17 Achievement CountUp Timing Update
 - 已安装 `playwright` 作为 devDependency，用于本地浏览器验证。
 - CountUp 时长已从 `1.0s` 调整为 `1.3s`。
-- `cmd /c npm run build` 已通过；使用项目内 Playwright + 系统 Chrome 验证本地预览，首次进入和二次进入最终值均为 `21`、`10+`、`9+`、`4`。
+- `cmd /c npm run build` 已通过；使用项目内 Playwright + 系统 Chrome 验证本地预览，首次进入和二次进入最终值均为 `51`、`20+`、`12+`、`4`。
 ## 2026-06-18 Tresmares Expansion Interaction
 - 已将原 About 灰底说明区替换为 Tresmares 首页 “Our expansion” 风格的 pinned scroll parallax section。
 - 已实现 GSAP ScrollTrigger `pin + scrub`：滚到该区块后 section 固定，标题、图片卡片、Norway 标记、说明文字跟随滚动进度变化。

@@ -1062,17 +1062,17 @@ const pinnedStories = [
 
 const achievementCards = [
   {
-    value: '21',
+    value: '51',
     label: { en: 'Works', zh: '作品入口' },
     note: { en: 'Portfolio cases across products, interfaces, and systems', zh: '覆盖产品、界面与系统的作品入口' },
   },
   {
-    value: '10+',
+    value: '20+',
     label: { en: 'Clients', zh: '客户协作' },
     note: { en: 'Confirmed in CV, including Siemens, Midea, and Foxconn', zh: '简历确认，含西门子、美的、富士康等' },
   },
   {
-    value: '9+',
+    value: '12+',
     label: { en: 'Honors', zh: '奖项荣誉' },
     note: { en: 'Design awards, scholarships, and student honors', zh: '设计奖项、奖学金与荣誉称号' },
   },

@@ -94,7 +94,7 @@
 ## 2026-06-17 Achievement CountUp
 - The achievement cards now use a local React Bits-style `CountUp` component backed by `motion/react`.
 - The counters are intentionally configured with `useInView(... once: false ...)`: scrolling into the section from either direction should replay the count-up.
-- The spring animation is forced to the exact final text at the end of the duration so the cards settle on `21`, `10+`, `9+`, and `4`.
+- The spring animation is forced to the exact final text at the end of the duration so the cards settle on `51`, `20+`, `12+`, and `4`.
 
 ## 2026-06-17 Achievement CountUp Timing Update
 - Current CountUp duration is `1.3s`.
