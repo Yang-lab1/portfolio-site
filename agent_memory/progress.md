@@ -169,3 +169,4 @@
 - 已清理拍立食回答：回答会覆盖项目是什么、服务用户、用户痛点和解决问题，不再输出重复话术或 `。，` 这类异常标点。
 - 已收紧项目匹配：`帮我找一下拍立食` 只返回拍立食，不再混出 Miro。
 - `cmd /c npm run build` 已通过；本地 Playwright QA 已验证 Siri loader 可见、旧思考文字不存在、浮球思考时仍可见、拍立食只返回 1 个结果并可进入详情。
+- 已推送 GitHub `main`，提交 `946bd2a`，并建立版本标签 `v1.3-agent-siri-20260622`。Vercel production 部署 `dpl_5G3Mk7hz7UPg9Rs3QEEbd4mQy5ix` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`；线上 Playwright QA 同样通过。
