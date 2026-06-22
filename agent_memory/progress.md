@@ -149,3 +149,16 @@
 - `cmd /c npm run build` 已通过；本地 Playwright QA 已验证评价回答、卡片提示和拍立食详情页跳转。
 - 已提交并推送 GitHub `main`（commit `359c67d`）；Vercel production 部署 `dpl_CyUSw8w1Ds9T9tMFogDGrkLNwpZK` 已 alias 到 `https://portfolio-site-three-rose.vercel.app/`。
 - 线上 Playwright QA 已通过：Agent 评价回答、`查看项目` 提示和拍立食详情页跳转均正常。
+
+## 2026-06-22 Agent API 语义接入
+- 新增 `/api/agent` 与 `src/lib/agentClient.js`，面板提交时会先请求服务端模型判断用户意图；缺少 `OPENAI_API_KEY` 或上游失败时自动回退到本地语义匹配。
+- Agent 现在按“先回答，再给可点击项目入口”的方式处理项目解释、评价和位置类问题；只有用户明确要求“打开/进入/跳转”时才直接进入详情页。
+- 用户更新约束：打开 Agent 面板时浮球不隐藏，仍显示在面板下方；点击浮球或面板外空白可收回。
+- 本轮验证：`cmd /c npm run build` 通过。
+
+## 2026-06-22 Agent API Release Candidate
+- `cmd /c npm run build` 已通过。
+- Vercel production 部署已完成：`dpl_6xJkSpVsSXLs3WktCvL9xphNWF99`。
+- 固定线上地址已更新到最新部署：`https://portfolio-site-three-rose.vercel.app/`。
+- 本次版本准备保存到 GitHub 并打标签 `v1.2-agent-api-20260622`，用于后续回滚。
+- Agent API 通道代码已准备好；真实 AGNES/API 回答仍需要在 Vercel 配置 `OPENAI_API_KEY`、`OPENAI_BASE_URL`、`OPENAI_MODEL`。

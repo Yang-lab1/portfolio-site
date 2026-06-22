@@ -154,3 +154,10 @@
 - Agent now distinguishes project evaluation queries from project lookup queries. Example: `你觉得拍立食做得怎么样` should return an evaluative paragraph, not a generic “找到这些相关项目” message.
 - Pai Li Shi aliases include `拍立食`, `拍历史`, and `派历史`.
 - Agent result cards should keep a visible `查看项目` / `View case` affordance and open the relevant detail page.
+
+## 2026-06-22 Agent API Release Context
+- Current production site: `https://portfolio-site-three-rose.vercel.app/`.
+- Current release deployment: `dpl_6xJkSpVsSXLs3WktCvL9xphNWF99`.
+- The frontend now calls `/api/agent` first and falls back to local semantic matching when no model key is configured or the upstream request fails.
+- The serverless API expects an OpenAI-compatible provider through `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `OPENAI_MODEL`; AGNES can be connected through these env vars if its endpoint supports `/chat/completions` semantics.
+- Intended rollback tag for this release: `v1.2-agent-api-20260622`.

@@ -12,6 +12,7 @@ import {
   Search,
   Send,
 } from 'lucide-react';
+import { requestAgentDecision } from './lib/agentClient.js';
 import { warmSupabaseConnection } from './lib/supabaseClient.js';
 import './styles.css';
 
@@ -3159,21 +3160,83 @@ function About({ lang, motionEnabled }) {
   );
 }
 
+function buildAgentCandidateV2(project, score) {
+  const evidenceZh = t(project.evidence, 'zh');
+  const evidenceEn = t(project.evidence, 'en');
+
+  return {
+    projectId: project.id,
+    route: `/?project=${project.id}`,
+    category: project.category || null,
+    score,
+    aliases: agentProjectAliases[project.id] || [],
+    title: {
+      zh: t(project.title, 'zh'),
+      en: t(project.title, 'en'),
+    },
+    type: {
+      zh: t(project.type, 'zh'),
+      en: t(project.type, 'en'),
+    },
+    summary: {
+      zh: getProjectShort(project, 'zh'),
+      en: getProjectShort(project, 'en'),
+    },
+    role: {
+      zh: t(project.role, 'zh'),
+      en: t(project.role, 'en'),
+    },
+    source: {
+      zh: t(project.source, 'zh'),
+      en: t(project.source, 'en'),
+    },
+    evidence: {
+      zh: Array.isArray(evidenceZh) ? evidenceZh.slice(0, 4) : [evidenceZh].filter(Boolean),
+      en: Array.isArray(evidenceEn) ? evidenceEn.slice(0, 4) : [evidenceEn].filter(Boolean),
+    },
+  };
+}
+
+function buildAgentProfileSnapshotV2() {
+  const representativeProjects = ['miro', 'palifood', 'libai', 'momenta', 'xiaomi-cmf']
+    .map((id) => projects.find((project) => project.id === id))
+    .filter(Boolean)
+    .map((project) => ({
+      projectId: project.id,
+      title: {
+        zh: t(project.title, 'zh'),
+        en: t(project.title, 'en'),
+      },
+    }));
+
+  return {
+    displayName: '林杨',
+    englishName: 'Lin Yang',
+    projectCount: projects.length,
+    categoryCount: new Set(projects.map((project) => project.category).filter(Boolean)).size,
+    focus: {
+      zh: '工业设计、AI 交互、CMF、Web 原型与数据系统',
+      en: 'industrial design, AI interaction, CMF, web prototyping, and data systems',
+    },
+    representativeProjects,
+  };
+}
+
 const agentProjectAliases = {
-  miro: ['miro', '跨文化', '沟通', 'ai rehearsal', 'collaboration', 'prototype'],
-  palifood: ['拍立食', '拍历史', '派历史', '派利时', '派利食', 'palifood', 'pai li shi', '食物识别', '饮食', '健康反馈'],
-  libai: ['李白', 'libai', '诗歌', '唐诗', '互动网站', 'poetry'],
-  'tcm-kg': ['中医', '知识图谱', 'tcm', '草药', '药材', '图谱'],
-  'offer-quest': ['求职', 'offer', 'job learning quest', '面试', '职业'],
-  momenta: ['momenta', '自动驾驶', '驾驶', 'map', '地图'],
-  'cross-ripple': ['水疗', 'watsu', '复健', '康复', '训练设备', 'hydrotherapy'],
-  'cup-cup': ['杯', 'cup', '复合转盘', '小家电'],
+  miro: ['miro', '协作', '治理', 'collaboration', 'prototype'],
+  palifood: ['拍立食', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
+  libai: ['李白', 'libai', '互动网站', '诗歌', 'poetry'],
+  'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
+  'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
+  momenta: ['momenta', '自动驾驶', '地图', 'map'],
+  'cross-ripple': ['水疗', 'watsu', '复健', '训练设备', 'hydrotherapy'],
+  'cup-cup': ['cup', '复合转盘', '小家电'],
   'heart-bracelet': ['心脏病', '手环', '健康辅助', 'bracelet'],
   'opera-ruler': ['川剧', '儿童', '绘画尺', '文化教育'],
   'capstone-device': ['毕业设计', '水疗', '复健', '训练设备'],
-  'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '材料', '量产'],
+  'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '量产'],
   'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],
-  'smart-waste': ['智能废料箱', '废料箱', '垃圾', '回收', 'waste'],
+  'smart-waste': ['智能废料箱', '回收', 'waste'],
   'baling-press': ['压缩打包机', '打包机', 'baling', 'press'],
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
   cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],
@@ -3183,16 +3246,12 @@ const agentProjectAliases = {
   'food-health-model': ['食物健康', '健康模型', 'nutrition'],
 };
 
-const agentOpenKeywords = ['找', '打开', '跳转', '位置', '页面', '项目', '在哪里', '在哪', 'find', 'open', 'show', 'go'];
-const agentProfileKeywords = ['林杨', 'linyang', 'lin yang', 'yang', '设计师', '什么样的人', '是谁', '介绍', '能力', '简历', 'portfolio', '作品集', 'profile'];
-const agentEvaluationKeywords = ['怎么样', '做得怎么样', '做的怎么样', '如何', '好吗', '好不好', '评价', '看法', '亮点', '优势', '表现', 'review', 'evaluate', 'opinion', 'what do you think'];
-
 function normalizeAgentText(value) {
   return String(value || '').trim().toLowerCase();
 }
 
 function compactAgentText(value) {
-  return normalizeAgentText(value).replace(/[\s,，。.!！?？/\\|:：;；'"“”‘’（）()\[\]{}<>《》_-]+/g, '');
+  return normalizeAgentText(value).replace(/[\s,，。?!！？/\\|:：；'"“”‘’()（）\[\]{}<>-]+/g, '');
 }
 
 function getAgentProjectSearchText(project) {
@@ -3209,6 +3268,8 @@ function getAgentProjectSearchText(project) {
     t(project.evidence, 'zh'),
     t(project.source, 'en'),
     t(project.source, 'zh'),
+    t(project.role, 'en'),
+    t(project.role, 'zh'),
     getProjectShort(project, 'en'),
     getProjectShort(project, 'zh'),
     ...(agentProjectAliases[project.id] || []),
@@ -3246,74 +3307,16 @@ function scoreAgentProject(project, query) {
   return score;
 }
 
-function getAgentMatches(query) {
-  return projects
-    .map((project) => ({ project, score: scoreAgentProject(project, query) }))
-    .filter((item) => item.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 4);
-}
+function getAgentResultProjectsV2(decision, matches) {
+  const ids = [];
+  if (Array.isArray(decision.relatedProjectIds)) ids.push(...decision.relatedProjectIds);
+  if (decision.projectId) ids.unshift(decision.projectId);
+  if (!ids.length) ids.push(...matches.map(({ project }) => project.id));
 
-function isAgentProfileQuestion(query) {
-  const compact = compactAgentText(query);
-  return agentProfileKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
-}
-
-function wantsAgentOpen(query) {
-  const compact = compactAgentText(query);
-  return agentOpenKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
-}
-
-function wantsAgentEvaluation(query) {
-  const compact = compactAgentText(query);
-  return agentEvaluationKeywords.some((keyword) => compact.includes(compactAgentText(keyword)));
-}
-
-function getAgentProjectEvaluationReply(project, lang) {
-  const title = t(project.title, lang);
-  const short = getProjectShort(project, lang);
-  const type = t(project.type, lang);
-  const role = t(project.role, lang);
-
-  if (project.id === 'palifood') {
-    return lang === 'zh'
-      ? '拍立食整体是一个完成度比较高的移动端 AI 体验：它把拍照识别、食物信息、健康反馈和记录闭环串起来，场景清楚，交互链路也比较完整。亮点是把 AI 识别能力落到日常饮食管理里，而不是只展示技术本身；作为作品集案例，能体现林杨对用户流程、信息层级和移动端原型的把控。'
-      : 'Pai Li Shi works well as a focused mobile AI case: capture, food recognition, health feedback, and record keeping form a clear loop. Its strength is that the AI capability lands in a practical daily-diet scenario, so the project shows control over user flow, information hierarchy, and mobile prototyping.';
-  }
-
-  return lang === 'zh'
-    ? `${title}整体更像一个${type}案例：${short} 它的价值在于${role}，能作为作品集中证明相关能力的入口。`
-    : `${title} reads as a ${type} case: ${short} Its value sits in ${role}, making it a useful proof point in the portfolio.`;
-}
-
-function getAgentProjectDiscoveryReply(project, lang) {
-  const title = t(project.title, lang);
-  const short = getProjectShort(project, lang);
-  return lang === 'zh'
-    ? `${title}和这个问题最相关：${short} 下方卡片可以直接打开详情页。`
-    : `${title} is the closest match: ${short} The card below opens the case page.`;
-}
-
-function getAgentProfileReply(lang, query) {
-  const compact = compactAgentText(query);
-  const total = projects.length;
-  const categoryCount = new Set(projects.map((project) => project.category).filter(Boolean)).size;
-  const representativeProjects = ['miro', 'palifood', 'libai', 'smart-waste', 'xiaomi-cmf']
+  return [...new Set(ids)]
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean)
-    .slice(0, 4)
-    .map((project) => t(project.title, lang));
-
-  if (lang === 'zh') {
-    if (compact.includes('能力') || compact.includes('擅长')) {
-      return `按站内作品资料看，林杨的能力集中在工业设计、AI 交互、CMF、Web 原型和数据系统。当前作品集有 ${total} 个入口、${categoryCount} 类方向，代表项目包括 ${representativeProjects.join('、')}。`;
-    }
-    return `林杨是一名复合型设计师，作品集把产品硬件、界面原型、AI 交互和数据系统串成可验证的案例链。站内目前整理了 ${total} 个作品入口，能直接搜索项目名进入对应案例。`;
-  }
-  if (compact.includes('skill') || compact.includes('ability') || compact.includes('capability')) {
-    return `Based on the site content, Lin Yang's strengths sit across industrial design, AI interaction, CMF, web prototyping, and data systems. The portfolio currently has ${total} entries across ${categoryCount} tracks, including ${representativeProjects.join(', ')}.`;
-  }
-  return `Lin Yang is a hybrid designer connecting product hardware, interface prototypes, AI interaction, and data systems into evidence-led portfolio cases. You can search a project name here and jump straight into it.`;
+    .slice(0, 3);
 }
 
 function AgentOrb({ lang, onOpenProject }) {
@@ -3322,6 +3325,7 @@ function AgentOrb({ lang, onOpenProject }) {
   const [query, setQuery] = useState('');
   const [reply, setReply] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [position, setPosition] = useState({ x: 24, y: 24 });
   const panelRef = useRef(null);
   const orbRef = useRef(null);
@@ -3331,6 +3335,7 @@ function AgentOrb({ lang, onOpenProject }) {
     setOpen(false);
     setReply('');
     setResults([]);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -3398,39 +3403,77 @@ function AgentOrb({ lang, onOpenProject }) {
     setReply('');
     setResults([]);
     setQuery('');
+    setLoading(false);
   };
 
-  const submit = (event) => {
+  const submit = async (event) => {
     event.preventDefault();
     const rawQuery = query.trim();
     if (!rawQuery) return;
 
-    const matches = getAgentMatches(rawQuery);
-    if (matches.length && wantsAgentEvaluation(rawQuery)) {
-      setReply(getAgentProjectEvaluationReply(matches[0].project, lang));
-      setResults([matches[0]]);
-      return;
-    }
+    const rankedProjects = projects
+      .map((project) => ({ project, score: scoreAgentProject(project, rawQuery) }))
+      .sort((left, right) => right.score - left.score);
 
-    if (matches.length && (wantsAgentOpen(rawQuery) || matches[0].score >= 42)) {
-      openAgentProject(matches[0].project.id);
-      return;
-    }
+    const matches = rankedProjects.filter(({ score }) => score > 0).slice(0, 6);
+    const candidates = rankedProjects.slice(0, 10).map(({ project, score }) => buildAgentCandidateV2(project, score));
 
-    if (isAgentProfileQuestion(rawQuery)) {
-      setReply(getAgentProfileReply(lang, rawQuery));
-      setResults([]);
-      return;
-    }
-
-    if (matches.length) {
-      setReply(getAgentProjectDiscoveryReply(matches[0].project, lang));
-      setResults(matches.slice(0, 3));
-      return;
-    }
-
-    setReply(lang === 'zh' ? '暂时没有匹配到项目。可以试试“拍立食”“李白”“中医图谱”“废料箱”或“CMF”。' : 'No close match yet. Try Miro, Pai Li Shi, Li Bai, TCM, waste bin, or CMF.');
+    setLoading(true);
+    setReply(
+      lang === 'zh'
+        ? '我先理解你的问题，再决定是回答、带你跳转，还是两者一起做。'
+        : 'I am understanding the request first, then deciding whether to answer, navigate, or do both.'
+    );
     setResults([]);
+
+    try {
+      const decision = await requestAgentDecision({
+        query: rawQuery,
+        lang,
+        profile: buildAgentProfileSnapshotV2(),
+        candidates,
+      });
+
+      const relatedProjects = getAgentResultProjectsV2(decision, matches);
+      const locationIntent = /打开|进入|跳转|带我去|在哪里|在哪|位置|page|open|jump|go to|take me to|find/i.test(rawQuery);
+
+      if (decision.mode === 'navigate' && decision.projectId) {
+        openAgentProject(decision.projectId);
+        return;
+      }
+
+      let nextReply =
+        decision.answer ||
+        (lang === 'zh'
+          ? '我已经先按站内资料理解了你的问题，下面也给你挂上最相关的项目入口。'
+          : 'I interpreted the request from the portfolio data and attached the closest project entry below.');
+
+      if (
+        locationIntent &&
+        relatedProjects.length &&
+        (decision.mode === 'answer_with_navigation' || decision.mode === 'clarify' || decision.mode === 'not_found')
+      ) {
+        nextReply +=
+          lang === 'zh'
+            ? ' 如果你要继续看，我也已经把最相关的项目入口挂在下面了，点一下就能进去。'
+            : ' If you want to continue, I also attached the closest project entry below so you can jump in directly.';
+      }
+
+      setReply(
+        nextReply
+      );
+      setResults(decision.mode === 'answer' ? [] : relatedProjects);
+    } catch (error) {
+      console.warn('[AgentOrb] Agent request failed, keeping UI alive with a local fallback.', error);
+      setReply(
+        lang === 'zh'
+          ? '这一轮语义判断暂时没走通，但我还是已经把最相关的项目给你找出来了。'
+          : 'The semantic step failed for this turn, but I still surfaced the closest matching projects below.'
+      );
+      setResults(matches.slice(0, 3).map(({ project }) => project));
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -3440,12 +3483,12 @@ function AgentOrb({ lang, onOpenProject }) {
           {reply ? <div className="agent-response">{reply}</div> : null}
           {results.length ? (
             <div className="agent-results">
-              {results.map(({ project }) => (
+              {results.map((project) => (
                 <button type="button" key={project.id} onClick={() => openAgentProject(project.id)}>
                   <span>{t(project.title, lang)}</span>
                   <small>{getProjectShort(project, lang)}</small>
                   <em>
-                    {lang === 'zh' ? '查看项目' : 'View case'}
+                    {lang === 'zh' ? '点击进入项目页' : 'Open case page'}
                     <ArrowUpRight size={12} strokeWidth={2.5} />
                   </em>
                 </button>
@@ -3457,12 +3500,12 @@ function AgentOrb({ lang, onOpenProject }) {
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder={lang === 'zh' ? '搜索项目、能力、关键词...' : 'Search projects, skills, keywords...'}
+              placeholder={lang === 'zh' ? '搜索项目、能力、问题...' : 'Ask about a project, skill, or case...'}
             />
-            <button type="button" aria-label="Voice placeholder">
+            <button type="button" aria-label="Voice placeholder" disabled={loading}>
               <Mic size={15} />
             </button>
-            <button type="submit" aria-label="Send">
+            <button type="submit" aria-label="Send" disabled={loading}>
               <Send size={15} />
             </button>
           </form>
@@ -3479,12 +3522,11 @@ function AgentOrb({ lang, onOpenProject }) {
         onPointerMove={moveDrag}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        aria-label={lang === 'zh' ? '作品搜索助手' : 'Portfolio search assistant'}
+        aria-label={lang === 'zh' ? '作品集 Agent' : 'Portfolio search assistant'}
       >
         <span className="assistive-dot" aria-hidden="true" />
       </button>
     </div>
   );
 }
-
 createRoot(document.getElementById('root')).render(<App />);
