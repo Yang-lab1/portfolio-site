@@ -96,6 +96,15 @@ function getLocalized(field, lang) {
   return '';
 }
 
+function cleanupAnswerText(value) {
+  return String(value || '')
+    .trim()
+    .replace(/[，,]\s*([。！？!?])/g, '$1')
+    .replace(/([。！？!?])\s*[，,]+/g, '$1')
+    .replace(/([。！？!?]){2,}/g, '$1')
+    .replace(/\s+/g, ' ');
+}
+
 function dedupeProjectIds(items, limit = 3) {
   const seen = new Set();
   const ids = [];
@@ -121,6 +130,12 @@ function candidateHaystack(candidate) {
     getLocalized(candidate.summary, 'en'),
     getLocalized(candidate.role, 'zh'),
     getLocalized(candidate.role, 'en'),
+    getLocalized(candidate.targetUser, 'zh'),
+    getLocalized(candidate.targetUser, 'en'),
+    getLocalized(candidate.painPoint, 'zh'),
+    getLocalized(candidate.painPoint, 'en'),
+    getLocalized(candidate.solution, 'zh'),
+    getLocalized(candidate.solution, 'en'),
     getLocalized(candidate.source, 'zh'),
     getLocalized(candidate.source, 'en'),
     ...(Array.isArray(candidate.evidence?.zh) ? candidate.evidence.zh : []),
@@ -231,6 +246,9 @@ function buildProjectAnswer(candidate, query, lang) {
   const type = getLocalized(candidate.type, lang);
   const summary = getLocalized(candidate.summary, lang);
   const role = getLocalized(candidate.role, lang);
+  const targetUser = getLocalized(candidate.targetUser, lang);
+  const painPoint = getLocalized(candidate.painPoint, lang);
+  const solution = getLocalized(candidate.solution, lang);
   const source = getLocalized(candidate.source, lang);
   const evidence = summarizeEvidence(candidate, lang);
   const compactQuery = compactText(query);
@@ -239,6 +257,13 @@ function buildProjectAnswer(candidate, query, lang) {
   const asksUser = compactQuery.includes('\u7528\u6237') || compactQuery.includes('\u670d\u52a1') || compactQuery.includes('user') || compactQuery.includes('audience');
 
   if (lang === 'zh') {
+    if (candidate.projectId === 'palifood') {
+      if (asksEvaluation) {
+        return `${title}整体是一个完成度较高的食物识别移动 H5 案例，服务想快速识别食物、获得饮食反馈和健康建议的日常用户。它针对饮食记录输入成本高、拍照识别后缺少下一步健康建议的痛点，把拍摄、AI 识别、健康反馈、推荐和轻社交串成连续流程。`;
+      }
+      return `${title}是一个食物识别 / 移动 H5 案例，服务日常饮食记录用户，解决手动记录慢、拍照识别后缺少健康反馈的问题；核心流程覆盖拍摄、AI 识别、健康反馈、推荐和轻社交。`;
+    }
+
     if (asksEvaluation) {
       return `${title}\u6574\u4f53\u5b8c\u6210\u5ea6\u6bd4\u8f83\u597d\uff0c\u91cd\u70b9\u5728${summary || type}\uff0c${role ? `\u4e5f\u80fd\u770b\u51fa\u5b83\u66f4\u504f${role}\u8fd9\u6761\u80fd\u529b\u7ebf\u3002` : '\u4f5c\u4e3a\u4f5c\u54c1\u96c6\u6848\u4f8b\u8db3\u591f\u80fd\u6253\u3002'}`;
     }
@@ -252,6 +277,9 @@ function buildProjectAnswer(candidate, query, lang) {
   }
 
   if (asksEvaluation) {
+    if (candidate.projectId === 'palifood') {
+      return `${title} is a polished mobile H5 food-recognition case for ${targetUser || 'users who want quick diet feedback'}. It targets the pain point that ${painPoint || 'manual logging is slow and feedback is fragmented'}, then uses ${solution || summary} to make the next action clearer.`;
+    }
     return `${title} reads as a strong ${type || 'portfolio'} case. Its value is mainly in ${summary || role || source}.`;
   }
   if (asksProblem) {
@@ -285,7 +313,7 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile) {
 
   const candidateIds = new Set((candidates || []).map((candidate) => candidate.projectId).filter(Boolean));
   const projectId = typeof data.projectId === 'string' && candidateIds.has(data.projectId) ? data.projectId : null;
-  const relatedProjectIds = dedupeProjectIds(
+  let relatedProjectIds = dedupeProjectIds(
     Array.isArray(data.relatedProjectIds) ? data.relatedProjectIds.filter((id) => candidateIds.has(id)) : projectId ? [projectId] : [],
     3
   );
@@ -293,10 +321,13 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile) {
 
   if (mode === 'navigate' && !projectId) mode = 'clarify';
   if (mode === 'answer_with_navigation' && !projectId) mode = 'answer';
+  if ((mode === 'navigate' || mode === 'answer_with_navigation') && projectId) {
+    relatedProjectIds = [projectId];
+  }
 
   const base = {
     mode,
-    answer: String(data.answer || '').trim(),
+    answer: cleanupAnswerText(data.answer),
     projectId,
     relatedProjectIds,
     reasoningSummary: Array.isArray(data.reasoningSummary) ? data.reasoningSummary.filter(Boolean).slice(0, 4).map(String) : [],
@@ -306,9 +337,9 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile) {
   if (!base.answer && (base.mode === 'answer' || base.mode === 'answer_with_navigation')) {
     const candidate = candidates.find((item) => item.projectId === projectId) || candidates[0];
     if (candidate) {
-      base.answer = buildProjectAnswer(candidate, query, lang);
+      base.answer = cleanupAnswerText(buildProjectAnswer(candidate, query, lang));
     } else if (base.mode === 'answer') {
-      base.answer = buildProfileAnswer(profile, lang, query);
+      base.answer = cleanupAnswerText(buildProfileAnswer(profile, lang, query));
     }
   }
 
@@ -383,8 +414,8 @@ export function resolveAgentFallbackDecision({ query, lang = 'zh', profile, cand
     };
   }
 
-  const answer = buildProjectAnswer(top, query, lang);
-  const relatedProjectIds = dedupeProjectIds([top, second], 3);
+  const answer = cleanupAnswerText(buildProjectAnswer(top, query, lang));
+  const relatedProjectIds = top?.projectId ? [top.projectId] : [];
 
   if (intent.directOpen && !intent.asksExplanation) {
     return {

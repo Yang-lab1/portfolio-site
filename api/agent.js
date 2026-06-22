@@ -47,15 +47,27 @@ function buildSystemPrompt() {
     'Use mode "navigate" only when the user is explicit that they want to open or jump right now, such as direct open, enter, go to, or take me there.',
     'If the user asks to find a project, asks where it is, asks what it does, who it serves, what problem it solves, or how good it is, prefer mode "answer_with_navigation" rather than immediate navigate.',
     'For answer_with_navigation, answer first in natural portfolio language and also return the best projectId so the UI can offer a jump card.',
+    'When the query clearly matches one project, return only that project in relatedProjectIds. Do not add loosely related projects.',
+    'For project explanations, cover what the project is, who it serves, the user pain point, and what problem it solves when those fields are available.',
     'Use mode "answer" for profile questions or explanation-only questions when no project jump card is needed.',
     'If the request is ambiguous, use mode "clarify" and ask one short clarifying question.',
     'If no candidate is close enough, use mode "not_found".',
     'Keep the answer concise, natural, and portfolio-oriented. Avoid rigid template wording.',
+    'Avoid malformed punctuation such as "。，", duplicated commas, or repeated sentence endings.',
     'Do not expose hidden reasoning, internal scores, RAG, CoT, or confidence mechanics directly to the user.',
     'reasoningSummary should be short, safe, high-level bullet fragments for logging only.',
     'Return JSON only, no Markdown, no code fences.',
     'JSON schema: {"mode":"navigate|answer|answer_with_navigation|clarify|not_found","answer":"string","projectId":"string|null","relatedProjectIds":["string"],"reasoningSummary":["string"],"confidence":0.0}',
   ].join(' ');
+}
+
+function cleanupAnswerText(value) {
+  return String(value || '')
+    .trim()
+    .replace(/[，,]\s*([。！？!?])/g, '$1')
+    .replace(/([。！？!?])\s*[，,]+/g, '$1')
+    .replace(/([。！？!?]){2,}/g, '$1')
+    .replace(/\s+/g, ' ');
 }
 
 function sanitizeDecision(parsed, candidates) {
@@ -65,7 +77,7 @@ function sanitizeDecision(parsed, candidates) {
     : 'clarify';
 
   const projectId = typeof parsed?.projectId === 'string' && candidateIds.has(parsed.projectId) ? parsed.projectId : null;
-  const relatedProjectIds = Array.isArray(parsed?.relatedProjectIds)
+  let relatedProjectIds = Array.isArray(parsed?.relatedProjectIds)
     ? parsed.relatedProjectIds.filter((value) => typeof value === 'string' && candidateIds.has(value)).slice(0, 4)
     : projectId
       ? [projectId]
@@ -73,10 +85,13 @@ function sanitizeDecision(parsed, candidates) {
 
   if (mode === 'navigate' && !projectId) mode = 'clarify';
   if (mode === 'answer_with_navigation' && !projectId) mode = 'answer';
+  if ((mode === 'navigate' || mode === 'answer_with_navigation') && projectId) {
+    relatedProjectIds = [projectId];
+  }
 
   return {
     mode,
-    answer: String(parsed?.answer || '').trim(),
+    answer: cleanupAnswerText(parsed?.answer),
     projectId,
     relatedProjectIds,
     reasoningSummary: Array.isArray(parsed?.reasoningSummary)

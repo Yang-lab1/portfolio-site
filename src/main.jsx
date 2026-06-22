@@ -12,7 +12,7 @@ import {
   Search,
   Send,
 } from 'lucide-react';
-import { requestAgentDecision } from './lib/agentClient.js';
+import { requestAgentDecision, resolveAgentFallbackDecision } from './lib/agentClient.js';
 import { warmSupabaseConnection } from './lib/supabaseClient.js';
 import './styles.css';
 
@@ -184,6 +184,18 @@ const projects = [
     summary: {
       en: 'A mobile food-recognition experience around photo capture, health feedback, recommendations, and lightweight social expression.',
       zh: '围绕拍照识别、健康反馈、推荐和轻社交表达构建的移动端食物体验。',
+    },
+    targetUser: {
+      en: 'Mobile users who want quick food recognition, diet feedback, and simple health-oriented decisions after taking a photo.',
+      zh: '面向想用手机快速识别食物、获得饮食反馈和健康建议的日常用户。',
+    },
+    painPoint: {
+      en: 'Manual diet logging is slow and fragmented, while photo-based feedback often stops at recognition instead of guiding the next action.',
+      zh: '传统饮食记录输入成本高、反馈慢，很多拍照识别只停在识别结果，缺少下一步健康建议。',
+    },
+    solution: {
+      en: 'It connects capture, AI recognition, health feedback, recommendations, and lightweight sharing into one mobile H5 flow.',
+      zh: '通过移动 H5 把拍摄、AI 识别、健康反馈、推荐和轻社交串成一个可连续使用的流程。',
     },
     evidence: {
       en: ['Formal H5 prototype', 'Camera and health feedback flow', 'Mobile visual system', 'Validation screenshots'],
@@ -3186,6 +3198,18 @@ function buildAgentCandidateV2(project, score) {
       zh: t(project.role, 'zh'),
       en: t(project.role, 'en'),
     },
+    targetUser: {
+      zh: t(project.targetUser, 'zh'),
+      en: t(project.targetUser, 'en'),
+    },
+    painPoint: {
+      zh: t(project.painPoint, 'zh'),
+      en: t(project.painPoint, 'en'),
+    },
+    solution: {
+      zh: t(project.solution, 'zh'),
+      en: t(project.solution, 'en'),
+    },
     source: {
       zh: t(project.source, 'zh'),
       en: t(project.source, 'en'),
@@ -3224,7 +3248,7 @@ function buildAgentProfileSnapshotV2() {
 
 const agentProjectAliases = {
   miro: ['miro', '协作', '治理', 'collaboration', 'prototype'],
-  palifood: ['拍立食', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
+  palifood: ['拍立食', '拍历史', '派历史', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
   libai: ['李白', 'libai', '互动网站', '诗歌', 'poetry'],
   'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
   'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
@@ -3270,6 +3294,12 @@ function getAgentProjectSearchText(project) {
     t(project.source, 'zh'),
     t(project.role, 'en'),
     t(project.role, 'zh'),
+    t(project.targetUser, 'en'),
+    t(project.targetUser, 'zh'),
+    t(project.painPoint, 'en'),
+    t(project.painPoint, 'zh'),
+    t(project.solution, 'en'),
+    t(project.solution, 'zh'),
     getProjectShort(project, 'en'),
     getProjectShort(project, 'zh'),
     ...(agentProjectAliases[project.id] || []),
@@ -3419,11 +3449,7 @@ function AgentOrb({ lang, onOpenProject }) {
     const candidates = rankedProjects.slice(0, 10).map(({ project, score }) => buildAgentCandidateV2(project, score));
 
     setLoading(true);
-    setReply(
-      lang === 'zh'
-        ? '我先理解你的问题，再决定是回答、带你跳转，还是两者一起做。'
-        : 'I am understanding the request first, then deciding whether to answer, navigate, or do both.'
-    );
+    setReply('');
     setResults([]);
 
     try {
@@ -3435,7 +3461,6 @@ function AgentOrb({ lang, onOpenProject }) {
       });
 
       const relatedProjects = getAgentResultProjectsV2(decision, matches);
-      const locationIntent = /打开|进入|跳转|带我去|在哪里|在哪|位置|page|open|jump|go to|take me to|find/i.test(rawQuery);
 
       if (decision.mode === 'navigate' && decision.projectId) {
         openAgentProject(decision.projectId);
@@ -3448,39 +3473,48 @@ function AgentOrb({ lang, onOpenProject }) {
           ? '我已经先按站内资料理解了你的问题，下面也给你挂上最相关的项目入口。'
           : 'I interpreted the request from the portfolio data and attached the closest project entry below.');
 
-      if (
-        locationIntent &&
-        relatedProjects.length &&
-        (decision.mode === 'answer_with_navigation' || decision.mode === 'clarify' || decision.mode === 'not_found')
-      ) {
-        nextReply +=
-          lang === 'zh'
-            ? ' 如果你要继续看，我也已经把最相关的项目入口挂在下面了，点一下就能进去。'
-            : ' If you want to continue, I also attached the closest project entry below so you can jump in directly.';
-      }
-
-      setReply(
-        nextReply
-      );
+      setReply(nextReply);
       setResults(decision.mode === 'answer' ? [] : relatedProjects);
     } catch (error) {
       console.warn('[AgentOrb] Agent request failed, keeping UI alive with a local fallback.', error);
+      const fallbackDecision = resolveAgentFallbackDecision({
+        query: rawQuery,
+        lang,
+        profile: buildAgentProfileSnapshotV2(),
+        candidates,
+      });
+
+      if (fallbackDecision.mode === 'navigate' && fallbackDecision.projectId) {
+        openAgentProject(fallbackDecision.projectId);
+        return;
+      }
+
+      const fallbackProjects = getAgentResultProjectsV2(fallbackDecision, matches);
       setReply(
-        lang === 'zh'
-          ? '这一轮语义判断暂时没走通，但我还是已经把最相关的项目给你找出来了。'
-          : 'The semantic step failed for this turn, but I still surfaced the closest matching projects below.'
+        fallbackDecision.answer ||
+          (lang === 'zh'
+            ? '我在站内资料里还没锁定到足够准确的结果，你可以换一个项目名或关键词再试。'
+            : 'I could not lock onto a confident project from the site data yet. Try another project name or keyword.')
       );
-      setResults(matches.slice(0, 3).map(({ project }) => project));
+      setResults(fallbackDecision.mode === 'answer' ? [] : fallbackProjects);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={`agent-layer ${open ? 'open' : ''} ${subtle ? 'is-subtle' : ''}`} style={{ right: position.x, bottom: position.y }}>
+    <div className={`agent-layer ${open ? 'open' : ''} ${subtle ? 'is-subtle' : ''} ${loading ? 'is-thinking' : ''}`} style={{ right: position.x, bottom: position.y }}>
       {open ? (
         <div className="agent-panel" ref={panelRef}>
-          {reply ? <div className="agent-response">{reply}</div> : null}
+          {loading ? (
+            <div className="agent-thinking" role="status" aria-label={lang === 'zh' ? '正在思考' : 'Thinking'}>
+              <span className="siri-loader" aria-hidden="true">
+                <i />
+              </span>
+            </div>
+          ) : reply ? (
+            <div className="agent-response">{reply}</div>
+          ) : null}
           {results.length ? (
             <div className="agent-results">
               {results.map((project) => (

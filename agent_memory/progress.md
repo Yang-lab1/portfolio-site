@@ -162,3 +162,10 @@
 - 固定线上地址已更新到最新部署：`https://portfolio-site-three-rose.vercel.app/`。
 - 本次版本准备保存到 GitHub 并打标签 `v1.2-agent-api-20260622`，用于后续回滚。
 - Agent API 通道代码已准备好；真实 AGNES/API 回答仍需要在 Vercel 配置 `OPENAI_API_KEY`、`OPENAI_BASE_URL`、`OPENAI_MODEL`。
+
+## 2026-06-22 Agent Siri Thinking Animation
+- 已将 Agent 思考状态从文字提示改为 Siri/Apple 唤醒感的环形动态光晕；等待期间不再显示“我先理解你的问题”这类文字。
+- 面板打开和思考时 AssistiveTouch 浮球继续显示，符合用户最新要求。
+- 已清理拍立食回答：回答会覆盖项目是什么、服务用户、用户痛点和解决问题，不再输出重复话术或 `。，` 这类异常标点。
+- 已收紧项目匹配：`帮我找一下拍立食` 只返回拍立食，不再混出 Miro。
+- `cmd /c npm run build` 已通过；本地 Playwright QA 已验证 Siri loader 可见、旧思考文字不存在、浮球思考时仍可见、拍立食只返回 1 个结果并可进入详情。
