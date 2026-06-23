@@ -195,4 +195,7 @@
 ## 2026-06-23 删除能力组合板块
 - 已从首页移除“不是堆项目，而是能力组合。”能力雷达板块。
 - 本次只删除该板块及其专用 `capabilityAreas` 数据，不改动 Hero、作品区、Agent、About 和 Footer。
-- 计划完成构建验证后提交 GitHub，并部署到 Vercel production 留存可回滚版本。
+- `npm run build` 已通过。
+- 已提交并推送 GitHub：`1cc76ce`，标签 `v1.6-remove-capability-section-20260623`。
+- Vercel production 部署已完成：`https://portfolio-site-o09y9m1fy-yangs-projects-d2ad4c9e.vercel.app`。
+- 固定线上地址已验证可访问：`https://portfolio-site-three-rose.vercel.app/`。
