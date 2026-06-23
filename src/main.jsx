@@ -1046,6 +1046,36 @@ const achievementCards = [
 
 const productShowcaseIds = ['cross-ripple', 'smart-waste', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'offer-quest'];
+const daimaWorkPanels = [
+  {
+    id: 'daima-miro',
+    projectId: 'miro',
+    title: 'NovaTech Rebrand',
+    category: 'BRANDING',
+    image: '/portfolio/miro-hifi-overview.jpg',
+  },
+  {
+    id: 'daima-palifood',
+    projectId: 'palifood',
+    title: 'Finverse Marketing Website',
+    category: 'WEB DESIGN',
+    image: '/portfolio/palifood-stage-china.jpg',
+  },
+  {
+    id: 'daima-libai',
+    projectId: 'libai',
+    title: 'Medlink Mobile App',
+    category: 'MOBILE APP DESIGN',
+    image: '/portfolio/libai-background.png',
+  },
+  {
+    id: 'daima-offer-quest',
+    projectId: 'offer-quest',
+    title: 'Orbit SaaS Dashboard',
+    category: 'UI DESIGN',
+    image: '/portfolio/offer-quest-desktop.png',
+  },
+];
 
 const expansionCards = [
   {
@@ -1562,7 +1592,7 @@ function App() {
           <Hero lang={lang} />
           <AchievementCards lang={lang} />
           <ProductShowcase3D lang={lang} onOpenProject={openProject} />
-          <DigitalCaseScroller lang={lang} onOpenProject={openProject} motionEnabled={pinEnabled} />
+          <DaimaWorksShowcase onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <About lang={lang} motionEnabled={!motion.reduced} />
           <AirFooter lang={lang} />
@@ -2072,6 +2102,79 @@ function ProductShowcase3D({ lang, onOpenProject }) {
           );
         })}
       </div>
+    </section>
+  );
+}
+
+function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
+  const sectionRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (!sectionRef.current || !motionEnabled) return undefined;
+
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('.daima-work-panel').forEach((panel) => {
+        const image = panel.querySelector('.daima-work-panel__image');
+        const copyEl = panel.querySelector('.daima-work-panel__copy');
+
+        gsap.fromTo(
+          image,
+          { scale: 1.08, yPercent: -2 },
+          {
+            scale: 1.01,
+            yPercent: 2,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          },
+        );
+
+        gsap.fromTo(
+          copyEl,
+          { y: 28, autoAlpha: 0.9 },
+          {
+            y: -22,
+            autoAlpha: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: panel,
+              start: 'top 86%',
+              end: 'bottom 32%',
+              scrub: true,
+            },
+          },
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [motionEnabled]);
+
+  return (
+    <section className="daima-works-showcase" ref={sectionRef} aria-label="Selected digital works">
+      {daimaWorkPanels.map((panel, index) => (
+        <button
+          className="daima-work-panel"
+          type="button"
+          key={panel.id}
+          onClick={() => onOpenProject(panel.projectId)}
+          data-magnetic
+          aria-label={`Open ${panel.title}`}
+        >
+          <span className="daima-work-panel__media" aria-hidden="true">
+            <img className="daima-work-panel__image" src={panel.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+            <span className="daima-work-panel__veil" />
+          </span>
+          <span className="daima-work-panel__copy">
+            <span className="daima-work-panel__title">{panel.title}</span>
+            <span className="daima-work-panel__category">{panel.category}</span>
+          </span>
+        </button>
+      ))}
     </section>
   );
 }

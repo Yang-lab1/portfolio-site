@@ -199,3 +199,10 @@
 - 已提交并推送 GitHub：`1cc76ce`，标签 `v1.6-remove-capability-section-20260623`。
 - Vercel production 部署已完成：`https://portfolio-site-o09y9m1fy-yangs-projects-d2ad4c9e.vercel.app`。
 - 固定线上地址已验证可访问：`https://portfolio-site-three-rose.vercel.app/`。
+
+## 2026-06-23 Daima 四屏满屏作品段
+- 将旧数字案例滚动区替换为 Daima 风格四连 full-screen 作品屏：Miro、拍立食、李白、Offer Quest。
+- 每个作品屏独占 100vw / 100svh，保留当前站点导航、语言切换和 AI 浮球；点击进入对应项目详情页。
+- 作品屏使用当前项目资产做视觉入口，不复制 Daima 源站图片资产。
+- 待验证：npm run build、GitHub 推送与 Vercel production 部署。
+验证更新：`npm run build` 已通过，本地生产构建正常。
