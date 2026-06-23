@@ -153,6 +153,10 @@ const projects = [
     year: '2026',
     image: '/portfolio/miro-home-china.jpg',
     gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-review-dashboard.jpg', '/portfolio/miro-device-ui.png'],
+    launchNote: {
+      en: 'Miro turns cross-cultural business rehearsal into a structured AI coaching flow, where users can practice difficult conversations, review repeated risks, and enter the system through a clear digital product story.',
+      zh: 'Miro 将跨文化沟通训练拆成可复盘的 AI 演练流程，让用户先练习高压对话，再回看风险信号与改进路径。',
+    },
     role: {
       en: 'Product definition, UX structure, frontend prototype, AI workflow, deployment validation',
       zh: '产品定义、UX 结构、前端原型、AI 流程、部署验证',
@@ -175,6 +179,10 @@ const projects = [
     year: '2026',
     image: '/portfolio/palifood-home.png',
     gallery: ['/portfolio/palifood-stage-china.jpg', '/portfolio/palifood-login-china.jpg'],
+    launchNote: {
+      en: 'Pai Li Shi is framed as a mobile food-recognition and health feedback experience, using lightweight interaction and visual clarity to connect daily meals with personal wellness decisions.',
+      zh: '拍立食围绕食物识别与健康反馈展开，用轻量交互把日常饮食记录、识别效率和健康理解串联起来。',
+    },
     role: {
       en: 'Scenario definition, mobile UI system, formal prototype validation',
       zh: '场景定义、移动端 UI 系统、正式原型验证',
@@ -209,6 +217,10 @@ const projects = [
     year: '2025',
     image: '/portfolio/libai-background.png',
     gallery: ['/portfolio/libai-background.png'],
+    launchNote: {
+      en: 'The Li Bai interactive site transforms poetry, geography, and knowledge links into an explorable cultural interface, making classical content easier to browse, connect, and understand.',
+      zh: '李白互动网站把诗歌、地图与知识关系组织成可探索界面，让传统文化内容更容易被浏览、连接和理解。',
+    },
     role: {
       en: 'Interactive narrative, map/network/chart integration, bilingual cultural interface',
       zh: '互动叙事、地图/网络/图表整合、双语文化界面',
@@ -253,6 +265,10 @@ const projects = [
     year: '2026',
     image: '/portfolio/offer-quest-china.jpg',
     gallery: ['/portfolio/offer-quest-desktop.png', '/portfolio/offer-quest-map.png'],
+    launchNote: {
+      en: 'Offer Quest turns job-search preparation into a game-like learning system, combining quests, progress feedback, and structured review to make career practice more continuous.',
+      zh: 'Offer Quest 将求职准备转化为游戏化学习系统，用任务、进度反馈与复盘机制提升持续练习的动力。',
+    },
     role: {
       en: 'Product framing, dashboard system, learning-map interaction',
       zh: '产品框定、仪表盘系统、学习地图交互',
@@ -2800,6 +2816,8 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const siblings = projects.filter((item) => item.category === project.category && item.id !== project.id).slice(0, 4);
   const detailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const caseStudy = getCaseStudy(project, lang);
+  const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
+  const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   return (
     <main className="detail-page">
       <button className="back-button" type="button" onClick={onBack}>
@@ -2833,6 +2851,28 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           </dl>
         </div>
       </section>
+      {launchNote ? (
+        <section className="project-launch-bridge">
+          <div className="project-launch-bridge__copy">
+            <span className="project-launch-bridge__eyebrow">
+              {lang === 'zh' ? '设计理念' : 'Design concept'}
+            </span>
+            <p>{launchNote}</p>
+          </div>
+          {liveUrl ? (
+            <a className="project-launch-bridge__link" href={liveUrl} target="_blank" rel="noreferrer">
+              <span>{lang === 'zh' ? '立即进入网站' : 'Enter live site'}</span>
+              <span aria-hidden="true">↓</span>
+            </a>
+          ) : (
+            <span className="project-launch-bridge__link project-launch-bridge__link--pending" aria-disabled="true">
+              <span>{lang === 'zh' ? '立即进入网站' : 'Enter live site'}</span>
+              <small>{lang === 'zh' ? '链接待补' : 'Link pending'}</small>
+              <span aria-hidden="true">↓</span>
+            </span>
+          )}
+        </section>
+      ) : null}
       <section className={`detail-media-grid detail-media-${caseStudy.kind}`}>
         {detailMedia.length ? (
           detailMedia.map((src, index) => (

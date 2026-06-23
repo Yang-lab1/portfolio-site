@@ -1235,6 +1235,81 @@ img {
   color: #b42318;
 }
 
+.project-launch-bridge {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: clamp(28px, 6vw, 96px);
+  margin: -18px 0 64px;
+  padding: clamp(28px, 5vw, 72px) 0 clamp(22px, 4vw, 52px);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.project-launch-bridge__copy {
+  max-width: 980px;
+}
+
+.project-launch-bridge__eyebrow {
+  display: block;
+  margin-bottom: 18px;
+  color: rgba(0, 0, 0, 0.42);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.project-launch-bridge__copy p {
+  margin: 0;
+  color: #111;
+  font-size: clamp(2rem, 4vw, 4.7rem);
+  font-weight: 760;
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.project-launch-bridge__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: min(320px, 100%);
+  min-height: 56px;
+  gap: 28px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #050505;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  text-decoration: none;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.16);
+  transition: transform 220ms ease, background 220ms ease, opacity 220ms ease;
+}
+
+.project-launch-bridge__link:hover {
+  transform: translateY(-2px);
+  background: #1a1a1a;
+}
+
+.project-launch-bridge__link small {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.project-launch-bridge__link--pending {
+  cursor: default;
+  opacity: 0.68;
+}
+
+.project-launch-bridge__link--pending:hover {
+  transform: none;
+  background: #050505;
+}
+
 .detail-media-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -2423,6 +2498,25 @@ img {
   .capability-heading,
   .capability-panel {
     grid-template-columns: 1fr;
+  }
+
+  .project-launch-bridge {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 18px;
+    margin: 0 0 36px;
+    padding: 22px 0 30px;
+  }
+
+  .project-launch-bridge__copy p {
+    font-size: clamp(1.35rem, 7vw, 2rem);
+    line-height: 1.06;
+  }
+
+  .project-launch-bridge__link {
+    justify-self: start;
+    min-width: min(260px, 100%);
+    min-height: 48px;
   }
 
   .detail-media-grid figure,
