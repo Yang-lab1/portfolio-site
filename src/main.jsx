@@ -962,45 +962,6 @@ const caseStudyOverrides = {
   },
 };
 
-const capabilityAreas = [
-  {
-    id: 'ai-product',
-    label: { en: 'AI Product', zh: 'AI 产品' },
-    score: 88,
-    evidence: { en: ['Miro', 'Pai Li Shi', 'Offer Quest'], zh: ['Miro', '拍立食', 'Offer Quest'] },
-  },
-  {
-    id: 'industrial',
-    label: { en: 'Industrial Design', zh: '工业设计' },
-    score: 86,
-    evidence: { en: ['Cross-ripple', 'Smart Waste', 'Baling Press'], zh: ['Cross-ripple', '智能废料箱', '压缩打包机'] },
-  },
-  {
-    id: 'cmf',
-    label: { en: 'CMF / Production', zh: 'CMF / 量产' },
-    score: 82,
-    evidence: { en: ['Xiaomi CMF', 'Pet Toy', 'Electronics CMF'], zh: ['小米 CMF', '猫玩具', '电子 CMF'] },
-  },
-  {
-    id: 'data-viz',
-    label: { en: 'Data Visualization', zh: '数据可视化' },
-    score: 78,
-    evidence: { en: ['Li Bai', 'TCM KG', 'CBS5502'], zh: ['李白', '中医图谱', 'CBS5502'] },
-  },
-  {
-    id: 'systems',
-    label: { en: 'System Design', zh: '系统设计' },
-    score: 84,
-    evidence: { en: ['Miro Governance', 'TCM Systems'], zh: ['Miro 治理', '古籍网络'] },
-  },
-  {
-    id: 'frontend',
-    label: { en: 'Frontend Prototype', zh: '前端原型' },
-    score: 80,
-    evidence: { en: ['Miro', 'Li Bai', 'Offer Quest'], zh: ['Miro', '李白', 'Offer Quest'] },
-  },
-];
-
 const pinnedStories = [
   {
     id: 'ai-product',
@@ -1603,7 +1564,6 @@ function App() {
           <ProductShowcase3D lang={lang} onOpenProject={openProject} />
           <DigitalCaseScroller lang={lang} onOpenProject={openProject} motionEnabled={pinEnabled} />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
-          <CapabilitySummary lang={lang} />
           <About lang={lang} motionEnabled={!motion.reduced} />
           <AirFooter lang={lang} />
         </>
@@ -2825,67 +2785,6 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
         </section>
       ) : null}
     </main>
-  );
-}
-
-function CapabilitySummary({ lang }) {
-  const points = capabilityAreas
-    .map((area, index) => {
-      const angle = (-90 + index * (360 / capabilityAreas.length)) * (Math.PI / 180);
-      const radius = 43 * (area.score / 100);
-      return `${50 + Math.cos(angle) * radius},${50 + Math.sin(angle) * radius}`;
-    })
-    .join(' ');
-
-  return (
-    <section className="capability-section" aria-label={lang === 'zh' ? '能力总结' : 'Capability summary'}>
-      <div className="capability-heading">
-        <span>{lang === 'zh' ? '能力结构' : 'Capability Structure'}</span>
-        <h2>{lang === 'zh' ? '不是堆项目，而是能力组合。' : 'Not a pile of projects. A capability mix.'}</h2>
-        <p>
-          {lang === 'zh'
-            ? '这一层放在作品之后，用低调图表说明作品背后的能力分布。'
-            : 'Placed after the work rails, this layer summarizes the capability structure behind the portfolio.'}
-        </p>
-      </div>
-      <div className="capability-panel">
-        <div className="capability-radar" aria-hidden="true">
-          <svg viewBox="0 0 100 100" role="img">
-            {[16, 28, 40].map((radius) => (
-              <circle key={radius} cx="50" cy="50" r={radius} />
-            ))}
-            {capabilityAreas.map((_, index) => {
-              const angle = (-90 + index * (360 / capabilityAreas.length)) * (Math.PI / 180);
-              return <line key={index} x1="50" y1="50" x2={50 + Math.cos(angle) * 44} y2={50 + Math.sin(angle) * 44} />;
-            })}
-            <polygon points={points} />
-            {capabilityAreas.map((area, index) => {
-              const angle = (-90 + index * (360 / capabilityAreas.length)) * (Math.PI / 180);
-              return (
-                <text key={area.id} x={50 + Math.cos(angle) * 49} y={51 + Math.sin(angle) * 49}>
-                  {String(area.score)}
-                </text>
-              );
-            })}
-          </svg>
-        </div>
-        <div className="capability-list">
-          {capabilityAreas.map((area) => (
-            <article key={area.id}>
-              <div>
-                <h3>{t(area.label, lang)}</h3>
-                <strong>{area.score}</strong>
-              </div>
-              <p>
-                {t(area.evidence, lang).map((item) => (
-                  <span key={item}>{item}</span>
-                ))}
-              </p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
   );
 }
 

@@ -191,3 +191,8 @@
 - 搜索框 collapse / re-expand 会清空 input、reply、results、loading 等当前会话状态；请求中 collapse 会递增 request id，旧请求返回后不会写回 UI。
 - 当前输入框继续只保留搜索图标、输入框和发送按钮；不恢复语音按钮，不恢复独立项目结果卡片，不显示 CoT、置信度分数或 debug。
 - 本地验证：`node --check api/agent.js`、`node --check src/lib/agentClient.js`、`npm run build` 均通过；临时意图测试覆盖了拍立食介绍/导航、Miro 介绍/导航、林杨奖项、股票实时问题。
+
+## 2026-06-23 删除能力组合板块
+- 已从首页移除“不是堆项目，而是能力组合。”能力雷达板块。
+- 本次只删除该板块及其专用 `capabilityAreas` 数据，不改动 Hero、作品区、Agent、About 和 Footer。
+- 计划完成构建验证后提交 GitHub，并部署到 Vercel production 留存可回滚版本。
