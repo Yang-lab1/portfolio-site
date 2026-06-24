@@ -286,6 +286,50 @@ const projects = [
     source: { en: 'Confirmed local source. Keep secondary because it is job-prep oriented.', zh: '已确认本地来源。因偏求职准备，作为次级作品处理。' },
   },
   {
+    id: 'sport',
+    category: 'digital',
+    title: { en: 'Home Form Coach', zh: 'Home Form Coach' },
+    type: { en: 'Fitness AI / Pose Tracking / Web App', zh: '运动姿态 AI / Web 应用' },
+    year: '2026',
+    image: '/portfolio/sport-home-form-coach-cover.jpg',
+    gallery: [
+      '/portfolio/sport-home-form-coach-cover.jpg',
+      '/portfolio/sport-home-form-coach-coach.png',
+      '/portfolio/sport-home-form-coach-swim.jpg',
+      '/portfolio/sport-home-form-coach-tennis.jpg',
+    ],
+    liveUrl: 'https://sport-yangs-projects-d2ad4c9e.vercel.app',
+    launchNote: {
+      en: 'Home Form Coach is a local-first fitness form checker that uses browser camera pose tracking to guide home training, score movement quality, and turn each session into a structured report without uploading raw video.',
+      zh: 'Home Form Coach 是一个本地优先的居家健身动作质检器，用浏览器摄像头姿态追踪引导训练、评分动作质量，并在不上传原始视频的前提下生成结构化报告。',
+    },
+    role: {
+      en: 'Product framing, motion-led landing page, pose-analysis interface, report workflow, deployment QA',
+      zh: '产品框定、运动视觉落地页、姿态分析界面、报告流程、部署验证',
+    },
+    summary: {
+      en: 'A camera-based home training prototype combining sport collage motion, real-time pose feedback, workout planning, set control, and local-first reporting.',
+      zh: '一个基于摄像头的居家训练原型，整合运动拼贴动效、实时姿态反馈、训练计划、组数控制和本地优先报告。',
+    },
+    targetUser: {
+      en: 'Home fitness users who need lightweight form feedback, workout structure, and progress records without sending raw camera footage to a server.',
+      zh: '需要轻量动作反馈、训练结构和进度记录，同时不希望上传原始摄像头画面的居家健身用户。',
+    },
+    painPoint: {
+      en: 'Home workouts often lack coaching eyes, so users cannot tell whether posture quality, rep rhythm, and training records are reliable.',
+      zh: '居家训练缺少教练视角，用户很难判断姿态质量、重复节奏和训练记录是否可靠。',
+    },
+    solution: {
+      en: 'The prototype keeps video processing in the browser, combines pose landmarks with rule-based form checks, and saves only structured training reports.',
+      zh: '原型把视频处理留在浏览器本地，将姿态关键点与规则化动作判断结合，并仅保存结构化训练报告。',
+    },
+    evidence: {
+      en: ['React and Vite prototype', 'MediaPipe pose tracking', 'Workout planner and set controls', 'Local-first report flow with optional Supabase sync'],
+      zh: ['React 与 Vite 原型', 'MediaPipe 姿态追踪', '训练计划与组数控制', '本地优先报告流程与可选 Supabase 同步'],
+    },
+    source: { en: 'Confirmed GitHub repository: Yang-lab1/sport', zh: '已确认 GitHub 仓库：Yang-lab1/sport' },
+  },
+  {
     id: 'momenta',
     category: 'digital',
     title: { en: 'Momenta AI Music Interaction', zh: 'Momenta AI 音乐交互' },
@@ -665,6 +709,10 @@ const projectShortCopy = {
     en: 'Structured job-learning dashboard with maps and review loops.',
     zh: '用地图和复习节奏组织求职学习。',
   },
+  sport: {
+    en: 'Local-first fitness form coach with camera pose tracking and reports.',
+    zh: '本地优先的摄像头姿态训练质检与报告系统。',
+  },
   momenta: {
     en: 'Public SwiftUI AI music repository plus local device-interaction evidence.',
     zh: '公开 SwiftUI AI 音乐仓库，加本地设备交互证据。',
@@ -737,6 +785,7 @@ const projectKinds = {
   libai: 'digital',
   'tcm-kg': 'research',
   'offer-quest': 'digital',
+  sport: 'digital',
   momenta: 'digital',
   'cross-ripple': 'product',
   'cup-cup': 'product',
@@ -1063,35 +1112,35 @@ const achievementCards = [
 ];
 
 const productShowcaseIds = ['cross-ripple', 'smart-waste', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
-const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'offer-quest'];
+const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'sport'];
 const daimaWorkPanels = [
   {
     id: 'daima-miro',
     projectId: 'miro',
-    title: 'Miro AI 演练系统',
-    category: 'AI Rehearsal / Web System',
+    title: 'Miro AI Rehearsal System',
+    category: 'AI Product / Web System',
     image: '/portfolio/miro-daima-cover.png',
   },
   {
     id: 'daima-palifood',
     projectId: 'palifood',
-    title: '拍立食',
+    title: 'Pai Li Shi',
     category: 'Food AI / Mobile H5',
     image: '/portfolio/palifood-stage-china.jpg',
   },
   {
     id: 'daima-libai',
     projectId: 'libai',
-    title: '李白互动网站',
-    category: 'Digital Humanities / Web',
+    title: 'Li Bai Interactive Website',
+    category: 'Digital Humanities / Web Experience',
     image: '/portfolio/libai-background.png',
   },
   {
-    id: 'daima-offer-quest',
-    projectId: 'offer-quest',
-    title: 'Offer Quest',
-    category: 'Career Learning / Quest Prototype',
-    image: '/portfolio/offer-quest-desktop.png',
+    id: 'daima-sport',
+    projectId: 'sport',
+    title: 'Home Form Coach',
+    category: 'Fitness AI / Pose Tracking',
+    image: '/portfolio/sport-home-form-coach-cover.jpg',
   },
 ];
 
@@ -3516,6 +3565,7 @@ const agentProjectAliases = {
   libai: ['李白', 'libai', '互动网站', '诗歌', 'poetry'],
   'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
   'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
+  sport: ['sport', 'sports', 'home form coach', 'fitness', 'pose tracking', '运动', '健身', '姿态', '动作质检'],
   momenta: ['momenta', '自动驾驶', '地图', 'map'],
   'cross-ripple': ['水疗', 'watsu', '复健', '训练设备', 'hydrotherapy'],
   'cup-cup': ['cup', '复合转盘', '小家电'],

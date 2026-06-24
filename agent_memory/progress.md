@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-24 Daima fourth panel switched to sport
+- Updated the Daima four-work panel copy so all visible panel titles/categories are English-only: `Miro AI Rehearsal System`, `Pai Li Shi`, `Li Bai Interactive Website`, and `Home Form Coach`.
+- Replaced the previous fourth Daima entry from `Offer Quest` to the sport project `Home Form Coach`, backed by `https://github.com/Yang-lab1/sport` and the confirmed live site `https://sport-yangs-projects-d2ad4c9e.vercel.app`.
+- Added the `sport` project to portfolio data with design concept, live-site link, source note, evidence, Agent aliases, and gallery assets under `public/portfolio/sport-home-form-coach-*`.
+- Replaced `offer-quest` with `sport` in the primary `digitalCaseIds` sequence while keeping the original Offer Quest project record available for rollback/reference.
+- Local validation passed: `npm run build`; Playwright desktop QA confirmed nav/language/Agent presence, four Daima panels, English-only panel copy, fourth-panel click into `Home Form Coach`, live link, and loaded detail media; mobile QA confirmed four panels and `overflow-x = 0`.
+
 ## 2026-06-24 Daima Miro cover and project text update
 - Replaced the first Daima four-work panel image with the user-provided attachment, stored as `public/portfolio/miro-daima-cover.png`.
 - Updated the four Daima panel texts from source-site placeholder names to portfolio-specific labels: `Miro AI 演练系统 / AI Rehearsal / Web System`, `拍立食 / Food AI / Mobile H5`, `李白互动网站 / Digital Humanities / Web`, and `Offer Quest / Career Learning / Quest Prototype`.

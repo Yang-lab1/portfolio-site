@@ -38,6 +38,7 @@
 ## 2026-06-24 Daima interaction guardrail
 - Do not simplify the Daima four-work section back into static fullscreen cards. The accepted target requires Lenis smooth scroll, internal sticky viewport, tall clipped image layer without scale/filter, duplicate-title hover roll, independent category scroll layer, weak transparent header state, and `480px` mobile work panels.
 - Regression QA should include desktop `1440x900`, mobile `390x844`, title hover transform, image `transform/filter`, natural panel handoff, four internal detail-page clicks, and horizontal overflow.
+- Current Daima panel copy must stay English-only. The fourth panel is now `Home Form Coach` / `sport`, not `Offer Quest`; do not restore `Offer Quest` to the four-screen showcase unless the user explicitly asks.
 
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。

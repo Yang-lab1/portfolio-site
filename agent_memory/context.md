@@ -161,3 +161,9 @@
 - The frontend now calls `/api/agent` first and falls back to local semantic matching when no model key is configured or the upstream request fails.
 - The serverless API expects an OpenAI-compatible provider through `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `OPENAI_MODEL`; AGNES can be connected through these env vars if its endpoint supports `/chat/completions` semantics.
 - Intended rollback tag for this release: `v1.2-agent-api-20260622`.
+
+## 2026-06-24 Daima sport panel context
+- The Daima four-work showcase should use English-only visible panel copy.
+- Current four panels: `Miro AI Rehearsal System`, `Pai Li Shi`, `Li Bai Interactive Website`, and `Home Form Coach`.
+- `Home Form Coach` is the sport project from `C:\Users\Yang\Desktop\sport` / `https://github.com/Yang-lab1/sport`, with live site `https://sport-yangs-projects-d2ad4c9e.vercel.app`.
+- The fourth Daima panel and primary digital case sequence now point to `sport`; the old `Offer Quest` project record remains in data for reference but is no longer the fourth showcase panel.
