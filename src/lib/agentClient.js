@@ -438,7 +438,7 @@ function buildKnowledgeAnswer(rankedDocs, query, lang) {
 }
 
 function looksLikeNoDataAnswer(answer) {
-  return /未提及|没有.*资料|暂无|not mentioned|not provided|no data/i.test(String(answer || ''));
+  return /没.*锁定|没在站内证据|没有.*对应项目|未提及|没有.*资料|暂无|not mentioned|not provided|no data|could not lock|not lock/i.test(String(answer || ''));
 }
 
 function includesAny(query, hints) {
@@ -625,6 +625,16 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile, knowled
   );
   let mode = data.mode === 'not_found' ? 'refusal' : data.mode;
 
+  if (
+    !projectId &&
+    localTop &&
+    intent.hasStrongProject &&
+    (mode === 'refusal' || mode === 'clarify' || looksLikeNoDataAnswer(data.answer))
+  ) {
+    projectId = localTop.projectId;
+    mode = isPureNavigationIntent(intent) ? 'navigate' : 'answer_with_navigation';
+  }
+
   if (projectId && mode === 'refusal' && intent.hasStrongProject) {
     mode = isPureNavigationIntent(intent) ? 'navigate' : 'answer_with_navigation';
   }
@@ -662,7 +672,7 @@ function normalizeRemoteDecision(data, candidates, query, lang, profile, knowled
     base.confidence = Math.max(base.confidence || 0, 0.78);
   }
 
-  if (!base.answer && (base.mode === 'answer' || base.mode === 'answer_with_navigation')) {
+  if ((!base.answer || looksLikeNoDataAnswer(base.answer)) && (base.mode === 'answer' || base.mode === 'answer_with_navigation')) {
     const candidate = candidates.find((item) => item.projectId === projectId) || ranked[0] || candidates[0];
     if (candidate) {
       base.answer = cleanupAnswerText(buildProjectAnswer(candidate, query, lang));

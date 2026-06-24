@@ -289,6 +289,9 @@ function sanitizeDecision(parsed, candidates, query) {
       : [];
 
   if (projectId && intent.pureNavigation) mode = 'navigate';
+  if (projectId && mode === 'refusal' && !intent.asksExternalRealtime) {
+    mode = intent.pureNavigation ? 'navigate' : 'answer_with_navigation';
+  }
   if (projectId && mode === 'navigate' && !intent.pureNavigation) mode = 'answer_with_navigation';
   if (projectId && mode === 'answer' && (intent.info || intent.location)) mode = 'answer_with_navigation';
   if (intent.asksExternalRealtime && !projectId) mode = 'refusal';

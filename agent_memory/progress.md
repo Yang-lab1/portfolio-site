@@ -5,6 +5,7 @@
 - Desktop local QA at `1440x900` passed: first panel measured `1440x900`, sticky viewport `1440x900`, image layer `1440x1060`, image `transform/filter` both `none`, title clip `72.8px`, hover title roll `-72.8px`, and natural top/bottom handoff between the first and second panels.
 - Mobile local QA at `390x844` passed: work panel height is `480px`, title is left aligned at `24px`, title style is `32px / 44.8px / 500`, and horizontal overflow is `0`.
 - Click QA passed for all four panels: NovaTech -> `miro`, Finverse -> `palifood`, Medlink -> `libai`, Orbit -> `offer-quest`; each opens the internal `.detail-page` with launch bridge and media grid.
+- Agent alias matching was hardened after QA: explicit project title/alias matches now score strongly, and remote refusal/clarify responses are corrected when the local site evidence has a strong project match. Unicode-input QA for `拍立食是干嘛的` returns Palifood with one project button and no Miro.
 - Added `docs/research/components/daima-works-showcase.spec.md` to preserve measured source behavior and local verification targets.
 - `npm run build` passed locally. GitHub push and Vercel production deployment are the next release steps.
 

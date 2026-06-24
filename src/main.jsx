@@ -3584,6 +3584,14 @@ function scoreAgentProject(project, query) {
   let score = 0;
 
   if (compact && (compact === id || compact === titleZh || compact === titleEn)) score += 80;
+  if (
+    compact &&
+    ((id && compact.includes(id)) ||
+      (titleZh && compact.includes(titleZh)) ||
+      (titleEn && compact.includes(titleEn)))
+  ) {
+    score += 64;
+  }
   if (compact && (id.includes(compact) || titleZh.includes(compact) || titleEn.includes(compact))) score += 34;
   if (normalized && haystack.includes(normalized)) score += 18;
   if (compact && compactHaystack.includes(compact)) score += 18;
@@ -3591,7 +3599,8 @@ function scoreAgentProject(project, query) {
   (agentProjectAliases[project.id] || []).forEach((alias) => {
     const aliasCompact = compactAgentText(alias);
     if (!aliasCompact) return;
-    if (compact.includes(aliasCompact) || aliasCompact.includes(compact)) score += aliasCompact.length > 2 ? 26 : 10;
+    if (compact.includes(aliasCompact)) score += aliasCompact.length > 2 ? 62 : 18;
+    else if (aliasCompact.includes(compact)) score += aliasCompact.length > 2 ? 26 : 10;
   });
 
   normalized.split(/\s+/).forEach((token) => {
