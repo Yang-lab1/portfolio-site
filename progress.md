@@ -949,7 +949,7 @@
   - Public Playwright QA passed against `https://portfolio-site-three-rose.vercel.app/`: Agent evaluation answer, visible `查看项目`, and Pai Li Shi detail navigation all passed.
 
 ## Session: 2026-06-24 Daima Work Panels + Agent Achievement QA
-- **Status:** local complete; deployment pending at time of writing.
+- **Status:** complete.
 - Actions completed:
   - Refined the Daima-style four fullscreen work panels to better match the source typography: Manrope-like 52px / 600 titles and Geist Mono-like 16px / 500 categories, with zero letter spacing per current UI rules.
   - Kept the four internal click targets: Miro, 拍立食, 李白互动网站, and Offer Quest.
@@ -958,3 +958,4 @@
   - `C:\Users\Yang\.local\bin\rtk.exe cmd /c npm run build` passed.
   - Local Playwright QA passed: 4 fullscreen Daima panels, loaded images, all 4 project detail bridges, Pai Li Shi single-button Agent answer without Miro, collapse/reopen cleared state, awards answer includes `12+`, and mobile overflow is `0`.
   - QA output: `tmp/daima-focused-qa/`.
+  - GitHub and Vercel release details are recorded in the final handoff for this session.

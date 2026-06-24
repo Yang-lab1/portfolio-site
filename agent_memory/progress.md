@@ -219,4 +219,4 @@
 - Daima 四屏仍保留本站导航、语言切换和 AI 浮球；四个入口继续映射到 Miro、拍立食、李白、Offer Quest 的内部详情页。
 - 修复 Agent 本地 fallback 的成就知识库选择：`林杨得过多少奖` 这类问题现在优先命中“奖项荣誉 12+”，不会被“作品入口 51”抢答。
 - 本地验证：`npm run build` 通过；Playwright QA 通过四屏 fullscreen、四个详情页桥接区、拍立食不混入 Miro、collapse/re-open 清空旧会话、奖项回答含 `12+`、移动端无横向溢出。
-- QA 截图保存在 `tmp/daima-focused-qa/`；待提交、推送和 Vercel production 部署。
+- QA 截图保存在 `tmp/daima-focused-qa/`；GitHub 与 Vercel 版本信息以本轮最终交付记录为准。
