@@ -2151,9 +2151,9 @@ function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
 
         gsap.fromTo(
           copyEl,
-          { y: 28, autoAlpha: 0.9 },
+          { y: 76, autoAlpha: 1 },
           {
-            y: -22,
+            y: 28,
             autoAlpha: 1,
             ease: 'none',
             scrollTrigger: {

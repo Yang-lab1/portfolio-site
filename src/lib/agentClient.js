@@ -357,8 +357,61 @@ function rankKnowledgeDocs(knowledgeBase, query) {
     .sort((left, right) => right.semanticScore - left.semanticScore);
 }
 
+function achievementText(doc) {
+  return [
+    getLocalized(doc?.title, 'zh'),
+    getLocalized(doc?.title, 'en'),
+    getLocalized(doc?.note, 'zh'),
+    getLocalized(doc?.note, 'en'),
+    getLocalized(doc?.content, 'zh'),
+    getLocalized(doc?.content, 'en'),
+  ]
+    .filter(Boolean)
+    .join(' ');
+}
+
+function compactIncludesAny(value, terms) {
+  const text = compactText(value);
+  return terms.some((term) => {
+    const compactTerm = compactText(term);
+    return compactTerm && text.includes(compactTerm);
+  });
+}
+
+function selectRequestedAchievementDoc(rankedDocs, query) {
+  const achievementDocs = (rankedDocs || []).filter((doc) => doc.kind === 'achievement');
+  if (!achievementDocs.length) return null;
+
+  const groups = [
+    {
+      queryTerms: ['\u5956', '\u5956\u9879', '\u83b7\u5956', '\u8363\u8a89', '\u5956\u5b66\u91d1', 'award', 'awards', 'honor', 'honors', 'scholarship'],
+      docTerms: ['\u5956\u9879', '\u8363\u8a89', '\u5956\u5b66\u91d1', 'honor', 'honors', 'award', 'awards', 'scholarship'],
+    },
+    {
+      queryTerms: ['\u5ba2\u6237', '\u534f\u4f5c', '\u5408\u4f5c', 'client', 'clients', 'collaboration'],
+      docTerms: ['\u5ba2\u6237', '\u534f\u4f5c', 'client', 'clients'],
+    },
+    {
+      queryTerms: ['\u4f5c\u54c1', '\u5165\u53e3', '\u9879\u76ee\u6570', '\u9879\u76ee\u6570\u91cf', 'work', 'works', 'portfolio entries'],
+      docTerms: ['\u4f5c\u54c1', '\u5165\u53e3', 'work', 'works', 'portfolio cases', 'portfolio entries'],
+    },
+    {
+      queryTerms: ['\u80fd\u529b', '\u65b9\u5411', '\u7c7b\u578b', 'capability', 'capabilities', 'direction', 'directions'],
+      docTerms: ['\u80fd\u529b', '\u65b9\u5411', 'direction', 'directions'],
+    },
+  ];
+
+  for (const group of groups) {
+    if (!compactIncludesAny(query, group.queryTerms)) continue;
+    const matched = achievementDocs.find((doc) => compactIncludesAny(achievementText(doc), group.docTerms));
+    if (matched) return matched;
+  }
+
+  return null;
+}
+
 function buildKnowledgeAnswer(rankedDocs, query, lang) {
-  const top = rankedDocs?.[0];
+  const top = selectRequestedAchievementDoc(rankedDocs, query) || rankedDocs?.[0];
   if (!top || top.semanticScore < 14) return '';
 
   const title = getLocalized(top.title, lang);

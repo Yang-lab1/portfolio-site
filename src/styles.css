@@ -3119,10 +3119,11 @@ img {
 .daima-work-panel__title {
   display: block;
   color: #ffffff;
-  font-size: clamp(2.8rem, 4.4vw, 5.2rem);
-  font-weight: 760;
-  letter-spacing: -0.045em;
-  line-height: 0.96;
+  font-family: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(2.8rem, 3.6vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
   text-wrap: balance;
 }
 
@@ -3130,10 +3131,10 @@ img {
   display: block;
   margin-top: clamp(32px, 4vw, 64px);
   color: #ffffff;
-  font-family: "SFMono-Regular", "Roboto Mono", Consolas, monospace;
-  font-size: clamp(0.76rem, 0.92vw, 1rem);
-  font-weight: 800;
-  letter-spacing: 0.01em;
+  font-family: "Geist Mono", "SFMono-Regular", "Roboto Mono", Consolas, monospace;
+  font-size: clamp(0.86rem, 1.1vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1;
 }
 
@@ -3143,8 +3144,8 @@ img {
   }
 
   .daima-work-panel__title {
-    font-size: clamp(2.2rem, 11vw, 4rem);
-    letter-spacing: -0.035em;
+    font-size: clamp(2.25rem, 10vw, 3.25rem);
+    letter-spacing: 0;
   }
 
   .daima-work-panel__category {

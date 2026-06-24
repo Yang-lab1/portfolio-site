@@ -213,3 +213,10 @@
 - 详情页新增设计理念桥接区：先展示一段项目解释，再提供“立即进入网站”入口；没有真实外链时显示链接待补，不编造 URL。
 - 详情页桥接区已补充移动端响应式样式，避免小屏文字和按钮挤压。
 - `npm run build` 已通过。
+
+## 2026-06-24 Daima 字体校准 + Agent 成就统计修复
+- 对照 `https://wearedaima.framer.website/` 的四屏作品段实测样式，校准 Daima 段标题/分类字体：标题改为 Manrope 系、约 52px / 600 / 1.4 line-height；分类改为 Geist Mono 系、约 16px / 500。
+- Daima 四屏仍保留本站导航、语言切换和 AI 浮球；四个入口继续映射到 Miro、拍立食、李白、Offer Quest 的内部详情页。
+- 修复 Agent 本地 fallback 的成就知识库选择：`林杨得过多少奖` 这类问题现在优先命中“奖项荣誉 12+”，不会被“作品入口 51”抢答。
+- 本地验证：`npm run build` 通过；Playwright QA 通过四屏 fullscreen、四个详情页桥接区、拍立食不混入 Miro、collapse/re-open 清空旧会话、奖项回答含 `12+`、移动端无横向溢出。
+- QA 截图保存在 `tmp/daima-focused-qa/`；待提交、推送和 Vercel production 部署。
