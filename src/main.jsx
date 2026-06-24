@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 import { requestAgentDecision, resolveAgentFallbackDecision } from './lib/agentClient.js';
 import { warmSupabaseConnection } from './lib/supabaseClient.js';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import './styles.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -1067,28 +1069,28 @@ const daimaWorkPanels = [
     id: 'daima-miro',
     projectId: 'miro',
     title: 'NovaTech Rebrand',
-    category: 'BRANDING',
+    category: 'Branding',
     image: '/portfolio/miro-hifi-overview.jpg',
   },
   {
     id: 'daima-palifood',
     projectId: 'palifood',
     title: 'Finverse Marketing Website',
-    category: 'WEB DESIGN',
+    category: 'Web Design',
     image: '/portfolio/palifood-stage-china.jpg',
   },
   {
     id: 'daima-libai',
     projectId: 'libai',
     title: 'Medlink Mobile App',
-    category: 'MOBILE APP DESIGN',
+    category: 'Mobile App Design',
     image: '/portfolio/libai-background.png',
   },
   {
     id: 'daima-offer-quest',
     projectId: 'offer-quest',
     title: 'Orbit SaaS Dashboard',
-    category: 'UI DESIGN',
+    category: 'UI Design',
     image: '/portfolio/offer-quest-desktop.png',
   },
 ];
@@ -1225,6 +1227,40 @@ function useMotionProfile() {
   }, []);
 
   return state;
+}
+
+function useLenisScroll(enabled) {
+  useEffect(() => {
+    if (!enabled || typeof window === 'undefined') return undefined;
+
+    const lenis = new Lenis({
+      lerp: 0.1,
+      smoothWheel: true,
+      syncTouch: false,
+      touchMultiplier: 1.05,
+      wheelMultiplier: 1,
+      anchors: true,
+    });
+
+    window.__portfolioLenis = lenis;
+    const refreshScrollTrigger = () => ScrollTrigger.update();
+    const tickLenis = (time) => lenis.raf(time * 1000);
+
+    lenis.on('scroll', refreshScrollTrigger);
+    gsap.ticker.add(tickLenis);
+    gsap.ticker.lagSmoothing(0);
+    ScrollTrigger.refresh();
+
+    return () => {
+      lenis.off('scroll', refreshScrollTrigger);
+      gsap.ticker.remove(tickLenis);
+      lenis.destroy();
+      if (window.__portfolioLenis === lenis) {
+        delete window.__portfolioLenis;
+      }
+      ScrollTrigger.refresh();
+    };
+  }, [enabled]);
 }
 
 function useHomepageMotion(rootRef, { enabled, reduced, magneticEnabled }) {
@@ -1576,6 +1612,7 @@ function App() {
     reduced: motion.reduced,
     magneticEnabled: !motion.reduced && !motion.mobile && motion.finePointer,
   });
+  useLenisScroll(!motion.reduced);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -1595,7 +1632,14 @@ function App() {
 
   const openProject = (id) => {
     setSelectedId(id);
-    window.setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 0);
+    window.setTimeout(() => {
+      const lenis = window.__portfolioLenis;
+      if (lenis?.scrollTo) {
+        lenis.scrollTo(0, { immediate: true, force: true });
+        return;
+      }
+      window.scrollTo({ top: 0, behavior: motion.reduced ? 'auto' : 'smooth' });
+    }, 0);
   };
 
   return (
@@ -2126,48 +2170,82 @@ function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
   const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
-    if (!sectionRef.current || !motionEnabled) return undefined;
+    const section = sectionRef.current;
+    if (!section || !motionEnabled) return undefined;
 
     const ctx = gsap.context(() => {
       gsap.utils.toArray('.daima-work-panel').forEach((panel) => {
-        const image = panel.querySelector('.daima-work-panel__image');
-        const copyEl = panel.querySelector('.daima-work-panel__copy');
+        const mediaLayer = panel.querySelector('.daima-work-panel__media-layer');
+        const titleWindow = panel.querySelector('.daima-work-panel__title-window');
+        const categoryWrap = panel.querySelector('.daima-work-panel__category-wrap');
 
-        gsap.fromTo(
-          image,
-          { scale: 1.08, yPercent: -2 },
-          {
-            scale: 1.01,
-            yPercent: 2,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: panel,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
+        if (mediaLayer) {
+          gsap.fromTo(
+            mediaLayer,
+            { y: -160 },
+            {
+              y: 160,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: panel,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
             },
-          },
-        );
+          );
+        }
 
-        gsap.fromTo(
-          copyEl,
-          { y: 76, autoAlpha: 1 },
-          {
-            y: 28,
-            autoAlpha: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: panel,
-              start: 'top 86%',
-              end: 'bottom 32%',
-              scrub: true,
+        if (titleWindow) {
+          gsap.fromTo(
+            titleWindow,
+            { y: 320 },
+            {
+              y: -160,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: panel,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
             },
-          },
-        );
+          );
+        }
+
+        if (categoryWrap) {
+          gsap.fromTo(
+            categoryWrap,
+            { y: 390 },
+            {
+              y: -150,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: panel,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            },
+          );
+        }
+      });
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top 45%',
+        end: 'bottom 20%',
+        onEnter: () => document.body.classList.add('is-daima-active'),
+        onEnterBack: () => document.body.classList.add('is-daima-active'),
+        onLeave: () => document.body.classList.remove('is-daima-active'),
+        onLeaveBack: () => document.body.classList.remove('is-daima-active'),
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      document.body.classList.remove('is-daima-active');
+      ctx.revert();
+    };
   }, [motionEnabled]);
 
   return (
@@ -2178,16 +2256,29 @@ function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
           type="button"
           key={panel.id}
           onClick={() => onOpenProject(panel.projectId)}
-          data-magnetic
           aria-label={`Open ${panel.title}`}
         >
-          <span className="daima-work-panel__media" aria-hidden="true">
-            <img className="daima-work-panel__image" src={panel.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-            <span className="daima-work-panel__veil" />
-          </span>
-          <span className="daima-work-panel__copy">
-            <span className="daima-work-panel__title">{panel.title}</span>
-            <span className="daima-work-panel__category">{panel.category}</span>
+          <span className="daima-work-panel__sticky">
+            <span className="daima-work-panel__frame">
+              <span className="daima-work-panel__media-crop" aria-hidden="true">
+                <span className="daima-work-panel__media-layer">
+                  <img className="daima-work-panel__image" src={panel.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+                </span>
+              </span>
+              <span className="daima-work-panel__content">
+                <span className="daima-work-panel__title-window">
+                  <span className="daima-work-panel__title-track">
+                    <span className="daima-work-panel__title-line">{panel.title}</span>
+                    <span className="daima-work-panel__title-line" aria-hidden="true">
+                      {panel.title}
+                    </span>
+                  </span>
+                </span>
+                <span className="daima-work-panel__category-wrap">
+                  <span className="daima-work-panel__category">{panel.category}</span>
+                </span>
+              </span>
+            </span>
           </span>
         </button>
       ))}

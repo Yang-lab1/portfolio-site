@@ -1,5 +1,13 @@
 # 当前任务进度
 
+## 2026-06-24 Daima source interaction deep replica
+- Reworked the four Daima-style work panels from static fullscreen buttons into source-like panels with internal sticky viewport structure, Lenis smooth scrolling, separate image/title/category scroll layers, and duplicate-title hover rolling.
+- Desktop local QA at `1440x900` passed: first panel measured `1440x900`, sticky viewport `1440x900`, image layer `1440x1060`, image `transform/filter` both `none`, title clip `72.8px`, hover title roll `-72.8px`, and natural top/bottom handoff between the first and second panels.
+- Mobile local QA at `390x844` passed: work panel height is `480px`, title is left aligned at `24px`, title style is `32px / 44.8px / 500`, and horizontal overflow is `0`.
+- Click QA passed for all four panels: NovaTech -> `miro`, Finverse -> `palifood`, Medlink -> `libai`, Orbit -> `offer-quest`; each opens the internal `.detail-page` with launch bridge and media grid.
+- Added `docs/research/components/daima-works-showcase.spec.md` to preserve measured source behavior and local verification targets.
+- `npm run build` passed locally. GitHub push and Vercel production deployment are the next release steps.
+
 ## 2026-06-18 Tresmares Seven-Card Orbit Geometry
 - Completed the stricter desktop orbit correction: exactly seven visible cards, with one centered card and three mirrored cards on each side.
 - The cards now use a shared bottom-center circle origin. Their rotation is calculated from each card center back to that origin, so the visible cards read as tangent to one semicircle.

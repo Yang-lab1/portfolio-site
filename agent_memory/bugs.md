@@ -35,6 +35,10 @@
 - 不要把侧卡折叠成很窄的薄片；当前倾斜为 14deg，保持浅透视。
 - 后续若调整 product orbit，必须复测 visibleCount、side visibleRatioX、noOverlap、centerIsLargest 和移动端 overflow。
 
+## 2026-06-24 Daima interaction guardrail
+- Do not simplify the Daima four-work section back into static fullscreen cards. The accepted target requires Lenis smooth scroll, internal sticky viewport, tall clipped image layer without scale/filter, duplicate-title hover roll, independent category scroll layer, weak transparent header state, and `480px` mobile work panels.
+- Regression QA should include desktop `1440x900`, mobile `390x844`, title hover transform, image `transform/filter`, natural panel handoff, four internal detail-page clicks, and horizontal overflow.
+
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。
 - 不要再把侧卡折叠角度加大；当前用户要求倾斜更克制，最新值为 rotateY(8deg)。
