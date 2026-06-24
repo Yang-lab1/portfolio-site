@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-24 Daima Miro cover and project text update
+- Replaced the first Daima four-work panel image with the user-provided attachment, stored as `public/portfolio/miro-daima-cover.png`.
+- Updated the four Daima panel texts from source-site placeholder names to portfolio-specific labels: `Miro AI 演练系统 / AI Rehearsal / Web System`, `拍立食 / Food AI / Mobile H5`, `李白互动网站 / Digital Humanities / Web`, and `Offer Quest / Career Learning / Quest Prototype`.
+- Kept the remaining three panel cover images unchanged as requested.
+- Local `npm run build` passed. Playwright QA verified the new Miro image loads, all four labels render, title rolling still works, mobile has no horizontal overflow, and all four panels still open the correct detail pages.
+
 ## 2026-06-24 Daima source interaction deep replica
 - Reworked the four Daima-style work panels from static fullscreen buttons into source-like panels with internal sticky viewport structure, Lenis smooth scrolling, separate image/title/category scroll layers, and duplicate-title hover rolling.
 - Desktop local QA at `1440x900` passed: first panel measured `1440x900`, sticky viewport `1440x900`, image layer `1440x1060`, image `transform/filter` both `none`, title clip `72.8px`, hover title roll `-72.8px`, and natural top/bottom handoff between the first and second panels.
