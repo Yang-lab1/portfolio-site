@@ -1,5 +1,10 @@
 # 当前任务进度
 
+## 2026-06-24 Daima panel image replacement
+- Replaced only the four Daima work-panel background images with the four user-provided screenshots, in order, stored as `public/portfolio/daima-work-cover-01.png` through `public/portfolio/daima-work-cover-04.png`.
+- Kept all project titles, categories, click targets, detail pages, Agent behavior, and interaction structure unchanged.
+- Local validation passed: `npm run build`; Playwright QA confirmed the four panel image paths load in order at `1916x821`, and mobile horizontal overflow remains `0`.
+
 ## 2026-06-24 Daima fourth panel switched to sport
 - Updated the Daima four-work panel copy so all visible panel titles/categories are English-only: `Miro AI Rehearsal System`, `Pai Li Shi`, `Li Bai Interactive Website`, and `Home Form Coach`.
 - Replaced the previous fourth Daima entry from `Offer Quest` to the sport project `Home Form Coach`, backed by `https://github.com/Yang-lab1/sport` and the confirmed live site `https://sport-yangs-projects-d2ad4c9e.vercel.app`.

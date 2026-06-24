@@ -1119,28 +1119,28 @@ const daimaWorkPanels = [
     projectId: 'miro',
     title: 'Miro AI Rehearsal System',
     category: 'AI Product / Web System',
-    image: '/portfolio/miro-daima-cover.png',
+    image: '/portfolio/daima-work-cover-01.png',
   },
   {
     id: 'daima-palifood',
     projectId: 'palifood',
     title: 'Pai Li Shi',
     category: 'Food AI / Mobile H5',
-    image: '/portfolio/palifood-stage-china.jpg',
+    image: '/portfolio/daima-work-cover-02.png',
   },
   {
     id: 'daima-libai',
     projectId: 'libai',
     title: 'Li Bai Interactive Website',
     category: 'Digital Humanities / Web Experience',
-    image: '/portfolio/libai-background.png',
+    image: '/portfolio/daima-work-cover-03.png',
   },
   {
     id: 'daima-sport',
     projectId: 'sport',
     title: 'Home Form Coach',
     category: 'Fitness AI / Pose Tracking',
-    image: '/portfolio/sport-home-form-coach-cover.jpg',
+    image: '/portfolio/daima-work-cover-04.png',
   },
 ];
 
