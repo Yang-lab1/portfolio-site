@@ -2765,7 +2765,8 @@ img {
   }
 
   .detail-title h1 {
-    font-size: 2.22rem;
+    font-size: clamp(1.72rem, 7vw, 1.88rem);
+    line-height: 1.02;
   }
 
   .evidence-grid,

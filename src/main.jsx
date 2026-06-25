@@ -393,7 +393,7 @@ const projects = [
     year: '2018-2019',
     image: '/portfolio/cup-cup-clean.jpg',
     imageFit: 'contain',
-    gallery: ['/portfolio/cup-cup-clean.jpg'],
+    gallery: ['/portfolio/cup-cup-stage.jpg', '/portfolio/cup-cup-clean.jpg'],
     role: {
       en: 'Pain-point reframing, use flow, physical product design',
       zh: '痛点重构、使用流程、实体产品设计',
@@ -2983,6 +2983,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       ? [heroMedia, ...rawDetailMedia.filter((src) => src !== heroMedia)]
       : rawDetailMedia;
   const caseStudy = getCaseStudy(project, lang);
+  const mediaKind = getDetailMediaKind(project, caseStudy);
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
@@ -3067,13 +3068,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           </dl>
         </div>
       </section>
-      <section ref={mediaGridRef} className={`detail-media-grid detail-media-${caseStudy.kind} detail-media-project-${project.id}`}>
+      <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
         {detailMedia.length ? (
           detailMedia.map((src, index) => (
             <figure key={`${src}-${index}`}>
               <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
               {index === 0 ? (
-                <figcaption>{getDetailMediaLabel(caseStudy.kind, lang)}</figcaption>
+                <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
               ) : null}
             </figure>
           ))
@@ -3179,6 +3180,13 @@ function getDetailMediaLabel(kind, lang) {
     cmf: { en: 'CMF evidence', zh: 'CMF 证据' },
   };
   return labels[kind]?.[lang] || labels.product[lang];
+}
+
+function getDetailMediaKind(project, caseStudy) {
+  const visualOverrides = {
+    'miro-governance': 'digital',
+  };
+  return visualOverrides[project.id] || caseStudy.kind;
 }
 
 function processCopy(project, lang, index) {

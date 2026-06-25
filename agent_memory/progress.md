@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-25 Detail media type-specific final pass
+- Applied the user's clarified rule: website/web-app detail pages use the fullscreen black perspective stage, while non-website industrial/product/CMF/research pages stay as normal fullscreen media without perspective.
+- Split detail media visual kind from case-study content kind so UI/dashboard evidence such as `miro-governance` can render as a web prototype without changing its research classification.
+- Added `public/portfolio/cup-cup-stage.jpg` as a source-preserving Cup's Cup first-media composition to avoid stretching the narrow original product photo.
+- Tightened mobile detail-title sizing so long project titles stay within the compact top-detail format with no `title-too-tall` flags.
+- Local validation passed: `npm run build`; Playwright audit checked all 21 visible detail pages on desktop and mobile for media kind, transform direction, image load, title lines, and `overflowX = 0`.
+
 ## 2026-06-25 Detail media fullscreen coverage correction
 - Tightened the project detail first-media stage so each visible project detail uses a true `100svh` fullscreen media band with no framed-card padding.
 - Updated the type rule after user clarification: only digital/web prototype detail media uses the bottom-near / top-far `rotateX` perspective; research, product, and CMF media render as normal fullscreen images with `transform: none`.
