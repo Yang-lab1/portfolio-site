@@ -7,6 +7,12 @@
 - Tightened desktop vertical spacing so the black dashboard media stage begins around y=448 at `1488x1058`, closer to the reference, with no horizontal overflow.
 - Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed correct copy, vertical metadata, image source/natural size, desktop title one-line, and mobile overflow `0`.
 
+## 2026-06-25 Detail media untilt correction
+- Removed the extra CSS `rotateY/rotateZ` transform from digital/research detail-page first media images after the user flagged Li Bai and Sport as randomly tilted.
+- The black first-media stage remains, but images now render horizontally with `transform: none` and no floating shadow.
+- Added `public/portfolio/palifood-detail-reference-stage.png`, a source-preserving horizontal composition of existing Pai Li Shi screenshots, so the mobile H5 project no longer spills as a giant portrait image in the fullscreen media stage.
+- Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed Miro, Pai Li Shi, Li Bai, and Sport first images all have `transform: none`, loaded natural sizes, and `overflowX = 0`.
+
 ## 2026-06-25 Project detail page visual direction (superseded)
 - Earlier detail-page attempt moved toward compact top typography and a black media stage, but it still used the wrong Miro kicker, horizontal metadata, and mismatched first image.
 - Treat this entry as superseded by `2026-06-25 Miro detail reference correction` above.

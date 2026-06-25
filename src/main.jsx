@@ -2972,12 +2972,14 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
 function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const siblings = projects.filter((item) => item.category === project.category && item.id !== project.id).slice(0, 4);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
+  const referenceHeroMedia = {
+    miro: '/portfolio/miro-detail-reference-dashboard.png',
+    palifood: '/portfolio/palifood-detail-reference-stage.png',
+  };
+  const heroMedia = referenceHeroMedia[project.id];
   const detailMedia =
-    project.id === 'miro'
-      ? [
-          '/portfolio/miro-detail-reference-dashboard.png',
-          ...rawDetailMedia.filter((src) => src !== '/portfolio/miro-detail-reference-dashboard.png'),
-        ]
+    heroMedia
+      ? [heroMedia, ...rawDetailMedia.filter((src) => src !== heroMedia)]
       : rawDetailMedia;
   const caseStudy = getCaseStudy(project, lang);
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
