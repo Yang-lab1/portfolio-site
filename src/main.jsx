@@ -2970,6 +2970,7 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
 }
 
 function ProjectDetail({ lang, project, onBack, onOpenProject }) {
+  const mediaGridRef = useRef(null);
   const siblings = projects.filter((item) => item.category === project.category && item.id !== project.id).slice(0, 4);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const referenceHeroMedia = {
@@ -2985,6 +2986,49 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
+
+  useEffect(() => {
+    const root = mediaGridRef.current;
+    const firstFigure = root?.querySelector('figure:first-child');
+    const firstImage = firstFigure?.querySelector('img');
+    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital, .detail-media-research')) {
+      return undefined;
+    }
+
+    let frame = 0;
+
+    const updateTilt = () => {
+      frame = 0;
+      const rect = firstFigure.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+      const startTop = viewportHeight * 0.38;
+      const endTop = viewportHeight * 0.09;
+      const range = startTop - endTop || 1;
+      const progress = Math.min(1, Math.max(0, (startTop - rect.top) / range));
+      const baseTilt = window.matchMedia('(max-width: 700px)').matches ? 6 : 8;
+      const tilt = baseTilt * (1 - progress);
+      firstImage.style.setProperty('--detail-tilt-x', `${tilt.toFixed(3)}deg`);
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateTilt);
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+      firstImage.style.removeProperty('--detail-tilt-x');
+    };
+  }, [project.id, caseStudy.kind, detailMedia.length]);
+
   return (
     <main className="detail-page">
       <button className="back-button" type="button" onClick={onBack}>
@@ -3018,7 +3062,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           </dl>
         </div>
       </section>
-      <section className={`detail-media-grid detail-media-${caseStudy.kind} detail-media-project-${project.id}`}>
+      <section ref={mediaGridRef} className={`detail-media-grid detail-media-${caseStudy.kind} detail-media-project-${project.id}`}>
         {detailMedia.length ? (
           detailMedia.map((src, index) => (
             <figure key={`${src}-${index}`}>

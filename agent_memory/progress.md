@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Detail media vertical perspective correction
+- Corrected the detail-page first-media tilt direction after the user clarified the desired reference: the media plane must recede vertically, with the top edge smaller/farther away and the bottom edge closer.
+- Replaced the mistaken horizontal `rotateY` direction with `rotateX(var(--detail-tilt-x))` on digital/research first media, keeping the black fullscreen media stage and source images unchanged.
+- Added a `ProjectDetail` scroll listener that starts the first media around `8deg` desktop / `6deg` mobile and gradually flattens it to `0deg` as the user scrolls down into the media block.
+- Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed Miro, Pai Li Shi, Li Bai, and Home Form Coach start with vertical perspective, flatten to `0deg` after scrolling, and keep `overflowX = 0`.
+
 ## 2026-06-25 Miro detail reference correction
 - Corrected the Miro detail page after the user pointed out the previous implementation did not match the selected references.
 - Top hero now follows the option-1 screenshot: `PRODUCT / WEB / SYSTEM`, one-line `Miro Rehearsal System`, short cross-cultural rehearsal summary, and a right-side vertical metadata rail with `YEAR / ROLE / SOURCE STATUS`.
@@ -7,8 +13,9 @@
 - Tightened desktop vertical spacing so the black dashboard media stage begins around y=448 at `1488x1058`, closer to the reference, with no horizontal overflow.
 - Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed correct copy, vertical metadata, image source/natural size, desktop title one-line, and mobile overflow `0`.
 
-## 2026-06-25 Detail media untilt correction
+## 2026-06-25 Detail media untilt correction (superseded)
 - Removed the extra CSS `rotateY/rotateZ` transform from digital/research detail-page first media images after the user flagged Li Bai and Sport as randomly tilted.
+- Superseded by `2026-06-25 Detail media vertical perspective correction`: the correct behavior is controlled vertical `rotateX`, not `transform: none`.
 - The black first-media stage remains, but images now render horizontally with `transform: none` and no floating shadow.
 - Added `public/portfolio/palifood-detail-reference-stage.png`, a source-preserving horizontal composition of existing Pai Li Shi screenshots, so the mobile H5 project no longer spills as a giant portrait image in the fullscreen media stage.
 - Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed Miro, Pai Li Shi, Li Bai, and Sport first images all have `transform: none`, loaded natural sizes, and `overflowX = 0`.
