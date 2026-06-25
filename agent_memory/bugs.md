@@ -40,6 +40,11 @@
 - Regression QA should include desktop `1440x900`, mobile `390x844`, title hover transform, image `transform/filter`, natural panel handoff, four internal detail-page clicks, and horizontal overflow.
 - Current Daima panel copy must stay English-only. The fourth panel is now `Home Form Coach` / `sport`, not `Offer Quest`; do not restore `Offer Quest` to the four-screen showcase unless the user explicitly asks.
 
+## 2026-06-25 Floating contact guardrail
+- Keep the email copy control in the Bill Chien-style pattern: black/white `80px` circle, right-anchored white mail icon, `EMAIL COPIED` text revealed by a left-expanding pill around `212px`, and timed retract after copy.
+- Keep the Agent floating entry visually paired with the email button, but do not rewrite the existing Agent panel, AGNES API path, fallback logic, or collapse/reset behavior when only changing the icon/button shell.
+- Do not use the Bill Chien yellow palette on Yang's site; the adapted contact controls should remain black/white to match the portfolio system.
+
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。
 - 不要再把侧卡折叠角度加大；当前用户要求倾斜更克制，最新值为 rotateY(8deg)。

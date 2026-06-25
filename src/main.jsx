@@ -4,9 +4,11 @@ import { useInView, useMotionValue, useSpring } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
+  Bot,
   ChevronLeft,
   ChevronRight,
   Languages,
+  Mail,
   Search,
   Send,
 } from 'lucide-react';
@@ -17,6 +19,15 @@ import 'lenis/dist/lenis.css';
 import './styles.css';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CONTACT_EMAIL = 'lin297861138@gmail.com';
+const FLOATING_BUTTON_SIZE = 80;
+const FLOATING_OFFSET = 20;
+const FLOATING_STACK_GAP = 12;
+const AGENT_DEFAULT_POSITION = {
+  x: FLOATING_OFFSET,
+  y: FLOATING_OFFSET + FLOATING_BUTTON_SIZE + FLOATING_STACK_GAP,
+};
 
 const copy = {
   en: {
@@ -1708,6 +1719,7 @@ function App() {
         </>
       )}
       <AgentOrb lang={lang} onOpenProject={openProject} />
+      <EmailCopyButton />
     </div>
   );
 }
@@ -3679,10 +3691,17 @@ function AgentOrb({ lang, onOpenProject }) {
   const [reply, setReply] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [position, setPosition] = useState({ x: 24, y: 24 });
+  const [position, setPosition] = useState(AGENT_DEFAULT_POSITION);
   const panelRef = useRef(null);
   const orbRef = useRef(null);
-  const dragRef = useRef({ active: false, startX: 0, startY: 0, x: 24, y: 24, moved: false });
+  const dragRef = useRef({
+    active: false,
+    startX: 0,
+    startY: 0,
+    x: AGENT_DEFAULT_POSITION.x,
+    y: AGENT_DEFAULT_POSITION.y,
+    moved: false,
+  });
   const requestSeqRef = useRef(0);
 
   const resetAgentSession = () => {
@@ -3750,8 +3769,8 @@ function AgentOrb({ lang, onOpenProject }) {
 
   const moveDrag = (event) => {
     if (!dragRef.current.active) return;
-    const nextX = Math.max(12, dragRef.current.x - (event.clientX - dragRef.current.startX));
-    const nextY = Math.max(12, dragRef.current.y - (event.clientY - dragRef.current.startY));
+    const nextX = Math.max(FLOATING_OFFSET, dragRef.current.x - (event.clientX - dragRef.current.startX));
+    const nextY = Math.max(AGENT_DEFAULT_POSITION.y, dragRef.current.y - (event.clientY - dragRef.current.startY));
     if (Math.abs(event.clientX - dragRef.current.startX) + Math.abs(event.clientY - dragRef.current.startY) > 6) {
       dragRef.current.moved = true;
     }
@@ -3903,7 +3922,72 @@ function AgentOrb({ lang, onOpenProject }) {
         onPointerCancel={endDrag}
         aria-label={lang === 'zh' ? '作品集 Agent' : 'Portfolio search assistant'}
       >
-        <span className="assistive-dot" aria-hidden="true" />
+        <Bot className="agent-orb-icon" size={32} strokeWidth={2.1} aria-hidden="true" />
+      </button>
+    </div>
+  );
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.left = '-9999px';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
+}
+
+function EmailCopyButton() {
+  const [copied, setCopied] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const timersRef = useRef({ copied: null, pressed: null, reveal: null });
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timersRef.current.copied);
+      window.clearTimeout(timersRef.current.pressed);
+      window.clearTimeout(timersRef.current.reveal);
+    };
+  }, []);
+
+  const copyEmail = async () => {
+    window.clearTimeout(timersRef.current.copied);
+    window.clearTimeout(timersRef.current.pressed);
+    window.clearTimeout(timersRef.current.reveal);
+    setCopied(false);
+    setPressed(true);
+    timersRef.current.pressed = window.setTimeout(() => setPressed(false), 120);
+    timersRef.current.reveal = window.setTimeout(() => {
+      setCopied(true);
+      timersRef.current.copied = window.setTimeout(() => setCopied(false), 1040);
+    }, 46);
+
+    try {
+      await copyTextToClipboard(CONTACT_EMAIL);
+    } catch (error) {
+      console.warn('[EmailCopyButton] Clipboard copy failed.', error);
+    }
+  };
+
+  return (
+    <div className="email-copy-layer" aria-live="polite">
+      <button
+        className={`email-copy-button ${copied ? 'is-copied' : ''} ${pressed ? 'is-pressed' : ''}`}
+        type="button"
+        onClick={copyEmail}
+        aria-label={`Copy email address ${CONTACT_EMAIL}`}
+      >
+        <span className="email-copy-label">EMAIL COPIED</span>
+        <Mail className="email-copy-icon" size={32} strokeWidth={2.15} aria-hidden="true" />
       </button>
     </div>
   );
