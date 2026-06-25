@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Industrial design expansion copy
+- Replaced the Tresmares placeholder expansion copy with the user's selected version 3 for the industrial/product design section.
+- New English title: `Product form grows from / Use and Feeling into / clarity`; new Chinese title: `产品形态来自 / 使用与感受 并走向 / 清晰`, with the red emphasis on `Use and Feeling / 使用与感受`.
+- Updated the small kicker to `Product Form / 产品形态` and replaced the lower description with the selected English/Chinese copy about form language, surface treatment, ergonomics, and product identity.
+- Local validation passed: `npm run build`; Playwright confirmed English/Chinese text, red emphasis, description rendering, desktop overflow `0`, and mobile overflow `0`.
+
 ## 2026-06-25 Default English language pass
 - Changed the first-open site language to English (`lang = en`) so the header, navigation, hero, and homepage UI default to English; the top language toggle now offers `中文` from the default state.
 - Updated the brand lockup from `AI Portfolio / AI 作品集` to `YANG` in the circle plus `Portfolio / 作品集` beside it.

@@ -3326,13 +3326,14 @@ function About({ lang, motionEnabled }) {
     <section id="about" className={`about-section expansion-section${motionEnabled ? '' : ' is-static'}`} ref={sectionRef}>
       <div className="expansion-orbit" aria-hidden="true" />
       <div className="expansion-title-stack">
-        <span>Our expansion</span>
+        <span>{lang === 'zh' ? '产品形态' : 'Product Form'}</span>
         <h2>
-          <span>We join forces with</span>
+          <span>{lang === 'zh' ? '产品形态来自' : 'Product form grows from'}</span>
           <span>
-            <strong>Banco Santander</strong> to reach
+            <strong>{lang === 'zh' ? '使用与感受' : 'Use and Feeling'}</strong>
+            {lang === 'zh' ? ' 并走向' : ' into'}
           </span>
-          <span>further</span>
+          <span>{lang === 'zh' ? '清晰' : 'clarity'}</span>
         </h2>
       </div>
       <div className="expansion-cards" aria-hidden="true">
@@ -3362,8 +3363,9 @@ function About({ lang, motionEnabled }) {
         </strong>
       </div>
       <p className="expansion-description">
-        Thanks to the international support of Banco Santander for our independent management, we serve all of continental
-        Europe from our offices in Madrid, London, and Frankfurt.
+        {lang === 'zh'
+          ? '这些作品关注人们看见、触摸、理解和记住的部分，并通过形态语言、表面处理、人机与产品识别去塑造它们。'
+          : 'The work is about shaping what people see, touch, understand, and remember through form language, surface treatment, ergonomics, and product identity.'}
       </p>
     </section>
   );
