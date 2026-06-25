@@ -31,7 +31,7 @@ const AGENT_DEFAULT_POSITION = {
 
 const copy = {
   en: {
-    brand: 'AI Portfolio',
+    brand: 'Portfolio',
     work: 'Work',
     about: 'About',
     back: 'Back',
@@ -71,7 +71,7 @@ const copy = {
     ],
   },
   zh: {
-    brand: 'AI 作品集',
+    brand: '作品集',
     work: '作品',
     about: '关于',
     back: '返回',
@@ -1128,29 +1128,29 @@ const daimaWorkPanels = [
   {
     id: 'daima-miro',
     projectId: 'miro',
-    title: 'Miro AI Rehearsal System',
-    category: 'AI Product / Web System',
+    title: { en: 'Miro AI Rehearsal System', zh: 'Miro AI 演练系统' },
+    category: { en: 'AI Product / Web System', zh: 'AI 产品 / Web 系统' },
     image: '/portfolio/daima-work-cover-01.png',
   },
   {
     id: 'daima-palifood',
     projectId: 'palifood',
-    title: 'Pai Li Shi',
-    category: 'Food AI / Mobile H5',
+    title: { en: 'Pai Li Shi', zh: '拍立食' },
+    category: { en: 'Food AI / Mobile H5', zh: '食物 AI / 移动 H5' },
     image: '/portfolio/daima-work-cover-02.png',
   },
   {
     id: 'daima-libai',
     projectId: 'libai',
-    title: 'Li Bai Interactive Website',
-    category: 'Digital Humanities / Web Experience',
+    title: { en: 'Li Bai Interactive Website', zh: '李白互动网站' },
+    category: { en: 'Digital Humanities / Web Experience', zh: '数字人文 / Web 体验' },
     image: '/portfolio/daima-work-cover-03.png',
   },
   {
     id: 'daima-sport',
     projectId: 'sport',
-    title: 'Home Form Coach',
-    category: 'Fitness AI / Pose Tracking',
+    title: { en: 'Home Form Coach', zh: '居家运动姿态教练' },
+    category: { en: 'Fitness AI / Pose Tracking', zh: '运动 AI / 姿态追踪' },
     image: '/portfolio/daima-work-cover-04.png',
   },
 ];
@@ -1661,7 +1661,7 @@ function getFallbackCaseStudy(project, lang, kind) {
 
 function App() {
   const appRef = useRef(null);
-  const [lang, setLang] = useState('zh');
+  const [lang, setLang] = useState('en');
   const [selectedId, setSelectedId] = useState(null);
   const selected = projects.find((project) => project.id === selectedId);
   const motion = useMotionProfile();
@@ -1712,7 +1712,7 @@ function App() {
           <Hero lang={lang} />
           <AchievementCards lang={lang} />
           <ProductShowcase3D lang={lang} onOpenProject={openProject} />
-          <DaimaWorksShowcase onOpenProject={openProject} motionEnabled={!motion.reduced} />
+          <DaimaWorksShowcase lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <About lang={lang} motionEnabled={!motion.reduced} />
           <AirFooter lang={lang} />
@@ -1855,7 +1855,7 @@ function Header({ lang, setLang }) {
   return (
     <header className="site-header">
       <a className="brand-button" href="#top" aria-label="Portfolio home">
-        <span className="brand-mark">AI</span>
+        <span className="brand-mark">YANG</span>
         <span>{copy[lang].brand}</span>
       </a>
       <nav className="header-actions">
@@ -2227,7 +2227,7 @@ function ProductShowcase3D({ lang, onOpenProject }) {
   );
 }
 
-function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
+function DaimaWorksShowcase({ lang, onOpenProject, motionEnabled }) {
   const sectionRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -2310,39 +2310,44 @@ function DaimaWorksShowcase({ onOpenProject, motionEnabled }) {
   }, [motionEnabled]);
 
   return (
-    <section className="daima-works-showcase" ref={sectionRef} aria-label="Selected digital works">
-      {daimaWorkPanels.map((panel, index) => (
-        <button
-          className="daima-work-panel"
-          type="button"
-          key={panel.id}
-          onClick={() => onOpenProject(panel.projectId)}
-          aria-label={`Open ${panel.title}`}
-        >
-          <span className="daima-work-panel__sticky">
-            <span className="daima-work-panel__frame">
-              <span className="daima-work-panel__media-crop" aria-hidden="true">
-                <span className="daima-work-panel__media-layer">
-                  <img className="daima-work-panel__image" src={panel.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-                </span>
-              </span>
-              <span className="daima-work-panel__content">
-                <span className="daima-work-panel__title-window">
-                  <span className="daima-work-panel__title-track">
-                    <span className="daima-work-panel__title-line">{panel.title}</span>
-                    <span className="daima-work-panel__title-line" aria-hidden="true">
-                      {panel.title}
-                    </span>
+    <section className="daima-works-showcase" ref={sectionRef} aria-label={lang === 'zh' ? '精选数字作品' : 'Selected digital works'}>
+      {daimaWorkPanels.map((panel, index) => {
+        const title = t(panel.title, lang);
+        const category = t(panel.category, lang);
+
+        return (
+          <button
+            className="daima-work-panel"
+            type="button"
+            key={panel.id}
+            onClick={() => onOpenProject(panel.projectId)}
+            aria-label={lang === 'zh' ? `打开 ${title}` : `Open ${title}`}
+          >
+            <span className="daima-work-panel__sticky">
+              <span className="daima-work-panel__frame">
+                <span className="daima-work-panel__media-crop" aria-hidden="true">
+                  <span className="daima-work-panel__media-layer">
+                    <img className="daima-work-panel__image" src={panel.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
                   </span>
                 </span>
-                <span className="daima-work-panel__category-wrap">
-                  <span className="daima-work-panel__category">{panel.category}</span>
+                <span className="daima-work-panel__content">
+                  <span className="daima-work-panel__title-window">
+                    <span className="daima-work-panel__title-track">
+                      <span className="daima-work-panel__title-line">{title}</span>
+                      <span className="daima-work-panel__title-line" aria-hidden="true">
+                        {title}
+                      </span>
+                    </span>
+                  </span>
+                  <span className="daima-work-panel__category-wrap">
+                    <span className="daima-work-panel__category">{category}</span>
+                  </span>
                 </span>
               </span>
             </span>
-          </span>
-        </button>
-      ))}
+          </button>
+        );
+      })}
     </section>
   );
 }

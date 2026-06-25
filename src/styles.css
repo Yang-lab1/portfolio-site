@@ -102,8 +102,9 @@ img {
   place-items: center;
   border: 1px solid rgba(255, 255, 255, 0.76);
   border-radius: 999px;
-  font-size: 0.78rem;
+  font-size: 0.58rem;
   font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .site-header .header-actions {

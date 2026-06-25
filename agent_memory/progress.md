@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Default English language pass
+- Changed the first-open site language to English (`lang = en`) so the header, navigation, hero, and homepage UI default to English; the top language toggle now offers `中文` from the default state.
+- Updated the brand lockup from `AI Portfolio / AI 作品集` to `YANG` in the circle plus `Portfolio / 作品集` beside it.
+- Made the Daima four-work panel titles and categories bilingual so English mode shows English work labels and Chinese mode shows Chinese labels.
+- Local validation passed: `npm run build`; Playwright confirmed default `html.lang=en`, `YANG + Portfolio`, `Work / About`, Chinese toggle target, Daima English copy, Chinese toggle state with Daima Chinese copy, default visible text has no Chinese except the language switch button, and mobile overflow `0`.
+
 ## 2026-06-25 Bill Chien-style contact buttons
 - Added a fixed Bill Chien-style email copy button using `lin297861138@gmail.com`: collapsed `80x80` black circle, white mail icon, click-to-copy, `EMAIL COPIED` pill expansion to `212px`, right-anchored icon, press dip, and timed retract.
 - Restyled the existing Agent floating entry to the same black/white circular button language with a robot icon while preserving the original Agent panel, AGNES request flow, fallback logic, click-outside close, and project navigation behavior.

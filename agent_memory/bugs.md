@@ -38,8 +38,13 @@
 ## 2026-06-24 Daima interaction guardrail
 - Do not simplify the Daima four-work section back into static fullscreen cards. The accepted target requires Lenis smooth scroll, internal sticky viewport, tall clipped image layer without scale/filter, duplicate-title hover roll, independent category scroll layer, weak transparent header state, and `480px` mobile work panels.
 - Regression QA should include desktop `1440x900`, mobile `390x844`, title hover transform, image `transform/filter`, natural panel handoff, four internal detail-page clicks, and horizontal overflow.
-- Current Daima panel copy must stay English-only. The fourth panel is now `Home Form Coach` / `sport`, not `Offer Quest`; do not restore `Offer Quest` to the four-screen showcase unless the user explicitly asks.
+- Current Daima panel copy is bilingual and must follow the global language state. English mode shows `Home Form Coach` / `sport`; Chinese mode shows the Chinese sport title. Do not restore `Offer Quest` to the four-screen showcase unless the user explicitly asks.
 - Do not add a background/border to `.gooey-nav-container ul` under `body.is-daima-active`; it creates an unwanted rectangular frame around `Work / About`. Only the active item pill should have a visible shape.
+
+## 2026-06-25 Language default guardrail
+- The portfolio should open in English by default. Do not change `App` language initialization back to `zh` unless the user explicitly reverses this decision.
+- The header brand should be `YANG` inside the circle and `Portfolio / 作品集` beside it; do not reintroduce `AI Portfolio` or `AI 作品集`.
+- Default English visible UI text should not contain Chinese except for the language switch target `中文`. Chinese embedded inside portfolio screenshots/images is asset content, not language-state UI text.
 
 ## 2026-06-25 Floating contact guardrail
 - Keep the email copy control in the Bill Chien-style pattern: black/white `80px` circle, right-anchored white mail icon, `EMAIL COPIED` text revealed by a left-expanding pill around `212px`, and timed retract after copy.
