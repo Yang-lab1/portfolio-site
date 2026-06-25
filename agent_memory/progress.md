@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-25 Detail format rule verified + heart source search
+- Re-verified the user's clarified rule: website/web-app detail pages keep the fullscreen black perspective stage, while product/CMF/research pages use normal fullscreen media without perspective.
+- Local validation passed: `npm run build`; `npm run verify:detail-format -- http://127.0.0.1:5201/` returned `checked = 44`, `visibleProjectCount = 21`, `hiddenPendingCount = 1`, and `issueCount = 0`.
+- Production validation passed: `npm run verify:detail-format -- https://portfolio-site-three-rose.vercel.app/` returned `checked = 44`, `visibleProjectCount = 21`, `hiddenPendingCount = 1`, and `issueCount = 0`.
+- Focused runtime check confirmed Miro starts with a perspective transform and flattens on scroll; Xiaomi CMF remains `transform: none` with `object-fit: cover`.
+- Searched local/project sources for Heart Disease Bracelet Kit using heart/bracelet/cardiac/health/心脏/手环 terms. `public/portfolio/bracelet-kit-clean.jpg` is not valid source evidence because it shows an opera-mask/ruler image, and the COMP5571 device renders appear to be a different device project. `heart-bracelet` remains source-pending.
+
 ## 2026-06-25 Detail format verification gate
 - Added `tools/verify-detail-format.mjs` and `npm run verify:detail-format` so future detail-page changes can be checked against the current public-format contract.
 - The verifier opens every media-backed public project on desktop and mobile, checks compact detail headers, metadata placement, image load, fullscreen media dimensions, digital/web perspective, non-web no-perspective media, global header/Agent/email controls, and horizontal overflow.

@@ -53,6 +53,11 @@
 - Do not use the Bill Chien yellow palette on Yang's site; the adapted contact controls should remain black/white to match the portfolio system.
 - When the email pill is already expanded, a second click must not remove the expanded state before replaying. It should only apply the press scale/rebound and restart the retract timer, matching the source site's second-click behavior.
 
+## 2026-06-25 Heart Bracelet source guardrail
+- `public/portfolio/bracelet-kit-clean.jpg` is not valid Heart Disease Bracelet Kit source evidence; visual inspection shows it is an opera-mask/ruler image despite the filename.
+- The COMP5571 final-project device renders (`设备前后相对.png`, `爆炸图.png`, `手机与设备.png`, `手指抓.png`) appear to be a different device/app project and should not be assigned to `heart-bracelet` without explicit user confirmation.
+- Keep `heart-bracelet` hidden from public detail links and Agent navigation until a reliable original product image or user-confirmed source package is available.
+
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。
 - 不要再把侧卡折叠角度加大；当前用户要求倾斜更克制，最新值为 rotateY(8deg)。
