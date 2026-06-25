@@ -4,7 +4,7 @@
 - Added a fixed Bill Chien-style email copy button using `lin297861138@gmail.com`: collapsed `80x80` black circle, white mail icon, click-to-copy, `EMAIL COPIED` pill expansion to `212px`, right-anchored icon, press dip, and timed retract.
 - Restyled the existing Agent floating entry to the same black/white circular button language with a robot icon while preserving the original Agent panel, AGNES request flow, fallback logic, click-outside close, and project navigation behavior.
 - Local validation passed: `npm run build`; Playwright desktop QA confirmed email button `80x80 -> 212x80 -> 80x80`, timing close to the Bill Chien reference, Agent panel still opens, and mobile QA confirmed no horizontal overflow with stacked 72px buttons.
-- GitHub `main` commit `10c6fc1`; Vercel production deployment `dpl_GCHPXmRCe2EUccLzsPMVN7TNmPYk` is Ready and aliased to `https://portfolio-site-three-rose.vercel.app/`. Live QA confirmed the same button behavior and clipboard output.
+- Release status: GitHub `main` contains the contact-button update, and Vercel production fixed alias `https://portfolio-site-three-rose.vercel.app/` has been verified with the same button behavior and clipboard output.
 
 ## 2026-06-24 Daima panel image replacement
 - Replaced only the four Daima work-panel background images with the four user-provided screenshots, in order, stored as `public/portfolio/daima-work-cover-01.png` through `public/portfolio/daima-work-cover-04.png`.
