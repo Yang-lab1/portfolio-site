@@ -11,6 +11,11 @@
 - Fixed Yang's email copy button so an expanded second click no longer clears `is-copied` first. It now preserves the expanded pill, applies the press state, copies the same email, and resets the collapse timer.
 - Local validation passed: `npm run build`; Playwright desktop QA confirmed first click expands, second click stays expanded with press scale only, clipboard remains `lin297861138@gmail.com`, Agent panel still opens, and mobile overflow stays `0`.
 
+## 2026-06-25 Daima nav rectangle removal
+- Removed the unwanted rectangular background from the `Work / About` GooeyNav group while `body.is-daima-active` is applied.
+- Kept the active black pill (`Work` / `作品`) and the language toggle styling unchanged; only the nav list container background/border is now transparent.
+- Local validation passed: `npm run build`; Playwright confirmed `.gooey-nav-container ul` background is transparent, border is 0, active pill remains visible, and mobile overflow stays `0`.
+
 ## 2026-06-24 Daima panel image replacement
 - Replaced only the four Daima work-panel background images with the four user-provided screenshots, in order, stored as `public/portfolio/daima-work-cover-01.png` through `public/portfolio/daima-work-cover-04.png`.
 - Kept all project titles, categories, click targets, detail pages, Agent behavior, and interaction structure unchanged.

@@ -3113,7 +3113,12 @@ body.is-daima-active .brand-mark {
   border-color: rgba(255, 255, 255, 0.62);
 }
 
-body.is-daima-active .gooey-nav-container ul,
+body.is-daima-active .gooey-nav-container ul {
+  color: rgba(255, 255, 255, 0.9);
+  background: transparent;
+  border-color: transparent;
+}
+
 body.is-daima-active .language-toggle {
   color: rgba(255, 255, 255, 0.9);
   background: rgba(4, 4, 4, 0.12);
