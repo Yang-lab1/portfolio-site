@@ -1,10 +1,15 @@
 # 当前任务进度
 
-## 2026-06-25 Project detail page visual direction
-- Updated the project detail template toward the user-selected direction: compact top typography based on option 1, followed by a black full-bleed media presentation based on option 4.
-- Miro detail now uses the concise hero copy from the reference: `AI PRODUCT / WEB / BACKEND`, `Miro Rehearsal System`, and a short one-sentence summary, with `Year / Role / STATUS` shown as a thin horizontal metadata row instead of a large gray card.
-- The first digital/research detail media block now uses a black full-width stage, a small `Website prototype` label, and a tilted interface image treatment; later media still flow full width underneath.
-- Local validation passed: `npm run build`; Playwright confirmed desktop/mobile home overflow `0`, detail overflow `0`, header/Agent/email controls present, Miro title one-line desktop text, horizontal metadata, black media stage, first image transform, and label rendering.
+## 2026-06-25 Miro detail reference correction
+- Corrected the Miro detail page after the user pointed out the previous implementation did not match the selected references.
+- Top hero now follows the option-1 screenshot: `PRODUCT / WEB / SYSTEM`, one-line `Miro Rehearsal System`, short cross-cultural rehearsal summary, and a right-side vertical metadata rail with `YEAR / ROLE / SOURCE STATUS`.
+- First media block now uses `public/portfolio/miro-detail-reference-dashboard.png`, cropped from the selected option-4 black dashboard image, instead of the mismatched previous interface image.
+- Tightened desktop vertical spacing so the black dashboard media stage begins around y=448 at `1488x1058`, closer to the reference, with no horizontal overflow.
+- Local validation passed: `npm run build`; Playwright desktop/mobile QA confirmed correct copy, vertical metadata, image source/natural size, desktop title one-line, and mobile overflow `0`.
+
+## 2026-06-25 Project detail page visual direction (superseded)
+- Earlier detail-page attempt moved toward compact top typography and a black media stage, but it still used the wrong Miro kicker, horizontal metadata, and mismatched first image.
+- Treat this entry as superseded by `2026-06-25 Miro detail reference correction` above.
 
 ## 2026-06-25 Industrial design expansion copy
 - Replaced the Tresmares placeholder expansion copy with the user's selected version 3 for the industrial/product design section.

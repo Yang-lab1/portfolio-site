@@ -2974,7 +2974,10 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const detailMedia =
     project.id === 'miro'
-      ? ['/portfolio/miro-device-ui.png', ...rawDetailMedia.filter((src) => src !== '/portfolio/miro-device-ui.png')]
+      ? [
+          '/portfolio/miro-detail-reference-dashboard.png',
+          ...rawDetailMedia.filter((src) => src !== '/portfolio/miro-detail-reference-dashboard.png'),
+        ]
       : rawDetailMedia;
   const caseStudy = getCaseStudy(project, lang);
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
@@ -3013,7 +3016,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           </dl>
         </div>
       </section>
-      <section className={`detail-media-grid detail-media-${caseStudy.kind}`}>
+      <section className={`detail-media-grid detail-media-${caseStudy.kind} detail-media-project-${project.id}`}>
         {detailMedia.length ? (
           detailMedia.map((src, index) => (
             <figure key={`${src}-${index}`}>
@@ -3099,13 +3102,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
 function getDetailHeroCopy(project, lang, caseStudy) {
   if (project.id === 'miro') {
     return {
-      kicker: lang === 'zh' ? 'AI 产品 / 网页 / 后端' : 'AI PRODUCT / WEB / BACKEND',
+      kicker: lang === 'zh' ? '产品 / 网页 / 系统' : 'PRODUCT / WEB / SYSTEM',
       title: lang === 'zh' ? 'Miro 演练系统' : 'Miro Rehearsal System',
       summary:
         lang === 'zh'
-          ? 'Miro 被定义为一个演练系统：准备、模拟、复盘，并在真实跨文化约束中持续改进。'
-          : 'Miro is framed as a rehearsal system: prepare, simulate, review, and improve across real cultural constraints.',
-      statusLabel: lang === 'zh' ? '状态' : 'STATUS',
+          ? '一个跨文化演练系统，帮助个人与团队准备、模拟、复盘，并与 AI 一起成长。'
+          : 'A cross-cultural rehearsal system that helps individuals and teams prepare, simulate, review, and grow with AI.',
+      statusLabel: copy[lang].source,
     };
   }
 
