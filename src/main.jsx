@@ -3963,13 +3963,18 @@ function EmailCopyButton() {
     window.clearTimeout(timersRef.current.copied);
     window.clearTimeout(timersRef.current.pressed);
     window.clearTimeout(timersRef.current.reveal);
-    setCopied(false);
     setPressed(true);
     timersRef.current.pressed = window.setTimeout(() => setPressed(false), 120);
-    timersRef.current.reveal = window.setTimeout(() => {
-      setCopied(true);
+
+    if (copied) {
       timersRef.current.copied = window.setTimeout(() => setCopied(false), 1040);
-    }, 46);
+    } else {
+      setCopied(false);
+      timersRef.current.reveal = window.setTimeout(() => {
+        setCopied(true);
+        timersRef.current.copied = window.setTimeout(() => setCopied(false), 1040);
+      }, 46);
+    }
 
     try {
       await copyTextToClipboard(CONTACT_EMAIL);

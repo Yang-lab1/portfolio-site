@@ -44,6 +44,7 @@
 - Keep the email copy control in the Bill Chien-style pattern: black/white `80px` circle, right-anchored white mail icon, `EMAIL COPIED` text revealed by a left-expanding pill around `212px`, and timed retract after copy.
 - Keep the Agent floating entry visually paired with the email button, but do not rewrite the existing Agent panel, AGNES API path, fallback logic, or collapse/reset behavior when only changing the icon/button shell.
 - Do not use the Bill Chien yellow palette on Yang's site; the adapted contact controls should remain black/white to match the portfolio system.
+- When the email pill is already expanded, a second click must not remove the expanded state before replaying. It should only apply the press scale/rebound and restart the retract timer, matching the source site's second-click behavior.
 
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。
