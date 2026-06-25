@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-25 Detail format verification gate
+- Added `tools/verify-detail-format.mjs` and `npm run verify:detail-format` so future detail-page changes can be checked against the current public-format contract.
+- The verifier opens every media-backed public project on desktop and mobile, checks compact detail headers, metadata placement, image load, fullscreen media dimensions, digital/web perspective, non-web no-perspective media, global header/Agent/email controls, and horizontal overflow.
+- It also checks that source-pending projects such as `heart-bracelet` are not exposed on the homepage or related project links before source images are available.
+- Updated the Agent profile snapshot so `projectCount` reflects public media-backed projects, not hidden source-pending records.
+- Local validation passed: `npm run build`; `npm run verify:detail-format -- http://127.0.0.1:5201/` returned `checked = 44`, `visibleProjectCount = 21`, `hiddenPendingCount = 1`, and `issueCount = 0`.
+
 ## 2026-06-25 Detail format public-completeness guard
 - Tightened the digital/web first-media stage after visual comparison with the user's latest reference screenshot: the screenshot plane now starts closer to the reference top position while keeping the same fullscreen black stage and vertical perspective.
 - Added a public-completeness guard for source-pending projects: projects without confirmed detail media, currently `heart-bracelet`, remain in data for future completion but cannot be opened as public detail pages, related project links, or Agent navigation targets.

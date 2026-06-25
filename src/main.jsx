@@ -3531,6 +3531,7 @@ function buildAgentCandidateV2(project, score) {
 }
 
 function buildAgentProfileSnapshotV2() {
+  const publicProjects = projects.filter(hasProjectDetailMedia);
   const representativeProjects = ['miro', 'palifood', 'libai', 'momenta', 'xiaomi-cmf']
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean)
@@ -3545,8 +3546,8 @@ function buildAgentProfileSnapshotV2() {
   return {
     displayName: '林杨',
     englishName: 'Lin Yang',
-    projectCount: projects.length,
-    categoryCount: new Set(projects.map((project) => project.category).filter(Boolean)).size,
+    projectCount: publicProjects.length,
+    categoryCount: new Set(publicProjects.map((project) => project.category).filter(Boolean)).size,
     focus: {
       zh: '工业设计、AI 交互、CMF、Web 原型与数据系统',
       en: 'industrial design, AI interaction, CMF, web prototyping, and data systems',
