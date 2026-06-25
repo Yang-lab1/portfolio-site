@@ -2991,7 +2991,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
     const root = mediaGridRef.current;
     const firstFigure = root?.querySelector('figure:first-child');
     const firstImage = firstFigure?.querySelector('img');
-    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital, .detail-media-research')) {
+    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital')) {
       return undefined;
     }
 
@@ -3005,9 +3005,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       const endTop = viewportHeight * 0.09;
       const range = startTop - endTop || 1;
       const progress = Math.min(1, Math.max(0, (startTop - rect.top) / range));
-      const baseTilt = window.matchMedia('(max-width: 700px)').matches ? 6 : 8;
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      const baseTilt = isMobile ? 7 : 10;
       const tilt = baseTilt * (1 - progress);
+      const scaleBoost = isMobile ? 0.03 : 0.04;
+      const scale = 1.02 + scaleBoost * (1 - progress);
       firstImage.style.setProperty('--detail-tilt-x', `${tilt.toFixed(3)}deg`);
+      firstImage.style.setProperty('--detail-tilt-scale', scale.toFixed(3));
     };
 
     const requestUpdate = () => {
@@ -3026,6 +3030,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       window.removeEventListener('scroll', requestUpdate);
       window.removeEventListener('resize', requestUpdate);
       firstImage.style.removeProperty('--detail-tilt-x');
+      firstImage.style.removeProperty('--detail-tilt-scale');
     };
   }, [project.id, caseStudy.kind, detailMedia.length]);
 
@@ -3068,7 +3073,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
             <figure key={`${src}-${index}`}>
               <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
               {index === 0 ? (
-                <figcaption>{lang === 'zh' ? '网站原型' : 'Website prototype'}</figcaption>
+                <figcaption>{getDetailMediaLabel(caseStudy.kind, lang)}</figcaption>
               ) : null}
             </figure>
           ))
@@ -3164,6 +3169,16 @@ function getDetailHeroCopy(project, lang, caseStudy) {
     summary: caseStudy.headline,
     statusLabel: copy[lang].source,
   };
+}
+
+function getDetailMediaLabel(kind, lang) {
+  const labels = {
+    digital: { en: 'Website prototype', zh: '网站原型' },
+    research: { en: 'Research evidence', zh: '研究证据' },
+    product: { en: 'Product evidence', zh: '产品证据' },
+    cmf: { en: 'CMF evidence', zh: 'CMF 证据' },
+  };
+  return labels[kind]?.[lang] || labels.product[lang];
 }
 
 function processCopy(project, lang, index) {

@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-25 Detail media fullscreen coverage correction
+- Tightened the project detail first-media stage so each visible project detail uses a true `100svh` fullscreen media band with no framed-card padding.
+- Updated the type rule after user clarification: only digital/web prototype detail media uses the bottom-near / top-far `rotateX` perspective; research, product, and CMF media render as normal fullscreen images with `transform: none`.
+- Reduced the digital/web perspective compensation so Miro-style interface screenshots are not horizontally compressed while still keeping the webpage mockup plane effect.
+- Research, product, and CMF detail media now use full-bleed `object-fit: cover` instead of contained images inside a black frame.
+- Local validation passed: `npm run build`; Playwright QA checked focused Miro/TCM/product entry screenshots and all 21 visible detail pages on desktop/mobile for type-specific transforms, image load, and `overflowX = 0`.
+
 ## 2026-06-25 Detail media vertical perspective correction
 - Corrected the detail-page first-media tilt direction after the user clarified the desired reference: the media plane must recede vertically, with the top edge smaller/farther away and the bottom edge closer.
 - Replaced the mistaken horizontal `rotateY` direction with `rotateX(var(--detail-tilt-x))` on digital/research first media, keeping the black fullscreen media stage and source images unchanged.
