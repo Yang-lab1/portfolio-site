@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Project detail page visual direction
+- Updated the project detail template toward the user-selected direction: compact top typography based on option 1, followed by a black full-bleed media presentation based on option 4.
+- Miro detail now uses the concise hero copy from the reference: `AI PRODUCT / WEB / BACKEND`, `Miro Rehearsal System`, and a short one-sentence summary, with `Year / Role / STATUS` shown as a thin horizontal metadata row instead of a large gray card.
+- The first digital/research detail media block now uses a black full-width stage, a small `Website prototype` label, and a tilted interface image treatment; later media still flow full width underneath.
+- Local validation passed: `npm run build`; Playwright confirmed desktop/mobile home overflow `0`, detail overflow `0`, header/Agent/email controls present, Miro title one-line desktop text, horizontal metadata, black media stage, first image transform, and label rendering.
+
 ## 2026-06-25 Industrial design expansion copy
 - Replaced the Tresmares placeholder expansion copy with the user's selected version 3 for the industrial/product design section.
 - New English title: `Product form grows from / Use and Feeling into / clarity`; new Chinese title: `产品形态来自 / 使用与感受 并走向 / 清晰`, with the red emphasis on `Use and Feeling / 使用与感受`.

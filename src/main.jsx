@@ -2971,8 +2971,13 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
 
 function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const siblings = projects.filter((item) => item.category === project.category && item.id !== project.id).slice(0, 4);
-  const detailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
+  const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
+  const detailMedia =
+    project.id === 'miro'
+      ? ['/portfolio/miro-device-ui.png', ...rawDetailMedia.filter((src) => src !== '/portfolio/miro-device-ui.png')]
+      : rawDetailMedia;
   const caseStudy = getCaseStudy(project, lang);
+  const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   return (
@@ -2983,9 +2988,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       </button>
       <section className="detail-hero">
         <div className="detail-title">
-          <span>{t(project.type, lang)}</span>
-          <h1>{t(project.title, lang)}</h1>
-          <p>{caseStudy.headline}</p>
+          <span>{heroCopy.kicker}</span>
+          <h1>{heroCopy.title}</h1>
+          <p>{heroCopy.summary}</p>
         </div>
         <div className="detail-meta">
           <dl>
@@ -2998,7 +3003,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
               <dd>{t(project.role, lang)}</dd>
             </div>
             <div>
-              <dt>{copy[lang].source}</dt>
+              <dt>{heroCopy.statusLabel}</dt>
               <dd>
                 {project.blocked ? <strong>{copy[lang].blocked}</strong> : null}
                 {project.blocked ? <br /> : null}
@@ -3007,6 +3012,22 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
             </div>
           </dl>
         </div>
+      </section>
+      <section className={`detail-media-grid detail-media-${caseStudy.kind}`}>
+        {detailMedia.length ? (
+          detailMedia.map((src, index) => (
+            <figure key={`${src}-${index}`}>
+              <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+              {index === 0 ? (
+                <figcaption>{lang === 'zh' ? '网站原型' : 'Website prototype'}</figcaption>
+              ) : null}
+            </figure>
+          ))
+        ) : (
+          <figure className="detail-media-pending">
+            <span>{lang === 'zh' ? '干净原图待补' : 'Clean source image pending'}</span>
+          </figure>
+        )}
       </section>
       {launchNote ? (
         <section className="project-launch-bridge">
@@ -3030,19 +3051,6 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           )}
         </section>
       ) : null}
-      <section className={`detail-media-grid detail-media-${caseStudy.kind}`}>
-        {detailMedia.length ? (
-          detailMedia.map((src, index) => (
-            <figure key={`${src}-${index}`}>
-              <img src={src} alt="" loading="lazy" />
-            </figure>
-          ))
-        ) : (
-          <figure className="detail-media-pending">
-            <span>{lang === 'zh' ? '干净原图待补' : 'Clean source image pending'}</span>
-          </figure>
-        )}
-      </section>
       <section className={`case-study-section case-study-${caseStudy.kind}`}>
         <div className="case-study-head">
           <span>{caseStudy.label}</span>
@@ -3086,6 +3094,27 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       ) : null}
     </main>
   );
+}
+
+function getDetailHeroCopy(project, lang, caseStudy) {
+  if (project.id === 'miro') {
+    return {
+      kicker: lang === 'zh' ? 'AI 产品 / 网页 / 后端' : 'AI PRODUCT / WEB / BACKEND',
+      title: lang === 'zh' ? 'Miro 演练系统' : 'Miro Rehearsal System',
+      summary:
+        lang === 'zh'
+          ? 'Miro 被定义为一个演练系统：准备、模拟、复盘，并在真实跨文化约束中持续改进。'
+          : 'Miro is framed as a rehearsal system: prepare, simulate, review, and improve across real cultural constraints.',
+      statusLabel: lang === 'zh' ? '状态' : 'STATUS',
+    };
+  }
+
+  return {
+    kicker: t(project.type, lang),
+    title: t(project.title, lang),
+    summary: caseStudy.headline,
+    statusLabel: copy[lang].source,
+  };
 }
 
 function processCopy(project, lang, index) {
