@@ -6,6 +6,7 @@
 - 本机模板目录 `C:\Users\Yang\.codex\templates\agent_memory` 缺失，`agent_memory` 文件不是从模板复制而来。
 - 示例域名和平台默认预览域名必须保持不能通过最终门禁。
 - 当前 Codex shell 下后台启动本地预览服务不稳定；前台 `preview:static` 可用，但命令运行期间需要保持会话打开。
+- `heart-bracelet` 仍缺少可靠源图。不要为它生成或编造产品图；在源图补齐前，它不应作为公开可点击详情页、相关项目入口或 Agent 导航目标交付。
 
 ## 已知环境问题
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。

@@ -1374,7 +1374,7 @@ img {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: clamp(38px, 4.6svh, 56px);
+  padding-top: clamp(0px, 1.1svh, 12px);
   background: #03060c;
   perspective: 1400px;
 }
@@ -1383,7 +1383,7 @@ img {
   width: min(86vw, 1178px);
   height: auto;
   max-width: none;
-  max-height: calc(100% - clamp(42px, 6svh, 72px));
+  max-height: calc(100% - clamp(16px, 4svh, 44px));
   object-fit: contain;
   transform: perspective(1600px) rotateX(var(--detail-tilt-x, 10deg)) scale(var(--detail-tilt-scale, 1.04));
   transform-origin: center bottom;
@@ -2661,13 +2661,13 @@ img {
 
   .detail-media-digital figure:first-child {
     height: 100svh;
-    padding-top: 54px;
+    padding-top: 18px;
   }
 
   .detail-media-digital figure:first-child img {
     width: min(128vw, 620px);
     height: auto;
-    max-height: calc(100% - 96px);
+    max-height: calc(100% - 52px);
     transform: perspective(1100px) rotateX(var(--detail-tilt-x, 7deg)) scale(var(--detail-tilt-scale, 1.03));
   }
 

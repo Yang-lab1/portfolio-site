@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Detail format public-completeness guard
+- Tightened the digital/web first-media stage after visual comparison with the user's latest reference screenshot: the screenshot plane now starts closer to the reference top position while keeping the same fullscreen black stage and vertical perspective.
+- Added a public-completeness guard for source-pending projects: projects without confirmed detail media, currently `heart-bracelet`, remain in data for future completion but cannot be opened as public detail pages, related project links, or Agent navigation targets.
+- This prevents an incomplete pending-media page from being delivered under the "every project must match the reference format" goal.
+- Local validation passed: `npm run build`; Playwright audit checked 21 media-backed projects plus the hidden pending project on desktop and mobile (`44` states total), with `issueCount = 0`.
+
 ## 2026-06-25 Detail media type-specific final pass
 - Applied the user's clarified rule: website/web-app detail pages use the fullscreen black perspective stage, while non-website industrial/product/CMF/research pages stay as normal fullscreen media without perspective.
 - Split detail media visual kind from case-study content kind so UI/dashboard evidence such as `miro-governance` can render as a web prototype without changing its research classification.

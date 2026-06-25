@@ -1250,6 +1250,10 @@ function getProjectsByIds(ids) {
   return ids.map((id) => projects.find((project) => project.id === id)).filter(Boolean);
 }
 
+function hasProjectDetailMedia(project) {
+  return Boolean(project?.image || project?.gallery?.length);
+}
+
 function getMotionState() {
   if (typeof window === 'undefined') {
     return { reduced: false, mobile: false, finePointer: false };
@@ -1691,6 +1695,9 @@ function App() {
   }, []);
 
   const openProject = (id) => {
+    const targetProject = projects.find((project) => project.id === id);
+    if (!hasProjectDetailMedia(targetProject)) return;
+
     setSelectedId(id);
     window.setTimeout(() => {
       const lenis = window.__portfolioLenis;
@@ -2971,7 +2978,9 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
 
 function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const mediaGridRef = useRef(null);
-  const siblings = projects.filter((item) => item.category === project.category && item.id !== project.id).slice(0, 4);
+  const siblings = projects
+    .filter((item) => item.category === project.category && item.id !== project.id && hasProjectDetailMedia(item))
+    .slice(0, 4);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const referenceHeroMedia = {
     miro: '/portfolio/miro-detail-reference-dashboard.png',
@@ -3558,7 +3567,7 @@ function buildAgentProfileSnapshotV2() {
 }
 
 function buildAgentKnowledgeBaseV2() {
-  const projectDocs = projects.map((project) => {
+  const projectDocs = projects.filter(hasProjectDetailMedia).map((project) => {
     const titleZh = t(project.title, 'zh');
     const titleEn = t(project.title, 'en');
     const typeZh = t(project.type, 'zh');
@@ -3905,6 +3914,7 @@ function AgentOrb({ lang, onOpenProject }) {
     if (!rawQuery) return;
 
     const rankedProjects = projects
+      .filter(hasProjectDetailMedia)
       .map((project) => ({ project, score: scoreAgentProject(project, rawQuery) }))
       .sort((left, right) => right.score - left.score);
 
