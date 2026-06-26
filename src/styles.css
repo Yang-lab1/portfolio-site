@@ -2671,6 +2671,12 @@ img {
     aspect-ratio: 16 / 9;
   }
 
+  .detail-media-grid figure.detail-media-full-contain,
+  .detail-media-grid figure.detail-media-full-contain:first-child {
+    height: 100svh;
+    aspect-ratio: auto;
+  }
+
   .detail-meta {
     padding: 12px 0 0;
     background: transparent;

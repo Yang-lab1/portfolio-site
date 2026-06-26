@@ -459,8 +459,8 @@ const projects = [
     title: { en: 'Capstone AI Device Concept', zh: 'Capstone AI 设备概念' },
     type: { en: 'AI Hardware / Service Concept', zh: 'AI 硬件 / 服务概念' },
     year: '2026',
-    image: '/portfolio/capstone-device-render.jpg',
-    gallery: ['/portfolio/capstone-device-render.jpg', '/portfolio/capstone-device-export.jpg', '/portfolio/capstone-cover.jpg'],
+    image: '/portfolio/capstone-device-views.png',
+    gallery: ['/portfolio/capstone-device-views.png', '/portfolio/capstone-device-render.jpg', '/portfolio/capstone-device-export.jpg', '/portfolio/capstone-cover.jpg'],
     role: {
       en: 'Device scenario, concept framing, service narrative',
       zh: '设备场景、概念框定、服务叙事',
@@ -541,6 +541,36 @@ const projects = [
       zh: ['设备场景', '硬件交付证据', '量产思维', '保留原产品形态封面'],
     },
     source: { en: 'Extracted from portfolio PDF; cover keeps the original product render unchanged', zh: '来自作品集 PDF 抽取图，封面保留原产品渲染形态' },
+  },
+  {
+    id: 'ufei-precision-cabinet',
+    category: 'production',
+    title: { en: 'Vertical High-Precision Cabinet', zh: '立式高精度柜' },
+    type: { en: 'Industrial Equipment / Precision Storage', zh: '工业设备 / 精密暂存' },
+    year: '2022-2023',
+    image: '/portfolio/ufei-precision-cabinet-render-crop.png',
+    imageFit: 'contain',
+    gallery: [
+      '/portfolio/ufei-precision-cabinet-render-crop.png',
+      '/portfolio/ufei-precision-cabinet-render.png',
+      '/portfolio/ufei-precision-cabinet-factory-01.png',
+      '/portfolio/ufei-precision-cabinet-factory-02.png',
+      '/portfolio/ufei-precision-cabinet-inspection-flow.png',
+      '/portfolio/ufei-precision-cabinet-operator.png',
+    ],
+    role: {
+      en: 'Industrial product design, CMF direction, equipment interface framing',
+      zh: '工业产品设计、CMF 方向、设备界面规划',
+    },
+    summary: {
+      en: 'A vertical precision cabinet for controlled material buffering, inspection flow, and clear operator interaction in industrial environments.',
+      zh: '一款面向工业场景的立式高精度柜，围绕材料暂存、检验流程与清晰的人机操作关系展开。',
+    },
+    evidence: {
+      en: ['Precision storage scenario', 'Factory context render', 'Operator interaction', 'Source-preserving imagery'],
+      zh: ['精密暂存场景', '工厂环境渲染', '操作员交互', '保留源图呈现'],
+    },
+    source: { en: 'Confirmed local source: Desktop/作品集/UFEI/立式高精度柜', zh: '本地资料已确认：Desktop/作品集/UFEI/立式高精度柜' },
   },
   {
     id: 'baling-press',
@@ -760,6 +790,10 @@ const projectShortCopy = {
     en: 'Industrial waste-collection equipment rebuilt from source render evidence.',
     zh: '基于原始渲染证据呈现的工业废料收集设备。',
   },
+  'ufei-precision-cabinet': {
+    en: 'Vertical precision cabinet for material buffering, inspection flow, and operator interaction.',
+    zh: '围绕材料暂存、检验流程与操作交互展开的立式高精度柜。',
+  },
   'baling-press': {
     en: 'Compression equipment case focused on structure and use flow.',
     zh: '围绕结构与使用流程展开的压缩设备案例。',
@@ -806,6 +840,7 @@ const projectKinds = {
   'xiaomi-cmf': 'cmf',
   'cat-turntable': 'product',
   'smart-waste': 'product',
+  'ufei-precision-cabinet': 'product',
   'baling-press': 'product',
   'cmf-electronics': 'cmf',
   cbs5502: 'research',
@@ -1040,6 +1075,44 @@ const caseStudyOverrides = {
   },
 };
 
+caseStudyOverrides['ufei-precision-cabinet'] = {
+  label: { en: 'Industrial equipment case', zh: '工业设备案例' },
+  headline: {
+    en: 'The cabinet is presented as a controlled storage node: numbered access, visible interface, and factory-floor material flow.',
+    zh: '这组高精度柜以受控暂存节点呈现：编号舱门、可见操作界面，以及工厂现场的物料流转关系。',
+  },
+  sections: [
+    {
+      title: { en: 'Storage Order', zh: '暂存秩序' },
+      body: {
+        en: 'The front layout keeps six numbered doors, a screen area, and access modules readable as one equipment face.',
+        zh: '正面布局把六个编号舱门、屏幕区域和取放模块组织在同一个清晰的设备立面里。',
+      },
+    },
+    {
+      title: { en: 'Factory Context', zh: '工厂场景' },
+      body: {
+        en: 'The gallery places the cabinet beside material bins, inspection benches, safety lines, and operator movement.',
+        zh: '图库把柜体放回料箱、检验台、安全动线和操作员移动关系里，而不是只展示单张产品渲染。',
+      },
+    },
+    {
+      title: { en: 'Interaction Surface', zh: '交互表面' },
+      body: {
+        en: 'The interface zone is treated as part of the product form, linking touch input, access control, and visual feedback.',
+        zh: '界面区域被当作产品形态的一部分处理，连接触控输入、权限取放和视觉反馈。',
+      },
+    },
+    {
+      title: { en: 'Source Boundary', zh: '源图边界' },
+      body: {
+        en: 'The page uses the provided image set directly and only adapts crop, scale, and placement for the portfolio format.',
+        zh: '页面直接使用这组已提供图片，只调整裁切、比例和页面位置，不重新生成产品造型。',
+      },
+    },
+  ],
+};
+
 const pinnedStories = [
   {
     id: 'ai-product',
@@ -1067,7 +1140,7 @@ const pinnedStories = [
       zh: '不是把硬件当成孤立效果图，而是说明形态、人机和设备逻辑如何从有限源图与真实约束里长出来。',
     },
     image: '/portfolio/smart-waste-panel-source.jpg',
-    projects: ['cross-ripple', 'smart-waste', 'baling-press'],
+    projects: ['cross-ripple', 'smart-waste', 'ufei-precision-cabinet'],
   },
   {
     id: 'cmf',
@@ -1122,7 +1195,7 @@ const achievementCards = [
   },
 ];
 
-const productShowcaseIds = ['cross-ripple', 'smart-waste', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
+const productShowcaseIds = ['cross-ripple', 'smart-waste', 'ufei-precision-cabinet', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'sport'];
 const daimaWorkPanels = [
   {
@@ -3085,10 +3158,12 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
               className={
                 src.includes('palifood-handheld-fresh.png')
                   ? 'detail-media-source-aspect'
-                  : src.includes('cbs5502-data-cleaning.png')
+                  : src.includes('ufei-precision-cabinet-render-crop.png')
+                    ? 'detail-media-source-contain detail-media-full-contain'
+                    : src.includes('cbs5502-data-cleaning.png') || src.includes('capstone-device-views.png')
                     ? 'detail-media-source-contain'
                     : undefined
-              }
+                }
             >
               <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
               {index === 0 ? (
@@ -3714,6 +3789,7 @@ const agentProjectAliases = {
   'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '量产'],
   'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],
   'smart-waste': ['智能废料箱', '回收', 'waste'],
+  'ufei-precision-cabinet': ['立式高精度柜', '高精度柜', '精密暂存', '材料暂存', 'UFEI', '优废', '优费', 'precision cabinet'],
   'baling-press': ['压缩打包机', '打包机', 'baling', 'press'],
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
   cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],

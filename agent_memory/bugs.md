@@ -183,3 +183,6 @@
 ## 2026-06-26 Capstone 首图素材风险
 - 当前 `capstone-device` 首图仍是西装徽章场景图；本轮源文件检查发现本地还有圆形设备透明图、人物展示照和若干视图图，但没有一个能在不改变项目含义的情况下明确替换为更好的首屏图。
 - 不要为了“看起来像产品”而自行生成或替换 Capstone 首图；需要用户确认哪个源图/渲染图代表该项目，或提供新的定稿图后再改。
+## 2026-06-26 UFEI / Capstone source-image notes
+- `ufei-precision-cabinet` 的图片来源已确认来自本地 `Desktop/作品集/UFEI/立式高精度柜`；首图裁切版只裁白边，不改变产品造型、色调或材质。项目年份暂用 `2022-2023`，仍需用户最终确认。
+- `capstone-device` 首图风险已通过本地源文件中的四视图设备 render 缓解：新增 `public/portfolio/capstone-device-views.png` 并作为首图；不要为该项目自行生成新产品造型。

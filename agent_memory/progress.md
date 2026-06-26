@@ -354,3 +354,9 @@
 - 修复 Agent 本地 fallback 的成就知识库选择：`林杨得过多少奖` 这类问题现在优先命中“奖项荣誉 12+”，不会被“作品入口 51”抢答。
 - 本地验证：`npm run build` 通过；Playwright QA 通过四屏 fullscreen、四个详情页桥接区、拍立食不混入 Miro、collapse/re-open 清空旧会话、奖项回答含 `12+`、移动端无横向溢出。
 - QA 截图保存在 `tmp/daima-focused-qa/`；GitHub 与 Vercel 版本信息以本轮最终交付记录为准。
+## 2026-06-26 UFEI 立式高精度柜新增项目
+- 已从 `C:\Users\Yang\Desktop\作品集\UFEI\立式高精度柜` 接入 5 张源图，复制到 `public/portfolio/ufei-precision-cabinet-*.png`。
+- 新增项目 id：`ufei-precision-cabinet`，英文名 `Vertical High-Precision Cabinet`，中文名 `立式高精度柜`，归类为工业产品 / product，不使用网页类黑底透视动效。
+- 首图使用源图裁白边版本 `ufei-precision-cabinet-render-crop.png`，仅裁掉过多白边以适配移动端和详情页显示；保留原始 16:9 图 `ufei-precision-cabinet-render.png` 为图库第二张，不改变产品颜色、造型、材质或排版风格。
+- 已加入工业设计入口、产品 showcase、Agent 别名和 `verify:detail-format` 可见项目清单；本地验证 `npm run build` 与 `npm run verify:detail-format -- http://127.0.0.1:5210/` 通过，结果为 `checked=46`、`visibleProjectCount=22`、`issueCount=0`。
+- 临时年份沿用同组 UFEI 工业设备的 `2022-2023`，仍需用户最终确认；角色与详情介绍为基于图片证据的保守版本，可后续按用户简历/项目事实微调。

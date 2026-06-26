@@ -34,6 +34,12 @@ const visibleProjects = [
   },
   { id: 'cat-turntable', triggerTitle: 'Composite Turntable Pet Toy', detailTitle: 'Composite Turntable Pet Toy', kind: 'product' },
   { id: 'smart-waste', triggerTitle: 'Smart Waste Tank', detailTitle: 'Smart Waste Tank', kind: 'product' },
+  {
+    id: 'ufei-precision-cabinet',
+    triggerTitle: 'Vertical High-Precision Cabinet',
+    detailTitle: 'Vertical High-Precision Cabinet',
+    kind: 'product',
+  },
   { id: 'baling-press', triggerTitle: 'Compression Baling Press', detailTitle: 'Compression Baling Press', kind: 'product' },
   { id: 'cmf-electronics', triggerTitle: 'CMF Electronics Archive', detailTitle: 'CMF Electronics Archive', kind: 'cmf' },
   { id: 'cbs5502', triggerTitle: 'Feel Disambiguation NLP', detailTitle: 'Feel Disambiguation NLP', kind: 'research' },
