@@ -593,8 +593,8 @@ const projects = [
     title: { en: 'Feel Disambiguation NLP', zh: 'Feel 词义消歧 NLP' },
     type: { en: 'Computational Linguistics / Data Pipeline', zh: '计算语言学 / 数据流程' },
     year: '2026',
-    image: '/portfolio/cbs5502-montage.png',
-    gallery: ['/portfolio/cbs5502-montage.png'],
+    image: '/portfolio/cbs5502-data-cleaning.png',
+    gallery: ['/portfolio/cbs5502-data-cleaning.png', '/portfolio/cbs5502-montage.png'],
     role: {
       en: 'Data cleaning, annotation rules, feature extraction, reproducible handoff',
       zh: '数据清洗、标注规则、特征提取、可复现交付',
@@ -3082,7 +3082,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           detailMedia.map((src, index) => (
             <figure
               key={`${src}-${index}`}
-              className={src.includes('palifood-handheld-fresh.png') ? 'detail-media-source-aspect' : undefined}
+              className={
+                src.includes('palifood-handheld-fresh.png')
+                  ? 'detail-media-source-aspect'
+                  : src.includes('cbs5502-data-cleaning.png')
+                    ? 'detail-media-source-contain'
+                    : undefined
+              }
             >
               <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
               {index === 0 ? (

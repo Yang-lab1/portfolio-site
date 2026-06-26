@@ -101,6 +101,7 @@ async function collectDetailState(page) {
       metaRightColumn: Boolean(metaRect && heroRect && metaRect.left > heroRect.left + heroRect.width * 0.52),
       heroHeight: Math.round(heroRect?.height || 0),
       mediaClass: media?.className || '',
+      figureClass: firstFigure?.className || '',
       figureW: Math.round(figureRect?.width || 0),
       figureH: Math.round(figureRect?.height || 0),
       objectFit: imageStyle?.objectFit || '',
@@ -117,6 +118,7 @@ async function collectDetailState(page) {
 function detailFlags(data, project, viewportName) {
   const flags = [];
   const isDigital = project.kind === 'digital';
+  const isSourceContain = data.figureClass.includes('detail-media-source-contain');
 
   if (data.title !== project.detailTitle) flags.push(`title mismatch: ${data.title}`);
   if (!data.mediaClass.includes(`detail-media-${project.kind}`)) flags.push(`media kind mismatch: ${data.mediaClass}`);
@@ -127,11 +129,15 @@ function detailFlags(data, project, viewportName) {
   if (viewportName === 'desktop' && data.heroHeight > 360) flags.push(`desktop hero too tall: ${data.heroHeight}`);
   if (data.titleLines > 2) flags.push(`${viewportName} title has ${data.titleLines} lines`);
   if (data.figureW < (viewportName === 'desktop' ? 1000 : 350)) flags.push(`media width too small: ${data.figureW}`);
-  if (data.figureH < (viewportName === 'desktop' ? 700 : 600)) flags.push(`media height too small: ${data.figureH}`);
+  if (data.figureH < (viewportName === 'desktop' ? 700 : 600) && !(isSourceContain && viewportName === 'mobile')) {
+    flags.push(`media height too small: ${data.figureH}`);
+  }
   if (isDigital && data.transform === 'none') flags.push('digital/web media missing perspective transform');
   if (!isDigital && data.transform !== 'none') flags.push(`non-web media has perspective transform: ${data.transform}`);
   if (isDigital && data.objectFit !== 'contain') flags.push(`digital/web object-fit is ${data.objectFit}`);
-  if (!isDigital && data.objectFit !== 'cover') flags.push(`non-web object-fit is ${data.objectFit}`);
+  if (!isDigital && data.objectFit !== 'cover' && !(isSourceContain && data.objectFit === 'contain')) {
+    flags.push(`non-web object-fit is ${data.objectFit}`);
+  }
 
   return flags;
 }

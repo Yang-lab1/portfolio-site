@@ -1,8 +1,17 @@
 # 当前任务进度
 
+## 2026-06-26 详情页格式审计与 CBS5502 首图修正
+- 使用 Product Design audit / QA 思路重新抓取当前所有公开项目详情页的桌面与移动端初始状态、首图媒体状态，并对照用户确认的顶部信息区与网页类黑底透视参考。
+- 结构门禁仍通过：`npm run build` 与 `npm run verify:detail-format -- http://127.0.0.1:5206/` 返回 `checked=44`、`issueCount=0`。
+- 将 `cbs5502` 首图从模板缩略图 montage 改为项目源文件中的真实演示证据图：`public/portfolio/cbs5502-data-cleaning.png`；旧 `cbs5502-montage.png` 保留为第二张证据图。
+- 为 CBS5502 这类含大量文字/图表的研究证据图新增 `detail-media-source-contain` 展示：桌面仍占完整媒体屏，图片完整 contain；移动端按 16:9 原比例展示，避免强行满屏导致内容不可读。
+- 更新 `tools/verify-detail-format.mjs`，允许显式标记为 `detail-media-source-contain` 的非网页研究证据图使用 `object-fit: contain`，但普通产品/CMF/研究图仍保持原有 full-media 检查。
+- 视觉复查路径：`tmp/detail-visual-audit-20260626-current/`、`tmp/detail-media-stage-audit-current/`、`tmp/cbs5502-final-check/`。
+
 ## 2026-06-26 拍立食新增定稿图
 - 已按用户提供的原图新增拍立食详情页图片：`public/portfolio/palifood-handheld-fresh.png`。
 - 该图为用户已确认的生成素材，颜色、光影、手机角度、排版和整体风格不可重生成或改写；仅允许做不改变内容的尺寸/比例适配。
+- 当前页面仅通过 `detail-media-source-aspect` 做 16:9 原比例展示，图片使用 `object-fit: contain`，容器背景贴近原图浅绿色；不得改为黑底、改色、重新排版或重新生成。
 - 已将该图加入 `palifood` 项目图库第一位，并为它单独设置原始比例展示，避免详情页后续图库的竖向满屏容器裁切画面。
 - 本地验证通过：`npm run build`；`npm run verify:detail-format -- http://127.0.0.1:5205/` 返回 `checked=44`、`issueCount=0`。单图检查确认自然尺寸 `1672x941`、桌面 `1488x836`、移动端 `390x218`、横向溢出 `0`。
 
