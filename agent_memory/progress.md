@@ -360,3 +360,17 @@
 - 首图使用源图裁白边版本 `ufei-precision-cabinet-render-crop.png`，仅裁掉过多白边以适配移动端和详情页显示；保留原始 16:9 图 `ufei-precision-cabinet-render.png` 为图库第二张，不改变产品颜色、造型、材质或排版风格。
 - 已加入工业设计入口、产品 showcase、Agent 别名和 `verify:detail-format` 可见项目清单；本地验证 `npm run build` 与 `npm run verify:detail-format -- http://127.0.0.1:5210/` 通过，结果为 `checked=46`、`visibleProjectCount=22`、`issueCount=0`。
 - 临时年份沿用同组 UFEI 工业设备的 `2022-2023`，仍需用户最终确认；角色与详情介绍为基于图片证据的保守版本，可后续按用户简历/项目事实微调。
+
+## 2026-06-26 详情页证据图与移动端安全构图
+- 为 `cbs5502`、`tcm-systems`、`food-health-model`、`capstone-device`、`ufei-precision-cabinet` 增加移动端专用首图，避免手机端 `cover/contain` 后只露出边缘、标题被裁切或首图上方空白过多。
+- 新增资源：`cbs5502-evidence-board-mobile.png`、`tcm-full-process-board-mobile.png`、`food-health-feedback-model-board-mobile.png`、`capstone-device-views-mobile.png`、`ufei-precision-cabinet-mobile.png`；并保留桌面端横向图。
+- 详情页渲染新增 `detailMobileSources`，通过 `<picture>` 在 `max-width: 700px` 自动切换移动端安全图；桌面端继续使用原横图，不改变网页类项目的黑底透视交互。
+- 对 `cbs5502`、`tcm-systems`、`food-health-model` 的首图改为 source-contain/full-contain，避免证据板和流程图被强裁；手机端隐藏 source-contain 首图黑色标签，避免压到图内标题。
+- 本地验证通过：`npm run build`；`npm run verify:detail-format -- http://127.0.0.1:5220/` 返回 `checked=46`、`visibleProjectCount=22`、`hiddenPendingCount=1`、`issueCount=0`。重点复查了 CBS5502、TCM、Food Health、Capstone、UFEI 的桌面与移动端截图。
+
+## 2026-06-27 拍立食详情图呈现修正
+- 根据用户澄清，拍立食相关展示图不再自由生成新的视觉方向；统一按用户已确认的浅绿色成品图标准处理：浅绿色背景、黑色手机外壳、真实拍立食 UI 放入手机屏幕中，低文字密度，不使用深蓝/杂乱多文案风格。
+- 保留用户提供的 `public/portfolio/palifood-handheld-fresh.png` 作为第一张成品图，不改变其色调、排版、风格或屏幕内容。
+- 替换此前不被接受的 food-health / palifood 展示图，新增并引用 `palifood-mobile-flow-showcase.png`、`palifood-feedback-loop-showcase.png` 及对应移动端版本；`food-health-feedback-model-board.png` 也改为同风格手机 mockup 证据图。
+- 移除拍立食详情页中直接引用 raw App 截图的 gallery 项，避免把竖屏 App 截图当成大横图铺满页面。
+- 本地验证通过：`npm run build`；`npm run verify:detail-format -- http://127.0.0.1:5220/` 返回 `checked=46`、`issueCount=0`。

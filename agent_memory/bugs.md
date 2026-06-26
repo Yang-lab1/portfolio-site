@@ -186,3 +186,8 @@
 ## 2026-06-26 UFEI / Capstone source-image notes
 - `ufei-precision-cabinet` 的图片来源已确认来自本地 `Desktop/作品集/UFEI/立式高精度柜`；首图裁切版只裁白边，不改变产品造型、色调或材质。项目年份暂用 `2022-2023`，仍需用户最终确认。
 - `capstone-device` 首图风险已通过本地源文件中的四视图设备 render 缓解：新增 `public/portfolio/capstone-device-views.png` 并作为首图；不要为该项目自行生成新产品造型。
+
+## 2026-06-26 Detail evidence-board responsive guardrail
+- `cbs5502`、`tcm-systems`、`food-health-model`、`capstone-device`、`ufei-precision-cabinet` 已有移动端专用首图；不要把它们删回单一横图，否则手机端会重新出现只露边缘、标题被裁或首图空白过多的问题。
+- 证据板/流程板首图应使用 source-contain/full-contain 或对应移动端安全图，不能用普通 `object-fit: cover` 强行裁掉图表文字。
+- 手机端 source-contain 首图黑色媒体标签已隐藏，避免压住图内标题；不要在未重测截图前恢复。

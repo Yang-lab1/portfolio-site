@@ -191,7 +191,11 @@ const projects = [
     type: { en: 'Food AI / Mobile H5', zh: '食物识别 / 移动 H5' },
     year: '2026',
     image: '/portfolio/palifood-home.png',
-    gallery: ['/portfolio/palifood-handheld-fresh.png', '/portfolio/palifood-stage-china.jpg', '/portfolio/palifood-login-china.jpg'],
+    gallery: [
+      '/portfolio/palifood-handheld-fresh.png',
+      '/portfolio/palifood-mobile-flow-showcase.png',
+      '/portfolio/palifood-feedback-loop-showcase.png',
+    ],
     launchNote: {
       en: 'Pai Li Shi is framed as a mobile food-recognition and health feedback experience, using lightweight interaction and visual clarity to connect daily meals with personal wellness decisions.',
       zh: '拍立食围绕食物识别与健康反馈展开，用轻量交互把日常饮食记录、识别效率和健康理解串联起来。',
@@ -623,8 +627,8 @@ const projects = [
     title: { en: 'Feel Disambiguation NLP', zh: 'Feel 词义消歧 NLP' },
     type: { en: 'Computational Linguistics / Data Pipeline', zh: '计算语言学 / 数据流程' },
     year: '2026',
-    image: '/portfolio/cbs5502-data-cleaning.png',
-    gallery: ['/portfolio/cbs5502-data-cleaning.png', '/portfolio/cbs5502-montage.png'],
+    image: '/portfolio/cbs5502-evidence-board.png',
+    gallery: ['/portfolio/cbs5502-evidence-board.png', '/portfolio/cbs5502-data-cleaning.png', '/portfolio/cbs5502-montage.png'],
     role: {
       en: 'Data cleaning, annotation rules, feature extraction, reproducible handoff',
       zh: '数据清洗、标注规则、特征提取、可复现交付',
@@ -667,8 +671,8 @@ const projects = [
     title: { en: 'Classical Formula Network', zh: '古籍方剂网络' },
     type: { en: 'Data Visualization / Knowledge System', zh: '数据可视化 / 知识系统' },
     year: '2025',
-    image: '/portfolio/tcm-graph-clean.jpg',
-    gallery: ['/portfolio/tcm-graph-clean.jpg'],
+    image: '/portfolio/tcm-full-process-board.png',
+    gallery: ['/portfolio/tcm-full-process-board.png', '/portfolio/tcm-graph-clean.jpg'],
     role: {
       en: 'Ancient-text processing, co-occurrence matrix, graph exploration',
       zh: '古籍处理、共现矩阵、图谱探索',
@@ -711,8 +715,13 @@ const projects = [
     title: { en: 'Food Health Feedback Model', zh: '食物健康反馈模型' },
     type: { en: 'Health Data Model / UX Logic', zh: '健康数据模型 / UX 逻辑' },
     year: '2026',
-    image: '/portfolio/palifood-stage-china.jpg',
-    gallery: ['/portfolio/palifood-stage-china.jpg', '/portfolio/palifood-login-china.jpg'],
+    image: '/portfolio/food-health-feedback-model-board.png',
+    gallery: [
+      '/portfolio/food-health-feedback-model-board.png',
+      '/portfolio/palifood-handheld-fresh.png',
+      '/portfolio/palifood-mobile-flow-showcase.png',
+      '/portfolio/palifood-feedback-loop-showcase.png',
+    ],
     role: {
       en: 'Recognition flow, health feedback structure, prototype validation',
       zh: '识别流程、健康反馈结构、原型验证',
@@ -848,6 +857,30 @@ const projectKinds = {
   'tcm-systems': 'research',
   'libai-data': 'research',
   'food-health-model': 'research',
+};
+
+const detailMobileSources = {
+  cbs5502: {
+    '/portfolio/cbs5502-evidence-board.png': '/portfolio/cbs5502-evidence-board-mobile.png',
+  },
+  'tcm-systems': {
+    '/portfolio/tcm-full-process-board.png': '/portfolio/tcm-full-process-board-mobile.png',
+  },
+  'food-health-model': {
+    '/portfolio/food-health-feedback-model-board.png': '/portfolio/food-health-feedback-model-board-mobile.png',
+    '/portfolio/palifood-mobile-flow-showcase.png': '/portfolio/palifood-mobile-flow-showcase-mobile.png',
+    '/portfolio/palifood-feedback-loop-showcase.png': '/portfolio/palifood-feedback-loop-showcase-mobile.png',
+  },
+  palifood: {
+    '/portfolio/palifood-mobile-flow-showcase.png': '/portfolio/palifood-mobile-flow-showcase-mobile.png',
+    '/portfolio/palifood-feedback-loop-showcase.png': '/portfolio/palifood-feedback-loop-showcase-mobile.png',
+  },
+  'capstone-device': {
+    '/portfolio/capstone-device-views.png': '/portfolio/capstone-device-views-mobile.png',
+  },
+  'ufei-precision-cabinet': {
+    '/portfolio/ufei-precision-cabinet-render-crop.png': '/portfolio/ufei-precision-cabinet-mobile.png',
+  },
 };
 
 const caseStudyOverrides = {
@@ -3069,6 +3102,30 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
+  const getFigureClass = (src) => {
+    if (
+      src.includes('palifood-handheld-fresh.png') ||
+      src.includes('palifood-mobile-flow-showcase.png') ||
+      src.includes('palifood-feedback-loop-showcase.png')
+    ) {
+      return 'detail-media-source-aspect';
+    }
+    if (
+      src.includes('ufei-precision-cabinet-render-crop.png') ||
+      src.includes('capstone-device-views.png') ||
+      src.includes('cbs5502-evidence-board.png') ||
+      src.includes('tcm-full-process-board.png')
+    ) {
+      return 'detail-media-source-contain detail-media-full-contain detail-media-board-light';
+    }
+    if (src.includes('cbs5502-data-cleaning.png')) {
+      return 'detail-media-source-contain';
+    }
+    if (src.includes('food-health-feedback-model-board.png')) {
+      return 'detail-media-source-contain detail-media-full-contain detail-media-board-light';
+    }
+    return undefined;
+  };
 
   useEffect(() => {
     const root = mediaGridRef.current;
@@ -3152,25 +3209,24 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       </section>
       <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
         {detailMedia.length ? (
-          detailMedia.map((src, index) => (
-            <figure
-              key={`${src}-${index}`}
-              className={
-                src.includes('palifood-handheld-fresh.png')
-                  ? 'detail-media-source-aspect'
-                  : src.includes('ufei-precision-cabinet-render-crop.png')
-                    ? 'detail-media-source-contain detail-media-full-contain'
-                    : src.includes('cbs5502-data-cleaning.png') || src.includes('capstone-device-views.png')
-                    ? 'detail-media-source-contain'
-                    : undefined
-                }
-            >
-              <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-              {index === 0 ? (
-                <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
-              ) : null}
-            </figure>
-          ))
+          detailMedia.map((src, index) => {
+            const mobileSrc = detailMobileSources[project.id]?.[src];
+            return (
+              <figure key={`${src}-${index}`} className={getFigureClass(src)}>
+                {mobileSrc ? (
+                  <picture>
+                    <source media="(max-width: 700px)" srcSet={mobileSrc} />
+                    <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+                  </picture>
+                ) : (
+                  <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+                )}
+                {index === 0 ? (
+                  <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
+                ) : null}
+              </figure>
+            );
+          })
         ) : (
           <figure className="detail-media-pending">
             <span>{lang === 'zh' ? '干净原图待补' : 'Clean source image pending'}</span>
