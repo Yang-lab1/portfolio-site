@@ -481,9 +481,9 @@ const projects = [
     title: { en: 'Xiaomi Bone-conduction Earphones CMF', zh: '小米骨传导耳机 CMF' },
     type: { en: 'CMF / Mass Production', zh: 'CMF / 量产' },
     year: '2022-2023',
-    image: '/portfolio/xiaomi-cmf-source-cover.jpg',
+    image: '/portfolio/xiaomi-cmf-first-gen-remastered.jpg',
     imageFit: 'contain',
-    gallery: ['/portfolio/xiaomi-cmf-source-cover.jpg', '/portfolio/xiaomi-cmf-breakdown-source.jpg', '/portfolio/xiaomi-cmf-detail-source.jpg'],
+    gallery: ['/portfolio/xiaomi-cmf-first-gen-remastered.jpg', '/portfolio/xiaomi-cmf-breakdown-source.jpg', '/portfolio/xiaomi-cmf-detail-source.jpg'],
     role: {
       en: 'CMF design, color rationale, material and finish specification',
       zh: 'CMF 设计、色彩逻辑、材料与工艺规格',
@@ -504,8 +504,8 @@ const projects = [
     title: { en: 'Composite Turntable Pet Toy', zh: '复合转盘猫玩具' },
     type: { en: 'Mass-produced Product / Pet Toy', zh: '量产产品 / 宠物玩具' },
     year: '2021-2022',
-    image: '/portfolio/cat-turntable-source-cover.jpg',
-    gallery: ['/portfolio/cat-turntable-source-cover.jpg', '/portfolio/cat-turntable-hero-source.jpg', '/portfolio/cat-turntable-render-source.jpg', '/portfolio/cat-turntable-detail-source.jpg'],
+    image: '/portfolio/cat-turntable-lifestyle-realistic.png',
+    gallery: ['/portfolio/cat-turntable-lifestyle-realistic.png', '/portfolio/cat-turntable-hero-source.jpg', '/portfolio/cat-turntable-render-source.jpg', '/portfolio/cat-turntable-detail-source.jpg'],
     role: {
       en: 'Product design, cost-down strategy, commercial canvas',
       zh: '产品设计、降本策略、商业画布',

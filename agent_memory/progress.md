@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-25 Product asset cleanup pass
+- Added a higher-resolution image2-generated cat-turntable lifestyle image as `public/portfolio/cat-turntable-lifestyle-realistic.png` and pointed the `cat-turntable` cover/first gallery image to it. The generated image keeps the pink turntable toy structure but improves cats, lighting, floor contact, and scene realism.
+- Cleaned old portfolio-page artifacts from hydrotherapy assets: `hydrotherapy-clean.jpg` no longer includes the left-side 01-05 navigation strip, and `hydrotherapy-detail-china.jpg` no longer includes the left-side navigation numbers or bottom `Design Comes From Life` tagline.
+- Checked Xiaomi official product imagery through the current Xiaomi Mall product page. The available high-resolution official assets are for `Xiaomi 骨传导耳机2`, so they were treated as candidates only and not used to replace the first-generation Xiaomi CMF project image.
+- Image2 attempts for the Xiaomi first-generation earphone image did not preserve the product and were rejected. Added `public/portfolio/xiaomi-cmf-first-gen-remastered.jpg` instead, using a source-preserving 1920x1366 detail-page canvas derived from the original first-generation cover so the CMF/color/layout remain consistent while `cover` no longer cuts the desktop hero content.
+
 ## 2026-06-25 Detail format rule verified + heart source search
 - Re-verified the user's clarified rule: website/web-app detail pages keep the fullscreen black perspective stage, while product/CMF/research pages use normal fullscreen media without perspective.
 - Local validation passed: `npm run build`; `npm run verify:detail-format -- http://127.0.0.1:5201/` returned `checked = 44`, `visibleProjectCount = 21`, `hiddenPendingCount = 1`, and `issueCount = 0`.

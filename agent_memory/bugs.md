@@ -58,6 +58,11 @@
 - The COMP5571 final-project device renders (`设备前后相对.png`, `爆炸图.png`, `手机与设备.png`, `手指抓.png`) appear to be a different device/app project and should not be assigned to `heart-bracelet` without explicit user confirmation.
 - Keep `heart-bracelet` hidden from public detail links and Agent navigation until a reliable original product image or user-confirmed source package is available.
 
+## 2026-06-25 Generated asset style guardrail
+- Generated or remastered project images must match the specific project's existing CMF, visual language, color palette, and layout logic; do not introduce unrelated colors, scenes, or composition styles just because they look more polished.
+- For old portfolio-page source images, remove legacy navigation marks such as left-side `01-05` numbers and bottom `Design Comes From Life` text before using them on the site.
+- Xiaomi CMF is a first-generation bone-conduction earphone project. Do not replace it with Xiaomi official second-generation assets unless the user explicitly approves that product identity change.
+
 ## 2026-06-03 Current Risks
 - 不要再把产品三卡侧卡改成完整露出；用户明确要求左右两张只露出约四分之三。
 - 不要再把侧卡折叠角度加大；当前用户要求倾斜更克制，最新值为 rotateY(8deg)。
