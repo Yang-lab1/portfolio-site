@@ -1349,6 +1349,12 @@ img {
   border-top: 1px solid rgba(255, 255, 255, 0.72);
 }
 
+.detail-media-grid figure.detail-media-source-aspect {
+  height: auto;
+  aspect-ratio: 1672 / 941;
+  background: #d7e2d6;
+}
+
 .detail-media-grid img {
   width: 100%;
   height: 100%;
@@ -2620,6 +2626,11 @@ img {
     grid-column: span 12;
     height: 100svh;
     min-height: 0;
+  }
+
+  .detail-media-digital figure.detail-media-source-aspect {
+    height: auto;
+    aspect-ratio: 1672 / 941;
   }
 
   .detail-meta {

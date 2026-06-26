@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-26 拍立食新增定稿图
+- 已按用户提供的原图新增拍立食详情页图片：`public/portfolio/palifood-handheld-fresh.png`。
+- 该图为用户已确认的生成素材，颜色、光影、手机角度、排版和整体风格不可重生成或改写；仅允许做不改变内容的尺寸/比例适配。
+- 已将该图加入 `palifood` 项目图库第一位，并为它单独设置原始比例展示，避免详情页后续图库的竖向满屏容器裁切画面。
+- 本地验证通过：`npm run build`；`npm run verify:detail-format -- http://127.0.0.1:5205/` 返回 `checked=44`、`issueCount=0`。单图检查确认自然尺寸 `1672x941`、桌面 `1488x836`、移动端 `390x218`、横向溢出 `0`。
+
 ## 2026-06-25 Product asset cleanup pass
 - Added a higher-resolution image2-generated cat-turntable lifestyle image as `public/portfolio/cat-turntable-lifestyle-realistic.png` and pointed the `cat-turntable` cover/first gallery image to it. The generated image keeps the pink turntable toy structure but improves cats, lighting, floor contact, and scene realism.
 - Cleaned old portfolio-page artifacts from hydrotherapy assets: `hydrotherapy-clean.jpg` no longer includes the left-side 01-05 navigation strip, and `hydrotherapy-detail-china.jpg` no longer includes the left-side navigation numbers or bottom `Design Comes From Life` tagline.

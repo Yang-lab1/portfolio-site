@@ -191,7 +191,7 @@ const projects = [
     type: { en: 'Food AI / Mobile H5', zh: '食物识别 / 移动 H5' },
     year: '2026',
     image: '/portfolio/palifood-home.png',
-    gallery: ['/portfolio/palifood-stage-china.jpg', '/portfolio/palifood-login-china.jpg'],
+    gallery: ['/portfolio/palifood-handheld-fresh.png', '/portfolio/palifood-stage-china.jpg', '/portfolio/palifood-login-china.jpg'],
     launchNote: {
       en: 'Pai Li Shi is framed as a mobile food-recognition and health feedback experience, using lightweight interaction and visual clarity to connect daily meals with personal wellness decisions.',
       zh: '拍立食围绕食物识别与健康反馈展开，用轻量交互把日常饮食记录、识别效率和健康理解串联起来。',
@@ -3080,7 +3080,10 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
         {detailMedia.length ? (
           detailMedia.map((src, index) => (
-            <figure key={`${src}-${index}`}>
+            <figure
+              key={`${src}-${index}`}
+              className={src.includes('palifood-handheld-fresh.png') ? 'detail-media-source-aspect' : undefined}
+            >
               <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
               {index === 0 ? (
                 <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
