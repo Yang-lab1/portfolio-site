@@ -2739,6 +2739,19 @@ img {
     padding-top: 18px;
   }
 
+  .detail-media-grid.detail-media-project-palifood figure.detail-media-source-aspect:first-child {
+    height: 100svh;
+    aspect-ratio: auto;
+  }
+
+  .detail-media-grid.detail-media-project-palifood figure.detail-media-source-aspect:first-child img {
+    width: max(150svh, 360vw);
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
   .detail-media-digital figure:first-child img {
     width: min(128vw, 620px);
     height: auto;

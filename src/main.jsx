@@ -165,7 +165,7 @@ const projects = [
     type: { en: 'AI Product / Web / Backend', zh: 'AI 产品 / Web / 后端' },
     year: '2026',
     image: '/portfolio/miro-home-china.jpg',
-    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-review-dashboard.jpg', '/portfolio/miro-device-ui.png'],
+    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     launchNote: {
       en: 'Miro turns cross-cultural business rehearsal into a structured AI coaching flow, where users can practice difficult conversations, review repeated risks, and enter the system through a clear digital product story.',
       zh: 'Miro 将跨文化沟通训练拆成可复盘的 AI 演练流程，让用户先练习高压对话，再回看风险信号与改进路径。',
@@ -193,8 +193,6 @@ const projects = [
     image: '/portfolio/palifood-home.png',
     gallery: [
       '/portfolio/palifood-handheld-fresh.png',
-      '/portfolio/palifood-mobile-flow-showcase.png',
-      '/portfolio/palifood-feedback-loop-showcase.png',
     ],
     launchNote: {
       en: 'Pai Li Shi is framed as a mobile food-recognition and health feedback experience, using lightweight interaction and visual clarity to connect daily meals with personal wellness decisions.',
@@ -395,9 +393,9 @@ const projects = [
     title: { en: "The Cup's Cup", zh: '杯中杯饮水辅具' },
     type: { en: 'Assistive Product / Patent Applied', zh: '辅助产品 / 专利申请' },
     year: '2018-2019',
-    image: '/portfolio/cup-cup-clean.jpg',
+    image: '/portfolio/cup-cup-stage.jpg',
     imageFit: 'contain',
-    gallery: ['/portfolio/cup-cup-stage.jpg', '/portfolio/cup-cup-clean.jpg'],
+    gallery: ['/portfolio/cup-cup-stage.jpg'],
     role: {
       en: 'Pain-point reframing, use flow, physical product design',
       zh: '痛点重构、使用流程、实体产品设计',
@@ -650,7 +648,7 @@ const projects = [
     type: { en: 'AI Governance / Product Architecture', zh: 'AI 治理 / 产品架构' },
     year: '2026',
     image: '/portfolio/miro-hifi-overview.jpg',
-    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-review-dashboard.jpg'],
+    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     role: {
       en: 'Flow/state/API mapping, governance notes, deployment checklist',
       zh: '流程/状态/API 映射、治理说明、部署清单',
@@ -719,8 +717,6 @@ const projects = [
     gallery: [
       '/portfolio/food-health-feedback-model-board.png',
       '/portfolio/palifood-handheld-fresh.png',
-      '/portfolio/palifood-mobile-flow-showcase.png',
-      '/portfolio/palifood-feedback-loop-showcase.png',
     ],
     role: {
       en: 'Recognition flow, health feedback structure, prototype validation',
@@ -1158,7 +1154,7 @@ const pinnedStories = [
       en: 'The strongest AI-facing work here is not a single model demo. It is a product rhythm: scenario setup, interaction, review, and next action.',
       zh: '这里最强的 AI 向能力不是单次模型演示，而是把场景设置、交互、复盘和下一步行动组织成产品节奏。',
     },
-    image: '/portfolio/miro-review-dashboard.jpg',
+    image: '/portfolio/miro-detail-reference-dashboard.png',
     projects: ['miro', 'palifood', 'momenta'],
   },
   {
@@ -3090,7 +3086,6 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const referenceHeroMedia = {
     miro: '/portfolio/miro-detail-reference-dashboard.png',
-    palifood: '/portfolio/palifood-detail-reference-stage.png',
   };
   const heroMedia = referenceHeroMedia[project.id];
   const detailMedia =
@@ -3103,11 +3098,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   const getFigureClass = (src) => {
-    if (
-      src.includes('palifood-handheld-fresh.png') ||
-      src.includes('palifood-mobile-flow-showcase.png') ||
-      src.includes('palifood-feedback-loop-showcase.png')
-    ) {
+    if (src.includes('palifood-handheld-fresh.png')) {
       return 'detail-media-source-aspect';
     }
     if (

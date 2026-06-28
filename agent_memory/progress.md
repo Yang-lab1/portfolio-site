@@ -374,3 +374,10 @@
 - 替换此前不被接受的 food-health / palifood 展示图，新增并引用 `palifood-mobile-flow-showcase.png`、`palifood-feedback-loop-showcase.png` 及对应移动端版本；`food-health-feedback-model-board.png` 也改为同风格手机 mockup 证据图。
 - 移除拍立食详情页中直接引用 raw App 截图的 gallery 项，避免把竖屏 App 截图当成大横图铺满页面。
 - 本地验证通过：`npm run build`；`npm run verify:detail-format -- http://127.0.0.1:5220/` 返回 `checked=46`、`issueCount=0`。
+
+## 2026-06-28 拍立食参考一致性回退修正
+- 用户再次确认拍立食展示图必须一比一照着已给参考图执行：手机 UI 必须放在手机屏幕内，不能把 App 截图当横向大图，也不能自行组合三手机、说明卡、箭头或新构图。
+- 本轮尝试的 Image2 和本地透视贴图候选均未达到“锁定母版、只替换屏幕内容”的标准，因此未写入正式网站资产。
+- 正式站已从 `palifood` 和 `food-health-model` 浏览顺序中撤掉偏离参考的 `palifood-mobile-flow-showcase.png` 与 `palifood-feedback-loop-showcase.png`，拍立食详情页暂只保留用户确认风格的 `palifood-handheld-fresh.png`。
+- 移动端单独修正 `detail-media-project-palifood` 展示：容器保持 100svh，图片放大为沉浸式裁切，避免 16:9 横图在手机端变成矮条。
+- 验证：`npm run verify:detail-format -- http://127.0.0.1:5220/` 返回 `checked=46`、`visibleProjectCount=22`、`issueCount=0`；`npm run build` 通过。
