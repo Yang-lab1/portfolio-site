@@ -13,6 +13,7 @@
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。
 
 ## 已修复问题
+- 2026-06-29：`TCM Knowledge Graph` 首图不应再使用 `tcm-graph-clean.jpg` 作为第一张交付图；该图天然尺寸只有 `740x430`，已改为高清完整流程板 `tcm-full-process-board.png`，并在移动端映射到 `tcm-full-process-board-mobile.png`。`tcm-graph-clean.jpg` 只能作为第二张辅助证据图。
 - 2026-06-01：`Compress-Archive` 曾返回但没有生成 zip；`package-china-dist.mjs` 已增加 zip 存在性检查和 `.NET ZipFile` fallback。
 - 2026-06-01：`deployment_evidence.json` 输出到子目录时报告路径可能解析错误；`generate-deployment-evidence.mjs` 已按 evidence 文件位置生成相对路径，同时保留项目根目录命令输出。
 ## Aircenter 迁移问题与风险

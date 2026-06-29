@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-29 TCM Knowledge Graph 首图高清修正
+- 详情页深度审计发现 `tcm-kg` 首图 `tcm-graph-clean.jpg` 天然尺寸仅 `740x430`，在桌面和移动端都会成为低清放大素材。
+- 已回到本地源项目 `Desktop/semester1/CBS5504-周四晚/final project` 复核素材；没有找到同一张独立知识图谱的更高清裁图，项目源里的高清完整流程板为 `资源 1.png`，已对应站内 `public/portfolio/tcm-full-process-board.png`。
+- 已将 `TCM Knowledge Graph` 的首图和 gallery 第一张改为 `tcm-full-process-board.png`，保留 `tcm-graph-clean.jpg` 作为第二张辅助证据图；并新增 `tcm-kg` 的移动端安全图映射到 `tcm-full-process-board-mobile.png`。
+- 本地验证通过：`npm run build`、`node tools/verify-detail-format.mjs http://127.0.0.1:5231/` 返回 `checked=46`、`issueCount=0`；深度审计 `tmp/detail-depth-audit.mjs` 返回 `count=44`、`issueCount=0`。桌面与移动端截图已人工复核，TCM 首图不再使用低清裁图。
+
 ## 2026-06-29 详情页产品/CMF 媒体舞台修正
 - 按用户“网页项目可用黑底透视，工业/产品/CMF 按正常产品图呈现”的规则，拆掉 `detail-media-product` 与 `detail-media-cmf` 首图继承黑底 `100svh` 网页舞台的问题，避免产品图出现大面积黑边或被误当网页截图。
 - 新增 `detail-media-fit-light` 浅底完整展示类型，用于 `hydrotherapy-clean.jpg` 与 `cmf-electronics-source-cover.jpg` 这类宽幅资料/证据图；图片使用 `object-fit: contain`，保持资料图完整可读，不再被 `cover` 强裁。

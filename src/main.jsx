@@ -256,8 +256,8 @@ const projects = [
     title: { en: 'TCM Knowledge Graph', zh: '中医药知识图谱' },
     type: { en: 'Knowledge Graph / Cultural Data', zh: '知识图谱 / 文化数据' },
     year: '2025',
-    image: '/portfolio/tcm-graph-clean.jpg',
-    gallery: ['/portfolio/tcm-graph-clean.jpg'],
+    image: '/portfolio/tcm-full-process-board.png',
+    gallery: ['/portfolio/tcm-full-process-board.png', '/portfolio/tcm-graph-clean.jpg'],
     role: {
       en: 'Domain modeling, graph structure, ECharts prototype, educational framing',
       zh: '领域建模、图谱结构、ECharts 原型、教育化表达',
@@ -858,6 +858,9 @@ const projectKinds = {
 const detailMobileSources = {
   cbs5502: {
     '/portfolio/cbs5502-evidence-board.png': '/portfolio/cbs5502-evidence-board-mobile.png',
+  },
+  'tcm-kg': {
+    '/portfolio/tcm-full-process-board.png': '/portfolio/tcm-full-process-board-mobile.png',
   },
   'tcm-systems': {
     '/portfolio/tcm-full-process-board.png': '/portfolio/tcm-full-process-board-mobile.png',
