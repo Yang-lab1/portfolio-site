@@ -263,6 +263,7 @@ const projects = [
     type: { en: 'Knowledge Graph / Cultural Data', zh: '知识图谱 / 文化数据' },
     year: '2025',
     image: '/portfolio/tcm-full-process-board.png',
+    wallGroup: 'tcm',
     gallery: ['/portfolio/tcm-full-process-board.png', '/portfolio/tcm-graph-clean.jpg'],
     role: {
       en: 'Domain modeling, graph structure, ECharts prototype, educational framing',
@@ -692,6 +693,7 @@ const projects = [
     type: { en: 'Data Visualization / Knowledge System', zh: '数据可视化 / 知识系统' },
     year: '2025',
     image: '/portfolio/tcm-full-process-board.png',
+    wallGroup: 'tcm',
     gallery: ['/portfolio/tcm-full-process-board.png', '/portfolio/tcm-graph-clean.jpg'],
     role: {
       en: 'Ancient-text processing, co-occurrence matrix, graph exploration',
@@ -3178,8 +3180,18 @@ function separateShowcaseRow(rowProjects) {
   return arranged;
 }
 
+function getUniqueShowcaseProjects(projectList) {
+  const seenGroups = new Set();
+  return projectList.filter((project) => {
+    const group = getShowcaseGroup(project);
+    if (seenGroups.has(group)) return false;
+    seenGroups.add(group);
+    return true;
+  });
+}
+
 function buildShowcaseRows() {
-  const showcaseProjects = projects.filter((project) => project.image);
+  const showcaseProjects = getUniqueShowcaseProjects(projects.filter((project) => project.image));
   const buckets = [[], [], []];
   showcaseProjects.forEach((project, index) => {
     buckets[index % 3].push(project);

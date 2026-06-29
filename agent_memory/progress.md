@@ -5,6 +5,7 @@
 - `Miro AI Rehearsal System` 与 `Miro AI Governance Notes` 的图片墙卡片已改用四连屏 Miro 图 `daima-work-cover-01.png`；`Pai Li Shi` 与 `Food Health Feedback Model` 的图片墙卡片已改用四连屏拍立食图 `daima-work-cover-02.png`。
 - `Offer Quest` 图片墙卡片已改用用户提供的键盘小岛图并生成适配版 `offer-quest-keyboard-wall-card.png`；`Feel Disambiguation NLP` 图片墙卡片已改用用户提供的橙色光圈图并生成适配版 `cbs5502-nlp-wall-card.png`。
 - `Capstone AI Device Concept` 图片墙卡片已按用户指定替换为黑底手表图适配版 `capstone-watch-wall-card.png`；`Sichuan Opera Drawing Ruler` 图片墙卡片已改用满铺适配版 `opera-ruler-wall-card.jpg`，避免继承详情页 `contain` 造成四周留边。
+- 图片墙排序已升级为按 `wallGroup` 去重：Miro / 拍立食 / 李白 / TCM 等同源或同视觉项目不再同时出现在横向图片墙里，避免同一屏看到重复卡片造成项目数量偏少的观感。
 - 注意：截图里被标为 Miro 的灰色圆形产品卡在项目数据中不是 Miro 项目，未强行改为 Miro 图，避免图片与点击详情页错配。
 
 ## 2026-06-29 图片墙点击与水疗卡片满铺修正
