@@ -409,6 +409,8 @@ const projects = [
     year: '2018-2019',
     image: '/portfolio/cup-cup-stage.jpg',
     imageFit: 'contain',
+    wallImage: '/portfolio/cup-cup-wall-card.png',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/cup-cup-stage.jpg'],
     role: {
       en: 'Pain-point reframing, use flow, physical product design',
