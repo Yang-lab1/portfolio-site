@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-29 Home Form Coach 详情页专属叙述
+- 审计发现 `sport / Home Form Coach` 是首页四连屏核心入口之一，但详情页 case-study 区仍依赖通用 fallback 叙述，容易显得像模板页，不符合“每个详情页要有完整产品叙述”的目标。
+- 已新增 `sport` 的专属 `caseStudyOverrides`：标签为 `Fitness AI case / 运动 AI 案例`，标题为 `Local posture coaching loop / 本地姿态教练闭环`，四个叙述卡分别覆盖 `Training Entry`、`Pose Tracking`、`Form Feedback`、`Report Loop`。
+- 这次只改文案叙述结构，不改图片、动效、布局、AGNES/Agent、拍立食素材或其他项目呈现。
+- 本地验证通过：`npm run build`；`node tools/verify-detail-format.mjs http://127.0.0.1:5233/` 返回 `checked=46`、`issueCount=0`。Playwright 单页取证确认 `Home Form Coach` 不再显示 `Digital product case`、`Core Flow` 或 `Shaped around the project` fallback 文案，且横向溢出为 `0`。
+
 ## 2026-06-29 TCM Knowledge Graph 首图高清修正
 - 详情页深度审计发现 `tcm-kg` 首图 `tcm-graph-clean.jpg` 天然尺寸仅 `740x430`，在桌面和移动端都会成为低清放大素材。
 - 已回到本地源项目 `Desktop/semester1/CBS5504-周四晚/final project` 复核素材；没有找到同一张独立知识图谱的更高清裁图，项目源里的高清完整流程板为 `资源 1.png`，已对应站内 `public/portfolio/tcm-full-process-board.png`。

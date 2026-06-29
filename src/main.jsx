@@ -988,6 +988,44 @@ const caseStudyOverrides = {
       },
     ],
   },
+  sport: {
+    label: { en: 'Fitness AI case', zh: '运动 AI 案例' },
+    displayTitle: { en: 'Local posture coaching loop', zh: '本地姿态教练闭环' },
+    headline: {
+      en: 'Home Form Coach turns camera-based home exercise into a local-first coaching loop: plan, track posture, score form, and review a session report.',
+      zh: 'Home Form Coach 把摄像头居家训练组织成本地优先的教练闭环：规划训练、追踪姿态、评分动作，并复盘训练报告。',
+    },
+    sections: [
+      {
+        title: { en: 'Training Entry', zh: '训练入口' },
+        body: {
+          en: 'The motion-led landing page introduces the product rhythm before users enter workout planning or live form checking.',
+          zh: '动态落地页先建立产品节奏，再把用户带入训练规划或实时动作质检。',
+        },
+      },
+      {
+        title: { en: 'Pose Tracking', zh: '姿态追踪' },
+        body: {
+          en: 'Browser camera input and MediaPipe landmarks keep pose analysis inside the session, without requiring raw video upload.',
+          zh: '浏览器摄像头与 MediaPipe 关键点把姿态分析留在当前训练会话里，不要求上传原始视频。',
+        },
+      },
+      {
+        title: { en: 'Form Feedback', zh: '动作反馈' },
+        body: {
+          en: 'Scores, rep controls, set states, and rule-based checks translate movement quality into immediate coaching signals.',
+          zh: '评分、次数控制、组间状态和规则化检查，把动作质量转译成即时教练反馈。',
+        },
+      },
+      {
+        title: { en: 'Report Loop', zh: '报告闭环' },
+        body: {
+          en: 'Each session can become a structured report, with optional Supabase sync, so progress is reviewable without storing unnecessary video.',
+          zh: '每次训练都可以沉淀为结构化报告，并可选同步到 Supabase，让进展可复盘，同时避免保存不必要的视频。',
+        },
+      },
+    ],
+  },
   'smart-waste': {
     label: { en: 'Industrial equipment case', zh: '工业设备案例' },
     headline: {
@@ -1595,6 +1633,7 @@ function getCaseStudy(project, lang) {
     return {
       kind,
       label: t(override.label, lang),
+      displayTitle: t(override.displayTitle, lang),
       headline: t(override.headline, lang),
       sections: override.sections.map((section) => ({
         title: t(section.title, lang),
@@ -3249,7 +3288,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
       <section className={`case-study-section case-study-${caseStudy.kind}`}>
         <div className="case-study-head">
           <span>{caseStudy.label}</span>
-          <h2>{lang === 'zh' ? '从项目调性出发' : 'Shaped around the project'}</h2>
+          <h2>{caseStudy.displayTitle || (lang === 'zh' ? '从项目调性出发' : 'Shaped around the project')}</h2>
           <p>{caseStudy.headline}</p>
         </div>
         <div className="case-study-grid">
