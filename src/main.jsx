@@ -165,7 +165,7 @@ const projects = [
     type: { en: 'AI Product / Web / Backend', zh: 'AI 产品 / Web / 后端' },
     year: '2026',
     image: '/portfolio/miro-home-china.jpg',
-    wallImage: '/portfolio/miro-daima-wall-card.png',
+    wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
     gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     launchNote: {
@@ -193,7 +193,7 @@ const projects = [
     type: { en: 'Food AI / Mobile H5', zh: '食物识别 / 移动 H5' },
     year: '2026',
     image: '/portfolio/palifood-home.png',
-    wallImage: '/portfolio/palifood-handheld-wall-card.png',
+    wallImage: '/portfolio/daima-work-cover-02.png',
     wallGroup: 'palifood',
     gallery: [
       '/portfolio/palifood-handheld-fresh.png',
@@ -285,6 +285,8 @@ const projects = [
     type: { en: 'Learning Product / Web App', zh: '学习产品 / Web 应用' },
     year: '2026',
     image: '/portfolio/offer-quest-china.jpg',
+    wallImage: '/portfolio/offer-quest-keyboard-wall-card.png',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/offer-quest-desktop.png', '/portfolio/offer-quest-map.png'],
     launchNote: {
       en: 'Offer Quest turns job-search preparation into a game-like learning system, combining quests, progress feedback, and structured review to make career practice more continuous.',
@@ -451,6 +453,8 @@ const projects = [
     year: '2019-2020',
     image: '/portfolio/opera-ruler-source-cover.jpg',
     imageFit: 'contain',
+    wallImage: '/portfolio/opera-ruler-wall-card.jpg',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/opera-ruler-source-cover.jpg', '/portfolio/opera-ruler-kit-source.jpg', '/portfolio/opera-ruler-use-source.jpg'],
     role: {
       en: 'Cultural translation, toy concept, test-model direction',
@@ -473,6 +477,8 @@ const projects = [
     type: { en: 'AI Hardware / Service Concept', zh: 'AI 硬件 / 服务概念' },
     year: '2026',
     image: '/portfolio/capstone-device-views.png',
+    wallImage: '/portfolio/capstone-watch-wall-card.png',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/capstone-device-views.png', '/portfolio/capstone-device-render.jpg', '/portfolio/capstone-device-export.jpg', '/portfolio/capstone-cover.jpg'],
     role: {
       en: 'Device scenario, concept framing, service narrative',
@@ -638,6 +644,8 @@ const projects = [
     type: { en: 'Computational Linguistics / Data Pipeline', zh: '计算语言学 / 数据流程' },
     year: '2026',
     image: '/portfolio/cbs5502-evidence-board.png',
+    wallImage: '/portfolio/cbs5502-nlp-wall-card.png',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/cbs5502-evidence-board.png', '/portfolio/cbs5502-data-cleaning.png', '/portfolio/cbs5502-montage.png'],
     role: {
       en: 'Data cleaning, annotation rules, feature extraction, reproducible handoff',
@@ -660,7 +668,7 @@ const projects = [
     type: { en: 'AI Governance / Product Architecture', zh: 'AI 治理 / 产品架构' },
     year: '2026',
     image: '/portfolio/miro-hifi-overview.jpg',
-    wallImage: '/portfolio/miro-daima-wall-card.png',
+    wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
     gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     role: {
@@ -730,7 +738,7 @@ const projects = [
     type: { en: 'Health Data Model / UX Logic', zh: '健康数据模型 / UX 逻辑' },
     year: '2026',
     image: '/portfolio/food-health-feedback-model-board.png',
-    wallImage: '/portfolio/palifood-handheld-wall-card.png',
+    wallImage: '/portfolio/daima-work-cover-02.png',
     wallGroup: 'palifood',
     gallery: [
       '/portfolio/food-health-feedback-model-board.png',

@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-29 图片墙指定卡片图源修正
+- 按用户最新指定，只调整横向图片墙卡片图源，不改 Daima 四连屏本体、不改详情页主图结构。
+- `Miro AI Rehearsal System` 与 `Miro AI Governance Notes` 的图片墙卡片已改用四连屏 Miro 图 `daima-work-cover-01.png`；`Pai Li Shi` 与 `Food Health Feedback Model` 的图片墙卡片已改用四连屏拍立食图 `daima-work-cover-02.png`。
+- `Offer Quest` 图片墙卡片已改用用户提供的键盘小岛图并生成适配版 `offer-quest-keyboard-wall-card.png`；`Feel Disambiguation NLP` 图片墙卡片已改用用户提供的橙色光圈图并生成适配版 `cbs5502-nlp-wall-card.png`。
+- `Capstone AI Device Concept` 图片墙卡片已按用户指定替换为黑底手表图适配版 `capstone-watch-wall-card.png`；`Sichuan Opera Drawing Ruler` 图片墙卡片已改用满铺适配版 `opera-ruler-wall-card.jpg`，避免继承详情页 `contain` 造成四周留边。
+- 注意：截图里被标为 Miro 的灰色圆形产品卡在项目数据中不是 Miro 项目，未强行改为 Miro 图，避免图片与点击详情页错配。
+
 ## 2026-06-29 图片墙点击与水疗卡片满铺修正
 - 修复横向图片墙在 GSAP 持续移动时普通鼠标点击可能不触发原生 click 的问题：桌面端改为在 `pointerup` 判断短按直接进入对应项目，拖拽时仍不误跳；键盘/触摸保留 click 兜底。
 - 重新生成 `public/portfolio/watsu-hydrotherapy-wall-card.png` 为 1.62:1 满铺 cover 裁切版，并为 `cross-ripple` 单独设置 `wallImageFit: 'cover'`，避免继承详情页 `imageFit: contain` 导致图片墙留四边。
