@@ -165,6 +165,8 @@ const projects = [
     type: { en: 'AI Product / Web / Backend', zh: 'AI 产品 / Web / 后端' },
     year: '2026',
     image: '/portfolio/miro-home-china.jpg',
+    wallImage: '/portfolio/miro-daima-wall-card.png',
+    wallGroup: 'miro',
     gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     launchNote: {
       en: 'Miro turns cross-cultural business rehearsal into a structured AI coaching flow, where users can practice difficult conversations, review repeated risks, and enter the system through a clear digital product story.',
@@ -191,6 +193,8 @@ const projects = [
     type: { en: 'Food AI / Mobile H5', zh: '食物识别 / 移动 H5' },
     year: '2026',
     image: '/portfolio/palifood-home.png',
+    wallImage: '/portfolio/palifood-handheld-wall-card.png',
+    wallGroup: 'palifood',
     gallery: [
       '/portfolio/palifood-handheld-fresh.png',
     ],
@@ -231,6 +235,8 @@ const projects = [
     type: { en: 'Digital Humanities / Data Storytelling', zh: '数字人文 / 数据叙事' },
     year: '2025',
     image: '/portfolio/libai-background.png',
+    wallImage: '/portfolio/libai-daima-wall-card.png',
+    wallGroup: 'libai',
     gallery: ['/portfolio/libai-background.png'],
     launchNote: {
       en: 'The Li Bai interactive site transforms poetry, geography, and knowledge links into an explorable cultural interface, making classical content easier to browse, connect, and understand.',
@@ -305,7 +311,8 @@ const projects = [
     type: { en: 'Fitness AI / Pose Tracking / Web App', zh: '运动姿态 AI / Web 应用' },
     year: '2026',
     image: '/portfolio/sport-home-form-coach-cover.jpg',
-    wallImage: '/portfolio/sport-speed-wall-cover.png',
+    wallImage: '/portfolio/sport-daima-wall-card.png',
+    wallGroup: 'sport',
     gallery: [
       '/portfolio/sport-home-form-coach-cover.jpg',
       '/portfolio/sport-home-form-coach-coach.png',
@@ -372,6 +379,8 @@ const projects = [
     type: { en: 'Industrial Design / Wearable Concept', zh: '工业设计 / 穿戴概念' },
     year: '2019-2021',
     image: '/portfolio/cross-ripple-clean.jpg',
+    wallImage: '/portfolio/watsu-hydrotherapy-wall-card.png',
+    wallGroup: 'watsu',
     imageFit: 'contain',
     gallery: ['/portfolio/hydrotherapy-clean.jpg', '/portfolio/hydrotherapy-detail-china.jpg'],
     role: {
@@ -650,6 +659,8 @@ const projects = [
     type: { en: 'AI Governance / Product Architecture', zh: 'AI 治理 / 产品架构' },
     year: '2026',
     image: '/portfolio/miro-hifi-overview.jpg',
+    wallImage: '/portfolio/miro-daima-wall-card.png',
+    wallGroup: 'miro',
     gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
     role: {
       en: 'Flow/state/API mapping, governance notes, deployment checklist',
@@ -694,6 +705,8 @@ const projects = [
     type: { en: 'Cultural Dataset / Network Narrative', zh: '文化数据集 / 网络叙事' },
     year: '2025',
     image: '/portfolio/libai-background.png',
+    wallImage: '/portfolio/libai-daima-wall-card.png',
+    wallGroup: 'libai',
     gallery: ['/portfolio/libai-background.png'],
     role: {
       en: 'Poem data, journey data, social graph, emotional imagery analysis',
@@ -716,6 +729,8 @@ const projects = [
     type: { en: 'Health Data Model / UX Logic', zh: '健康数据模型 / UX 逻辑' },
     year: '2026',
     image: '/portfolio/food-health-feedback-model-board.png',
+    wallImage: '/portfolio/palifood-handheld-wall-card.png',
+    wallGroup: 'palifood',
     gallery: [
       '/portfolio/food-health-feedback-model-board.png',
       '/portfolio/palifood-handheld-fresh.png',
@@ -3107,23 +3122,73 @@ function DigitalCaseScroller({ lang, onOpenProject, motionEnabled }) {
   );
 }
 
+function getShowcaseGroup(project) {
+  return project?.wallGroup || project?.id;
+}
+
+function isSameShowcaseGroup(a, b) {
+  return Boolean(a && b && getShowcaseGroup(a) === getShowcaseGroup(b));
+}
+
+function hasShowcaseGroupAdjacency(rowProjects) {
+  return rowProjects.some((project, index) => isSameShowcaseGroup(project, rowProjects[(index + 1) % rowProjects.length]));
+}
+
+function separateShowcaseRow(rowProjects) {
+  if (rowProjects.length < 3) return rowProjects;
+
+  const pending = [...rowProjects];
+  const arranged = [];
+
+  while (pending.length) {
+    const pickIndex = pending.findIndex((project) => {
+      const previous = arranged[arranged.length - 1];
+      const closesLoop = pending.length === 1 ? arranged[0] : null;
+      return !isSameShowcaseGroup(previous, project) && !isSameShowcaseGroup(project, closesLoop);
+    });
+    const safeIndex = pickIndex >= 0 ? pickIndex : 0;
+    arranged.push(...pending.splice(safeIndex, 1));
+  }
+
+  for (let pass = 0; pass < arranged.length * arranged.length; pass += 1) {
+    const problemIndex = arranged.findIndex((project, index) => isSameShowcaseGroup(project, arranged[(index + 1) % arranged.length]));
+    if (problemIndex < 0) break;
+    const nextIndex = (problemIndex + 1) % arranged.length;
+    const swapIndex = arranged.findIndex((_, index) => {
+      if (index === problemIndex || index === nextIndex) return false;
+      const candidate = [...arranged];
+      [candidate[index], candidate[nextIndex]] = [candidate[nextIndex], candidate[index]];
+      return !hasShowcaseGroupAdjacency(candidate);
+    });
+    if (swapIndex < 0) {
+      break;
+    }
+    [arranged[swapIndex], arranged[nextIndex]] = [arranged[nextIndex], arranged[swapIndex]];
+  }
+
+  return arranged;
+}
+
+function buildShowcaseRows() {
+  const showcaseProjects = projects.filter((project) => project.image);
+  const buckets = [[], [], []];
+  showcaseProjects.forEach((project, index) => {
+    buckets[index % 3].push(project);
+  });
+  return buckets.map((bucket, index) => {
+    let row = bucket;
+    if (index === 1 && bucket.length > 2) {
+      row = [...bucket.slice(2), ...bucket.slice(0, 2)];
+    }
+    if (index === 2 && bucket.length > 1) {
+      row = [...bucket.slice(1), bucket[0]];
+    }
+    return separateShowcaseRow(row);
+  });
+}
+
 function WorkSection({ lang, onOpenProject, motionEnabled }) {
-  const showcaseProjects = useMemo(() => projects.filter((project) => project.image), []);
-  const rows = useMemo(() => {
-    const buckets = [[], [], []];
-    showcaseProjects.forEach((project, index) => {
-      buckets[index % 3].push(project);
-    });
-    return buckets.map((bucket, index) => {
-      if (index === 1 && bucket.length > 2) {
-        return [...bucket.slice(2), ...bucket.slice(0, 2)];
-      }
-      if (index === 2 && bucket.length > 1) {
-        return [...bucket.slice(1), bucket[0]];
-      }
-      return bucket;
-    });
-  }, [showcaseProjects]);
+  const rows = useMemo(() => buildShowcaseRows(), []);
 
   return (
     <main id="work" className="showcase-section air-wall-section" aria-label={lang === 'zh' ? '作品展示' : 'Work showcase'}>
@@ -3145,22 +3210,7 @@ function WorkSection({ lang, onOpenProject, motionEnabled }) {
 }
 
 function DetailShowcaseFooter({ lang, onOpenProject, motionEnabled }) {
-  const rows = useMemo(() => {
-    const showcaseProjects = projects.filter((project) => project.image);
-    const buckets = [[], [], []];
-    showcaseProjects.forEach((project, index) => {
-      buckets[index % 3].push(project);
-    });
-    return buckets.map((bucket, index) => {
-      if (index === 1 && bucket.length > 2) {
-        return [...bucket.slice(2), ...bucket.slice(0, 2)];
-      }
-      if (index === 2 && bucket.length > 1) {
-        return [...bucket.slice(1), bucket[0]];
-      }
-      return bucket;
-    });
-  }, []);
+  const rows = useMemo(() => buildShowcaseRows(), []);
 
   return (
     <section className="showcase-section air-wall-section detail-showcase-section" aria-label="Work showcase">

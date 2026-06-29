@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-06-29 图片墙资产与跳转修正
+- 按用户要求只调整横向图片墙，不改 Daima 四连屏本身：Miro、拍立食、李白、Home Form Coach 的图片墙卡片分别改用对应四连屏相关视觉，其中拍立食统一使用用户确认的浅绿色手持手机成品图。
+- 新增图片墙专用适配图：`miro-daima-wall-card.png`、`palifood-handheld-wall-card.png`、`libai-daima-wall-card.png`、`sport-daima-wall-card.png`、`watsu-hydrotherapy-wall-card.png`，均按图片墙卡片比例重新做画布适配，避免直接硬裁或随机放大。
+- 已将水疗 / Cross-ripple Hydrotherapy Wearable 图片墙卡片替换为用户提供的 `watsu/图片1.png` 适配版本；sport 卡片重新适配裁切，避免半张脸被裁掉。
+- 图片墙排序增加 `wallGroup` 防邻接逻辑，避免同一项目/同源项目连续挨在一起；首页和详情页底部图片墙共用同一排序逻辑。
+- 本地验证已通过：`npm run build`；Playwright 确认首页与详情页图片墙图源正确、无同组相邻、卡片可点击进入对应项目，桌面和移动端横向溢出均为 `0`。
+
 ## 2026-06-29 详情页底部图片墙替换
 - 已按用户要求删除项目详情页底部旧的“证据”和“同方向作品”渲染模块；首页原有横向图片墙继续保留。
 - 新增 `DetailShowcaseFooter`，在每个项目详情页最底部复用首页图片墙的三排横向流动结构，避免再出现证据卡片和同方向作品卡片。
