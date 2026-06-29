@@ -3725,6 +3725,10 @@ body.is-daima-active .language-toggle {
   border-radius: 7px;
 }
 
+.air-wall-section .showcase-card-front {
+  border: 0;
+}
+
 .capability-section {
   background: #f6f6f7;
   color: #050505;

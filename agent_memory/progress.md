@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-29 图片墙点击与水疗卡片满铺修正
+- 修复横向图片墙在 GSAP 持续移动时普通鼠标点击可能不触发原生 click 的问题：桌面端改为在 `pointerup` 判断短按直接进入对应项目，拖拽时仍不误跳；键盘/触摸保留 click 兜底。
+- 重新生成 `public/portfolio/watsu-hydrotherapy-wall-card.png` 为 1.62:1 满铺 cover 裁切版，并为 `cross-ripple` 单独设置 `wallImageFit: 'cover'`，避免继承详情页 `imageFit: contain` 导致图片墙留四边。
+- 去掉图片墙卡片正面的 1px 边框，让图片直接贴满圆角卡片。
+- 本地验证已通过：`npm run build`；Playwright 确认真实鼠标点击图片墙可进入详情、22 个首页图片墙项目均可打开详情、水疗图片自然尺寸 `1944x1200` 且显示尺寸与卡片完全一致、桌面和移动端横向溢出均为 `0`。
+
 ## 2026-06-29 图片墙资产与跳转修正
 - 按用户要求只调整横向图片墙，不改 Daima 四连屏本身：Miro、拍立食、李白、Home Form Coach 的图片墙卡片分别改用对应四连屏相关视觉，其中拍立食统一使用用户确认的浅绿色手持手机成品图。
 - 新增图片墙专用适配图：`miro-daima-wall-card.png`、`palifood-handheld-wall-card.png`、`libai-daima-wall-card.png`、`sport-daima-wall-card.png`、`watsu-hydrotherapy-wall-card.png`，均按图片墙卡片比例重新做画布适配，避免直接硬裁或随机放大。

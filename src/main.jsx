@@ -380,6 +380,7 @@ const projects = [
     year: '2019-2021',
     image: '/portfolio/cross-ripple-clean.jpg',
     wallImage: '/portfolio/watsu-hydrotherapy-wall-card.png',
+    wallImageFit: 'cover',
     wallGroup: 'watsu',
     imageFit: 'contain',
     gallery: ['/portfolio/hydrotherapy-clean.jpg', '/portfolio/hydrotherapy-detail-china.jpg'],
@@ -3243,6 +3244,7 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
     lastX: 0,
     x: 0,
     distance: 0,
+    downProjectId: null,
     resetTimer: null,
   });
 
@@ -3310,6 +3312,7 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
       lastX: event.clientX,
       x: Number(gsap.getProperty(track, 'x')) || 0,
       distance,
+      downProjectId: event.target.closest?.('.showcase-card')?.dataset.projectId || null,
     };
     track.setPointerCapture?.(event.pointerId);
   };
@@ -3320,7 +3323,7 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
     if (!track || !drag.active || drag.pointerId !== event.pointerId) return;
     const delta = event.clientX - drag.lastX;
     const total = event.clientX - drag.startX;
-    if (Math.abs(total) > 4) {
+    if (Math.abs(total) > 8) {
       drag.moved = true;
       track.classList.add('is-dragging');
       event.preventDefault();
@@ -3338,15 +3341,26 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
     if (!track || !drag.active || drag.pointerId !== event.pointerId) return;
     if (track.hasPointerCapture?.(event.pointerId)) track.releasePointerCapture(event.pointerId);
     track.classList.remove('is-dragging');
+    const shouldOpen = Boolean(!drag.moved && drag.downProjectId);
     drag.active = false;
-    drag.clickBlocked = drag.moved;
+    drag.clickBlocked = drag.moved || shouldOpen;
     timelineRef.current?.resume();
+    if (shouldOpen) {
+      onOpenProject(drag.downProjectId);
+    }
     if (drag.clickBlocked) {
       drag.resetTimer = window.setTimeout(() => {
         dragRef.current.clickBlocked = false;
         dragRef.current.moved = false;
+        dragRef.current.downProjectId = null;
       }, 120);
     }
+  };
+
+  const openShowcaseProject = (projectId) => {
+    const drag = dragRef.current;
+    if (drag.clickBlocked || drag.moved) return;
+    onOpenProject(projectId);
   };
 
   return (
@@ -3368,9 +3382,12 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
                 <button
                   key={`${project.id}-${cloneIndex}`}
                   type="button"
+                  data-project-id={project.id}
                   className={`showcase-card${cardFit === 'contain' ? ' showcase-card-contain' : ''}`}
-                  onClick={() => {
-                    if (!dragRef.current.clickBlocked) onOpenProject(project.id);
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    openShowcaseProject(project.id);
                   }}
                   aria-label={t(project.title, lang)}
                   tabIndex={cloneIndex === 1 ? -1 : 0}
