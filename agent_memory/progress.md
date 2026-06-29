@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-29 详情页产品/CMF 媒体舞台修正
+- 按用户“网页项目可用黑底透视，工业/产品/CMF 按正常产品图呈现”的规则，拆掉 `detail-media-product` 与 `detail-media-cmf` 首图继承黑底 `100svh` 网页舞台的问题，避免产品图出现大面积黑边或被误当网页截图。
+- 新增 `detail-media-fit-light` 浅底完整展示类型，用于 `hydrotherapy-clean.jpg` 与 `cmf-electronics-source-cover.jpg` 这类宽幅资料/证据图；图片使用 `object-fit: contain`，保持资料图完整可读，不再被 `cover` 强裁。
+- 清理 `detailMobileSources` 中已不再使用且偏离参考母版的 `palifood-mobile-flow-showcase` / `palifood-feedback-loop-showcase` 映射，防止拍立食后续又误回到自由生成的三手机/说明卡方向。
+- 本地验证通过：`npm run build`；`node tools/verify-detail-format.mjs http://127.0.0.1:5230/` 返回 `checked=46`、`issueCount=0`。人工复查桌面与移动截图：Miro 网页透视未受影响，拍立食仍使用用户确认的浅绿色手持图，猫玩具/水疗/CMF 不再出现黑底大空洞。
+
 ## 2026-06-26 详情页格式审计与 CBS5502 首图修正
 - 使用 Product Design audit / QA 思路重新抓取当前所有公开项目详情页的桌面与移动端初始状态、首图媒体状态，并对照用户确认的顶部信息区与网页类黑底透视参考。
 - 结构门禁仍通过：`npm run build` 与 `npm run verify:detail-format -- http://127.0.0.1:5206/` 返回 `checked=44`、`issueCount=0`。

@@ -864,12 +864,6 @@ const detailMobileSources = {
   },
   'food-health-model': {
     '/portfolio/food-health-feedback-model-board.png': '/portfolio/food-health-feedback-model-board-mobile.png',
-    '/portfolio/palifood-mobile-flow-showcase.png': '/portfolio/palifood-mobile-flow-showcase-mobile.png',
-    '/portfolio/palifood-feedback-loop-showcase.png': '/portfolio/palifood-feedback-loop-showcase-mobile.png',
-  },
-  palifood: {
-    '/portfolio/palifood-mobile-flow-showcase.png': '/portfolio/palifood-mobile-flow-showcase-mobile.png',
-    '/portfolio/palifood-feedback-loop-showcase.png': '/portfolio/palifood-feedback-loop-showcase-mobile.png',
   },
   'capstone-device': {
     '/portfolio/capstone-device-views.png': '/portfolio/capstone-device-views-mobile.png',
@@ -3111,6 +3105,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
     }
     if (src.includes('cbs5502-data-cleaning.png')) {
       return 'detail-media-source-contain';
+    }
+    if (src.includes('hydrotherapy-clean.jpg') || src.includes('cmf-electronics-source-cover.jpg')) {
+      return 'detail-media-fit-light';
     }
     if (src.includes('food-health-feedback-model-board.png')) {
       return 'detail-media-source-contain detail-media-full-contain detail-media-board-light';

@@ -125,6 +125,8 @@ function detailFlags(data, project, viewportName) {
   const flags = [];
   const isDigital = project.kind === 'digital';
   const isSourceContain = data.figureClass.includes('detail-media-source-contain');
+  const isFitLight = data.figureClass.includes('detail-media-fit-light');
+  const isContainLike = isSourceContain || isFitLight;
 
   if (data.title !== project.detailTitle) flags.push(`title mismatch: ${data.title}`);
   if (!data.mediaClass.includes(`detail-media-${project.kind}`)) flags.push(`media kind mismatch: ${data.mediaClass}`);
@@ -135,13 +137,13 @@ function detailFlags(data, project, viewportName) {
   if (viewportName === 'desktop' && data.heroHeight > 360) flags.push(`desktop hero too tall: ${data.heroHeight}`);
   if (data.titleLines > 2) flags.push(`${viewportName} title has ${data.titleLines} lines`);
   if (data.figureW < (viewportName === 'desktop' ? 1000 : 350)) flags.push(`media width too small: ${data.figureW}`);
-  if (data.figureH < (viewportName === 'desktop' ? 700 : 600) && !(isSourceContain && viewportName === 'mobile')) {
+  if (data.figureH < (viewportName === 'desktop' ? 700 : 600) && !(isContainLike && viewportName === 'mobile')) {
     flags.push(`media height too small: ${data.figureH}`);
   }
   if (isDigital && data.transform === 'none') flags.push('digital/web media missing perspective transform');
   if (!isDigital && data.transform !== 'none') flags.push(`non-web media has perspective transform: ${data.transform}`);
   if (isDigital && data.objectFit !== 'contain') flags.push(`digital/web object-fit is ${data.objectFit}`);
-  if (!isDigital && data.objectFit !== 'cover' && !(isSourceContain && data.objectFit === 'contain')) {
+  if (!isDigital && data.objectFit !== 'cover' && !(isContainLike && data.objectFit === 'contain')) {
     flags.push(`non-web object-fit is ${data.objectFit}`);
   }
 

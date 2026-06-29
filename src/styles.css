@@ -1369,7 +1369,12 @@ img {
 }
 
 .detail-media-product figure:first-child,
-.detail-media-cmf figure:first-child,
+.detail-media-cmf figure:first-child {
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #f6f3ee;
+}
+
 .detail-media-research figure:first-child {
   height: 100svh;
   background: #03060c;
@@ -1412,6 +1417,22 @@ img {
 }
 
 .detail-media-grid figure.detail-media-source-contain img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.detail-media-grid figure.detail-media-fit-light,
+.detail-media-grid figure.detail-media-fit-light:first-child {
+  display: flex;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  align-items: center;
+  justify-content: center;
+  background: #f6f3ee;
+}
+
+.detail-media-grid figure.detail-media-fit-light img {
   width: 100%;
   height: 100%;
   object-fit: contain;
