@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-29 详情页底部图片墙替换
+- 已按用户要求删除项目详情页底部旧的“证据”和“同方向作品”渲染模块；首页原有横向图片墙继续保留。
+- 新增 `DetailShowcaseFooter`，在每个项目详情页最底部复用首页图片墙的三排横向流动结构，避免再出现证据卡片和同方向作品卡片。
+- 图片墙资源调整：`sport / Home Form Coach` 在图片墙中改用用户指定的速度运动图 `public/portfolio/sport-speed-wall-cover.png`；`Xiaomi CMF` 在图片墙中改为满卡片 `cover` 展示，不再保留四边留白。
+- 本地验证已通过：`npm run build`；Playwright 桌面与移动端检查确认首页图片墙仍为 1 个、详情页底部图片墙为 1 个、旧模块数量为 0、sport 图源替换生效、Xiaomi 卡片不再使用 contain、横向溢出为 0。
+
 ## 2026-06-29 Home Form Coach 详情页专属叙述
 - 审计发现 `sport / Home Form Coach` 是首页四连屏核心入口之一，但详情页 case-study 区仍依赖通用 fallback 叙述，容易显得像模板页，不符合“每个详情页要有完整产品叙述”的目标。
 - 已新增 `sport` 的专属 `caseStudyOverrides`：标签为 `Fitness AI case / 运动 AI 案例`，标题为 `Local posture coaching loop / 本地姿态教练闭环`，四个叙述卡分别覆盖 `Training Entry`、`Pose Tracking`、`Form Feedback`、`Report Loop`。

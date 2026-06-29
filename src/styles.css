@@ -653,6 +653,13 @@ img {
   text-align: center;
 }
 
+.detail-showcase-section {
+  margin: 52px 0 -90px;
+  min-height: 100svh;
+  padding-top: 22px;
+  padding-bottom: 34px;
+}
+
 .section-heading {
   width: min(1120px, 100%);
   padding: 0 var(--page-x);

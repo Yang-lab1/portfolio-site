@@ -305,6 +305,7 @@ const projects = [
     type: { en: 'Fitness AI / Pose Tracking / Web App', zh: '运动姿态 AI / Web 应用' },
     year: '2026',
     image: '/portfolio/sport-home-form-coach-cover.jpg',
+    wallImage: '/portfolio/sport-speed-wall-cover.png',
     gallery: [
       '/portfolio/sport-home-form-coach-cover.jpg',
       '/portfolio/sport-home-form-coach-coach.png',
@@ -485,6 +486,7 @@ const projects = [
     year: '2022-2023',
     image: '/portfolio/xiaomi-cmf-first-gen-remastered.jpg',
     imageFit: 'contain',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/xiaomi-cmf-first-gen-remastered.jpg', '/portfolio/xiaomi-cmf-breakdown-source.jpg', '/portfolio/xiaomi-cmf-detail-source.jpg'],
     role: {
       en: 'CMF design, color rationale, material and finish specification',
@@ -1177,6 +1179,552 @@ caseStudyOverrides['ufei-precision-cabinet'] = {
   ],
 };
 
+caseStudyOverrides['tcm-kg'] = {
+  label: { en: 'Knowledge system case', zh: '知识系统案例' },
+  displayTitle: { en: 'Classical data as a readable network', zh: '把古籍资料变成可读网络' },
+  headline: {
+    en: 'TCM Knowledge Graph organizes classical texts, herbs, symptoms, and formula logic into an educational data interface.',
+    zh: '中医药知识图谱把古籍文本、药材、症状与方剂逻辑组织成一个面向教育理解的数据界面。',
+  },
+  sections: [
+    {
+      title: { en: 'Source Scope', zh: '资料范围' },
+      body: {
+        en: 'The project begins from cultural and textual material, then narrows it into relationships that can be modeled and browsed.',
+        zh: '项目从文化文本资料出发，把分散内容收束成可建模、可浏览的关系结构。',
+      },
+    },
+    {
+      title: { en: 'Graph Logic', zh: '图谱逻辑' },
+      body: {
+        en: 'Herbs, formulas, roles, and connections are treated as a system, so the viewer reads relationships instead of isolated facts.',
+        zh: '药材、方剂、角色与连接被当作同一个系统处理，让观者阅读关系，而不是阅读孤立知识点。',
+      },
+    },
+    {
+      title: { en: 'Visual Evidence', zh: '视觉证据' },
+      body: {
+        en: 'The detail page prioritizes the full process board so the hierarchy, workflow, and graph result stay legible.',
+        zh: '详情页优先展示完整流程板，让层级、流程与图谱结果保持清晰可读。',
+      },
+    },
+    {
+      title: { en: 'Boundary', zh: '表达边界' },
+      body: {
+        en: 'The case is framed as cultural-data visualization and learning evidence, not as medical advice.',
+        zh: '这个案例被定位为文化数据可视化与学习证据，不被包装成医疗建议。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['offer-quest'] = {
+  label: { en: 'Learning product case', zh: '学习产品案例' },
+  displayTitle: { en: 'Career practice as a quest map', zh: '把求职练习做成任务地图' },
+  headline: {
+    en: 'Offer Quest turns interview preparation into a structured learning system with progress, review, and role-specific practice.',
+    zh: 'Offer Quest 把面试准备组织成带有进度、复盘与岗位练习路径的结构化学习系统。',
+  },
+  sections: [
+    {
+      title: { en: 'Learning Pressure', zh: '学习压力' },
+      body: {
+        en: 'Job preparation is fragmented, so the product gives users a visible route instead of a loose checklist.',
+        zh: '求职准备很容易碎片化，所以产品用可见路线替代松散清单。',
+      },
+    },
+    {
+      title: { en: 'Quest Structure', zh: '任务结构' },
+      body: {
+        en: 'Maps, tasks, review states, and dashboard feedback create a repeatable preparation rhythm.',
+        zh: '地图、任务、复盘状态与仪表盘反馈共同形成可重复的准备节奏。',
+      },
+    },
+    {
+      title: { en: 'Interface Role', zh: '界面角色' },
+      body: {
+        en: 'The screens focus on orientation and momentum: what to do now, what changed, and what comes next.',
+        zh: '界面重点放在方向感和推进感上：现在做什么、发生了什么变化、下一步是什么。',
+      },
+    },
+    {
+      title: { en: 'Portfolio Weight', zh: '作品权重' },
+      body: {
+        en: 'It stays as a secondary digital case, useful for showing system thinking without replacing the core portfolio works.',
+        zh: '它作为次级数字产品案例保留，用来展示系统思维，但不替代核心作品入口。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides.momenta = {
+  label: { en: 'Music interaction case', zh: '音乐交互案例' },
+  displayTitle: { en: 'Mood, music, and device presence', zh: '情绪、音乐与设备存在感' },
+  headline: {
+    en: 'Momenta combines a public SwiftUI music prototype with local device-render evidence to frame an AI music interaction concept.',
+    zh: 'Momenta 结合公开 SwiftUI 音乐原型与本地设备渲染证据，呈现一个 AI 音乐交互概念。',
+  },
+  sections: [
+    {
+      title: { en: 'Interaction Premise', zh: '交互前提' },
+      body: {
+        en: 'The case explores music as a responsive companion, where mood, composition, and sharing become the core product loop.',
+        zh: '案例把音乐理解为可响应的陪伴体验，让情绪、生成与分享成为核心产品闭环。',
+      },
+    },
+    {
+      title: { en: 'Mobile Evidence', zh: '移动端证据' },
+      body: {
+        en: 'SwiftUI source assets support the mobile interaction story instead of relying only on speculative renders.',
+        zh: 'SwiftUI 源资源支撑移动端交互叙述，而不是只依赖概念渲染。',
+      },
+    },
+    {
+      title: { en: 'Device Layer', zh: '设备层' },
+      body: {
+        en: 'Local Keynote and render material add a hardware-presence layer, connecting interface behavior with object identity.',
+        zh: '本地 Keynote 与渲染资料补充设备存在感，把界面行为与物件识别连接起来。',
+      },
+    },
+    {
+      title: { en: 'Source Boundary', zh: '资料边界' },
+      body: {
+        en: 'The page separates confirmed repository assets from local presentation evidence, without inventing missing repository details.',
+        zh: '页面区分已确认仓库资源与本地展示证据，不编造仓库中没有的信息。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['cross-ripple'] = {
+  label: { en: 'Wearable product case', zh: '穿戴产品案例' },
+  displayTitle: { en: 'Safety cues shaped into soft hardware', zh: '把安全提示做进柔性硬件' },
+  headline: {
+    en: 'Cross-ripple frames hydrotherapy assistance through trust, body support, tactile feedback, and source-preserving product evidence.',
+    zh: 'Cross-ripple 以信任、身体支撑、触觉反馈与源图证据来组织水疗辅助产品叙述。',
+  },
+  sections: [
+    {
+      title: { en: 'Care Scenario', zh: '照护场景' },
+      body: {
+        en: 'The product starts from a therapy setting where patient trust, therapist control, and safe cues need to work together.',
+        zh: '产品从水疗照护场景出发，需要同时处理被照护者信任、治疗师控制与安全提示。',
+      },
+    },
+    {
+      title: { en: 'Body Relationship', zh: '身体关系' },
+      body: {
+        en: 'Form decisions are tied to how the object sits on the body and communicates without adding pressure.',
+        zh: '形态判断围绕物件如何贴合身体、如何提示而不增加压迫感展开。',
+      },
+    },
+    {
+      title: { en: 'Feedback Logic', zh: '反馈逻辑' },
+      body: {
+        en: 'Vibration and surface rhythm become part of the product language, not an added technical note.',
+        zh: '振动与表面节奏被当作产品语言的一部分，而不是附加的技术说明。',
+      },
+    },
+    {
+      title: { en: 'Evidence Boundary', zh: '证据边界' },
+      body: {
+        en: 'The page uses recovered portfolio evidence and avoids generating new product structure from incomplete views.',
+        zh: '页面使用已恢复作品集证据，不从不完整视图中生成新的产品结构。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['cup-cup'] = {
+  label: { en: 'Assistive product case', zh: '辅助产品案例' },
+  displayTitle: { en: 'Dignity inside a daily drinking action', zh: '把尊严放回日常饮水动作' },
+  headline: {
+    en: 'The Cup Cup reframes assisted drinking as a calmer physical interaction, with safety, grip, and everyday dignity as the design core.',
+    zh: '杯中杯把辅助饮水重新定义为更平稳的身体交互，把安全、握持与日常尊严作为设计核心。',
+  },
+  sections: [
+    {
+      title: { en: 'Daily Friction', zh: '日常摩擦' },
+      body: {
+        en: 'The case looks at a small but repeated care action where spilling, posture, and embarrassment shape the experience.',
+        zh: '案例关注一个小但高频的照护动作：洒漏、姿态与尴尬感共同影响体验。',
+      },
+    },
+    {
+      title: { en: 'Use Flow', zh: '使用流程' },
+      body: {
+        en: 'The product is explained through how it is held, tilted, filled, and assisted, rather than through a single beauty shot.',
+        zh: '产品通过握持、倾倒、注水与辅助动作解释，而不是只展示单张效果图。',
+      },
+    },
+    {
+      title: { en: 'Form Judgment', zh: '形态判断' },
+      body: {
+        en: 'The form balances stability and intimacy, making the object feel like everyday tableware instead of medical equipment.',
+        zh: '形态在稳定性与亲近感之间取平衡，让它更像日用器具，而不是医疗设备。',
+      },
+    },
+    {
+      title: { en: 'Delivery Signal', zh: '交付信号' },
+      body: {
+        en: 'Patent-applied and flow evidence show the project as a physical product decision, not only a concept sketch.',
+        zh: '专利申请方向与流程证据说明它是实体产品判断，不只是概念草图。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['opera-ruler'] = {
+  label: { en: 'Cultural toy case', zh: '文化玩具案例' },
+  displayTitle: { en: 'Heritage translated into drawing play', zh: '把非遗转译成绘画游戏' },
+  headline: {
+    en: 'The Sichuan Opera Drawing Ruler turns mask color, face-changing rhythm, and animal cues into a child-friendly cultural tool.',
+    zh: '川剧儿童绘画尺把脸谱色彩、变脸节奏与动物线索转译成适合儿童使用的文化工具。',
+  },
+  sections: [
+    {
+      title: { en: 'Cultural Entry', zh: '文化入口' },
+      body: {
+        en: 'The project avoids a museum-style explanation and uses drawing behavior as the entry point for heritage learning.',
+        zh: '项目不做博物馆式说明，而是用绘画行为作为进入非遗学习的入口。',
+      },
+    },
+    {
+      title: { en: 'Pattern Translation', zh: '图形转译' },
+      body: {
+        en: 'Mask shapes, color relationships, and animal associations become rules children can trace, combine, and remember.',
+        zh: '脸谱形态、色彩关系与动物联想被转化为儿童可以描摹、组合和记住的规则。',
+      },
+    },
+    {
+      title: { en: 'Play Object', zh: '玩具体验' },
+      body: {
+        en: 'The ruler format keeps the object simple, repeatable, and close to a classroom or family drawing scene.',
+        zh: '尺子的形式让物件保持简单、可重复，并贴近课堂或家庭绘画场景。',
+      },
+    },
+    {
+      title: { en: 'Source Respect', zh: '源图尊重' },
+      body: {
+        en: 'Recovered product images stay as product evidence; the site only adapts crop and reading order.',
+        zh: '已恢复产品图保留为产品证据，网站只调整裁切与浏览顺序。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['capstone-device'] = {
+  label: { en: 'AI hardware concept case', zh: 'AI 硬件概念案例' },
+  displayTitle: { en: 'A device surface for guided rehearsal', zh: '面向引导演练的设备表面' },
+  headline: {
+    en: 'The Capstone device concept connects physical form, service narrative, and AI-guided rehearsal into one hardware-facing story.',
+    zh: 'Capstone 设备概念把实体形态、服务叙事与 AI 引导演练连接成一个面向硬件的故事。',
+  },
+  sections: [
+    {
+      title: { en: 'Service Role', zh: '服务角色' },
+      body: {
+        en: 'The object is not treated as a standalone gadget; it is framed as an entry point into a guided workflow.',
+        zh: '物件不被当作孤立硬件，而是被设定为进入引导流程的入口。',
+      },
+    },
+    {
+      title: { en: 'Form Evidence', zh: '形态证据' },
+      body: {
+        en: 'The page uses confirmed device views, renders, and export evidence to explain the concept without inventing new angles.',
+        zh: '页面使用已确认设备视图、渲染与导出证据来解释概念，不凭空生成新角度。',
+      },
+    },
+    {
+      title: { en: 'AI Relationship', zh: 'AI 关系' },
+      body: {
+        en: 'AI is positioned as guidance and feedback inside the workflow, not as decorative product wording.',
+        zh: 'AI 被放在流程中的引导与反馈位置，而不是作为装饰性产品词。',
+      },
+    },
+    {
+      title: { en: 'Portfolio Boundary', zh: '作品边界' },
+      body: {
+        en: 'The current page keeps the concept conservative until stronger final renders or user-approved source images exist.',
+        zh: '在更强的最终渲染或用户确认源图出现前，当前页面保持保守表达。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['cat-turntable'] = {
+  label: { en: 'Mass product case', zh: '量产产品案例' },
+  displayTitle: { en: 'Pet behavior turned into repeatable play', zh: '把宠物行为转成可重复玩法' },
+  headline: {
+    en: 'The composite turntable pet toy connects pet behavior, cost-down reuse, soft product character, and commercial delivery evidence.',
+    zh: '复合转盘宠物玩具把宠物行为、降本复用、柔和产品角色与商业交付证据连接起来。',
+  },
+  sections: [
+    {
+      title: { en: 'Behavior Map', zh: '行为地图' },
+      body: {
+        en: 'The design starts from chase, pawing, hiding, and curiosity patterns rather than from a decorative toy shell.',
+        zh: '设计从追逐、拍打、躲藏与好奇行为出发，而不是先做一个装饰性外壳。',
+      },
+    },
+    {
+      title: { en: 'Product Character', zh: '产品性格' },
+      body: {
+        en: 'The round pink form and vertical teaser create a soft domestic object that still invites active play.',
+        zh: '圆润粉色形态与竖向互动部件让产品像柔和家居物，同时仍然能激发主动玩耍。',
+      },
+    },
+    {
+      title: { en: 'Commercial Logic', zh: '商业逻辑' },
+      body: {
+        en: 'Reuse and cost-down thinking are part of the case, showing how the design moves toward production.',
+        zh: '复用与降本思路是案例的一部分，说明设计如何走向可生产状态。',
+      },
+    },
+    {
+      title: { en: 'Image Boundary', zh: '图像边界' },
+      body: {
+        en: 'Lifestyle imagery may improve scene realism, but the toy form, color, and structure stay locked to the source product.',
+        zh: '生活方式图可以提升场景真实感，但玩具形态、颜色与结构必须锁定源产品。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['cmf-electronics'] = {
+  label: { en: 'CMF archive case', zh: 'CMF 档案案例' },
+  displayTitle: { en: 'Material decisions made readable', zh: '让材料决策变得可读' },
+  headline: {
+    en: 'The electronics CMF archive shows how color, surface, detail, and supplier-facing documentation support production communication.',
+    zh: '电子产品 CMF 档案展示色彩、表面、细节与供应链文档如何支撑生产沟通。',
+  },
+  sections: [
+    {
+      title: { en: 'Archive Role', zh: '档案角色' },
+      body: {
+        en: 'This page is treated as support evidence for CMF judgment, not as a single hero product case.',
+        zh: '这个页面被当作 CMF 判断的支撑证据，而不是单个主视觉产品案例。',
+      },
+    },
+    {
+      title: { en: 'Surface Reading', zh: '表面阅读' },
+      body: {
+        en: 'The images keep material panels, earbuds, and finish cues legible so viewers can compare decisions.',
+        zh: '图片保留材料板、耳机与工艺线索的可读性，让观者能比较不同决策。',
+      },
+    },
+    {
+      title: { en: 'Supplier Context', zh: '供应链语境' },
+      body: {
+        en: 'The value is in communicating finish, material, and detail constraints clearly enough for production teams.',
+        zh: '价值在于把工艺、材料与细节限制清楚传达给生产协作方。',
+      },
+    },
+    {
+      title: { en: 'Presentation Rule', zh: '呈现规则' },
+      body: {
+        en: 'The site keeps source panels intact and uses light contain layouts when cropping would destroy technical meaning.',
+        zh: '网站保留源版面完整性，在强裁切会破坏技术含义时使用浅底 contain 展示。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides.cbs5502 = {
+  label: { en: 'NLP research case', zh: 'NLP 研究案例' },
+  displayTitle: { en: 'Messy language data into reviewable evidence', zh: '把杂乱语料整理成可复核证据' },
+  headline: {
+    en: 'Feel Disambiguation NLP turns online text into a cleaned, annotated, and reviewable pipeline for studying verb meaning.',
+    zh: 'Feel 词义消歧 NLP 把在线文本整理成可清洗、可标注、可复核的词义研究流程。',
+  },
+  sections: [
+    {
+      title: { en: 'Raw Material', zh: '原始材料' },
+      body: {
+        en: 'The project begins with noisy online language, where the same verb carries different meanings across context.',
+        zh: '项目从噪声较高的在线语言材料开始，同一个 feel 在不同语境中承载不同含义。',
+      },
+    },
+    {
+      title: { en: 'Cleaning Pipeline', zh: '清洗流程' },
+      body: {
+        en: 'Cleaning, segmentation, filtering, and gold review make the dataset explainable before model or analysis claims.',
+        zh: '清洗、切分、筛选与 gold review 让数据集先变得可解释，再进入模型或分析结论。',
+      },
+    },
+    {
+      title: { en: 'Evidence Board', zh: '证据板' },
+      body: {
+        en: 'The first image stays as a full evidence board because tables, counts, and process notes need to remain readable.',
+        zh: '首图保留为完整证据板，因为表格、数量与流程备注都需要保持可读。',
+      },
+    },
+    {
+      title: { en: 'Research Boundary', zh: '研究边界' },
+      body: {
+        en: 'The case presents a reproducible data workflow rather than overstating a final linguistic conclusion.',
+        zh: '案例呈现可复现的数据工作流，而不是夸大最终语言学结论。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['miro-governance'] = {
+  label: { en: 'AI governance case', zh: 'AI 治理案例' },
+  displayTitle: { en: 'Rules behind the rehearsal product', zh: '演练产品背后的规则层' },
+  headline: {
+    en: 'Miro AI Governance Notes expose the flow, schema, state, deployment, and data decisions that make the product accountable.',
+    zh: 'Miro AI 治理文档展开流程、Schema、状态、部署与数据决策，让产品逻辑可追踪。',
+  },
+  sections: [
+    {
+      title: { en: 'System Map', zh: '系统地图' },
+      body: {
+        en: 'The governance layer explains what happens before, during, and after an AI-assisted rehearsal session.',
+        zh: '治理层解释一次 AI 辅助演练在开始前、进行中与结束后分别发生什么。',
+      },
+    },
+    {
+      title: { en: 'State And Schema', zh: '状态与结构' },
+      body: {
+        en: 'Flow states and schema notes turn invisible backend logic into material that can be reviewed and handed off.',
+        zh: '流程状态与 schema 说明把不可见的后端逻辑变成可复核、可交接的材料。',
+      },
+    },
+    {
+      title: { en: 'Risk Awareness', zh: '风险意识' },
+      body: {
+        en: 'The case positions AI output, user data, and deployment checks as part of product quality.',
+        zh: '案例把 AI 输出、用户数据与部署检查都放进产品质量范围内。',
+      },
+    },
+    {
+      title: { en: 'Relationship To Miro', zh: '与 Miro 的关系' },
+      body: {
+        en: 'This page supports the main Miro product case by showing the architecture and governance work behind the interface.',
+        zh: '这个页面支撑主 Miro 产品案例，展示界面背后的架构与治理工作。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['tcm-systems'] = {
+  label: { en: 'Formula network case', zh: '方药网络案例' },
+  displayTitle: { en: 'Historical formula relations as a system', zh: '把古籍方药关系系统化' },
+  headline: {
+    en: 'Classical Formula Network focuses on how ancient formulas, herb roles, and co-occurrence patterns can be explored as data.',
+    zh: '古籍方剂网络关注古籍方剂、药材角色与共现模式如何被作为数据探索。',
+  },
+  sections: [
+    {
+      title: { en: 'Text To Relation', zh: '文本到关系' },
+      body: {
+        en: 'The project turns textual references into structured links so historical material can be compared visually.',
+        zh: '项目把文本引用转成结构化连接，让历史材料可以被视觉化比较。',
+      },
+    },
+    {
+      title: { en: 'Role Hierarchy', zh: '角色层级' },
+      body: {
+        en: 'The Jun-Chen-Zuo-Shi structure gives the visualization a domain-specific logic instead of a generic graph shape.',
+        zh: '君臣佐使结构让可视化拥有领域逻辑，而不是泛化的图谱形状。',
+      },
+    },
+    {
+      title: { en: 'Process Board', zh: '流程板' },
+      body: {
+        en: 'The full board is used because the method, graph, and result need to be read together.',
+        zh: '页面使用完整流程板，因为方法、图谱与结果需要一起阅读。',
+      },
+    },
+    {
+      title: { en: 'Educational Frame', zh: '教育框架' },
+      body: {
+        en: 'The case is framed as knowledge exploration and cultural education, keeping claims within the evidence.',
+        zh: '案例定位为知识探索与文化教育，所有表达都保持在证据范围内。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['libai-data'] = {
+  label: { en: 'Cultural data case', zh: '文化数据案例' },
+  displayTitle: { en: 'Poetry, journeys, and relationships as data', zh: '把诗歌、行旅与关系变成数据' },
+  headline: {
+    en: 'Li Bai Data Narrative organizes poems, journeys, biography, emotional imagery, and relationship data into a navigable cultural layer.',
+    zh: '李白数据叙事把诗歌、行旅、生平、情感意象与人物关系组织成可导航的文化层。',
+  },
+  sections: [
+    {
+      title: { en: 'Data Selection', zh: '数据选择' },
+      body: {
+        en: 'The work identifies which parts of Li Bai material can become maps, networks, timelines, or narrative prompts.',
+        zh: '项目判断李白材料中哪些部分可以成为地图、网络、时间线或叙事提示。',
+      },
+    },
+    {
+      title: { en: 'Narrative Structure', zh: '叙事结构' },
+      body: {
+        en: 'Biography and travel organize the reading path, while graph and poem data add comparison and discovery.',
+        zh: '生平与行旅组织阅读路径，图谱和诗歌数据提供比较与发现。',
+      },
+    },
+    {
+      title: { en: 'Interface Evidence', zh: '界面证据' },
+      body: {
+        en: 'The page keeps the same visual evidence as the Li Bai site because the research and interface layers are connected.',
+        zh: '页面沿用李白网站视觉证据，因为研究层与界面层本来就是连接的。',
+      },
+    },
+    {
+      title: { en: 'Cultural Tone', zh: '文化语气' },
+      body: {
+        en: 'The goal is to make classical material explorable without flattening it into purely technical dashboards.',
+        zh: '目标是在不把古典材料压平成纯技术仪表盘的前提下，让它变得可探索。',
+      },
+    },
+  ],
+};
+
+caseStudyOverrides['food-health-model'] = {
+  label: { en: 'Health feedback logic case', zh: '健康反馈逻辑案例' },
+  displayTitle: { en: 'Capture, recognize, decide, repeat', zh: '拍摄、识别、决策、重复' },
+  headline: {
+    en: 'Food Health Feedback Model explains the logic behind Pai Li Shi: capture food, recognize ingredients, return feedback, and guide the next choice.',
+    zh: '食物健康反馈模型解释拍立食背后的逻辑：拍摄食物、识别食材、返回反馈，并引导下一次选择。',
+  },
+  sections: [
+    {
+      title: { en: 'Recognition Loop', zh: '识别闭环' },
+      body: {
+        en: 'The model starts from the camera moment and follows how recognition becomes actionable feedback.',
+        zh: '模型从拍摄瞬间开始，追踪识别结果如何变成可行动反馈。',
+      },
+    },
+    {
+      title: { en: 'Feedback Structure', zh: '反馈结构' },
+      body: {
+        en: 'Health advice, recommendations, and social expression are sequenced so the product does not stop at detection.',
+        zh: '健康建议、推荐与社交表达被排成连续结构，让产品不止停留在识别。',
+      },
+    },
+    {
+      title: { en: 'Visual Standard', zh: '视觉标准' },
+      body: {
+        en: 'The page keeps the accepted Pai Li Shi green-toned phone presentation and avoids unrelated dark tech compositions.',
+        zh: '页面保持已确认的拍立食浅绿色手机展示标准，避免无关的深色科技拼贴方向。',
+      },
+    },
+    {
+      title: { en: 'Relationship To Pai Li Shi', zh: '与拍立食的关系' },
+      body: {
+        en: 'This is the logic layer behind the mobile product, useful for explaining the system without duplicating the main case.',
+        zh: '这是移动端产品背后的逻辑层，用来解释系统，而不是重复主案例。',
+      },
+    },
+  ],
+};
+
 const pinnedStories = [
   {
     id: 'ai-product',
@@ -1851,7 +2399,7 @@ function App() {
     <div className="app-shell" ref={appRef}>
       <Header lang={lang} setLang={setLang} />
       {selected ? (
-        <ProjectDetail lang={lang} project={selected} onBack={() => setSelectedId(null)} onOpenProject={openProject} />
+        <ProjectDetail lang={lang} project={selected} onBack={() => setSelectedId(null)} onOpenProject={openProject} motionEnabled={!motion.reduced} />
       ) : (
         <>
           <Hero lang={lang} />
@@ -2596,6 +3144,43 @@ function WorkSection({ lang, onOpenProject, motionEnabled }) {
   );
 }
 
+function DetailShowcaseFooter({ lang, onOpenProject, motionEnabled }) {
+  const rows = useMemo(() => {
+    const showcaseProjects = projects.filter((project) => project.image);
+    const buckets = [[], [], []];
+    showcaseProjects.forEach((project, index) => {
+      buckets[index % 3].push(project);
+    });
+    return buckets.map((bucket, index) => {
+      if (index === 1 && bucket.length > 2) {
+        return [...bucket.slice(2), ...bucket.slice(0, 2)];
+      }
+      if (index === 2 && bucket.length > 1) {
+        return [...bucket.slice(1), bucket[0]];
+      }
+      return bucket;
+    });
+  }, []);
+
+  return (
+    <section className="showcase-section air-wall-section detail-showcase-section" aria-label="Work showcase">
+      <div className="showcase-stack">
+        {rows.map((rowProjects, index) => (
+          <ShowcaseRow
+            key={`detail-showcase-row-${index}`}
+            rowProjects={rowProjects}
+            rowIndex={index}
+            lang={lang}
+            motionEnabled={motionEnabled}
+            direction={index === 1 ? 'right' : 'left'}
+            onOpenProject={onOpenProject}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, motionEnabled }) {
   const rowRef = useRef(null);
   const timelineRef = useRef(null);
@@ -2726,27 +3311,31 @@ function ShowcaseRow({ rowProjects, rowIndex, lang, direction, onOpenProject, mo
       >
         {[0, 1].map((cloneIndex) => (
           <div className="showcase-group" key={`clone-${rowIndex}-${cloneIndex}`} aria-hidden={cloneIndex === 1 ? 'true' : undefined}>
-            {rowProjects.map((project) => (
-              <button
-                key={`${project.id}-${cloneIndex}`}
-                type="button"
-                className={`showcase-card${project.imageFit === 'contain' ? ' showcase-card-contain' : ''}`}
-                onClick={() => {
-                  if (!dragRef.current.clickBlocked) onOpenProject(project.id);
-                }}
-                aria-label={t(project.title, lang)}
-                tabIndex={cloneIndex === 1 ? -1 : 0}
-              >
-                <span className="showcase-card-inner">
-                  <span className="showcase-card-face showcase-card-front">
-                    <img src={project.image} alt="" draggable="false" loading="lazy" />
+            {rowProjects.map((project) => {
+              const cardImage = project.wallImage || project.image;
+              const cardFit = project.wallImageFit || project.imageFit;
+              return (
+                <button
+                  key={`${project.id}-${cloneIndex}`}
+                  type="button"
+                  className={`showcase-card${cardFit === 'contain' ? ' showcase-card-contain' : ''}`}
+                  onClick={() => {
+                    if (!dragRef.current.clickBlocked) onOpenProject(project.id);
+                  }}
+                  aria-label={t(project.title, lang)}
+                  tabIndex={cloneIndex === 1 ? -1 : 0}
+                >
+                  <span className="showcase-card-inner">
+                    <span className="showcase-card-face showcase-card-front">
+                      <img src={cardImage} alt="" draggable="false" loading="lazy" />
+                    </span>
+                    <span className="showcase-card-face showcase-card-back">
+                      <strong>{t(project.title, lang)}</strong>
+                    </span>
                   </span>
-                  <span className="showcase-card-face showcase-card-back">
-                    <strong>{t(project.title, lang)}</strong>
-                  </span>
-                </span>
-              </button>
-            ))}
+                </button>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -3114,11 +3703,8 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
   );
 }
 
-function ProjectDetail({ lang, project, onBack, onOpenProject }) {
+function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) {
   const mediaGridRef = useRef(null);
-  const siblings = projects
-    .filter((item) => item.category === project.category && item.id !== project.id && hasProjectDetailMedia(item))
-    .slice(0, 4);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const referenceHeroMedia = {
     miro: '/portfolio/miro-detail-reference-dashboard.png',
@@ -3301,31 +3887,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject }) {
           ))}
         </div>
       </section>
-      <section className="evidence-section">
-        <h2>{copy[lang].evidence}</h2>
-        <div className="evidence-grid">
-          {project.evidence[lang].map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
-      </section>
-      {siblings.length > 0 ? (
-        <section className="related-section">
-          <h2>{lang === 'zh' ? '同方向作品' : 'More in this direction'}</h2>
-          <div className="related-grid">
-            {siblings.map((item) => (
-              <button type="button" key={item.id} onClick={() => onOpenProject(item.id)}>
-                {item.image ? (
-                  <img src={item.image} alt="" loading="lazy" />
-                ) : (
-                  <span className="related-placeholder">{lang === 'zh' ? '资料待补' : 'Source pending'}</span>
-                )}
-                <span>{t(item.title, lang)}</span>
-              </button>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <DetailShowcaseFooter lang={lang} onOpenProject={onOpenProject} motionEnabled={motionEnabled} />
     </main>
   );
 }
