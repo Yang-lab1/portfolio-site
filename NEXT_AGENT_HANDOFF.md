@@ -1,160 +1,605 @@
 # NEXT_AGENT_HANDOFF.md
 
-## 交接目的
+## 0. 本次交接状态
 
-这份文件是给下一个 Codex / AI 窗口的第一入口。当前项目已经上传到 GitHub，公开站点也已经部署；后续开发应优先从 GitHub 仓库、本文档、计划文件和 `agent_memory/` 读取上下文，尽量减少对原电脑散落资料的依赖。
+- 更新时间：2026-07-01
+- 当前任务：只写交接文档，暂时停止性能排查和网站实现修改。
+- 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
+- GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
+- 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
+- 当前分支：`main`
+- 交接前最新代码提交：`9cd4757 Refine product orbit media and detail assets`
+- 交接前 Git 状态：干净。
+- 当前线程深度链接：`codex://threads/019e0d28-475a-79d1-8bc3-1e8b18096c23`
 
-## 必读顺序
+本文件的目的不是写一份漂亮摘要，而是让下一个窗口可以不重走弯路。请下一位 agent 先读完本文件，再读 `AGENTS.md`、`agent_memory/`、`task_plan.md`、`findings.md`、`progress.md` 和核心代码。
 
-1. `AGENTS.md`：项目级协作规则、中文沟通、Headroom、Product Design、RTK、agent_memory 规则。
-2. `NEXT_AGENT_HANDOFF.md`：当前交接入口，也就是本文件。
-3. `task_plan.md`：阶段计划和已完成阶段。
-4. `findings.md`：重要发现、坑点和验证结论。
-5. `progress.md`：最近执行进度。
-6. `agent_memory/context.md`、`agent_memory/progress.md`、`agent_memory/bugs.md`：当前有效项目记忆、进度和风险。
-7. `package.json`、`src/main.jsx`、`src/styles.css`：主技术栈、脚本和当前核心实现。
+## 1. 接手后第一顺序
 
-## 入口链接
+1. 读取 `AGENTS.md`。
+2. 读取 `agent_memory/context.md`、`agent_memory/progress.md`、`agent_memory/bugs.md`。
+3. 读取 `task_plan.md`、`findings.md`、`progress.md`、`NEXT_AGENT_HANDOFF.md`。
+4. 检查 `git status`，不要覆盖用户或前一个 agent 未提交的修改。
+5. 检查 `git remote -v`，origin 应为 `https://github.com/Yang-lab1/portfolio-site.git`。
+6. 如有重要视觉或交互修改，优先使用 Product Design / clone-website 相关能力，再落地到现有 React + CSS。
+7. 非简单任务先读 `src/main.jsx`、`src/styles.css`、相关项目数据和图片引用，不要直接重写。
+8. 使用 shell 时按 `AGENTS.md` 规则优先用 `C:\Users\Yang\.local\bin\rtk.exe` 包装 `git`、`npm`、大范围 `rg` 等命令。
 
-- 生产网站：[https://portfolio-site-three-rose.vercel.app](https://portfolio-site-three-rose.vercel.app)
-- GitHub 仓库：[https://github.com/Yang-lab1/portfolio-site](https://github.com/Yang-lab1/portfolio-site)
-- 当前主分支：`main`
-- 当前最新生产部署：`dpl_5xgotJtgyMiRqPkqvDxrNd8hqQNk`
-- Tresmares 交互保底版本 tag：`fallback-tresmares-orbit-2026-06-19`
-- 保底版本对应 commit：`2232277`
+## 2. 当前暂停的问题：网站加载变慢
 
-## 当前技术栈
+用户刚提出“现在网站打开有点慢，之前是一打开所有图片都出来，现在感觉加载很慢”。随后用户要求暂时停止这个问题，先写交接文档。因此：
 
-- React 19 + Vite 8：单页作品集前端。
-- 普通 CSS：主要样式集中在 `src/styles.css`，未使用 Tailwind / shadcn / Next.js。
-- GSAP + ScrollTrigger：Hero、sticky/pinned、scroll-driven parallax、Tresmares Expansion 交互。
-- `motion/react`：Achievement CountUp 数字动效。
-- Remotion 工具链：Hero 螺旋视频生成和素材处理相关工具仍在仓库内。
-- Playwright：本地和线上 UI 回归验证。
-- Supabase：代码和 SQL 已准备，但真实环境变量尚未配置完成。
-- Agent / RAG 方案见 `docs/PORTFOLIO_RAG_AGENT_PLAN.md`。当前前端只做本地动态检索和跳转，尚未接入真实 LLM API。
+- 本轮没有继续做性能优化。
+- 本轮没有改 lazy loading、图片压缩、视频转码、预加载策略或 Vercel 配置。
+- 下一位 agent 如果继续性能问题，必须先测量，不要凭感觉改。
 
-## 当前已接受的关键状态
+未验证但很可能有关的点：
 
-### Aircenter 首页方向
+- 最后的圆形圆盘模块现在有 8 张 1254x1254 方图。
+- 每个圆盘 item 当前渲染两层图片：`.expansion-card-bg` 和 `.expansion-card-img`，并且两层都是 `loading="eager"`。
+- `momenta-detail-video.m4v` 体积约 103MB，虽然详情页才会用，但仍是资产风险。
+- `miro-hardware-detail-video.mp4` 和 `watsu-detail-video.mp4` 也应确认体积和加载策略。
+- 首页横向图片墙与四联大屏使用大量视觉资产，后续优化要看真实 network waterfall。
 
-- 首页走 aircenter 风格迁移：白底、巨型 `YANG`、螺旋结构体视频、成就数字区、产品三卡区、数字案例、作品墙、黑底 footer。
-- Hero 不能出现用户真实姓名，也不要加搜索框、对话框、营销按钮。
-- 最底部 footer 无论中文/英文都应保持 `YANG`，不要翻译成中文。
-- Hero 螺旋视频目前不是最终满意版本。用户可能会继续提供更好的视频或帧序列；接入时要验证循环、清晰度和不卡顿。
+建议下一步性能排查：
 
-### 产品三卡区
+1. 本地 `npm run build` 后用 `npm run preview` 或 Vercel 线上地址测量。
+2. 用 Playwright / Chrome DevTools 抓首屏和完整页面 waterfall。
+3. 先确认首屏是否被非首屏圆盘图片、图片墙图片、视频阻塞。
+4. 优先考虑圆盘双层图的懒加载策略、图片尺寸衍生版本、非首屏图片 `loading="lazy"`，但不要破坏滚动时的视觉连续性。
+5. 优化前后都要对桌面和移动端截图，确认没有空白、抖动、图片闪烁。
 
-- 当前目标是严格接近 aircenter 三卡参考。
-- 桌面只看三张：中间最大，两侧较小、分离、有浅透视/裁切，不叠压到中间。
-- 交互应连续拖拽、惯性滑动、松手吸附最近卡片；不要回到阈值切换后卡住的旧逻辑。
-- 不要加大标题、大段说明或底部切换按钮。
-- 如果用 React Bits 代码，当前项目应粘贴 React 组件源码 + CSS，不要使用 `npx shadcn add`，因为这不是 shadcn/Next/Tailwind 项目。
+## 3. 技术栈与核心文件
 
-### Agent 入口
+- React 19 + Vite 8。
+- 普通 CSS，主要样式在 `src/styles.css`。
+- 主要页面、项目数据、组件逻辑集中在 `src/main.jsx`。
+- GSAP / ScrollTrigger 用于 Hero、Daima、产品 orbit、圆盘 pinned scroll 等交互。
+- Lenis 用于平滑滚动。
+- `motion/react` 用于成就数字 CountUp。
+- Vercel 部署。
+- GitHub 作为代码版本来源。
+- AGNES API 已接入 `/api/agent`，不要重接 OpenAI，不要换 provider。
+- 环境变量参考 `.env.example` 和 `api/agent.js`，不要把 API key 写入前端或 GitHub。
 
-- 右下角入口是 AssistiveTouch 风格浮球，默认可见但不抢主视觉。
-- 打开面板后只保留底部搜索/对话输入和回答/结果区域；不要恢复标题、说明文、预设 chips、隐藏入口行或右上角关闭叉。
-- 关闭方式：点击浮球切换，或点击面板外空白区域关闭。
-- 当前回答必须使用“林杨”，不要写成“羚羊”。
-- 当前只是本地站内检索助手：可用项目别名、项目数据和作品入口做动态回答与跳转。真正 API 版应按 `docs/PORTFOLIO_RAG_AGENT_PLAN.md` 的 RAG + 可解释摘要 + 置信度评估方案接入。
-
-### Tresmares Expansion 区
-
-- 该区块替换了原 About 灰底说明区，参考 Tresmares 首页 `Our expansion / We join forces with Banco Santander to reach further`。
-- 必须是 pinned/sticky + scroll progress scrub，不是自动播放，也不是普通静态照片墙。
-- 现在接受的基线：桌面 7 张可见图，一张正中间，左右各三张，围绕底部中心形成半圆轨道；移动端可减少为 5 张避免横向溢出。
-- 图片旋转必须由同一个底部圆心推导，卡片边缘要读作同一半圆的切线关系。
-- 可见图片必须保持 `blur(0px)`。底部/边缘消失效果使用白色 wash/erase，不要用整张图高斯模糊。
-- 中间图如果看起来灰或糊，先检查图片 URL 是否 404。QA 已加入 `imageLoaded` 检查。
-- 当前 smoothness 版本使用 GSAP scrubbed proxy tween 驱动 `renderExpansion(progressState.value)`，并用 DOM ref 更新 active country label，避免滚动时 React 高频 re-render。
-- 如果后续 smoothness 改坏，回退到 `fallback-tresmares-orbit-2026-06-19`。
-
-## 最高优先级禁忌
-
-- 不要把作品区改回黑底白字；作品浏览区应保持白底/浅底。
-- 不要用上下滚动切换作品卡；上下滚动只滚页面。
-- 不要把产品图片 AI 改成新产品。所有 AI 图像处理必须保留原产品形态、颜色、材质、比例和结构，只能改背景、光影、场景、裁切、构图。
-- 不要把 PDF/PPT 里为了版式临时加上的文字当成图片内容原样搬进网站；文字应在网页里重新排。
-- 不要重新引入 Hero `YANG` 字母重叠、飞散或第二套 wordmark。
-- 不要提交密钥、账号、`.env.local`、Vercel 本地元数据、聊天导出或敏感原始第三方资料。
-
-## 当前未完成 / 阻塞项
-
-- Supabase 仍是 `missing-env`。需要用户提供：
-  - `VITE_SUPABASE_URL`
-  - `VITE_SUPABASE_PUBLISHABLE_KEY` 或 `VITE_SUPABASE_ANON_KEY`
-  - 并在目标 Supabase 项目执行 `supabase/portfolio_health.sql`
-- 国内/香港最终低成本部署方案已有文档和工具，但还没有绑定最终自定义域名，也没有香港/深圳无 VPN 实测证据。
-- 作品封面和详情图还会继续替换。用户计划整理一个文件夹，把封面和详情图分门别类后再统一更新。
-- 原始聊天全文没有完整进入 GitHub。GitHub 已包含代码、资产、计划、发现、进度和 agent memory，但不包含所有历史对话原文。
-
-## 重要命令
+常用命令：
 
 ```powershell
 cd "C:\Users\Yang\Documents\New project\portfolio-site"
-cmd /c npm install
-cmd /c npm run build
-cmd /c npm run verify:supabase
-cmd /c npm run predeploy:china
-cmd /c npm run package:china
-cmd /c npm run verify:release -- --latest
+C:\Users\Yang\.local\bin\rtk.exe cmd /c npm run build
+C:\Users\Yang\.local\bin\rtk.exe git status --short
+C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 ```
 
-本地 Tresmares QA：
+## 4. 首页当前模块顺序
 
-```powershell
-C:\Users\Yang\.local\bin\rtk.exe node tmp\verify-tresmares-orbit.mjs
-```
+当前首页顺序已经按用户要求调整为：
 
-线上 Tresmares QA：
+1. Hero 首屏。
+2. Achievement cards / 数字统计。
+3. `ModuleIntro` dark variant，AI / Web / App 四联大屏前导语。
+4. Daima 四联 fullscreen 作品展示段。
+5. `ModuleIntro` 实体产品导语。
+6. Physical Product Foundations，三卡实体产品旋转模块。
+7. `ModuleIntro` Project Archive 导语。
+8. Project Archive，三排横向移动图片墙。
+9. Product Language & Sensibility，最后圆形圆盘模块。
+10. Footer / Contact / Agent / Email floating controls。
 
-```powershell
-$env:BASE_URL='https://portfolio-site-three-rose.vercel.app'
-C:\Users\Yang\.local\bin\rtk.exe node tmp\verify-tresmares-orbit.mjs
-```
+不要把四联大屏和实体产品三卡再换回旧顺序，除非用户明确要求。
 
-Vercel 生产部署：
+## 5. Hero 规则
 
-```powershell
-cmd /c npx vercel deploy --prod --yes
-```
+当前 Hero 是 Aircenter 风格：
 
-## 回退方式
+- 白底或浅底。
+- `YANG` 字母收拢动效。
+- 螺旋结构视频来自用户提供帧和本地处理，不是最终完全满意，但当前可用。
+- Hero 不要按钮。
+- Hero 不要搜索框、聊天框、营销页文案。
+- Hero 不要把“林杨”或姓名作为首页主视觉。
+- 不要新增第二套 `.air-hero-wordmark`。当前正确实现只用四个 `.air-letter`。
 
-如果 Tresmares smoothness 或七卡半圆交互被改坏，先不要盲目重写。可从保底 tag 建分支检查：
+回归重点：
 
-```powershell
-git switch -c recover/tresmares-baseline fallback-tresmares-orbit-2026-06-19
-```
+- Hero 中应只有四个原始 `.air-letter`。
+- 收拢态 `YANG` 不重叠、不飞散。
+- 移动端无横向溢出。
 
-如果只是想看保底版本：
+## 6. Achievement Cards
 
-```powershell
-git checkout fallback-tresmares-orbit-2026-06-19
-```
+成就数字区当前值：
 
-看完后回主分支：
+- Works / 作品入口：`51`
+- Clients / 客户协作：`20+`
+- Honors / 奖项荣誉：`12+`
+- Directions / 能力方向：`4`
 
-```powershell
-git switch main
-```
+已接受行为：
 
-## 给下一个窗口的启动提示
+- CountUp 进视口播放，离开再回来会重新播放。
+- 不要把奖项问题回答成 51，Agent 问“林杨得过多少奖”应回答 `12+`。
+- 当前四联大屏前的黑底导语和成就区之间曾有一条线，已去掉。
 
-可以把下面这段直接发给新的 Codex 窗口：
+## 7. Daima 四联大屏模块
+
+当前 Daima 四联大屏模块是用户长期反复要求复刻的重点，不能退化成普通卡片。
+
+当前四屏：
+
+1. `miro` - Miro AI Rehearsal System
+2. `palifood` - Pai Li Shi
+3. `libai` - Li Bai Interactive Website
+4. `sport` - Home Form Coach
+
+重要历史：
+
+- 最早第四个是 Offer Quest，后来用户要求改为 sport 项目。
+- 这里的 sport GitHub：`https://github.com/Yang-lab1/sport`
+- sport 线上参考：用户给过 `https://frontend-flame-one-rgedpp5pu4.vercel.app/` 是拍立食，不是 sport。sport 有单独部署记录在旧进度中，接手时不要混。
+
+已接受交互方向：
+
+- fullscreen / 100svh 视觉。
+- 四屏滚动过渡。
+- 保留本站导航、语言切换、Agent、Email 浮动按钮。
+- 点击每屏进入站内项目详情页，不直接跳外部站。
+- 标题、分类、过渡、图片切换尽量按 `https://wearedaima.framer.website/` 的交互学习。
+- 当前文案支持中英文切换。英文默认，中文切换后四联也显示中文。
+
+严禁：
+
+- 不要把四联大屏图片替换成用户没有要求的新图。
+- 不要把四联大屏改成普通项目卡片堆叠。
+- 不要恢复 Offer Quest 为第四屏，除非用户明确要求。
+
+## 8. Physical Product Foundations 三卡模块
+
+当前实体产品三卡模块来自 Aircenter / React Bits circular gallery 风格：
+
+- 桌面只显示 3 张：中心最大，左右两张分离并部分出画。
+- 拖拽是连续的，带惯性和吸附。
+- 左右卡可点击切换，中心卡可打开详情页。
+- 移动端只保留主卡，避免横向溢出。
+
+用户已经多次认可该段“可以作为保底”，不要随意退化。
+
+不要做：
+
+- 不要加大标题、说明文、普通按钮。
+- 不要把左右卡片完全露出来。
+- 不要把侧卡折成很薄。
+- 不要让左右卡贴住或压到中心卡。
+
+## 9. Project Archive 横向图片墙
+
+当前图片墙用于两个位置：
+
+- 首页 Project Archive。
+- 每个项目详情页最底部，替代旧的“证据 / 同方向作品”模块。
+
+用户明确要求：
+
+- 详情页底部不再出现“证据”和“同方向作品”。
+- 详情页底部应复用首页横向移动图片墙。
+- 首页原图片墙继续保留。
+- 图片墙里的每张图都要可点击进入对应项目详情。
+- 图片要铺满卡片，不要四边留白。
+- 同一项目或同组项目不要在同一屏挨得太近，避免显得项目很少。
+
+当前实现关键词：
+
+- `DetailShowcaseFooter`
+- `ShowcaseRow`
+- `buildShowcaseRows`
+- `wallGroup`
+- `wallImage`
+- `wallImageFit`
+
+重要已做图源替换：
+
+- Miro AI 相关图片墙卡片使用 Daima Miro 图：`/portfolio/daima-work-cover-01.png`
+- Pai Li Shi / Food Health 相关图片墙卡片使用用户确认的手持手机浅绿图或 Daima 拍立食图，不能随便生成深蓝多文案风格。
+- Li Bai 相关卡片使用对应四联图或水墨视觉。
+- Sport / Home Form Coach 相关卡片使用运动速度图，注意裁切不能切掉主体脸部。
+- Watsu / Cross-ripple 卡片换成用户给的水疗横图，必须铺满卡片。
+- Offer Quest 卡片换成用户给的键盘小岛图。
+- Feel Disambiguation NLP 卡片换成橙色光圈人物图。
+- Capstone / Watch 类卡片有黑底手表图。
+- Cup's Cup 卡片换成用户给的杯子水光图。
+- Opera 绘画尺卡片已改成满铺，不要四边留白。
+
+近期用户仍在细调图片墙：
+
+- 某些重复项目仍可能太近，后续如用户指出，优先调 `buildShowcaseRows` 分布和 `wallGroup`，不要把同一图随便删掉。
+- 用户会继续给图替换卡片。
+
+## 10. Product Language & Sensibility 圆形圆盘模块
+
+这是最后的圆形圆盘模块，定位是 Product Language & Sensibility / 产品语言与感知。
+
+当前 `expansionCards` 精确为：
+
+1. `xiaomi-cmf`，label `Xiaomi`，图 `/portfolio/xiaomi-cmf-orbit-square.jpg`
+2. `cat-turntable`，label `CatToy`，图 `/portfolio/cat-toy-orbit-square.png`
+3. `cup-cup`，label `Cup's Cup`，图 `/portfolio/cup-cup-orbit-square.png`
+4. `opera-ruler`，label `Opera`，图 `/portfolio/opera-ruler-orbit-square.jpg`
+5. `miro-hardware`，label `Miro`，图 `/portfolio/miro-hardware-orbit-square.png`
+6. `momenta-touch`，label `Momenta`，图 `/portfolio/momenta-orbit-square.png`
+7. `capstone-device`，label `Capstone`，图 `/portfolio/capstone-device-orbit-square.png`
+8. `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-square.png`
+
+这里有几个非常容易搞错的点：
+
+- `miro` 是 AI / Web 演练系统。
+- `miro-hardware` 是用户后面给的 Miro 硬件设备，只用于圆盘和硬件详情页。
+- `momenta` 是 UI / App 项目。
+- `momenta-touch` 是硬件项目，正式叫 `Momenta Touch`，只用于圆盘和硬件详情页。
+- 不要把 `momenta-touch` 的图或视频塞进旧 `momenta` UI 项目。
+- 不要把 `miro-hardware` 覆盖原 `miro`。
+
+当前圆盘文本：
+
+- EN 小标题：`Product Language`
+- EN 主标题：`Language grows from / use and feeling / and moves toward / clear identity`
+- ZH 小标题：`产品语言`
+- ZH 主标题：`产品语言来自 / 使用与感受 / 并走向 / 清晰的识别`
+- 红色强调词：`use and feeling` / `使用与感受`
+
+当前圆盘图片规则：
+
+- 用户要求正方形卡片要铺满，不要四边留白。
+- 最近已按 1254x1254 方图处理多张圆盘图片。
+- `.expansion-card-img` 当前 padding 为 0，`object-fit: cover`。
+- 但如果后续用户给的产品图主体很细或会被裁掉，不能简单放大；应使用用户文件夹里的正方形定稿图，或做不改变主体的正方形适配。
+- 不能把 AI/Web 截图、数据图、知识图谱放进这个圆盘模块。
+
+## 11. 详情页当前规则
+
+详情页顶部已按用户要求压缩为较小、克制的信息区：
+
+- 左侧：Back、分类、项目标题、短说明。
+- 右侧：Year、Role、Source status。
+- 字号不能再变成巨大、满屏、丑的说明页。
+
+首图 / 媒体规则：
+
+- Web / App / 数字产品类可以用黑底透视舞台，滚动时逐渐拉平。
+- 工业设计、产品外观、CMF、硬件、资料证据图不要套 Web/App 倾斜模板。
+- 工业设计产品详情页可以直接放图片和视频，不需要硬写 case-study 文本模板。
+- 用户多次强调：产品图片不能被 AI 改结构、颜色、材质、比例。
+
+详情页底部：
+
+- 旧“证据”和“同方向作品”已删除。
+- 现在统一用 `DetailShowcaseFooter` 复用三排横向图片墙。
+
+## 12. 重要项目 slug 与语义
+
+不要凭中文名字新造 slug。优先用现有项目数据。
+
+- `miro`：Miro AI Rehearsal System，AI/Web 演练系统。
+- `miro-hardware`：Miro 硬件设备，圆盘短名 Miro。
+- `palifood`：拍立食 / Pai Li Shi。
+- `libai`：李白互动网站。
+- `sport`：Home Form Coach，运动姿态教练，Daima 第四屏。
+- `offer-quest`：Offer Quest，仍在项目库和图片墙中，但不在当前四联大屏。
+- `momenta`：Momenta UI / App 项目。
+- `momenta-touch`：Momenta Touch，硬件设备概念，只用于圆盘和硬件详情。
+- `cat-turntable`：复合转盘猫玩具 / CatToy。
+- `cross-ripple`：Watsu / 水疗复健方向。
+- `xiaomi-cmf`：小米第一代骨传导耳机 CMF。
+- `cup-cup`：杯中杯。
+- `opera-ruler`：川剧儿童绘画尺。
+- `cmf-electronics`：电子产品 CMF 档案，圆盘短名目前显示为 Watch。
+- `capstone-device`：Capstone AI 设备概念。
+- `ufei-precision-cabinet`：立式高精度柜。
+- `heart-bracelet`：心脏病手环套件，目前真实素材仍不完整，注意不要编造。
+
+## 13. 最近接入的产品素材
+
+### Momenta Touch
+
+来源：`C:\Users\Yang\Desktop\作品集\momenta`
+
+当前站内资源：
+
+- `/portfolio/momenta-orbit-square.png`
+- `/portfolio/momenta-detail-video.m4v`
+- `/portfolio/momenta-detail-01.png` 到 `/portfolio/momenta-detail-08.png`
+
+规则：
+
+- 这是硬件外观项目，正式名 `Momenta Touch`。
+- 不要覆盖 `momenta` UI 项目。
+- 详情页应先放视频，再放 8 张图。
+- 不要写 Web/App case-study 模板。
+
+### CatToy
+
+来源：`C:\Users\Yang\Desktop\作品集\CatToy`
+
+当前站内资源：
+
+- `/portfolio/cat-toy-orbit-square.png`
+- `/portfolio/cat-toy-detail-01.png` 到 `/portfolio/cat-toy-detail-05.png`
+
+规则：
+
+- 用户按命名排好顺序，按顺序放。
+- 不要再自由生成猫玩具图。
+- 详情页使用产品媒体呈现，不用网页倾斜模板。
+
+### Miro Hardware
+
+来源：`C:\Users\Yang\Desktop\作品集\miro`
+
+当前站内资源：
+
+- `/portfolio/miro-hardware-orbit-square.png`
+- `/portfolio/miro-hardware-detail-video.mp4`
+- `/portfolio/miro-hardware-detail-01.png` 到 `/portfolio/miro-hardware-detail-04.png`
+
+规则：
+
+- 这是硬件设备。
+- 不要覆盖 `miro` AI/Web 演练系统。
+
+### Watsu / Cross-ripple
+
+来源：`C:\Users\Yang\Desktop\作品集\旋转圆盘\watsu`
+
+当前站内资源：
+
+- `/portfolio/watsu-orbit-square.png`
+- `/portfolio/watsu-detail-video.mp4`
+- `/portfolio/watsu-detail-01.png` 到 `/portfolio/watsu-detail-08.png`
+- 首页图片墙横图：`/portfolio/watsu-hydrotherapy-wall-card.png`
+
+规则：
+
+- 详情页先视频，再按用户更新后的顺序放详情图。
+- 图片墙横图和圆盘正方形图是不同用途，不要混。
+
+### Pai Li Shi
+
+用户确认的关键图：
+
+- `C:\Users\Yang\Desktop\作品集\拍立食\1.png`
+- 站内对应：`/portfolio/palifood-handheld-fresh.png`
+
+规则：
+
+- 这张图是用户已做好的成品图。
+- 不要改色调、排版、风格。
+- 只允许做尺寸和比例适配。
+- 未来生成拍立食新图时，必须一比一照参考图：浅绿色背景、手机承载 UI、低文字密度、整体简洁。
+- 不要把 App 原始截图作为巨大横图直接铺在网页里。
+
+### Xiaomi CMF
+
+规则：
+
+- 这是第一代小米骨传导耳机 CMF。
+- 官方官网现在能找到的多是第二代，不能直接替换成第二代产品图。
+- 当前 remastered 版本是保留原图 identity 的适配。
+
+## 14. Agent / AGNES 规则
+
+AGNES API 已接入，不要重做 UI，不要换 provider，不要暴露 key。
+
+后端：
+
+- `/api/agent`
+- `src/lib/agentClient.js`
+
+前端行为：
+
+- 面板提交时优先请求 `/api/agent`。
+- 如果未配置 key 或上游失败，会 fallback 到本地匹配。
+- 右侧浮球打开时不隐藏。
+- 没有顶部 X。
+- 没有语音按钮。
+- 点击浮球或面板外空白关闭。
+- collapse / re-expand 必须清空旧输入、旧答案、loading、error、按钮、候选。
+- loading 时 collapse，旧请求回来不能写回 UI。
+- loading 用 Siri 式光圈，不要写“我先理解你的问题”。
+- 不展示 CoT、置信度、debug、系统 prompt。
+
+意图模式：
+
+- `navigate`：在哪里 / 找不到 / 打开 / 跳转 / 带我去。唯一匹配时直接跳转，不输出长解释。
+- `answer_with_navigation`：是干嘛的 / 介绍 / 痛点 / 服务谁 / 解决什么 / 做得怎么样。先自然回答，同一回答块下面只显示一个黑色按钮。
+- `answer`：人物能力、作品数量、招聘视角、闲聊。不显示项目按钮，除非明确要看项目。
+- `clarify`：多项目匹配时让用户选择。
+- `refusal` / `soft_refusal`：天气、股票、新闻等实时外部问题没有工具时温和拉回作品集。
+
+重点匹配：
+
+- `拍历史`、`拍立食`、`pailishi` 只能匹配 `palifood`，不能混入 Miro。
+- `Miro` / `miro` / `AI 演练系统` 匹配 `miro`。
+- “林杨得过多少奖”应回答 `12+`。
+
+## 15. 语言与导航
+
+当前默认语言：英文。
+
+Header：
+
+- 圆圈里写 `YANG`。
+- 旁边写 `Portfolio` / `作品集`。
+- 不要写 `AI Portfolio` / `AI 作品集`。
+
+语言：
+
+- 英文默认应尽量全英文。
+- 切换中文后对应 UI 和四联大屏应显示中文。
+- 图片里的中文属于项目视觉内容，不算语言状态错误。
+
+GooeyNav：
+
+- 不要让 Work / About 外层出现矩形框。
+- 只允许 active pill 有黑色胶囊视觉。
+
+## 16. Email / Agent 浮动按钮
+
+Email 按钮参考 Bill Chien，但适配黑白系统：
+
+- 默认黑色圆形。
+- 点击后向左展开黑色 pill。
+- 文案 `EMAIL COPIED`。
+- 邮件图标右侧保留。
+- 第二次点击展开状态时应是按压反馈，不应缩回再展开。
+- 不要使用黄色主题。
+
+Agent 浮球：
+
+- 样式与邮箱按钮成对。
+- 图标可替换，但弹出的面板仍保持之前 AGNES 面板逻辑。
+
+## 17. 用户对文案的偏好
+
+用户非常反感第三人称硬夸、AI 味、长说明、营销话术。
+
+更适合的文案风格：
+
+- 克制。
+- 第一人称或无主语都可以，不要所有句子都用“我”开头。
+- 字数要对齐原模块排版，不能忽长忽短。
+- 高端作品集 / 建筑事务所 / 展览文案感。
+- 图片是主体，文字只是辅助。
+
+已选中的实体产品段文案曾为：
+
+EN:
 
 ```text
-请继续开发这个作品集网站。GitHub 仓库是 https://github.com/Yang-lab1/portfolio-site ，线上站点是 https://portfolio-site-three-rose.vercel.app 。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、task_plan.md、findings.md、progress.md、docs/PORTFOLIO_RAG_AGENT_PLAN.md 和 agent_memory/ 下的 context/progress/bugs，再开始任何修改。当前重点是延续已接受的 Aircenter 首页、产品三卡区、Tresmares Expansion 七卡半圆滚动交互，以及右下角 Agent 的本地检索/RAG 规划，不要破坏 fallback-tresmares-orbit-2026-06-19 之后的已验证状态。任何 UI 修改都要构建并用 Playwright/现有 QA 脚本验证。
+Product form grows from
+Use and Feeling into
+clarity
 ```
 
-## 关于本地文件夹是否能删除
+ZH:
 
-不建议现在立刻删除本地项目文件夹。GitHub 已经是代码和已提交资产的权威来源，但本地仍可能有：
+```text
+产品形态来自
+使用与感受 并走向
+清晰
+```
 
-- 未整理进仓库的原始设计素材。
-- 用户即将补充的封面/详情图文件夹。
-- 本地登录状态、Vercel/Supabase 配置上下文。
-- 临时 QA 截图或录屏。
+Bottom EN:
 
-更稳的做法是：先从 GitHub 在另一个目录完整 clone 一次，运行 `cmd /c npm install` 和 `cmd /c npm run build` 成功，再确认需要的图片、视频、文档、历史 tag 都在 GitHub 或 archive 文档里，最后再考虑清理旧本地目录。
+```text
+The work is about shaping what people see, touch, understand, and remember through form language, surface treatment, ergonomics, and product identity.
+```
+
+Bottom ZH:
+
+```text
+这些作品关注人们看见、触摸、理解和记住的部分，并通过形态语言、表面处理、人机与产品识别去塑造它们。
+```
+
+后来圆盘模块已经更新为 Product Language & Sensibility 的新文案，但这个偏好仍然有参考价值。
+
+## 18. 图片生成与产品图处理红线
+
+用户多次强调：
+
+- 产品图片不能被 AI 改结构、颜色、材质、比例。
+- 可以改背景、光影、场景、裁切、构图。
+- 已经给出的成品图不要重新生成。
+- 如果尺寸不对，只做尺寸适配。
+- 生成新图必须跟项目原有风格、色调、排版思路一致。
+- 不要凭感觉加深蓝、加一堆文字、加新构图。
+- App 截图应放进手机屏幕里，不应作为一张大横图铺满详情页。
+- 工业设计产品详情页直接放图和视频即可，不要强行套 Web/App 案例说明模板。
+
+## 19. 已删除模块
+
+首页曾有“不是堆项目，而是能力组合。”能力雷达 / 能力组合板块。
+
+用户要求删除，当前应已删除。
+
+不要再加回来。
+
+## 20. 已知风险与未完成项
+
+### 性能风险
+
+- 网站加载变慢问题已暂停，未处理。
+- 圆盘双层 eager 图片可能是首要怀疑对象。
+- 大视频资源需要测量。
+
+### HeartKit / heart-bracelet
+
+- `heart-bracelet` 仍缺可靠真实素材。
+- 不要把 `bracelet-kit-clean.jpg` 当真实心脏病手环素材，历史检查显示它不可靠。
+- 用户后续可能会单独提供素材。
+
+### Momenta Touch 视频
+
+- `momenta-detail-video.m4v` 约 103MB，有 GitHub / Vercel / 首次播放风险。
+- 若后续 push 或加载出问题，优先转码压缩，但要先和用户确认画质目标。
+
+### Supabase
+
+- Supabase 仍是 `missing-env`，需要真实 `VITE_SUPABASE_URL` 和 publishable/anon key。
+- 不要要求用户把密钥贴在聊天里。让用户放到 Vercel Environment Variables 或本地 `.env.local`。
+
+### 国内访问
+
+- 中国大陆 / 香港访问方案已有旧文档和审计脚本，但没有最终域名、香港/深圳实测。
+- 不要声明中国访问目标已完成。
+
+### 图片墙重复与裁切
+
+- 图片墙仍可能被用户继续指出某些项目重复太近、裁切不准、没有铺满。
+- 后续处理优先读项目数据和 `wallGroup`，不要乱换详情页图。
+
+### 圆盘方图
+
+- 用户明确要求圆盘正方形卡片不要四边留白，主体要保留。
+- 对已提供产品文件夹的项目，优先使用文件夹内正方形图。
+
+## 21. 验证清单
+
+做任何视觉 / UI / 交互修改后至少检查：
+
+1. `npm run build` 通过。
+2. 首页可打开。
+3. 默认英文，中文切换正常。
+4. Header 显示 `YANG` / `Portfolio`，中文为 `作品集`。
+5. Agent 浮球和邮箱浮球仍在。
+6. Daima 四联仍是 fullscreen，不是普通卡片。
+7. Daima 四屏点击能进对应详情页。
+8. 产品三卡拖拽、惯性、点击仍正常。
+9. 图片墙自动移动、拖拽、点击仍正常。
+10. 详情页底部没有“证据 / 同方向作品”，而是图片墙。
+11. 圆盘模块 8 个 item 可点击，且进入正确详情页。
+12. `miro` 和 `miro-hardware` 不混。
+13. `momenta` 和 `momenta-touch` 不混。
+14. 桌面端和 390px 左右移动端无横向溢出。
+15. Agent 回归：拍立食不混 Miro，奖项回答 12+，collapse 后清空旧会话。
+
+## 22. 部署与版本规则
+
+重要可展示版本应：
+
+1. `npm run build`
+2. 浏览器 / Playwright 检查桌面和移动端关键页面
+3. `git status`
+4. commit
+5. push 到 GitHub
+6. deploy 到 Vercel
+7. 给用户固定线上地址、commit、分支、验证项
+
+但本次交接文档属于文档更新，不改站点运行时代码，不需要触发网站视觉部署。
+
+## 23. 给下一个窗口的建议启动提示
+
+可以直接把下面这段给新的 Codex：
+
+```text
+你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交约为 9cd4757，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。当前用户刚暂停“网站加载变慢”的问题，下一步由用户重新指定任务。
+```
+

@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-07-01 全量交接文档
+- 用户要求暂时停止网站加载变慢问题，不继续做性能排查或代码优化；本轮没有修改运行时代码、图片加载策略、视频压缩或 Vercel 配置。
+- 已重写 `NEXT_AGENT_HANDOFF.md`，把当前工作目录、线上地址、GitHub、最新提交、首页模块顺序、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、详情页规则、AGNES Agent、Email 浮球、图片生成红线、已知风险与下一步验证清单集中整理为下一窗口第一入口。
+- 已核对当前圆盘 `expansionCards` 的真实状态：Xiaomi、CatToy、Cup's Cup、Opera、Miro 硬件、Momenta Touch、Capstone、Watch；特别标注 `miro` / `miro-hardware` 和 `momenta` / `momenta-touch` 不能混。
+- 已记录加载变慢的未验证怀疑点：圆盘 8 张大方图、每个圆盘 item 双层 eager 图片、Momenta Touch 大视频和图片墙大量视觉资产；下一位 agent 如继续性能任务，应先测量 network waterfall，再做最小优化。
+
 ## 2026-06-30 圆盘方图、Miro 硬件与 Watsu 详情接入
 - 按用户要求修正最后圆形圆盘卡片：所有圆盘图片都改为 1254x1254 方图，`.expansion-card-img` 统一 `padding: 0`、`object-fit: cover`，不再出现四边灰/白留边；已有产品文件夹提供的正方形图直接使用。
 - 新增独立项目 `miro-hardware`，只代表用户刚给的 Miro 硬件设备，不覆盖原有 `miro` AI/Web 演练系统；圆盘入口短名为 `Miro`，详情页为 `mediaOnlyDetail`，先放压缩后的 `miro-hardware-detail-video.mp4`，再放 4 张宽幅详情图。

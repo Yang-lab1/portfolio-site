@@ -1,5 +1,19 @@
 # Progress Log
 
+## Session: 2026-07-01 Handoff Documentation
+- **Status:** complete.
+- User direction:
+  - Temporarily stop the site speed / image loading diagnosis.
+  - Write a comprehensive handoff document for the next window, covering chat context, completed work, current state, risks, and unfinished tasks.
+- Actions completed:
+  - Checked the latest repository state and recent commits; the codebase was clean before the handoff documentation update.
+  - Re-read the current implementation around `ModuleIntro`, `DetailShowcaseFooter`, `expansionCards`, the homepage order, and the product language orbit so the handoff would reflect the actual code rather than memory alone.
+  - Rewrote `NEXT_AGENT_HANDOFF.md` as the current first-read document for the next agent.
+  - Added the current exact product language orbit list, the `miro` vs `miro-hardware` distinction, the `momenta` vs `momenta-touch` distinction, the Project Archive / detail-footer image-wall rules, Agent / AGNES behavior, visual guardrails, and paused performance concerns.
+  - Updated `agent_memory/progress.md` with the handoff status and the paused performance investigation.
+- Verification:
+  - Documentation-only change; no runtime build was required.
+
 ## Session: 2026-05-18
 
 ### Phase 1: Superpowers Plan Review

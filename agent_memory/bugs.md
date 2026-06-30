@@ -1,6 +1,7 @@
 # 问题与风险
 
 ## 当前风险
+- 2026-07-01 用户反馈网站打开变慢，但随后要求暂停排查、先写交接文档；当前没有做性能修复。下一次继续时不要凭感觉压图或改动画，先用浏览器 network waterfall / Playwright 测量。重点怀疑但未验证：最后圆盘 8 张 1254x1254 方图、每个圆盘 item 同时渲染 `.expansion-card-bg` 与 `.expansion-card-img` 且两者 `loading="eager"`、Momenta Touch 大视频、图片墙大量视觉资产。
 - `momenta-touch` 是硬件 / 工业设计外观项目，只能用于圆形圆盘和对应产品详情页；不要覆盖或改名原有 `momenta` UI 项目，也不要把 Momenta Touch 套入 Web/App 倾斜舞台或 case-study 文字模板。
 - `momenta-detail-video.m4v` 体积约 103MB，提交/推送 GitHub 前需要注意 GitHub 单文件大小限制；如 push 被拒，优先和用户确认是否压缩视频、转码为 webm/mp4、或使用外部托管。
 - `heart-bracelet` 当前为了圆形圆盘可点击临时使用 `capstone-watch-wall-card.png` 作为占位图。后续用户发来真实心脏病手环套件素材后，必须替换圆盘图和详情页图，不能把临时图当成最终证据。
