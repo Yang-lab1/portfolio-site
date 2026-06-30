@@ -1399,6 +1399,37 @@ img {
   object-fit: contain;
 }
 
+.detail-media-grid figure.detail-media-video-frame {
+  display: flex;
+  height: 100svh;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+}
+
+.detail-media-grid figure.detail-media-video-frame video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #050505;
+}
+
+.detail-media-grid figure.detail-media-momenta-frame,
+.detail-media-grid figure.detail-media-momenta-frame:first-child,
+.detail-media-grid figure.detail-media-product-wide-frame,
+.detail-media-grid figure.detail-media-product-wide-frame:first-child {
+  height: auto;
+  aspect-ratio: 1916 / 821;
+  background: #050505;
+}
+
+.detail-media-grid figure.detail-media-momenta-frame img,
+.detail-media-grid figure.detail-media-product-wide-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .detail-media-grid picture {
   display: block;
   width: 100%;
@@ -1961,7 +1992,7 @@ img {
   position: absolute;
   inset: 0;
   z-index: 2;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .expansion-cards::after {
@@ -1978,18 +2009,29 @@ img {
   --edge-wash-angle: 90deg;
   --edge-wash-opacity: 0;
   --bottom-wash-opacity: 0;
+  appearance: none;
   position: absolute;
   top: 0;
   left: 0;
   width: clamp(124px, 9.9vw, 188px);
   aspect-ratio: 1;
+  display: block;
   margin: 0;
+  padding: 0;
   overflow: hidden;
   background: #f0f0f0;
+  border: 0;
   box-shadow: 0 28px 58px rgba(10, 10, 12, 0.07);
+  cursor: pointer;
   opacity: 0;
+  pointer-events: auto;
   will-change: transform, opacity, filter;
   backface-visibility: hidden;
+}
+
+.expansion-card:focus-visible {
+  outline: 2px solid rgba(225, 25, 25, 0.86);
+  outline-offset: 5px;
 }
 
 .expansion-card::after {
@@ -2013,12 +2055,51 @@ img {
   pointer-events: none;
 }
 
-.expansion-card img {
-  position: relative;
-  z-index: 1;
+.expansion-card-media,
+.expansion-card-bg,
+.expansion-card-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+}
+
+.expansion-card-media {
+  z-index: 1;
+  display: block;
+  overflow: hidden;
+}
+
+.expansion-card-bg {
   object-fit: cover;
+  object-position: center center;
+  filter: blur(13px) saturate(0.95);
+  opacity: 0.28;
+  transform: scale(1.16);
+}
+
+.expansion-card-img {
+  box-sizing: border-box;
+  padding: 9%;
+  object-fit: contain;
+  object-position: center center;
+}
+
+.expansion-card:is([data-expansion-card="cat-turntable"], [data-expansion-card="cup-cup"], [data-expansion-card="opera-ruler"], [data-expansion-card="xiaomi-cmf"]) .expansion-card-img {
+  padding: 5%;
+}
+
+.expansion-card:is([data-expansion-card="heart-bracelet"], [data-expansion-card="momenta-touch"], [data-expansion-card="capstone-device"]) .expansion-card-img {
+  padding: 7%;
+}
+
+.expansion-card[data-expansion-card="cmf-electronics"] .expansion-card-img {
+  padding: 10%;
+}
+
+.expansion-card img {
+  pointer-events: none;
+  user-select: none;
 }
 
 .expansion-active-meta {
@@ -2715,6 +2796,14 @@ img {
     aspect-ratio: 16 / 9;
   }
 
+  .detail-media-grid figure.detail-media-momenta-frame,
+  .detail-media-grid figure.detail-media-momenta-frame:first-child,
+  .detail-media-grid figure.detail-media-product-wide-frame,
+  .detail-media-grid figure.detail-media-product-wide-frame:first-child {
+    height: auto;
+    aspect-ratio: 1916 / 821;
+  }
+
   .detail-media-grid figure.detail-media-source-contain,
   .detail-media-grid figure.detail-media-source-contain:first-child {
     height: auto;
@@ -3213,8 +3302,26 @@ img {
   display: block;
 }
 
+.module-intro-dark {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: clamp(64px, 8vw, 112px) 0 clamp(34px, 5vw, 68px);
+  color: rgba(255, 255, 255, 0.64);
+  background: #050505;
+  box-shadow: 0 0 0 100vmax #050505;
+  clip-path: inset(0 -100vmax);
+}
+
+.module-intro-dark span:first-child {
+  color: rgba(255, 255, 255, 0.78);
+}
+
 .module-intro-daima {
   margin-top: clamp(50px, 6.8vw, 92px);
+}
+
+.module-intro-daima.module-intro-dark {
+  margin-top: 0;
 }
 
 .module-intro-product-orbit {
@@ -3233,6 +3340,12 @@ img {
     margin: 54px auto 30px;
     font-size: 11.5px;
     line-height: 1.62;
+  }
+
+  .module-intro-dark {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 54px 0 34px;
   }
 
   .module-intro-product-orbit {

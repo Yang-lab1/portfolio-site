@@ -1,5 +1,20 @@
 # 当前任务进度
 
+## 2026-06-30 圆形圆盘真实产品与 Momenta Touch
+- 已把最后的圆形圆盘模块从占位内容替换为真实产品入口：Xiaomi、CatToy、Cup's Cup、Opera、HeartKit、Momenta、Capstone、Watch；圆盘 item 改为可点击按钮，继续保留原有旋转/拖拽/hover 逻辑，并通过现有 `onOpenProject` 路由进入详情页。
+- 新增独立硬件项目 `momenta-touch`，标题为 `Momenta Touch`，不覆盖原有 UI 项目 `momenta`。该项目只用于产品语言圆盘和详情页，类型按工业设计 / 硬件概念处理。
+- 已从 `C:\Users\Yang\Desktop\作品集\momenta` 接入 `正方形.png` 作为圆盘正方形图，接入 `X2.m4v` 作为详情页视频，并按用户给定顺序接入 `详情页第一张图.png` 到 `详情页第八张图.png`。
+- `momenta-touch` 详情页启用 `mediaOnlyDetail`：顶部仍保留项目简短解释，往下先显示视频，再显示八张图片；不渲染数字/Web 项目的 case-study 文字模板，避免把工业设计外观项目做成网页项目说明页。
+- 四联大屏前的 `ModuleIntro` 已使用 dark variant，背景与 Daima 深色段落连续，文字为浅灰白小字；其他模块导语仍保持原有节奏。
+- 本地验证已通过：`npm run build`；Playwright 桌面/移动端检查圆盘 8 个 item、Momenta Touch 跳转、视频+八图顺序、无 case-study 模板、四联导语黑底、无横向溢出。
+
+## 2026-06-30 CatToy 圆盘与详情素材替换
+- 已从 `C:\Users\Yang\Desktop\作品集\CatToy` 接入用户准备好的素材：`正方形.png` 复制为 `cat-toy-orbit-square.png`，五张 `详情页第X张图.png` 按第一到第五顺序复制为 `cat-toy-detail-01.png` 到 `cat-toy-detail-05.png`。
+- 圆形圆盘里的 `CatToy` item 已改用新的正方形封面；`cat-turntable` 详情页 gallery 已改为五张新横向图，并启用 `mediaOnlyDetail`，不再渲染 case-study 文字模板。
+- 新增 `detail-media-product-wide-frame` 展示规则，按 1916:821 原比例显示 CatToy 宽幅产品图；桌面和移动端都保持原图比例，不做网页截图倾斜模板。
+- 本次刻意没有更换横向图片墙里的猫玩具卡片，也没有更换实体产品旋转模块主图，避免影响用户之前已调过的首页图片墙/实体产品节奏；后续如用户明确要求再单独替换。
+- 本地验证已通过：`npm run build`；Playwright 桌面确认 CatToy 圆盘点击可进入详情、详情页 5 张图顺序正确且无 case-study；移动端确认首图 390x167、无横向溢出。
+
 ## 2026-06-30 首页模块顺序与章节导语
 - 按用户要求仅调整首页模块渲染顺序：Hero、成就数字、Daima 四联大屏、实体产品旋转模块、横向图片墙、圆形圆盘模块、Footer/Agent 等原有内容。
 - 新增可复用 `ModuleIntro`，分别为 AI/Web/App 四联大屏、实体产品模块、Project Archive 图片墙接入中英文小字导语；导语为居中浅灰小字号，不加卡片、边框或阴影，且 `pointer-events: none` 不影响点击和拖拽。

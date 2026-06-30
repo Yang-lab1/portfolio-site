@@ -415,6 +415,40 @@ const projects = [
     source: { en: 'Public GitHub source: https://github.com/JosicZhou/MOMENTA plus confirmed local Keynote evidence', zh: '公开 GitHub 来源：https://github.com/JosicZhou/MOMENTA，并有本地 Keynote 证据' },
   },
   {
+    id: 'momenta-touch',
+    category: 'concept',
+    title: { en: 'Momenta Touch', zh: 'Momenta Touch' },
+    type: { en: 'Industrial Design / Hardware Concept', zh: '工业设计 / 硬件概念' },
+    year: '2025',
+    image: '/portfolio/momenta-orbit-square.png',
+    hiddenFromArchive: true,
+    mediaOnlyDetail: true,
+    detailVideo: '/portfolio/momenta-detail-video.m4v',
+    gallery: [
+      '/portfolio/momenta-detail-01.png',
+      '/portfolio/momenta-detail-02.png',
+      '/portfolio/momenta-detail-03.png',
+      '/portfolio/momenta-detail-04.png',
+      '/portfolio/momenta-detail-05.png',
+      '/portfolio/momenta-detail-06.png',
+      '/portfolio/momenta-detail-07.png',
+      '/portfolio/momenta-detail-08.png',
+    ],
+    role: {
+      en: 'Product appearance, device CMF direction, hardware scenario rendering',
+      zh: '产品外观、设备 CMF 方向、硬件场景渲染',
+    },
+    summary: {
+      en: 'A hardware concept for Momenta Touch, focused on product presence, material language, and the sensory relationship between object and user.',
+      zh: 'Momenta Touch 的硬件概念方向，关注产品存在感、材料语言，以及物体与使用者之间的感知关系。',
+    },
+    evidence: {
+      en: ['Square orbit cover', 'Product video', 'Eight ordered hardware visuals'],
+      zh: ['圆盘正方形封面', '产品视频', '八张已排序硬件视觉图'],
+    },
+    source: { en: 'Confirmed local folder: Desktop/作品集/momenta', zh: '已确认本地文件夹：Desktop/作品集/momenta' },
+  },
+  {
     id: 'cross-ripple',
     category: 'concept',
     title: { en: 'Cross-ripple Hydrotherapy Wearable', zh: '智能水疗穿戴辅具' },
@@ -471,8 +505,10 @@ const projects = [
     title: { en: 'Heart Disease Bracelet Kit', zh: '心脏病手环套件' },
     type: { en: 'Health Hardware Concept', zh: '健康硬件概念' },
     year: '2019-2020',
-    image: null,
-    gallery: [],
+    image: '/portfolio/capstone-watch-wall-card.png',
+    imageFit: 'contain',
+    hiddenFromArchive: true,
+    gallery: ['/portfolio/capstone-watch-wall-card.png'],
     role: {
       en: 'Product concept, kit structure, scenario exploration',
       zh: '产品概念、套件结构、场景探索',
@@ -567,7 +603,14 @@ const projects = [
     type: { en: 'Mass-produced Product / Pet Toy', zh: '量产产品 / 宠物玩具' },
     year: '2021-2022',
     image: '/portfolio/cat-turntable-lifestyle-realistic.png',
-    gallery: ['/portfolio/cat-turntable-lifestyle-realistic.png', '/portfolio/cat-turntable-hero-source.jpg', '/portfolio/cat-turntable-render-source.jpg', '/portfolio/cat-turntable-detail-source.jpg'],
+    mediaOnlyDetail: true,
+    gallery: [
+      '/portfolio/cat-toy-detail-01.png',
+      '/portfolio/cat-toy-detail-02.png',
+      '/portfolio/cat-toy-detail-03.png',
+      '/portfolio/cat-toy-detail-04.png',
+      '/portfolio/cat-toy-detail-05.png',
+    ],
     role: {
       en: 'Product design, cost-down strategy, commercial canvas',
       zh: '产品设计、降本策略、商业画布',
@@ -908,6 +951,7 @@ const projectKinds = {
   'offer-quest': 'digital',
   sport: 'digital',
   momenta: 'digital',
+  'momenta-touch': 'product',
   'cross-ripple': 'product',
   'cup-cup': 'product',
   'heart-bracelet': 'product',
@@ -1911,92 +1955,52 @@ const daimaWorkPanels = [
 
 const expansionCards = [
   {
-    id: 'france',
-    country: 'France',
-    image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=680&q=82',
+    id: 'xiaomi-cmf',
+    projectId: 'xiaomi-cmf',
+    label: 'Xiaomi',
+    image: '/portfolio/xiaomi-cmf-first-gen-remastered.jpg',
   },
   {
-    id: 'italy',
-    country: 'Italy',
-    image: 'https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=680&q=82',
+    id: 'cat-turntable',
+    projectId: 'cat-turntable',
+    label: 'CatToy',
+    image: '/portfolio/cat-toy-orbit-square.png',
   },
   {
-    id: 'holland',
-    country: 'Holland',
-    image: 'https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=680&q=82',
+    id: 'cup-cup',
+    projectId: 'cup-cup',
+    label: "Cup's Cup",
+    image: '/portfolio/cup-cup-wall-card.png',
   },
   {
-    id: 'belgium',
-    country: 'Belgium',
-    image: 'https://images.unsplash.com/photo-1518128958364-65859d70aa41?auto=format&fit=crop&w=680&q=82',
+    id: 'opera-ruler',
+    projectId: 'opera-ruler',
+    label: 'Opera',
+    image: '/portfolio/opera-ruler-wall-card.jpg',
   },
   {
-    id: 'luxembourg',
-    country: 'Luxembourg',
-    image: 'https://images.unsplash.com/photo-1513622470522-26c3c8a854bc?auto=format&fit=crop&w=680&q=82',
+    id: 'heart-bracelet',
+    projectId: 'heart-bracelet',
+    label: 'HeartKit',
+    image: '/portfolio/capstone-watch-wall-card.png',
   },
   {
-    id: 'norway',
-    country: 'Norway',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=760&q=86',
+    id: 'momenta-touch',
+    projectId: 'momenta-touch',
+    label: 'Momenta',
+    image: '/portfolio/momenta-orbit-square.png',
   },
   {
-    id: 'denmark',
-    country: 'Denmark',
-    image: 'https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=680&q=82',
+    id: 'capstone-device',
+    projectId: 'capstone-device',
+    label: 'Capstone',
+    image: '/portfolio/capstone-device-views.png',
   },
   {
-    id: 'sweden',
-    country: 'Sweden',
-    image: 'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'finland',
-    country: 'Finland',
-    image: 'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'germany',
-    country: 'Germany',
-    image: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'austria',
-    country: 'Austria',
-    image: 'https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'spain',
-    country: 'Spain',
-    image: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'portugal',
-    country: 'Portugal',
-    image: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'switzerland',
-    country: 'Switzerland',
-    image: 'https://images.unsplash.com/photo-1527668752968-14dc70a27c95?auto=format&fit=crop&w=680&q=82',
-  },
-  {
-    id: 'iceland',
-    country: 'Iceland',
-    image: 'https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=680&q=82',
-    mobileExtra: true,
-  },
-  {
-    id: 'greece',
-    country: 'Greece',
-    image: 'https://images.unsplash.com/photo-1504512485720-7d83a16ee930?auto=format&fit=crop&w=680&q=82',
-    mobileExtra: true,
-  },
-  {
-    id: 'czechia',
-    country: 'Czechia',
-    image: 'https://images.unsplash.com/photo-1519677100203-a0e668c92439?auto=format&fit=crop&w=680&q=82',
-    mobileExtra: true,
+    id: 'cmf-electronics',
+    projectId: 'cmf-electronics',
+    label: 'Watch',
+    image: '/portfolio/capstone-watch-wall-card.png',
   },
 ];
 
@@ -2418,11 +2422,12 @@ function getFallbackCaseStudy(project, lang, kind) {
   };
 }
 
-function ModuleIntro({ content, lang, className = '' }) {
+function ModuleIntro({ content, lang, className = '', variant = 'light' }) {
   const lines = content?.[lang] || content?.en || [];
+  const variantClass = variant === 'dark' ? 'module-intro-dark' : '';
 
   return (
-    <div className={`module-intro ${className}`.trim()} aria-label={lines.join(' ')}>
+    <div className={`module-intro ${variantClass} ${className}`.trim()} aria-label={lines.join(' ')}>
       {lines.map((line) => (
         <span key={line}>{line}</span>
       ))}
@@ -2491,13 +2496,13 @@ function App() {
         <>
           <Hero lang={lang} />
           <AchievementCards lang={lang} />
-          <ModuleIntro content={moduleIntros.aiProducts} lang={lang} className="module-intro-daima" />
+          <ModuleIntro content={moduleIntros.aiProducts} lang={lang} className="module-intro-daima" variant="dark" />
           <DaimaWorksShowcase lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <ModuleIntro content={moduleIntros.physicalProducts} lang={lang} className="module-intro-product-orbit" />
           <ProductShowcase3D lang={lang} onOpenProject={openProject} />
           <ModuleIntro content={moduleIntros.projectArchive} lang={lang} className="module-intro-archive" />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
-          <About lang={lang} motionEnabled={!motion.reduced} />
+          <About lang={lang} motionEnabled={!motion.reduced} onOpenProject={openProject} />
           <AirFooter lang={lang} />
         </>
       )}
@@ -3261,7 +3266,7 @@ function rotateShowcaseProjects(projectList, offset) {
 }
 
 function buildShowcaseRows() {
-  const showcaseProjects = getUniqueShowcaseProjects(projects.filter((project) => project.image));
+  const showcaseProjects = getUniqueShowcaseProjects(projects.filter((project) => project.image && !project.hiddenFromArchive));
   const rowCount = 3;
   const rowOffset = Math.max(1, Math.floor(showcaseProjects.length / rowCount));
   return Array.from({ length: rowCount }, (_, index) => (
@@ -3854,6 +3859,7 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
 function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) {
   const mediaGridRef = useRef(null);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
+  const detailVideo = project.detailVideo || '';
   const referenceHeroMedia = {
     miro: '/portfolio/miro-detail-reference-dashboard.png',
   };
@@ -3868,6 +3874,12 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   const getFigureClass = (src) => {
+    if (project.id === 'cat-turntable' && src.includes('cat-toy-detail-')) {
+      return 'detail-media-product-wide-frame';
+    }
+    if (project.id === 'momenta-touch' && src.includes('momenta-detail-')) {
+      return 'detail-media-momenta-frame';
+    }
     if (src.includes('palifood-handheld-fresh.png')) {
       return 'detail-media-source-aspect';
     }
@@ -3972,6 +3984,12 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
         </div>
       </section>
       <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
+        {detailVideo ? (
+          <figure className="detail-media-video-frame">
+            <video src={detailVideo} autoPlay muted loop playsInline controls preload="metadata" />
+            <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
+          </figure>
+        ) : null}
         {detailMedia.length ? (
           detailMedia.map((src, index) => {
             const mobileSrc = detailMobileSources[project.id]?.[src];
@@ -3991,11 +4009,11 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
               </figure>
             );
           })
-        ) : (
+        ) : !detailVideo ? (
           <figure className="detail-media-pending">
             <span>{lang === 'zh' ? '干净原图待补' : 'Clean source image pending'}</span>
           </figure>
-        )}
+        ) : null}
       </section>
       {launchNote ? (
         <section className="project-launch-bridge">
@@ -4019,22 +4037,24 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
           )}
         </section>
       ) : null}
-      <section className={`case-study-section case-study-${caseStudy.kind}`}>
-        <div className="case-study-head">
-          <span>{caseStudy.label}</span>
-          <h2>{caseStudy.displayTitle || (lang === 'zh' ? '从项目调性出发' : 'Shaped around the project')}</h2>
-          <p>{caseStudy.headline}</p>
-        </div>
-        <div className="case-study-grid">
-          {caseStudy.sections.map((section, index) => (
-            <article className="case-study-card" key={`${section.title}-${index}`}>
-              <span>{String(index + 1).padStart(2, '0')}</span>
-              <h3>{section.title}</h3>
-              <p>{section.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      {project.mediaOnlyDetail ? null : (
+        <section className={`case-study-section case-study-${caseStudy.kind}`}>
+          <div className="case-study-head">
+            <span>{caseStudy.label}</span>
+            <h2>{caseStudy.displayTitle || (lang === 'zh' ? '从项目调性出发' : 'Shaped around the project')}</h2>
+            <p>{caseStudy.headline}</p>
+          </div>
+          <div className="case-study-grid">
+            {caseStudy.sections.map((section, index) => (
+              <article className="case-study-card" key={`${section.title}-${index}`}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{section.title}</h3>
+                <p>{section.body}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+        )}
       <DetailShowcaseFooter lang={lang} onOpenProject={onOpenProject} motionEnabled={motionEnabled} />
     </main>
   );
@@ -4102,10 +4122,10 @@ function processCopy(project, lang, index) {
   return (lang === 'zh' ? zh : en)[index];
 }
 
-function About({ lang, motionEnabled }) {
+function About({ lang, motionEnabled, onOpenProject }) {
   const sectionRef = useRef(null);
-  const activeExpansionCountryLabelRef = useRef(null);
-  const activeExpansionCountryRef = useRef('Norway');
+  const activeExpansionLabelRef = useRef(null);
+  const activeExpansionProjectRef = useRef(expansionCards[0]?.label ?? '');
 
   useLayoutEffect(() => {
     if (!sectionRef.current || !motionEnabled) return undefined;
@@ -4115,7 +4135,7 @@ function About({ lang, motionEnabled }) {
       const title = section.querySelector('.expansion-title-stack');
       const meta = section.querySelector('.expansion-active-meta');
       const description = section.querySelector('.expansion-description');
-      const countryLabel = activeExpansionCountryLabelRef.current;
+      const activeLabel = activeExpansionLabelRef.current;
       const cards = expansionCards
         .map((card) => ({
           data: card,
@@ -4132,11 +4152,11 @@ function About({ lang, motionEnabled }) {
         return ((((value + half) % total) + total) % total) - half;
       };
 
-      const updateActiveCountry = (country) => {
-        if (activeExpansionCountryRef.current !== country) {
-          activeExpansionCountryRef.current = country;
-          if (countryLabel) {
-            countryLabel.textContent = country;
+      const updateActiveProject = (label) => {
+        if (activeExpansionProjectRef.current !== label) {
+          activeExpansionProjectRef.current = label;
+          if (activeLabel) {
+            activeLabel.textContent = label;
           }
         }
       };
@@ -4239,6 +4259,7 @@ function About({ lang, motionEnabled }) {
             scale,
             autoAlpha: opacity,
             zIndex: Math.round(100 + topFocus * 80 - bottomFade * 30),
+            pointerEvents: 'auto',
             filter: `blur(${blur.toFixed(2)}px)`,
             transformOrigin: '50% 50%',
             '--edge-wash-angle': `${delta < 0 ? 90 : 270}deg`,
@@ -4283,7 +4304,7 @@ function About({ lang, motionEnabled }) {
           });
         }
 
-        updateActiveCountry(activeCard?.data.country ?? 'Norway');
+        updateActiveProject(activeCard?.data.label ?? expansionCards[0]?.label ?? '');
       };
 
       renderExpansion(0);
@@ -4326,30 +4347,47 @@ function About({ lang, motionEnabled }) {
           <span>{lang === 'zh' ? '清晰的识别' : 'clear identity'}</span>
         </h2>
       </div>
-      <div className="expansion-cards" aria-hidden="true">
+      <div className="expansion-cards">
         {expansionCards.map((card) => (
-          <figure
+          <button
+            type="button"
             className={`expansion-card${card.mobileExtra ? ' is-mobile-extra' : ''}`}
             data-expansion-card={card.id}
             key={card.id}
+            aria-label={lang === 'zh' ? `打开${card.label}项目` : `Open ${card.label} project`}
+            onClick={() => onOpenProject?.(card.projectId)}
           >
-            <img
-              src={card.image}
-              alt=""
-              draggable="false"
-              loading="eager"
-              decoding="async"
-              onError={(event) => {
-                event.currentTarget.style.opacity = '0';
-              }}
-            />
-          </figure>
+            <span className="expansion-card-media" aria-hidden="true">
+              <img
+                className="expansion-card-bg"
+                src={card.image}
+                alt=""
+                draggable="false"
+                loading="eager"
+                decoding="async"
+                onError={(event) => {
+                  event.currentTarget.style.opacity = '0';
+                }}
+              />
+              <img
+                className="expansion-card-img"
+                src={card.image}
+                alt=""
+                draggable="false"
+                loading="eager"
+                decoding="async"
+                onError={(event) => {
+                  event.currentTarget.style.opacity = '0';
+                }}
+              />
+            </span>
+          </button>
         ))}
       </div>
       <div className="expansion-active-meta">
         <span className="expansion-red-dot" aria-hidden="true" />
-        <strong className="expansion-country-label" ref={activeExpansionCountryLabelRef}>
-          Norway
+        <strong className="expansion-country-label" ref={activeExpansionLabelRef}>
+          {expansionCards[0]?.label}
         </strong>
       </div>
       <p className="expansion-description">
