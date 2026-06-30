@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-30 四联屏前黑底导语边界与留白修正
+- 按用户截图要求，只调整四联大屏前 `ModuleIntro` dark variant 的视觉衔接：去掉成就卡片与黑底导语之间可见的横向边界线，并增加三行导语上下留白。
+- `.module-intro-dark` 改为真正全宽黑底，不再依赖 `box-shadow + clip-path` 扩展背景；与 `.achievement-section` 相邻时使用 `-1px` 衔接，避免边界露线。
+- 桌面端导语上下 padding 调整为约 `138px / 112px`，移动端调整为 `76px / 66px`；同时补充移动端全宽覆盖，避免媒体查询导致左右白边。
+- 验证已通过：`npm run build`；Playwright 桌面 1919x1080 与移动端 390x844 检查显示黑底全宽、无横向溢出、与成就区 `gap: -1` 衔接。
+
 ## 2026-06-30 圆形圆盘真实产品与 Momenta Touch
 - 已把最后的圆形圆盘模块从占位内容替换为真实产品入口：Xiaomi、CatToy、Cup's Cup、Opera、HeartKit、Momenta、Capstone、Watch；圆盘 item 改为可点击按钮，继续保留原有旋转/拖拽/hover 逻辑，并通过现有 `onOpenProject` 路由进入详情页。
 - 新增独立硬件项目 `momenta-touch`，标题为 `Momenta Touch`，不覆盖原有 UI 项目 `momenta`。该项目只用于产品语言圆盘和详情页，类型按工业设计 / 硬件概念处理。

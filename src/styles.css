@@ -3303,17 +3303,30 @@ img {
 }
 
 .module-intro-dark {
+  width: 100%;
   margin-top: 0;
   margin-bottom: 0;
-  padding: clamp(64px, 8vw, 112px) 0 clamp(34px, 5vw, 68px);
+  margin-left: 0;
+  margin-right: 0;
+  padding: clamp(92px, 9vw, 138px) 0 clamp(76px, 7.2vw, 112px);
   color: rgba(255, 255, 255, 0.64);
-  background: #050505;
-  box-shadow: 0 0 0 100vmax #050505;
-  clip-path: inset(0 -100vmax);
+  background: #030303;
+  box-shadow: none;
+  clip-path: none;
+}
+
+.achievement-section + .module-intro-dark {
+  margin-top: -1px;
 }
 
 .module-intro-dark span:first-child {
   color: rgba(255, 255, 255, 0.78);
+}
+
+.module-intro-dark span {
+  max-width: min(520px, calc(100vw - 48px));
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .module-intro-daima {
@@ -3322,6 +3335,10 @@ img {
 
 .module-intro-daima.module-intro-dark {
   margin-top: 0;
+}
+
+.achievement-section + .module-intro-daima.module-intro-dark {
+  margin-top: -1px;
 }
 
 .module-intro-product-orbit {
@@ -3343,9 +3360,10 @@ img {
   }
 
   .module-intro-dark {
+    width: 100%;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 54px 0 34px;
+    padding: 76px 0 66px;
   }
 
   .module-intro-product-orbit {
@@ -3364,6 +3382,10 @@ img {
     width: min(380px, calc(100vw - 38px));
     font-size: 11px;
     line-height: 1.58;
+  }
+
+  .module-intro-dark {
+    width: 100%;
   }
 }
 
