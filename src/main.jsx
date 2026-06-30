@@ -110,6 +110,45 @@ const copy = {
   },
 };
 
+const moduleIntros = {
+  aiProducts: {
+    zh: [
+      '我把 AI 当成一种新的产品材料。',
+      '这些项目把模型、数据、交互和真实任务，',
+      '组织成可以被使用、体验和复盘的数字系统。',
+    ],
+    en: [
+      'I treat AI as a new product material.',
+      'These projects connect models, data, and interaction',
+      'into digital systems that can be used, experienced, and reviewed.',
+    ],
+  },
+  physicalProducts: {
+    zh: [
+      '在数字系统之外，',
+      '我也从真实物体、使用场景和制造限制中理解设计。',
+      '这些项目构成了我判断产品的底层经验。',
+    ],
+    en: [
+      'Beyond digital systems,',
+      'I learned design through real objects, use scenarios, and manufacturing limits.',
+      'These projects shaped the foundation of my product judgment.',
+    ],
+  },
+  projectArchive: {
+    zh: [
+      '这里是更完整的项目索引。',
+      '有些来自商业落地，有些来自概念实验，',
+      '共同记录了我对系统、产品和体验的持续训练。',
+    ],
+    en: [
+      'This is the broader project index.',
+      'Some are commercial deliveries; others are concept experiments.',
+      'Together, they show my continuous training in systems, products, and experience.',
+    ],
+  },
+};
+
 const categories = [
   {
     id: 'digital',
@@ -2379,6 +2418,18 @@ function getFallbackCaseStudy(project, lang, kind) {
   };
 }
 
+function ModuleIntro({ content, lang, className = '' }) {
+  const lines = content?.[lang] || content?.en || [];
+
+  return (
+    <div className={`module-intro ${className}`.trim()} aria-label={lines.join(' ')}>
+      {lines.map((line) => (
+        <span key={line}>{line}</span>
+      ))}
+    </div>
+  );
+}
+
 function App() {
   const appRef = useRef(null);
   const [lang, setLang] = useState('en');
@@ -2398,6 +2449,12 @@ function App() {
     document.documentElement.lang = lang;
     document.body.classList.toggle('lang-zh', lang === 'zh');
   }, [lang]);
+
+  useEffect(() => {
+    if (selected) return undefined;
+    const refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 0);
+    return () => window.clearTimeout(refreshTimer);
+  }, [lang, selected]);
 
   useEffect(() => {
     let active = true;
@@ -2434,8 +2491,11 @@ function App() {
         <>
           <Hero lang={lang} />
           <AchievementCards lang={lang} />
-          <ProductShowcase3D lang={lang} onOpenProject={openProject} />
+          <ModuleIntro content={moduleIntros.aiProducts} lang={lang} className="module-intro-daima" />
           <DaimaWorksShowcase lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
+          <ModuleIntro content={moduleIntros.physicalProducts} lang={lang} className="module-intro-product-orbit" />
+          <ProductShowcase3D lang={lang} onOpenProject={openProject} />
+          <ModuleIntro content={moduleIntros.projectArchive} lang={lang} className="module-intro-archive" />
           <WorkSection lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
           <About lang={lang} motionEnabled={!motion.reduced} />
           <AirFooter lang={lang} />
@@ -4256,14 +4316,14 @@ function About({ lang, motionEnabled }) {
     <section id="about" className={`about-section expansion-section${motionEnabled ? '' : ' is-static'}`} ref={sectionRef}>
       <div className="expansion-orbit" aria-hidden="true" />
       <div className="expansion-title-stack">
-        <span>{lang === 'zh' ? '产品形态' : 'Product Form'}</span>
+        <span>{lang === 'zh' ? '产品语言' : 'Product Language'}</span>
         <h2>
-          <span>{lang === 'zh' ? '产品形态来自' : 'Product form grows from'}</span>
+          <span>{lang === 'zh' ? '产品语言来自' : 'Language grows from'}</span>
           <span>
-            <strong>{lang === 'zh' ? '使用与感受' : 'Use and Feeling'}</strong>
-            {lang === 'zh' ? ' 并走向' : ' into'}
+            <strong className="text-emphasis">{lang === 'zh' ? '使用与感受' : 'use and feeling'}</strong>
           </span>
-          <span>{lang === 'zh' ? '清晰' : 'clarity'}</span>
+          <span>{lang === 'zh' ? '并走向' : 'and moves toward'}</span>
+          <span>{lang === 'zh' ? '清晰的识别' : 'clear identity'}</span>
         </h2>
       </div>
       <div className="expansion-cards" aria-hidden="true">
@@ -4294,8 +4354,8 @@ function About({ lang, motionEnabled }) {
       </div>
       <p className="expansion-description">
         {lang === 'zh'
-          ? '这些作品关注人们看见、触摸、理解和记住的部分，并通过形态语言、表面处理、人机与产品识别去塑造它们。'
-          : 'The work is about shaping what people see, touch, understand, and remember through form language, surface treatment, ergonomics, and product identity.'}
+          ? '这些作品关注产品如何被看见、触摸、理解和记住。形态、材料、颜色与细节，不只是表层审美，而是建立识别感与信任感的方式。'
+          : 'These works focus on how products are seen, touched, understood, and remembered. Form, material, color, and detail are not surface styling, but ways to build identity and trust.'}
       </p>
     </section>
   );

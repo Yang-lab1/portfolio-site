@@ -1,5 +1,11 @@
 # 当前任务进度
 
+## 2026-06-30 首页模块顺序与章节导语
+- 按用户要求仅调整首页模块渲染顺序：Hero、成就数字、Daima 四联大屏、实体产品旋转模块、横向图片墙、圆形圆盘模块、Footer/Agent 等原有内容。
+- 新增可复用 `ModuleIntro`，分别为 AI/Web/App 四联大屏、实体产品模块、Project Archive 图片墙接入中英文小字导语；导语为居中浅灰小字号，不加卡片、边框或阴影，且 `pointer-events: none` 不影响点击和拖拽。
+- 更新圆形圆盘模块文案为 `Product Language / 产品语言` 方向，保留红色强调词视觉，并新增轻量 `.text-emphasis`。
+- 本地验证已通过：`npm run build`；Playwright 检查桌面模块顺序、英文/中文语言切换、Agent/邮箱按钮存在、桌面与 390px 移动端横向溢出均为 `0`，并确认 Daima、实体产品旋转卡、图片墙卡片仍可点击进入详情页。
+
 ## 2026-06-29 图片墙指定卡片图源修正
 - 继续修正用户截图中红框旧白底设备拆解卡：确认其实际来源为 `cmf-electronics` 照片墙卡片，而不是 `capstone-device`；已为 `cmf-electronics` 单独指定 `wallImage: /portfolio/capstone-watch-wall-card.png`，并把桌面横向 gap 提高到约 64px，避免卡片左右挤贴。
 - 按用户最新指定，只调整横向图片墙卡片图源，不改 Daima 四连屏本体、不改详情页主图结构。

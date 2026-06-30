@@ -1934,12 +1934,12 @@ img {
 
 .expansion-title-stack h2 {
   display: grid;
-  row-gap: clamp(8px, 0.8vw, 16px);
+  row-gap: clamp(6px, 0.65vw, 12px);
   margin: 0;
   color: #28282b;
-  font-size: clamp(4rem, 5.55vw, 6.95rem);
+  font-size: clamp(3.35rem, 4.75vw, 5.85rem);
   font-weight: 560;
-  line-height: 1;
+  line-height: 1.02;
   letter-spacing: 0;
 }
 
@@ -1951,6 +1951,10 @@ img {
   display: inline;
   color: #e11919;
   font-weight: 560;
+}
+
+.text-emphasis {
+  color: #e11919;
 }
 
 .expansion-cards {
@@ -3189,6 +3193,65 @@ img {
   font-size: 0.82rem;
   font-weight: 780;
   text-transform: uppercase;
+}
+
+.module-intro {
+  position: relative;
+  z-index: 4;
+  width: min(520px, calc(100vw - 48px));
+  margin: clamp(58px, 7vw, 106px) auto clamp(30px, 4.4vw, 66px);
+  color: rgba(20, 20, 20, 0.42);
+  font-size: clamp(12px, 0.82vw, 14px);
+  font-weight: 400;
+  line-height: 1.68;
+  letter-spacing: 0;
+  text-align: center;
+  pointer-events: none;
+}
+
+.module-intro span {
+  display: block;
+}
+
+.module-intro-daima {
+  margin-top: clamp(50px, 6.8vw, 92px);
+}
+
+.module-intro-product-orbit {
+  margin-top: clamp(72px, 8.5vw, 126px);
+  margin-bottom: clamp(20px, 3vw, 42px);
+}
+
+.module-intro-archive {
+  margin-top: clamp(60px, 8vw, 112px);
+  margin-bottom: clamp(20px, 3vw, 44px);
+}
+
+@media (max-width: 780px) {
+  .module-intro {
+    width: min(420px, calc(100vw - 44px));
+    margin: 54px auto 30px;
+    font-size: 11.5px;
+    line-height: 1.62;
+  }
+
+  .module-intro-product-orbit {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .module-intro-archive {
+    margin-top: 52px;
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .module-intro {
+    width: min(380px, calc(100vw - 38px));
+    font-size: 11px;
+    line-height: 1.58;
+  }
 }
 
 .product-orbit-section {
