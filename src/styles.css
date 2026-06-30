@@ -2009,6 +2009,7 @@ img {
   --edge-wash-angle: 90deg;
   --edge-wash-opacity: 0;
   --bottom-wash-opacity: 0;
+  --expansion-image-fit: cover;
   appearance: none;
   position: absolute;
   top: 0;
@@ -2073,28 +2074,36 @@ img {
 .expansion-card-bg {
   object-fit: cover;
   object-position: center center;
-  filter: blur(13px) saturate(0.95);
-  opacity: 0.28;
-  transform: scale(1.16);
+  filter: blur(14px) saturate(0.95);
+  opacity: 0;
+  transform: scale(1.2);
 }
 
 .expansion-card-img {
   box-sizing: border-box;
-  padding: 9%;
-  object-fit: contain;
+  padding: 0;
+  object-fit: var(--expansion-image-fit, cover);
   object-position: center center;
 }
 
 .expansion-card:is([data-expansion-card="cat-turntable"], [data-expansion-card="cup-cup"], [data-expansion-card="opera-ruler"], [data-expansion-card="xiaomi-cmf"]) .expansion-card-img {
-  padding: 5%;
+  padding: 0;
 }
 
-.expansion-card:is([data-expansion-card="heart-bracelet"], [data-expansion-card="momenta-touch"], [data-expansion-card="capstone-device"]) .expansion-card-img {
-  padding: 7%;
+.expansion-card:is([data-expansion-card="miro-hardware"], [data-expansion-card="momenta-touch"], [data-expansion-card="capstone-device"]) .expansion-card-img {
+  padding: 0;
 }
 
 .expansion-card[data-expansion-card="cmf-electronics"] .expansion-card-img {
-  padding: 10%;
+  padding: 0;
+}
+
+.expansion-card[data-expansion-fit="contain"] .expansion-card-bg {
+  opacity: 0.62;
+}
+
+.expansion-card[data-expansion-fit="contain"] .expansion-card-img {
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.08));
 }
 
 .expansion-card img {
@@ -3308,7 +3317,7 @@ img {
   margin-bottom: 0;
   margin-left: 0;
   margin-right: 0;
-  padding: clamp(92px, 9vw, 138px) 0 clamp(76px, 7.2vw, 112px);
+  padding: clamp(126px, 10.5vw, 176px) 0 clamp(112px, 9.2vw, 154px);
   color: rgba(255, 255, 255, 0.64);
   background: #030303;
   box-shadow: none;
@@ -3316,7 +3325,7 @@ img {
 }
 
 .achievement-section + .module-intro-dark {
-  margin-top: -1px;
+  margin-top: 0;
 }
 
 .module-intro-dark span:first-child {
@@ -3338,7 +3347,7 @@ img {
 }
 
 .achievement-section + .module-intro-daima.module-intro-dark {
-  margin-top: -1px;
+  margin-top: 0;
 }
 
 .module-intro-product-orbit {
@@ -3363,7 +3372,7 @@ img {
     width: 100%;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 76px 0 66px;
+    padding: 96px 0 88px;
   }
 
   .module-intro-product-orbit {
@@ -3386,6 +3395,7 @@ img {
 
   .module-intro-dark {
     width: 100%;
+    padding: 88px 0 82px;
   }
 }
 

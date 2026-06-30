@@ -1,10 +1,11 @@
 # 当前任务进度
 
-## 2026-06-30 四联屏前黑底导语边界与留白修正
-- 按用户截图要求，只调整四联大屏前 `ModuleIntro` dark variant 的视觉衔接：去掉成就卡片与黑底导语之间可见的横向边界线，并增加三行导语上下留白。
-- `.module-intro-dark` 改为真正全宽黑底，不再依赖 `box-shadow + clip-path` 扩展背景；与 `.achievement-section` 相邻时使用 `-1px` 衔接，避免边界露线。
-- 桌面端导语上下 padding 调整为约 `138px / 112px`，移动端调整为 `76px / 66px`；同时补充移动端全宽覆盖，避免媒体查询导致左右白边。
-- 验证已通过：`npm run build`；Playwright 桌面 1919x1080 与移动端 390x844 检查显示黑底全宽、无横向溢出、与成就区 `gap: -1` 衔接。
+## 2026-06-30 圆盘方图、Miro 硬件与 Watsu 详情接入
+- 按用户要求修正最后圆形圆盘卡片：所有圆盘图片都改为 1254x1254 方图，`.expansion-card-img` 统一 `padding: 0`、`object-fit: cover`，不再出现四边灰/白留边；已有产品文件夹提供的正方形图直接使用。
+- 新增独立项目 `miro-hardware`，只代表用户刚给的 Miro 硬件设备，不覆盖原有 `miro` AI/Web 演练系统；圆盘入口短名为 `Miro`，详情页为 `mediaOnlyDetail`，先放压缩后的 `miro-hardware-detail-video.mp4`，再放 4 张宽幅详情图。
+- 更新 `cross-ripple` / Watsu 详情页：使用 `C:\Users\Yang\Desktop\作品集\旋转圆盘\watsu` 中最新素材，先放 `watsu-detail-video.mp4`，再按用户更新后的顺序放 8 张图 `watsu-detail-01.png` 到 `watsu-detail-08.png`；项目封面换为 `watsu-orbit-square.png`，但首页图片墙原 Watsu 横图保持不动。
+- 四联大屏前 `ModuleIntro` dark variant 已去掉成就区下方可见横线，并加大三行小字上下留白；当前桌面 padding 约 `151px / 132px`，移动端约 `88px / 82px`，黑底全宽，文字仍为浅灰白小字。
+- 验证已通过：`npm run build`；Playwright 桌面 1440x920 与移动 390x844 检查确认 dark intro 背景/留白、圆盘卡片无 padding、Miro 硬件视频+4图、Watsu 视频+8图顺序均正确。
 
 ## 2026-06-30 圆形圆盘真实产品与 Momenta Touch
 - 已把最后的圆形圆盘模块从占位内容替换为真实产品入口：Xiaomi、CatToy、Cup's Cup、Opera、HeartKit、Momenta、Capstone、Watch；圆盘 item 改为可点击按钮，继续保留原有旋转/拖拽/hover 逻辑，并通过现有 `onOpenProject` 路由进入详情页。

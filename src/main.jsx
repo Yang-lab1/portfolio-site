@@ -449,17 +449,58 @@ const projects = [
     source: { en: 'Confirmed local folder: Desktop/作品集/momenta', zh: '已确认本地文件夹：Desktop/作品集/momenta' },
   },
   {
+    id: 'miro-hardware',
+    category: 'concept',
+    title: { en: 'Miro Hardware Device', zh: 'Miro 硬件设备' },
+    type: { en: 'Industrial Design / Hardware Device', zh: '工业设计 / 硬件设备' },
+    year: '2026',
+    image: '/portfolio/miro-hardware-orbit-square.png',
+    hiddenFromArchive: true,
+    mediaOnlyDetail: true,
+    detailVideo: '/portfolio/miro-hardware-detail-video.mp4',
+    gallery: [
+      '/portfolio/miro-hardware-detail-01.png',
+      '/portfolio/miro-hardware-detail-02.png',
+      '/portfolio/miro-hardware-detail-03.png',
+      '/portfolio/miro-hardware-detail-04.png',
+    ],
+    role: {
+      en: 'Product appearance, hardware CMF direction, wearable scenario rendering',
+      zh: '产品外观、硬件 CMF 方向、佩戴场景渲染',
+    },
+    summary: {
+      en: 'A physical Miro device concept focused on wearable presence, material finish, and the transition from digital system to tangible object.',
+      zh: 'Miro 的实体硬件概念，关注佩戴存在感、材料表面，以及数字系统转化为真实物体后的产品语言。',
+    },
+    evidence: {
+      en: ['Square orbit cover', 'Compressed product video', 'Four ordered hardware visuals'],
+      zh: ['圆盘正方形封面', '压缩产品视频', '四张已排序硬件视觉图'],
+    },
+    source: { en: 'Confirmed local folder: Desktop/作品集/旋转圆盘/miro', zh: '已确认本地文件夹：Desktop/作品集/旋转圆盘/miro' },
+  },
+  {
     id: 'cross-ripple',
     category: 'concept',
     title: { en: 'Cross-ripple Hydrotherapy Wearable', zh: '智能水疗穿戴辅具' },
     type: { en: 'Industrial Design / Wearable Concept', zh: '工业设计 / 穿戴概念' },
     year: '2019-2021',
-    image: '/portfolio/cross-ripple-clean.jpg',
+    image: '/portfolio/watsu-orbit-square.png',
     wallImage: '/portfolio/watsu-hydrotherapy-wall-card.png',
     wallImageFit: 'cover',
     wallGroup: 'watsu',
-    imageFit: 'contain',
-    gallery: ['/portfolio/hydrotherapy-clean.jpg', '/portfolio/hydrotherapy-detail-china.jpg'],
+    imageFit: 'cover',
+    mediaOnlyDetail: true,
+    detailVideo: '/portfolio/watsu-detail-video.mp4',
+    gallery: [
+      '/portfolio/watsu-detail-01.png',
+      '/portfolio/watsu-detail-02.png',
+      '/portfolio/watsu-detail-03.png',
+      '/portfolio/watsu-detail-04.png',
+      '/portfolio/watsu-detail-05.png',
+      '/portfolio/watsu-detail-06.png',
+      '/portfolio/watsu-detail-07.png',
+      '/portfolio/watsu-detail-08.png',
+    ],
     role: {
       en: 'Product direction, user research, ergonomic form, component breakdown',
       zh: '产品方向、用户研究、人机形态、组件拆解',
@@ -472,7 +513,7 @@ const projects = [
       en: ['User interviews', 'Hydrotherapy scenario mapping', 'Organic ergonomic form', 'Vibration feedback logic'],
       zh: ['用户访谈', '水疗场景映射', '有机人机形态', '振动反馈逻辑'],
     },
-    source: { en: 'Confirmed from recovered portfolio evidence', zh: '来自已恢复作品集证据' },
+    source: { en: 'Confirmed local folder: Desktop/作品集/旋转圆盘/watsu', zh: '已确认本地文件夹：Desktop/作品集/旋转圆盘/watsu' },
   },
   {
     id: 'cup-cup',
@@ -877,6 +918,10 @@ const projectShortCopy = {
     en: 'Public SwiftUI AI music repository plus local device-interaction evidence.',
     zh: '公开 SwiftUI AI 音乐仓库，加本地设备交互证据。',
   },
+  'miro-hardware': {
+    en: 'Physical Miro device concept with wearable presence and CMF direction.',
+    zh: '围绕佩戴存在感与 CMF 方向展开的 Miro 实体设备概念。',
+  },
   'cross-ripple': {
     en: 'Hydrotherapy wearable concept built around safety cues.',
     zh: '围绕水疗安全提示建立的穿戴概念。',
@@ -952,6 +997,7 @@ const projectKinds = {
   sport: 'digital',
   momenta: 'digital',
   'momenta-touch': 'product',
+  'miro-hardware': 'product',
   'cross-ripple': 'product',
   'cup-cup': 'product',
   'heart-bracelet': 'product',
@@ -1958,49 +2004,57 @@ const expansionCards = [
     id: 'xiaomi-cmf',
     projectId: 'xiaomi-cmf',
     label: 'Xiaomi',
-    image: '/portfolio/xiaomi-cmf-first-gen-remastered.jpg',
+    image: '/portfolio/xiaomi-cmf-orbit-square.jpg',
+    imageFit: 'cover',
   },
   {
     id: 'cat-turntable',
     projectId: 'cat-turntable',
     label: 'CatToy',
     image: '/portfolio/cat-toy-orbit-square.png',
+    imageFit: 'cover',
   },
   {
     id: 'cup-cup',
     projectId: 'cup-cup',
     label: "Cup's Cup",
-    image: '/portfolio/cup-cup-wall-card.png',
+    image: '/portfolio/cup-cup-orbit-square.png',
+    imageFit: 'cover',
   },
   {
     id: 'opera-ruler',
     projectId: 'opera-ruler',
     label: 'Opera',
-    image: '/portfolio/opera-ruler-wall-card.jpg',
+    image: '/portfolio/opera-ruler-orbit-square.jpg',
+    imageFit: 'cover',
   },
   {
-    id: 'heart-bracelet',
-    projectId: 'heart-bracelet',
-    label: 'HeartKit',
-    image: '/portfolio/capstone-watch-wall-card.png',
+    id: 'miro-hardware',
+    projectId: 'miro-hardware',
+    label: 'Miro',
+    image: '/portfolio/miro-hardware-orbit-square.png',
+    imageFit: 'cover',
   },
   {
     id: 'momenta-touch',
     projectId: 'momenta-touch',
     label: 'Momenta',
     image: '/portfolio/momenta-orbit-square.png',
+    imageFit: 'cover',
   },
   {
     id: 'capstone-device',
     projectId: 'capstone-device',
     label: 'Capstone',
-    image: '/portfolio/capstone-device-views.png',
+    image: '/portfolio/capstone-device-orbit-square.png',
+    imageFit: 'cover',
   },
   {
     id: 'cmf-electronics',
     projectId: 'cmf-electronics',
     label: 'Watch',
-    image: '/portfolio/capstone-watch-wall-card.png',
+    image: '/portfolio/capstone-watch-orbit-square.png',
+    imageFit: 'cover',
   },
 ];
 
@@ -2988,7 +3042,9 @@ function ProductShowcase3D({ lang, onOpenProject }) {
             <button
               type="button"
               className={`product-orbit-card${isActive ? ' is-active' : ''}${sideClass}${project.imageFit === 'contain' ? ' is-contain' : ''}`}
+              data-product-id={project.id}
               key={project.id}
+              aria-label={lang === 'zh' ? `打开${t(project.title, lang)}项目` : `Open ${t(project.title, lang)} project`}
               style={{
                 '--orbit-offset': offset,
                 zIndex: Math.round(30 - absOffset * 10),
@@ -3880,6 +3936,12 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
     if (project.id === 'momenta-touch' && src.includes('momenta-detail-')) {
       return 'detail-media-momenta-frame';
     }
+    if (project.id === 'miro-hardware' && src.includes('miro-hardware-detail-')) {
+      return 'detail-media-product-wide-frame';
+    }
+    if (project.id === 'cross-ripple' && src.includes('watsu-detail-')) {
+      return 'detail-media-product-wide-frame';
+    }
     if (src.includes('palifood-handheld-fresh.png')) {
       return 'detail-media-source-aspect';
     }
@@ -4076,7 +4138,7 @@ function getDetailHeroCopy(project, lang, caseStudy) {
   return {
     kicker: t(project.type, lang),
     title: t(project.title, lang),
-    summary: caseStudy.headline,
+    summary: project.mediaOnlyDetail ? t(project.summary, lang) : caseStudy.headline,
     statusLabel: copy[lang].source,
   };
 }
@@ -4353,6 +4415,10 @@ function About({ lang, motionEnabled, onOpenProject }) {
             type="button"
             className={`expansion-card${card.mobileExtra ? ' is-mobile-extra' : ''}`}
             data-expansion-card={card.id}
+            data-expansion-fit={card.imageFit ?? 'cover'}
+            style={{
+              '--expansion-image-fit': card.imageFit ?? 'cover',
+            }}
             key={card.id}
             aria-label={lang === 'zh' ? `打开${card.label}项目` : `Open ${card.label} project`}
             onClick={() => onOpenProject?.(card.projectId)}
