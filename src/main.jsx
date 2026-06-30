@@ -625,6 +625,8 @@ const projects = [
     year: '2022-2023',
     image: '/portfolio/cmf-electronics-source-cover.jpg',
     imageFit: 'contain',
+    wallImage: '/portfolio/capstone-watch-wall-card.png',
+    wallImageFit: 'cover',
     gallery: ['/portfolio/cmf-electronics-source-cover.jpg', '/portfolio/cmf-earbuds-source.jpg', '/portfolio/cmf-material-source.jpg'],
     role: {
       en: 'Color, material, finish, and production communication',
@@ -1793,7 +1795,7 @@ const pinnedStories = [
       en: 'This layer focuses on Pantone, finish, supplier communication, reuse logic, and how visual decisions survive production.',
       zh: '这一层关注 Pantone、表面工艺、供应链沟通、复用降本，以及视觉决策如何进入生产。',
     },
-    image: '/portfolio/xiaomi-cmf-breakdown-source.jpg',
+    image: '/portfolio/capstone-watch-wall-card.png',
     projects: ['xiaomi-cmf', 'cat-turntable', 'cmf-electronics'],
   },
   {
@@ -3192,22 +3194,19 @@ function getUniqueShowcaseProjects(projectList) {
   });
 }
 
+function rotateShowcaseProjects(projectList, offset) {
+  if (!projectList.length) return projectList;
+  const safeOffset = ((offset % projectList.length) + projectList.length) % projectList.length;
+  return [...projectList.slice(safeOffset), ...projectList.slice(0, safeOffset)];
+}
+
 function buildShowcaseRows() {
   const showcaseProjects = getUniqueShowcaseProjects(projects.filter((project) => project.image));
-  const buckets = [[], [], []];
-  showcaseProjects.forEach((project, index) => {
-    buckets[index % 3].push(project);
-  });
-  return buckets.map((bucket, index) => {
-    let row = bucket;
-    if (index === 1 && bucket.length > 2) {
-      row = [...bucket.slice(2), ...bucket.slice(0, 2)];
-    }
-    if (index === 2 && bucket.length > 1) {
-      row = [...bucket.slice(1), bucket[0]];
-    }
-    return separateShowcaseRow(row);
-  });
+  const rowCount = 3;
+  const rowOffset = Math.max(1, Math.floor(showcaseProjects.length / rowCount));
+  return Array.from({ length: rowCount }, (_, index) => (
+    separateShowcaseRow(rotateShowcaseProjects(showcaseProjects, index * rowOffset))
+  ));
 }
 
 function WorkSection({ lang, onOpenProject, motionEnabled }) {

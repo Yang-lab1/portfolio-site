@@ -526,12 +526,13 @@ img {
   scroll-margin-top: 88px;
   overflow: hidden;
   padding: 72px 0 84px;
+  --showcase-gap: clamp(52px, 3.4vw, 72px);
   background: linear-gradient(180deg, #ffffff, #f7f7f8 100%);
 }
 
 .showcase-stack {
   display: grid;
-  gap: 18px;
+  gap: clamp(18px, 1.45vw, 28px);
 }
 
 .showcase-row {
@@ -569,8 +570,8 @@ img {
 
 .showcase-group {
   display: flex;
-  gap: 18px;
-  padding-right: 18px;
+  gap: var(--showcase-gap);
+  padding-right: var(--showcase-gap);
 }
 
 .showcase-card {
@@ -2578,6 +2579,7 @@ img {
 
   .showcase-section {
     padding: 58px 0 70px;
+    --showcase-gap: 18px;
   }
 
   .showcase-stack {

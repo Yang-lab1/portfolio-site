@@ -1,12 +1,14 @@
 # 当前任务进度
 
 ## 2026-06-29 图片墙指定卡片图源修正
+- 继续修正用户截图中红框旧白底设备拆解卡：确认其实际来源为 `cmf-electronics` 照片墙卡片，而不是 `capstone-device`；已为 `cmf-electronics` 单独指定 `wallImage: /portfolio/capstone-watch-wall-card.png`，并把桌面横向 gap 提高到约 64px，避免卡片左右挤贴。
 - 按用户最新指定，只调整横向图片墙卡片图源，不改 Daima 四连屏本体、不改详情页主图结构。
 - `The Cup's Cup` 图片墙卡片已按用户指定替换为水杯成品图适配版 `cup-cup-wall-card.png`，并单独使用 `wallImageFit: cover` 满铺卡片；详情页仍保留原来的 `cup-cup-stage.jpg` 结构。
 - `Miro AI Rehearsal System` 与 `Miro AI Governance Notes` 的图片墙卡片已改用四连屏 Miro 图 `daima-work-cover-01.png`；`Pai Li Shi` 与 `Food Health Feedback Model` 的图片墙卡片已改用四连屏拍立食图 `daima-work-cover-02.png`。
 - `Offer Quest` 图片墙卡片已改用用户提供的键盘小岛图并生成适配版 `offer-quest-keyboard-wall-card.png`；`Feel Disambiguation NLP` 图片墙卡片已改用用户提供的橙色光圈图并生成适配版 `cbs5502-nlp-wall-card.png`。
 - `Capstone AI Device Concept` 图片墙卡片已按用户指定替换为黑底手表图适配版 `capstone-watch-wall-card.png`；`Sichuan Opera Drawing Ruler` 图片墙卡片已改用满铺适配版 `opera-ruler-wall-card.jpg`，避免继承详情页 `contain` 造成四周留边。
 - 图片墙排序已升级为按 `wallGroup` 去重：Miro / 拍立食 / 李白 / TCM 等同源或同视觉项目不再同时出现在横向图片墙里，避免同一屏看到重复卡片造成项目数量偏少的观感。
+- 图片墙每行已从 6 张短循环改为完整项目序列错位循环，并把桌面横向 gap 从 18px 提高为响应式较大间距，减少同屏重复和左右挤贴；旧手表拆解图的可见模块入口已替换为黑底手表图。
 - 注意：截图里被标为 Miro 的灰色圆形产品卡在项目数据中不是 Miro 项目，未强行改为 Miro 图，避免图片与点击详情页错配。
 
 ## 2026-06-29 图片墙点击与水疗卡片满铺修正
