@@ -2095,7 +2095,7 @@ function getHomepageWarmupImages() {
   ].filter(Boolean);
 }
 
-function warmImageSource(src, fetchPriority = 'low') {
+function warmImageSource(src) {
   if (!src || warmedImageSources.has(src)) return;
   warmedImageSources.add(src);
 
@@ -2108,7 +2108,6 @@ function warmImageSource(src, fetchPriority = 'low') {
   image.onload = release;
   image.onerror = release;
   image.decoding = 'async';
-  image.fetchPriority = fetchPriority;
   image.src = src;
 }
 
@@ -2122,7 +2121,6 @@ function primeExpansionPreloadLinks() {
     link.rel = 'preload';
     link.as = 'image';
     link.href = card.image;
-    link.fetchPriority = 'low';
     link.dataset.expansionPreload = card.id;
     document.head.appendChild(link);
   });
@@ -2130,7 +2128,7 @@ function primeExpansionPreloadLinks() {
 
 function warmExpansionImages() {
   primeExpansionPreloadLinks();
-  expansionCards.forEach((card) => warmImageSource(card.image, 'auto'));
+  expansionCards.forEach((card) => warmImageSource(card.image));
 }
 
 function loadExpansionImageBlobSources() {
@@ -4703,7 +4701,6 @@ function About({ lang, motionEnabled, onOpenProject }) {
                     draggable="false"
                     loading="eager"
                     decoding="async"
-                    fetchPriority="high"
                     onError={(event) => {
                       event.currentTarget.style.opacity = '0';
                     }}
@@ -4715,7 +4712,6 @@ function About({ lang, motionEnabled, onOpenProject }) {
                     draggable="false"
                     loading="eager"
                     decoding="async"
-                    fetchPriority="high"
                     onError={(event) => {
                       event.currentTarget.style.opacity = '0';
                     }}
