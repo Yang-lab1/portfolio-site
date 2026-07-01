@@ -1,5 +1,24 @@
 # Progress Log
 
+## Session: 2026-07-01 Cup's Cup Orbit Assets + Wheel Capture
+- **Status:** complete locally; publishing through GitHub/Vercel.
+- User direction:
+  - Make the Product Language orbit images appear fast enough when scrolling quickly into the section.
+  - Update the circular orbit with the supplied Cup's Cup folder at `C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup`.
+  - When the cursor is over the orbit image/outer orbit area, mouse-wheel input should keep rotating the orbit instead of continuing page scroll; page scroll should resume only after the cursor leaves that orbit area.
+- Actions completed:
+  - Copied the supplied Cup's Cup square image and eight detail images into `public/portfolio`.
+  - Regenerated `/portfolio/cup-cup-orbit-fast.webp` from the new square image.
+  - Updated the `cup-cup` project to use the new square cover and eight detail images, while leaving the existing image-wall card unchanged.
+  - Moved `expansionCards` images earlier in the homepage warmup list and started low-priority orbit blob prefetch about 650ms after page stabilization.
+  - Added wheel capture for the lower orbit/image area once the Product Language section reaches the orbit phase, so wheel input rotates the orbit while keeping page scroll locked inside that zone.
+- Verification:
+  - `npm run build` passed.
+  - Desktop local production check at `1440x1100`: after about 3.2s, 9 orbit image fetches were already observed; fast scroll into the orbit showed 9 cards, 9/9 images loaded, natural widths `640`, and `overflowX=0`.
+  - Desktop wheel QA: wheel inside the orbit kept `scrollY` fixed while changing the active orbit card; wheel over the top blank area resumed normal page scrolling.
+  - Cup's Cup detail QA: clicking the orbit card opened `The Cup's Cup`, rendered 8 detail media items, and all 8 used the wide-frame detail class.
+  - Mobile local production check at `390x844`: 9/9 orbit images loaded, `overflowX=0`, Cup's Cup detail rendered 8 media items, and no console errors were captured.
+
 ## Session: 2026-07-01 Watsu Product Language Orbit
 - **Status:** complete; publishing through GitHub/Vercel.
 - User direction:

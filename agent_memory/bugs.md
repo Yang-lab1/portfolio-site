@@ -1,7 +1,7 @@
 # 问题与风险
 
 ## 当前风险
-- 2026-07-01 首轮网站加载慢排查已完成并修复一个明确首屏问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 接入后当前为 9 张轻量圆盘图。页面稳定后会按低优先级队列后台预热后续图片。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
+- 2026-07-01 首轮网站加载慢排查已完成并继续修复圆盘快速下滑时图片跟不上的问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 与 Cup's Cup 更新后当前为 9 张轻量圆盘图。页面稳定约 650ms 后会低优先级提前预取圆盘 blob，同时仍保留接近视口预热与省流量/2G 跳过策略。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
 - `momenta-touch` 是硬件 / 工业设计外观项目，只能用于圆形圆盘和对应产品详情页；不要覆盖或改名原有 `momenta` UI 项目，也不要把 Momenta Touch 套入 Web/App 倾斜舞台或 case-study 文字模板。
 - `momenta-detail-video.m4v` 体积约 103MB，提交/推送 GitHub 前需要注意 GitHub 单文件大小限制；如 push 被拒，优先和用户确认是否压缩视频、转码为 webm/mp4、或使用外部托管。
 - `heart-bracelet` 当前为了圆形圆盘可点击临时使用 `capstone-watch-wall-card.png` 作为占位图。后续用户发来真实心脏病手环套件素材后，必须替换圆盘图和详情页图，不能把临时图当成最终证据。
@@ -17,6 +17,9 @@
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。
 
 ## 已修复问题
+- 2026-07-01：Cup's Cup 本地文件夹 `C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup` 未完整反映到圆形转盘和详情页。已复制用户提供的正方形图与 8 张详情图，重新生成 `/portfolio/cup-cup-orbit-fast.webp`，并把 `cup-cup` 详情 gallery 更新为 `/portfolio/cup-cup-detail-01.png` 到 `/portfolio/cup-cup-detail-08.png`；图片墙横图保持原先已调好的 `cup-cup-wall-card.png`。
+- 2026-07-01：快速滚到 Product Language 圆盘时，圆盘图片显现速度仍可能慢于用户下滑速度。已把 9 张圆盘轻量图提前放入首页 warmup，并在页面稳定约 650ms 后启动低优先级 blob 预取；本地桌面/移动生产版验证进入圆盘前已预取 9 张，圆盘区 9/9 图片加载完成。
+- 2026-07-01：鼠标停留在圆盘图片或圆盘区域时继续滚轮会推动页面下滑，不能无限旋转圆盘。已新增圆盘区域 wheel capture：进入圆盘阶段后，鼠标位于图片或下方圆盘区域内时滚轮只旋转圆盘并阻止页面滚动；鼠标离开圆盘区域到空白处时恢复正常页面滚动。
 - 2026-07-01：`cross-ripple` / Watsu 详情项目和素材已存在，但未接入最后 Product Language 圆形转盘。已新增轻量 `/portfolio/watsu-orbit-fast.webp` 并把 Watsu 作为第 9 张转盘卡接入，继续复用当前圆盘的 blob 预取与接近视口挂载逻辑；桌面/移动验证均为 9/9 图片加载完成、横向溢出 `0`。
 - 2026-07-01：首屏会提前加载页面底部 Product Language 圆盘 8 张 1254 方图，合计约 `10.3MB`。已将首页圆盘切换到 640 WebP 展示版；Watsu 接入后当前为 9 张轻量圆盘图。圆盘图片节点初始不挂载，页面空闲后通过同源 `fetch` 预取为 blob，接近圆盘区后再挂载图片节点。打开初期圆盘图片节点数为 `0`，接近圆盘区后圆盘图全部加载完成。
 - 2026-06-29：`TCM Knowledge Graph` 首图不应再使用 `tcm-graph-clean.jpg` 作为第一张交付图；该图天然尺寸只有 `740x430`，已改为高清完整流程板 `tcm-full-process-board.png`，并在移动端映射到 `tcm-full-process-board-mobile.png`。`tcm-graph-clean.jpg` 只能作为第二张辅助证据图。

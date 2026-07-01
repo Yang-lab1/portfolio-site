@@ -521,11 +521,20 @@ const projects = [
     title: { en: "The Cup's Cup", zh: '杯中杯饮水辅具' },
     type: { en: 'Assistive Product / Patent Applied', zh: '辅助产品 / 专利申请' },
     year: '2018-2019',
-    image: '/portfolio/cup-cup-stage.jpg',
-    imageFit: 'contain',
+    image: '/portfolio/cup-cup-orbit-square.png',
+    imageFit: 'cover',
     wallImage: '/portfolio/cup-cup-wall-card.png',
     wallImageFit: 'cover',
-    gallery: ['/portfolio/cup-cup-stage.jpg'],
+    gallery: [
+      '/portfolio/cup-cup-detail-01.png',
+      '/portfolio/cup-cup-detail-02.png',
+      '/portfolio/cup-cup-detail-03.png',
+      '/portfolio/cup-cup-detail-04.png',
+      '/portfolio/cup-cup-detail-05.png',
+      '/portfolio/cup-cup-detail-06.png',
+      '/portfolio/cup-cup-detail-07.png',
+      '/portfolio/cup-cup-detail-08.png',
+    ],
     role: {
       en: 'Pain-point reframing, use flow, physical product design',
       zh: '痛点重构、使用流程、实体产品设计',
@@ -538,7 +547,7 @@ const projects = [
       en: ['Operation flow', 'Usage comparison', 'Patent-applied direction', 'Assistive-object design'],
       zh: ['操作流程', '使用对比', '专利申请方向', '辅助物件设计'],
     },
-    source: { en: 'Confirmed from recovered portfolio evidence', zh: '来自已恢复作品集证据' },
+    source: { en: 'Confirmed local folder: Desktop/作品集/旋转圆盘/cup‘s cup', zh: '已确认本地文件夹：Desktop/作品集/旋转圆盘/cup‘s cup' },
   },
   {
     id: 'heart-bracelet',
@@ -2079,10 +2088,10 @@ function getHomepageWarmupImages() {
 
   return [
     ...daimaWorkPanels.slice(1).map((panel) => panel.image),
+    ...expansionCards.map((card) => card.image),
     ...productImages,
     ...digitalImages,
     ...wallImages,
-    ...expansionCards.map((card) => card.image),
   ].filter(Boolean);
 }
 
@@ -2114,7 +2123,7 @@ function loadExpansionImageBlobSources() {
 
   expansionImageBlobSourcesPromise = Promise.all(
     expansionCards.map(async (card) => {
-      const response = await fetch(card.image, { cache: 'force-cache' });
+      const response = await fetch(card.image, { cache: 'force-cache', priority: 'low' });
       if (!response.ok) throw new Error(`Failed to warm ${card.image}`);
       const blob = await response.blob();
       return [card.image, URL.createObjectURL(blob)];
@@ -2160,17 +2169,16 @@ function useHomepageImageWarmup(enabled) {
       schedule(() => warmBatch(), 1800);
     };
 
+    schedule(() => {
+      warmExpansionImages();
+      loadExpansionImageBlobSources().catch(() => {});
+    }, 650);
+
     if (document.readyState === 'complete') {
       schedule(startWarmup, 1800);
-      schedule(() => {
-        loadExpansionImageBlobSources().catch(() => {});
-      }, 1200);
     } else {
       const onLoad = () => {
         schedule(startWarmup, 1800);
-        schedule(() => {
-          loadExpansionImageBlobSources().catch(() => {});
-        }, 1200);
       };
       window.addEventListener('load', onLoad, { once: true });
       timers.push(() => window.removeEventListener('load', onLoad));
@@ -4077,6 +4085,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
     if (project.id === 'cross-ripple' && src.includes('watsu-detail-')) {
       return 'detail-media-product-wide-frame';
     }
+    if (project.id === 'cup-cup' && src.includes('cup-cup-detail-')) {
+      return 'detail-media-product-wide-frame';
+    }
     if (src.includes('palifood-handheld-fresh.png')) {
       return 'detail-media-source-aspect';
     }
@@ -4359,6 +4370,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
   useLayoutEffect(() => {
     if (!sectionRef.current || !motionEnabled) return undefined;
 
+    let cleanupWheelHandler = () => {};
     const ctx = gsap.context(() => {
       const section = sectionRef.current;
       const title = section.querySelector('.expansion-title-stack');
@@ -4380,6 +4392,8 @@ function About({ lang, motionEnabled, onOpenProject }) {
         const half = total / 2;
         return ((((value + half) % total) + total) % total) - half;
       };
+      const progressState = { value: 0 };
+      const wheelState = { offset: 0 };
 
       const updateActiveProject = (label) => {
         if (activeExpansionProjectRef.current !== label) {
@@ -4404,7 +4418,8 @@ function About({ lang, motionEnabled, onOpenProject }) {
         const orbitSpan = mobile ? 0.58 : 0.56;
         const orbitProgress = clamp01((progress - orbitStart) / orbitSpan);
         const titleProgress = clamp01(progress / 0.42);
-        const orbitPhase = 2 + orbitProgress * totalCards * (mobile ? 0.72 : 0.96);
+        const wheelPhase = wheelState.offset % totalCards;
+        const orbitPhase = 2 + orbitProgress * totalCards * (mobile ? 0.72 : 0.96) + wheelPhase;
         const step = mobile ? 28 : 20.25;
         const maxVisibleDelta = mobile ? 2.05 : 3.08;
         const edgeWindow = mobile ? 0.5 : 0.42;
@@ -4538,7 +4553,6 @@ function About({ lang, motionEnabled, onOpenProject }) {
 
       renderExpansion(0);
 
-      const progressState = { value: 0 };
       gsap.to(progressState, {
         value: 1,
         ease: 'none',
@@ -4557,9 +4571,58 @@ function About({ lang, motionEnabled, onOpenProject }) {
           },
         },
       });
+
+      const isInOrbitWheelArea = (event) => {
+        if (event.target?.closest?.('.expansion-card')) return true;
+        const rect = section.getBoundingClientRect();
+        if (!rect.width || !rect.height) return false;
+
+        const mobile = window.matchMedia('(max-width: 820px)').matches;
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        const centerX = rect.width * 0.5;
+        const centerY = rect.height * (mobile ? 0.72 : 0.7);
+        const radiusX = rect.width * (mobile ? 0.58 : 0.54);
+        const radiusY = rect.height * (mobile ? 0.5 : 0.52);
+        const ellipse =
+          ((x - centerX) ** 2) / (radiusX ** 2) +
+          ((y - centerY) ** 2) / (radiusY ** 2);
+
+        return y > rect.height * (mobile ? 0.3 : 0.24) && ellipse <= 1.16;
+      };
+
+      const handleExpansionWheel = (event) => {
+        if (progressState.value < 0.34 || !isInOrbitWheelArea(event)) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        warmExpansionImages();
+        setShouldLoadExpansionImages(true);
+
+        const modeScale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
+        const primaryDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+        const delta = clamp(primaryDelta * modeScale, -240, 240) * 0.006;
+        if (!delta) return;
+
+        gsap.to(wheelState, {
+          offset: wheelState.offset + delta,
+          duration: 0.42,
+          ease: 'power3.out',
+          overwrite: true,
+          onUpdate: () => renderExpansion(progressState.value),
+        });
+      };
+
+      section.addEventListener('wheel', handleExpansionWheel, { passive: false, capture: true });
+      cleanupWheelHandler = () => {
+        section.removeEventListener('wheel', handleExpansionWheel, true);
+      };
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      cleanupWheelHandler();
+      ctx.revert();
+    };
   }, [motionEnabled]);
 
   return (

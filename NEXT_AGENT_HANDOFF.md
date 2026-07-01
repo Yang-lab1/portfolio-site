@@ -3,7 +3,7 @@
 ## 0. 本次交接状态
 
 - 更新时间：2026-07-01
-- 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新改动是把 Watsu / Cross-ripple 补进最后 Product Language 圆形转盘，本地验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
+- 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新追加修复是提前预取 Product Language 圆形转盘图片、把 Cup's Cup 本地素材更新到圆盘和详情页，并让鼠标停留在圆盘区域时滚轮持续旋转圆盘而不继续翻页。本地桌面/移动验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
 - 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
 - GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
 - 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
@@ -37,6 +37,7 @@
 - 已新增圆盘段接近视口触发器：`.expansion-section` 接近视口约 1800px 内时提前预热圆盘图，解决快速滚到圆盘区域时图片还没加载的问题。
 - 已生成 `640x640` WebP 圆盘首页展示版，文件名为 `*-orbit-fast.webp`；Watsu 接入后当前圆盘为 9 张轻量图。首页圆盘使用这些轻量图，原 1254 方图保留但不再作为首页圆盘首选加载资源。
 - 最终实现不是单纯依赖 `img loading`：圆盘图片节点初始不挂载，页面空闲后用同源 `fetch` 预取 WebP 为 blob URL，圆盘接近视口后再挂载真实图片节点并优先使用 blob。
+- 2026-07-01 追加优化：用户反馈快速下滑时图片显现仍慢于滚动速度，因此 `expansionCards` 的 9 张圆盘轻量图已提前到首页 warmup 队列前段，并在页面稳定约 650ms 后启动低优先级 blob 预取；仍遵守省流量 / 2G 跳过策略。
 
 本地验证结果：
 
@@ -51,7 +52,7 @@
 - `momenta-detail-video.m4v` 体积约 103MB，虽然详情页才会用，但仍是资产和 GitHub/Vercel 风险。
 - `miro-hardware-detail-video.mp4` 和 `watsu-detail-video.mp4` 仍可单独检查体积和播放策略。
 - 首页横向图片墙完整滚动后图片总量仍较大，后续优化要先看新的 waterfall，再决定是否生成小尺寸衍生图或替换格式。
-- 本轮没有部署到 Vercel，也没有做线上公网 / 国内网络 waterfall。
+- 真实线上公网 / 国内网络 waterfall 仍需单独测量；不要只凭本地结果声明国内访问目标完成。
 
 ## 3. 技术栈与核心文件
 
@@ -234,6 +235,12 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 8. `capstone-device`，projectId `capstone-device`，label `Capstone`，图 `/portfolio/capstone-device-orbit-fast.webp`
 9. `cmf-electronics`，projectId `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-fast.webp`
 
+当前圆盘滚轮交互规则：
+- 圆盘仍是 GSAP ScrollTrigger pinned section + scrub 的主结构，不要改成普通静态卡片墙。
+- 当页面已进入圆盘阶段，且鼠标位于圆盘图片或下方圆盘区域内时，wheel 事件会被捕获并转化为圆盘旋转；此时页面 `scrollY` 不应继续向下。
+- 鼠标离开圆盘图片/圆盘区域，移动到旁边或上方空白处后再滚轮，页面应恢复正常向下滚动。
+- 这个行为来自用户 2026-07-01 的明确要求：只要鼠标还在整个圆盘外围区域内，滚轮就可以无限循环旋转圆盘；不要在未复测前删除或弱化。
+
 这里有几个非常容易搞错的点：
 
 - `miro` 是 AI / Web 演练系统。
@@ -367,6 +374,21 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 
 - 详情页先视频，再按用户更新后的顺序放详情图。
 - 图片墙横图和圆盘正方形图是不同用途，不要混。
+
+### Cup's Cup
+
+来源：`C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup`
+
+当前站内资源：
+- `/portfolio/cup-cup-orbit-square.png`
+- `/portfolio/cup-cup-orbit-fast.webp`
+- `/portfolio/cup-cup-detail-01.png` 到 `/portfolio/cup-cup-detail-08.png`
+- 首页图片墙横图仍为：`/portfolio/cup-cup-wall-card.png`
+
+规则：
+- `cup-cup-orbit-square.png` 来自用户文件夹内 `正方形.png`，用于项目封面与圆盘源图；`cup-cup-orbit-fast.webp` 是从它生成的 640 圆盘轻量图。
+- 详情页 8 张宽幅图按用户文件夹中 `详情页第一张图.png` 到 `详情页第八张图.png` 的顺序接入。
+- 图片墙横图 `cup-cup-wall-card.png` 是之前已调好的卡片图，本轮刻意不替换，除非用户明确要求改图片墙。
 
 ### Pai Li Shi
 
@@ -533,7 +555,8 @@ Bottom ZH:
 
 ### 性能风险
 
-- 首轮加载问题已本地修复：底部圆盘双层图片不再 eager 抢首屏网络。
+- 首轮加载问题已本地修复：底部圆盘双层图片不再 eager 抢首屏网络，首页圆盘使用 640 WebP 展示版，并在页面稳定约 650ms 后提前低优先级预取 9 张圆盘 blob。
+- 快速滚到圆盘时图片空白/慢显的问题已本地缓解并验证：桌面/移动本地生产版进入圆盘前可观察到 9 张圆盘轻量图预取，圆盘区 9/9 图片加载完成。
 - 大视频资源仍需要单独测量，尤其是 `momenta-detail-video.m4v` 约 103MB。
 - 图片墙完整滚动后的总图片体积仍较大，后续要先测 waterfall 再优化。
 
@@ -582,11 +605,12 @@ Bottom ZH:
 8. 产品三卡拖拽、惯性、点击仍正常。
 9. 图片墙自动移动、拖拽、点击仍正常。
 10. 详情页底部没有“证据 / 同方向作品”，而是图片墙。
-11. 圆盘模块 9 个 item 可点击，且进入正确详情页；其中 Watsu 必须进入 `cross-ripple`。
-12. `miro` 和 `miro-hardware` 不混。
-13. `momenta` 和 `momenta-touch` 不混。
-14. 桌面端和 390px 左右移动端无横向溢出。
-15. Agent 回归：拍立食不混 Miro，奖项回答 12+，collapse 后清空旧会话。
+11. 圆盘模块 9 个 item 可点击，且进入正确详情页；其中 Watsu 必须进入 `cross-ripple`，Cup's Cup 必须进入 `cup-cup` 并显示 8 张详情图。
+12. 快速滚到圆盘区域时 9/9 圆盘图加载完成；鼠标在圆盘图片/下方圆盘区域内滚轮应旋转圆盘且不继续翻页，鼠标移到圆盘区域外空白处滚轮应恢复页面滚动。
+13. `miro` 和 `miro-hardware` 不混。
+14. `momenta` 和 `momenta-touch` 不混。
+15. 桌面端和 390px 左右移动端无横向溢出。
+16. Agent 回归：拍立食不混 Miro，奖项回答 12+，collapse 后清空旧会话。
 
 ## 22. 部署与版本规则
 
