@@ -4,9 +4,20 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 45 is in progress as a focused Tresmares orbit smoothness experiment. The current approved visual state has been preserved as fallback tag `fallback-tresmares-orbit-2026-06-19`; this pass may only tune scroll-progress smoothing and label update smoothness, without changing the accepted seven-card geometry, white erase treatment, copy, or layout.
+Phase 46 is complete as a focused homepage image-loading fix. The bottom Product Language orbit images now lazy-load at low fetch priority instead of competing with the first viewport, and the homepage warms follow-up images in low-priority idle batches after load. Remaining performance work should be measured separately before changing videos, image-wall assets, or deployment settings.
 
 ## Phases
+
+### Phase 46: Product Language Orbit First-Load Performance
+- [x] Measure the local production build before changing code.
+- [x] Confirm that the bottom Product Language orbit images were loading during the first five seconds even though the section is far below the first viewport.
+- [x] Keep the existing React + Vite + CSS + GSAP structure and avoid rewriting the orbit.
+- [x] Change only `.expansion-card-bg` and `.expansion-card-img` to lazy loading with low fetch priority.
+- [x] Add a low-priority idle image warmup queue for post-load homepage images.
+- [x] Re-run `npm run build`.
+- [x] Verify desktop local production resources, orbit image loading after scroll, console errors, and horizontal overflow.
+- [x] Verify mobile `390x844` first-load behavior, orbit image loading after scroll, console errors, and horizontal overflow.
+- **Status:** complete; publishing through GitHub/Vercel.
 
 ### Phase 1: Planning and Requirement Recovery
 - [x] Create persistent planning files: `task_plan.md`, `findings.md`, `progress.md`

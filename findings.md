@@ -18,6 +18,16 @@
 - GSAP motion pass is confirmed: use `gsap` with timeline/ScrollTrigger, do not add Hero buttons, place the pinned section after work rails and before the capability summary, and keep parallax subtle.
 - Motion should stay restrained and portfolio-grade; avoid playful bouncy easing, large magnetic displacement, or heavy parallax.
 
+## 2026-07-01 Performance Findings
+- Local production waterfall showed the first loading bottleneck was not the visible first viewport layout itself, but the bottom Product Language orbit images being requested too early.
+- Before the fix, the first five seconds loaded about `17.06MB`, including the eight bottom orbit square images at about `10.3MB` total.
+- The bottom orbit renders two image layers for each card, `.expansion-card-bg` and `.expansion-card-img`; both layers were marked `loading="eager"`, so the browser fetched those non-first-viewport assets immediately.
+- The minimal safe first fix was to change those two image layers to `loading="lazy"` and `fetchPriority="low"`, without changing assets, geometry, ScrollTrigger behavior, or click targets.
+- A second small fix added a low-priority idle warmup queue after page load. It preloads follow-up homepage images in small batches, skips save-data / 2G connections, and avoids returning to the previous all-at-once eager behavior.
+- After the fix, desktop local production still measured `6.76MB` after one second, `orbitCount=0`, `orbitMB=0`; after about ten seconds, follow-up images were warming in the background; after scrolling the full page, all eight orbit images loaded successfully.
+- Mobile `390x844` local production verification also kept bottom orbit images out of the initial load and loaded all 8 orbit images after scroll, with no horizontal overflow and no console errors.
+- Remaining performance candidates are separate tasks: `momenta-detail-video.m4v` is still about `103MB`, and the full-page image wall still brings total loaded image weight to roughly `38MB` after scrolling.
+
 ## Confirmed Local Sources
 - Main app: `C:\Users\Yang\Documents\New project\portfolio-site`
 - Miro: `C:\Users\Yang\Desktop\miro`

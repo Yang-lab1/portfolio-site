@@ -3,13 +3,13 @@
 ## 0. 本次交接状态
 
 - 更新时间：2026-07-01
-- 当前任务：只写交接文档，暂时停止性能排查和网站实现修改。
+- 当前任务：已继续处理“网站加载慢”的首轮性能修复；用户已要求提交、推送并触发重新部署。
 - 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
 - GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
 - 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
 - 当前分支：`main`
-- 交接前最新代码提交：`9cd4757 Refine product orbit media and detail assets`
-- 交接前 Git 状态：干净。
+- 本轮开始时最新提交：`9130d94 Update agent handoff documentation`
+- 本轮开始前 Git 状态：干净；接手后先检查 `git status`、最新提交和 Vercel 部署状态。
 - 当前线程深度链接：`codex://threads/019e0d28-475a-79d1-8bc3-1e8b18096c23`
 
 本文件的目的不是写一份漂亮摘要，而是让下一个窗口可以不重走弯路。请下一位 agent 先读完本文件，再读 `AGENTS.md`、`agent_memory/`、`task_plan.md`、`findings.md`、`progress.md` 和核心代码。
@@ -25,29 +25,30 @@
 7. 非简单任务先读 `src/main.jsx`、`src/styles.css`、相关项目数据和图片引用，不要直接重写。
 8. 使用 shell 时按 `AGENTS.md` 规则优先用 `C:\Users\Yang\.local\bin\rtk.exe` 包装 `git`、`npm`、大范围 `rg` 等命令。
 
-## 2. 当前暂停的问题：网站加载变慢
+## 2. 已完成的首轮性能修复：网站加载变慢
 
-用户刚提出“现在网站打开有点慢，之前是一打开所有图片都出来，现在感觉加载很慢”。随后用户要求暂时停止这个问题，先写交接文档。因此：
+用户曾提出“现在网站打开有点慢，之前是一打开所有图片都出来，现在感觉加载很慢”。本轮已继续完成可以本地闭环的首轮排查和最小修复：
 
-- 本轮没有继续做性能优化。
-- 本轮没有改 lazy loading、图片压缩、视频转码、预加载策略或 Vercel 配置。
-- 下一位 agent 如果继续性能问题，必须先测量，不要凭感觉改。
+- 先用本地生产构建 + Playwright 测量资源瀑布，没有凭感觉压图或改动画。
+- 定位到首屏 5 秒内会提前加载页面底部 Product Language 圆盘的 8 张 1254x1254 方图，约 `10.3MB`。
+- 每个圆盘 item 渲染两层图片：`.expansion-card-bg` 和 `.expansion-card-img`；两层原本都是 `loading="eager"`。
+- 已把这两层改为 `loading="lazy"` + `fetchPriority="low"`，不改图片源、圆盘几何、点击、拖拽、GSAP scroll 行为或详情页数据。
+- 已新增页面 `load` 后的低优先级空闲预加载队列：按 3 张一批预热 Daima 后续图、实体产品图、图片墙前段和圆盘图；省流量或 2G 连接时跳过。
 
-未验证但很可能有关的点：
+本地验证结果：
 
-- 最后的圆形圆盘模块现在有 8 张 1254x1254 方图。
-- 每个圆盘 item 当前渲染两层图片：`.expansion-card-bg` 和 `.expansion-card-img`，并且两层都是 `loading="eager"`。
-- `momenta-detail-video.m4v` 体积约 103MB，虽然详情页才会用，但仍是资产风险。
-- `miro-hardware-detail-video.mp4` 和 `watsu-detail-video.mp4` 也应确认体积和加载策略。
-- 首页横向图片墙与四联大屏使用大量视觉资产，后续优化要看真实 network waterfall。
+1. `npm run build` 通过。
+2. 桌面 1440x1100 本地生产版：打开 1 秒仍只加载 `6.76MB` 核心资源，圆盘图初始加载数 `0`。
+3. 桌面等待约 10 秒后：后续图片开始后台预热，圆盘图仍不抢初始加载。
+4. 桌面滚完整页后：8 张圆盘图全部加载完成，`naturalWidth=1254`，横向溢出 `0`，控制台错误 `0`。
+5. 移动端 390x844：初始圆盘图加载数 `0`，等待后后续图会预热，滚到底部后 8/8 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
 
-建议下一步性能排查：
+仍然未处理的性能候选项：
 
-1. 本地 `npm run build` 后用 `npm run preview` 或 Vercel 线上地址测量。
-2. 用 Playwright / Chrome DevTools 抓首屏和完整页面 waterfall。
-3. 先确认首屏是否被非首屏圆盘图片、图片墙图片、视频阻塞。
-4. 优先考虑圆盘双层图的懒加载策略、图片尺寸衍生版本、非首屏图片 `loading="lazy"`，但不要破坏滚动时的视觉连续性。
-5. 优化前后都要对桌面和移动端截图，确认没有空白、抖动、图片闪烁。
+- `momenta-detail-video.m4v` 体积约 103MB，虽然详情页才会用，但仍是资产和 GitHub/Vercel 风险。
+- `miro-hardware-detail-video.mp4` 和 `watsu-detail-video.mp4` 仍可单独检查体积和播放策略。
+- 首页横向图片墙完整滚动后图片总量仍较大，后续优化要先看新的 waterfall，再决定是否生成小尺寸衍生图或替换格式。
+- 本轮没有部署到 Vercel，也没有做线上公网 / 国内网络 waterfall。
 
 ## 3. 技术栈与核心文件
 
@@ -526,9 +527,9 @@ Bottom ZH:
 
 ### 性能风险
 
-- 网站加载变慢问题已暂停，未处理。
-- 圆盘双层 eager 图片可能是首要怀疑对象。
-- 大视频资源需要测量。
+- 首轮加载问题已本地修复：底部圆盘双层图片不再 eager 抢首屏网络。
+- 大视频资源仍需要单独测量，尤其是 `momenta-detail-video.m4v` 约 103MB。
+- 图片墙完整滚动后的总图片体积仍较大，后续要先测 waterfall 再优化。
 
 ### HeartKit / heart-bracelet
 
@@ -593,13 +594,12 @@ Bottom ZH:
 6. deploy 到 Vercel
 7. 给用户固定线上地址、commit、分支、验证项
 
-但本次交接文档属于文档更新，不改站点运行时代码，不需要触发网站视觉部署。
+本轮已经包含一处运行时代码修改和记录文件更新，用户已要求提交、推送并触发 Vercel 重新部署；发布结果以最新 `git log`、GitHub/Vercel 状态和线上验证为准。
 
 ## 23. 给下一个窗口的建议启动提示
 
 可以直接把下面这段给新的 Codex：
 
 ```text
-你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交约为 9cd4757，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。当前用户刚暂停“网站加载变慢”的问题，下一步由用户重新指定任务。
+你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交从 9130d94 之后继续，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。网站加载慢的首轮修复已完成：底部圆盘双层图片改为 lazy + low fetch priority，并新增页面稳定后的低优先级图片预热队列；已通过本地生产构建和桌面/移动 Playwright 验证。接手后先看 git status、最新提交和 Vercel 部署状态。
 ```
-

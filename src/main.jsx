@@ -2058,6 +2058,91 @@ const expansionCards = [
   },
 ];
 
+const warmedImageSources = new Set();
+
+function getHomepageWarmupImages() {
+  const productImages = getProjectsByIds(productShowcaseIds).map((project) => project.image);
+  const digitalImages = getProjectsByIds(digitalCaseIds).map((project) => project.image);
+  const wallImages = buildShowcaseRows()
+    .flatMap((row) => row.map((project) => project.wallImage || project.image))
+    .slice(0, 18);
+
+  return [
+    ...daimaWorkPanels.slice(1).map((panel) => panel.image),
+    ...productImages,
+    ...digitalImages,
+    ...wallImages,
+    ...expansionCards.map((card) => card.image),
+  ].filter(Boolean);
+}
+
+function warmImageSource(src) {
+  if (!src || warmedImageSources.has(src)) return;
+  warmedImageSources.add(src);
+
+  const image = new Image();
+  image.decoding = 'async';
+  image.fetchPriority = 'low';
+  image.src = src;
+}
+
+function useHomepageImageWarmup(enabled) {
+  useEffect(() => {
+    if (!enabled || typeof window === 'undefined') return undefined;
+
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || '')) return undefined;
+
+    let cancelled = false;
+    const timers = [];
+    let idleId = null;
+    const sources = [...new Set(getHomepageWarmupImages())];
+
+    const schedule = (callback, delay) => {
+      const timer = window.setTimeout(() => {
+        if (!cancelled) callback();
+      }, delay);
+      timers.push(timer);
+    };
+
+    const warmBatch = (startIndex = 0) => {
+      if (cancelled || startIndex >= sources.length) return;
+      sources.slice(startIndex, startIndex + 3).forEach(warmImageSource);
+      schedule(() => warmBatch(startIndex + 3), 1100);
+    };
+
+    const startWarmup = () => {
+      if ('requestIdleCallback' in window) {
+        idleId = window.requestIdleCallback(() => warmBatch(), { timeout: 2500 });
+        return;
+      }
+      schedule(() => warmBatch(), 1800);
+    };
+
+    if (document.readyState === 'complete') {
+      schedule(startWarmup, 1800);
+    } else {
+      const onLoad = () => schedule(startWarmup, 1800);
+      window.addEventListener('load', onLoad, { once: true });
+      timers.push(() => window.removeEventListener('load', onLoad));
+    }
+
+    return () => {
+      cancelled = true;
+      timers.forEach((timer) => {
+        if (typeof timer === 'function') {
+          timer();
+          return;
+        }
+        window.clearTimeout(timer);
+      });
+      if (idleId !== null && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleId);
+      }
+    };
+  }, [enabled]);
+}
+
 function getProjectsByIds(ids) {
   return ids.map((id) => projects.find((project) => project.id === id)).filter(Boolean);
 }
@@ -2503,6 +2588,7 @@ function App() {
     magneticEnabled: !motion.reduced && !motion.mobile && motion.finePointer,
   });
   useLenisScroll(!motion.reduced);
+  useHomepageImageWarmup(!selected);
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -4429,8 +4515,9 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 src={card.image}
                 alt=""
                 draggable="false"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
+                fetchPriority="low"
                 onError={(event) => {
                   event.currentTarget.style.opacity = '0';
                 }}
@@ -4440,8 +4527,9 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 src={card.image}
                 alt=""
                 draggable="false"
-                loading="eager"
+                loading="lazy"
                 decoding="async"
+                fetchPriority="low"
                 onError={(event) => {
                   event.currentTarget.style.opacity = '0';
                 }}

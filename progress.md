@@ -1,5 +1,25 @@
 # Progress Log
 
+## Session: 2026-07-01 Homepage Image Loading Fix
+- **Status:** complete; publishing through GitHub/Vercel.
+- User direction:
+  - Continue the unfinished work from the handoff package.
+  - Treat the paused site-speed complaint as the local task that can be completed without new user assets or credentials.
+- Actions completed:
+  - Re-read the handoff context and measured the production build with Playwright before making changes.
+  - Confirmed the first five seconds previously pulled in the bottom Product Language orbit images even though the section is far below the first viewport.
+  - Updated only the two repeated orbit image layers, `.expansion-card-bg` and `.expansion-card-img`, from eager loading to lazy loading with low fetch priority.
+  - Added a low-priority idle warmup queue for post-load images, so the homepage keeps first-paint resources prioritized while Daima follow-up images, product images, the front of the image wall, and later orbit images can be prepared quietly after load.
+  - Preserved the existing image sources, orbit geometry, copy, click targets, drag behavior, GSAP scroll behavior, and detail-page data.
+- Verification:
+  - `npm run build` passed.
+  - Desktop local production check at `1440x1100`: after one second the page still loads only `6.76MB` of core resources, with `orbitCount=0` and `orbitMB=0`; after about ten seconds the warmup queue has started loading follow-up images; after full-page scroll, all 8 orbit images load, `overflowX=0`, and console messages are empty.
+  - Mobile local production check at `390x844`: initial orbit loading remains `0`; after idle time the warmup queue starts; after scroll, `orbitLoaded=8/8`, `overflowX=0`, and console messages are empty.
+- Remaining risks:
+  - `momenta-detail-video.m4v` remains about `103MB`.
+  - The image wall still accounts for much of the full-page image weight and should be optimized only after another waterfall confirms the next bottleneck.
+  - No Vercel redeploy or public-network waterfall was run in this session.
+
 ## Session: 2026-07-01 Handoff Documentation
 - **Status:** complete.
 - User direction:
