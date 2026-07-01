@@ -2059,6 +2059,7 @@ const expansionCards = [
 ];
 
 const warmedImageSources = new Set();
+const warmingImages = new Map();
 
 function getHomepageWarmupImages() {
   const productImages = getProjectsByIds(productShowcaseIds).map((project) => project.image);
@@ -2081,6 +2082,13 @@ function warmImageSource(src) {
   warmedImageSources.add(src);
 
   const image = new Image();
+  const release = () => {
+    window.setTimeout(() => warmingImages.delete(src), 30000);
+  };
+
+  warmingImages.set(src, image);
+  image.onload = release;
+  image.onerror = release;
   image.decoding = 'async';
   image.fetchPriority = 'low';
   image.src = src;
