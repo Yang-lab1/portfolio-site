@@ -11,11 +11,12 @@
   - Updated only the two repeated orbit image layers, `.expansion-card-bg` and `.expansion-card-img`, from eager loading to lazy loading with low fetch priority.
   - Added a low-priority idle warmup queue for post-load images, so the homepage keeps first-paint resources prioritized while Daima follow-up images, product images, the front of the image wall, and later orbit images can be prepared quietly after load.
   - Added an intersection-triggered warmup for the Product Language orbit section, so fast scrolling near the bottom still prepares the 8 orbit images before they are needed.
+  - Generated 8 lightweight `640x640` WebP orbit display images and pointed the homepage Product Language orbit to those files instead of the original `1254x1254` assets.
   - Preserved the existing image sources, orbit geometry, copy, click targets, drag behavior, GSAP scroll behavior, and detail-page data.
 - Verification:
   - `npm run build` passed.
-  - Desktop local production check at `1440x1100`: after one second the page still keeps orbit loading at `0`; after idle time the warmup queue starts; after fast full-page scroll, `orbitLoaded=8/8`, `overflowX=0`, and console messages are empty.
-  - Mobile local production check at `390x844`: initial orbit loading remains `0`; after fast full-page scroll, `orbitLoaded=8/8`, `overflowX=0`, and console messages are empty.
+  - Desktop local production check at `1440x1100`: after one second the page still keeps orbit loading at `0`; near the orbit section, the 8 WebP orbit images switch to active loading and complete in about `2.5s`, with `overflowX=0` and no console messages.
+  - Mobile local production check at `390x844`: initial orbit loading remains `0`; near the orbit section, `orbitLoaded=8/8`, `overflowX=0`, and console messages are empty.
 - Remaining risks:
   - `momenta-detail-video.m4v` remains about `103MB`.
   - The image wall still accounts for much of the full-page image weight and should be optimized only after another waterfall confirms the next bottleneck.

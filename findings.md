@@ -25,6 +25,7 @@
 - The minimal safe first fix was to change those two image layers to `loading="lazy"` and `fetchPriority="low"`, without changing assets, geometry, ScrollTrigger behavior, or click targets.
 - A second small fix added a low-priority idle warmup queue after page load. It preloads follow-up homepage images in small batches, skips save-data / 2G connections, and avoids returning to the previous all-at-once eager behavior.
 - The Product Language orbit also has an intersection-triggered warmup when the section gets near the viewport, because GSAP-transformed lazy images can otherwise wait too long during fast scroll.
+- The original 1254px orbit assets were too heavy for reliable online completion. The homepage orbit now uses dedicated `640x640` WebP display assets, reducing the eight orbit images from about `10.3MB` to about `198KB` while preserving the original square assets in the repository.
 - After the fix, desktop local production still measured `6.76MB` after one second, `orbitCount=0`, `orbitMB=0`; after about ten seconds, follow-up images were warming in the background; after scrolling the full page, all eight orbit images loaded successfully.
 - Mobile `390x844` local production verification also kept bottom orbit images out of the initial load and loaded all 8 orbit images after scroll, with no horizontal overflow and no console errors.
 - Remaining performance candidates are separate tasks: `momenta-detail-video.m4v` is still about `103MB`, and the full-page image wall still brings total loaded image weight to roughly `38MB` after scrolling.
