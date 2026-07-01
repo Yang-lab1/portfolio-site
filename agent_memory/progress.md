@@ -4,7 +4,7 @@
 - 已按用户紧急反馈继续处理最后 Product Language 圆形转盘：用户指出快速下滑到圆盘时图片显现速度仍跟不上滚动速度，同时要求接入 `C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup` 中的 Cup's Cup 素材，并修正鼠标停留在圆盘区域时滚轮应持续旋转圆盘而不是继续翻页的问题。
 - 已把 Cup's Cup 文件夹素材更新到站内：`正方形.png` 覆盖为 `/portfolio/cup-cup-orbit-square.png`，并重新生成 `/portfolio/cup-cup-orbit-fast.webp`（640x640 WebP，约 14KB）；`详情页第一张图.png` 到 `详情页第八张图.png` 按顺序接入为 `/portfolio/cup-cup-detail-01.png` 到 `/portfolio/cup-cup-detail-08.png`。
 - 已更新 `cup-cup` 项目数据：圆盘/详情封面使用新的正方形图，详情页 gallery 使用 8 张宽幅详情图，来源记录为用户给定本地文件夹；图片墙原 `cup-cup-wall-card.png` 保持不动，避免影响之前已调好的首页图片墙。
-- 已把圆盘 9 张轻量图提前纳入首页 warmup，并在圆盘组件自身加 650ms 早期预取保险：`expansionCards` 图片在 Daima 后续图之后优先预热，圆盘 blob 预取从原来的 load 后较晚队列提前到页面稳定约 650ms 后启动，仍保持省流量/2G 跳过策略。
+- 已把圆盘 9 张轻量图提前纳入首页 warmup，并在圆盘组件自身加 650ms 早期预取保险：`expansionCards` 图片在 Daima 后续图之后优先预热，圆盘 blob 预取从原来的 load 后较晚队列提前到页面稳定约 650ms 后启动，同时向 `<head>` 插入 9 个圆盘 WebP 的 `preload` 链接，仍保持省流量/2G 跳过策略。
 - 已新增圆盘滚轮捕获逻辑：当页面已经进入圆盘阶段，且鼠标位于圆盘图片或下方圆盘区域内时，滚轮只驱动圆盘无限旋转并阻止页面继续下滑；鼠标移到圆盘区域外的空白处再滚动时，页面恢复正常向下滚动。
 - 验证已通过：`npm run build`；本地生产版桌面 1440x1100 打开约 3.2 秒后已预取 9 张圆盘轻量图，快速滚到圆盘后 9/9 图片已加载、横向溢出 `0`；圆盘区域内滚轮保持页面 `scrollY` 不变并切换 active 卡，圆盘外空白滚轮可继续翻页；点击 Cup's Cup 可进入详情页，8 张详情图正常显示为宽幅图。
 - 移动端 390x844 验证已通过：打开约 3.2 秒后已预取 9 张圆盘轻量图，圆盘区 9/9 图片已加载、横向溢出 `0`；Cup's Cup 详情页标题正确、8 张详情图存在、首张为 `/portfolio/cup-cup-detail-01.png`，控制台无错误。

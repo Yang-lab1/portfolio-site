@@ -2112,7 +2112,24 @@ function warmImageSource(src, fetchPriority = 'low') {
   image.src = src;
 }
 
+function primeExpansionPreloadLinks() {
+  if (typeof document === 'undefined') return;
+
+  expansionCards.forEach((card) => {
+    if (!card.image || document.head.querySelector(`link[data-expansion-preload="${card.id}"]`)) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = card.image;
+    link.fetchPriority = 'low';
+    link.dataset.expansionPreload = card.id;
+    document.head.appendChild(link);
+  });
+}
+
 function warmExpansionImages() {
+  primeExpansionPreloadLinks();
   expansionCards.forEach((card) => warmImageSource(card.image, 'auto'));
 }
 
