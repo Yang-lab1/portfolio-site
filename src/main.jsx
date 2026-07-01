@@ -4551,6 +4551,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
           >
             <span className="expansion-card-media" aria-hidden="true">
               <img
+                key={`bg-${card.id}-${shouldLoadExpansionImages ? 'eager' : 'lazy'}`}
                 className="expansion-card-bg"
                 src={card.image}
                 alt=""
@@ -4563,6 +4564,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 }}
               />
               <img
+                key={`img-${card.id}-${shouldLoadExpansionImages ? 'eager' : 'lazy'}`}
                 className="expansion-card-img"
                 src={card.image}
                 alt=""
