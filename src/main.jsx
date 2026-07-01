@@ -4550,32 +4550,34 @@ function About({ lang, motionEnabled, onOpenProject }) {
             onClick={() => onOpenProject?.(card.projectId)}
           >
             <span className="expansion-card-media" aria-hidden="true">
-              <img
-                key={`bg-${card.id}-${shouldLoadExpansionImages ? 'eager' : 'lazy'}`}
-                className="expansion-card-bg"
-                src={card.image}
-                alt=""
-                draggable="false"
-                loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
-                decoding="async"
-                fetchPriority={shouldLoadExpansionImages ? 'high' : 'low'}
-                onError={(event) => {
-                  event.currentTarget.style.opacity = '0';
-                }}
-              />
-              <img
-                key={`img-${card.id}-${shouldLoadExpansionImages ? 'eager' : 'lazy'}`}
-                className="expansion-card-img"
-                src={card.image}
-                alt=""
-                draggable="false"
-                loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
-                decoding="async"
-                fetchPriority={shouldLoadExpansionImages ? 'high' : 'low'}
-                onError={(event) => {
-                  event.currentTarget.style.opacity = '0';
-                }}
-              />
+              {shouldLoadExpansionImages ? (
+                <>
+                  <img
+                    className="expansion-card-bg"
+                    src={card.image}
+                    alt=""
+                    draggable="false"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    onError={(event) => {
+                      event.currentTarget.style.opacity = '0';
+                    }}
+                  />
+                  <img
+                    className="expansion-card-img"
+                    src={card.image}
+                    alt=""
+                    draggable="false"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
+                    onError={(event) => {
+                      event.currentTarget.style.opacity = '0';
+                    }}
+                  />
+                </>
+              ) : null}
             </span>
           </button>
         ))}
