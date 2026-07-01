@@ -2060,6 +2060,8 @@ const expansionCards = [
 
 const warmedImageSources = new Set();
 const warmingImages = new Map();
+let expansionImageBlobSources = null;
+let expansionImageBlobSourcesPromise = null;
 
 function getHomepageWarmupImages() {
   const productImages = getProjectsByIds(productShowcaseIds).map((project) => project.image);
@@ -2098,6 +2100,26 @@ function warmExpansionImages() {
   expansionCards.forEach((card) => warmImageSource(card.image));
 }
 
+function loadExpansionImageBlobSources() {
+  if (typeof window === 'undefined') return Promise.resolve({});
+  if (expansionImageBlobSources) return Promise.resolve(expansionImageBlobSources);
+  if (expansionImageBlobSourcesPromise) return expansionImageBlobSourcesPromise;
+
+  expansionImageBlobSourcesPromise = Promise.all(
+    expansionCards.map(async (card) => {
+      const response = await fetch(card.image, { cache: 'force-cache' });
+      if (!response.ok) throw new Error(`Failed to warm ${card.image}`);
+      const blob = await response.blob();
+      return [card.image, URL.createObjectURL(blob)];
+    }),
+  ).then((entries) => {
+    expansionImageBlobSources = Object.fromEntries(entries);
+    return expansionImageBlobSources;
+  }).catch(() => ({}));
+
+  return expansionImageBlobSourcesPromise;
+}
+
 function useHomepageImageWarmup(enabled) {
   useEffect(() => {
     if (!enabled || typeof window === 'undefined') return undefined;
@@ -2133,8 +2155,16 @@ function useHomepageImageWarmup(enabled) {
 
     if (document.readyState === 'complete') {
       schedule(startWarmup, 1800);
+      schedule(() => {
+        loadExpansionImageBlobSources().catch(() => {});
+      }, 3600);
     } else {
-      const onLoad = () => schedule(startWarmup, 1800);
+      const onLoad = () => {
+        schedule(startWarmup, 1800);
+        schedule(() => {
+          loadExpansionImageBlobSources().catch(() => {});
+        }, 3600);
+      };
       window.addEventListener('load', onLoad, { once: true });
       timers.push(() => window.removeEventListener('load', onLoad));
     }
@@ -4287,6 +4317,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
   const activeExpansionLabelRef = useRef(null);
   const activeExpansionProjectRef = useRef(expansionCards[0]?.label ?? '');
   const [shouldLoadExpansionImages, setShouldLoadExpansionImages] = useState(false);
+  const [expansionLoadedSources, setExpansionLoadedSources] = useState({});
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -4295,6 +4326,9 @@ function About({ lang, motionEnabled, onOpenProject }) {
     const activateExpansionImages = () => {
       warmExpansionImages();
       setShouldLoadExpansionImages(true);
+      loadExpansionImageBlobSources().then((sources) => {
+        setExpansionLoadedSources(sources);
+      });
     };
 
     if (!('IntersectionObserver' in window)) {
@@ -4554,7 +4588,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 <>
                   <img
                     className="expansion-card-bg"
-                    src={card.image}
+                    src={expansionLoadedSources[card.image] || card.image}
                     alt=""
                     draggable="false"
                     loading="eager"
@@ -4566,7 +4600,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                   />
                   <img
                     className="expansion-card-img"
-                    src={card.image}
+                    src={expansionLoadedSources[card.image] || card.image}
                     alt=""
                     draggable="false"
                     loading="eager"
