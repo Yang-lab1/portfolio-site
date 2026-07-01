@@ -3,7 +3,7 @@
 ## 0. 本次交接状态
 
 - 更新时间：2026-07-01
-- 当前任务：已继续处理“网站加载慢”的首轮性能修复；用户已要求提交、推送并触发重新部署。
+- 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新改动是把 Watsu / Cross-ripple 补进最后 Product Language 圆形转盘，本地验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
 - 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
 - GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
 - 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
@@ -34,8 +34,8 @@
 - 每个圆盘 item 渲染两层图片：`.expansion-card-bg` 和 `.expansion-card-img`；两层原本都是 `loading="eager"`。
 - 已把这两层改为 `loading="lazy"` + `fetchPriority="low"`，不改图片源、圆盘几何、点击、拖拽、GSAP scroll 行为或详情页数据。
 - 已新增页面 `load` 后的低优先级空闲预加载队列：按 3 张一批预热 Daima 后续图、实体产品图、图片墙前段和圆盘图；省流量或 2G 连接时跳过。
-- 已新增圆盘段接近视口触发器：`.expansion-section` 接近视口约 1800px 内时提前预热 8 张圆盘图，解决快速滚到圆盘区域时图片还没加载的问题。
-- 已生成 8 张 `640x640` WebP 圆盘首页展示版，文件名为 `*-orbit-fast.webp`；首页圆盘使用这些轻量图，原 1254 方图保留但不再作为首页圆盘首选加载资源。
+- 已新增圆盘段接近视口触发器：`.expansion-section` 接近视口约 1800px 内时提前预热圆盘图，解决快速滚到圆盘区域时图片还没加载的问题。
+- 已生成 `640x640` WebP 圆盘首页展示版，文件名为 `*-orbit-fast.webp`；Watsu 接入后当前圆盘为 9 张轻量图。首页圆盘使用这些轻量图，原 1254 方图保留但不再作为首页圆盘首选加载资源。
 - 最终实现不是单纯依赖 `img loading`：圆盘图片节点初始不挂载，页面空闲后用同源 `fetch` 预取 WebP 为 blob URL，圆盘接近视口后再挂载真实图片节点并优先使用 blob。
 
 本地验证结果：
@@ -43,8 +43,8 @@
 1. `npm run build` 通过。
 2. 桌面 1440x1100 本地生产版：打开 1 秒仍只加载 `6.76MB` 核心资源，圆盘图初始加载数 `0`。
 3. 桌面等待约 10 秒后：后续图片开始后台预热，圆盘图仍不抢初始加载。
-4. 桌面接近圆盘区后：8 张 WebP 圆盘图全部加载完成，横向溢出 `0`，控制台错误 `0`。
-5. 移动端 390x844：初始圆盘图片节点数 `0`，接近圆盘区后 8/8 WebP 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
+4. 桌面接近圆盘区后：当前 9 张 WebP 圆盘图全部加载完成，横向溢出 `0`，控制台错误 `0`。
+5. 移动端 390x844：初始圆盘图片节点数 `0`，接近圆盘区后当前 9/9 WebP 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
 
 仍然未处理的性能候选项：
 
@@ -224,14 +224,15 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 
 当前 `expansionCards` 精确为：
 
-1. `xiaomi-cmf`，label `Xiaomi`，图 `/portfolio/xiaomi-cmf-orbit-square.jpg`
-2. `cat-turntable`，label `CatToy`，图 `/portfolio/cat-toy-orbit-square.png`
-3. `cup-cup`，label `Cup's Cup`，图 `/portfolio/cup-cup-orbit-square.png`
-4. `opera-ruler`，label `Opera`，图 `/portfolio/opera-ruler-orbit-square.jpg`
-5. `miro-hardware`，label `Miro`，图 `/portfolio/miro-hardware-orbit-square.png`
-6. `momenta-touch`，label `Momenta`，图 `/portfolio/momenta-orbit-square.png`
-7. `capstone-device`，label `Capstone`，图 `/portfolio/capstone-device-orbit-square.png`
-8. `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-square.png`
+1. `xiaomi-cmf`，projectId `xiaomi-cmf`，label `Xiaomi`，图 `/portfolio/xiaomi-cmf-orbit-fast.webp`
+2. `cat-turntable`，projectId `cat-turntable`，label `CatToy`，图 `/portfolio/cat-toy-orbit-fast.webp`
+3. `cup-cup`，projectId `cup-cup`，label `Cup's Cup`，图 `/portfolio/cup-cup-orbit-fast.webp`
+4. `opera-ruler`，projectId `opera-ruler`，label `Opera`，图 `/portfolio/opera-ruler-orbit-fast.webp`
+5. `watsu`，projectId `cross-ripple`，label `Watsu`，图 `/portfolio/watsu-orbit-fast.webp`
+6. `miro-hardware`，projectId `miro-hardware`，label `Miro`，图 `/portfolio/miro-hardware-orbit-fast.webp`
+7. `momenta-touch`，projectId `momenta-touch`，label `Momenta`，图 `/portfolio/momenta-orbit-fast.webp`
+8. `capstone-device`，projectId `capstone-device`，label `Capstone`，图 `/portfolio/capstone-device-orbit-fast.webp`
+9. `cmf-electronics`，projectId `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-fast.webp`
 
 这里有几个非常容易搞错的点：
 
@@ -239,6 +240,7 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 - `miro-hardware` 是用户后面给的 Miro 硬件设备，只用于圆盘和硬件详情页。
 - `momenta` 是 UI / App 项目。
 - `momenta-touch` 是硬件项目，正式叫 `Momenta Touch`，只用于圆盘和硬件详情页。
+- `cross-ripple` 是 Watsu / 水疗训练穿戴项目，圆盘短名为 `Watsu`。
 - 不要把 `momenta-touch` 的图或视频塞进旧 `momenta` UI 项目。
 - 不要把 `miro-hardware` 覆盖原 `miro`。
 
@@ -356,6 +358,7 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 当前站内资源：
 
 - `/portfolio/watsu-orbit-square.png`
+- `/portfolio/watsu-orbit-fast.webp`
 - `/portfolio/watsu-detail-video.mp4`
 - `/portfolio/watsu-detail-01.png` 到 `/portfolio/watsu-detail-08.png`
 - 首页图片墙横图：`/portfolio/watsu-hydrotherapy-wall-card.png`
@@ -579,7 +582,7 @@ Bottom ZH:
 8. 产品三卡拖拽、惯性、点击仍正常。
 9. 图片墙自动移动、拖拽、点击仍正常。
 10. 详情页底部没有“证据 / 同方向作品”，而是图片墙。
-11. 圆盘模块 8 个 item 可点击，且进入正确详情页。
+11. 圆盘模块 9 个 item 可点击，且进入正确详情页；其中 Watsu 必须进入 `cross-ripple`。
 12. `miro` 和 `miro-hardware` 不混。
 13. `momenta` 和 `momenta-touch` 不混。
 14. 桌面端和 390px 左右移动端无横向溢出。

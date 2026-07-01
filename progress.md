@@ -1,5 +1,20 @@
 # Progress Log
 
+## Session: 2026-07-01 Watsu Product Language Orbit
+- **Status:** complete; publishing through GitHub/Vercel.
+- User direction:
+  - Check whether `C:\Users\Yang\Desktop\作品集\旋转圆盘\watsu` had already been added to the circular Product Language orbit.
+  - If it was missing, add it without rewriting the existing React + Vite + CSS + GSAP structure.
+- Actions completed:
+  - Confirmed `cross-ripple` / Watsu already existed in the project data and detail media, with assets copied into `public/portfolio`.
+  - Confirmed Watsu was missing from `expansionCards`, so it did not appear in the final circular orbit.
+  - Generated `/portfolio/watsu-orbit-fast.webp` as a 640x640 lightweight WebP orbit image from the existing Watsu square image.
+  - Added Watsu to `expansionCards` as `id: 'watsu'`, `projectId: 'cross-ripple'`, label `Watsu`, preserving the current orbit geometry, click behavior, GSAP scroll behavior, and blob prefetch path.
+- Verification:
+  - `npm run build` passed.
+  - Desktop local production check at `1440x1200`: 9 orbit cards, 9/9 orbit images loaded, natural widths `640`, `overflowX=0`, console errors empty, and Watsu click opened the Cross-ripple detail media.
+  - Mobile local production check at `390x844`: 9 orbit cards, 9/9 orbit images loaded, natural widths `640`, `overflowX=0`, console errors empty.
+
 ## Session: 2026-07-01 Homepage Image Loading Fix
 - **Status:** complete; publishing through GitHub/Vercel.
 - User direction:

@@ -2029,6 +2029,13 @@ const expansionCards = [
     imageFit: 'cover',
   },
   {
+    id: 'watsu',
+    projectId: 'cross-ripple',
+    label: 'Watsu',
+    image: '/portfolio/watsu-orbit-fast.webp',
+    imageFit: 'cover',
+  },
+  {
     id: 'miro-hardware',
     projectId: 'miro-hardware',
     label: 'Miro',

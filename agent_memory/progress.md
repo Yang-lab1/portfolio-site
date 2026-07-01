@@ -1,5 +1,12 @@
 # 当前任务进度
 
+## 2026-07-01 Watsu 接入 Product Language 圆形转盘
+- 已按用户要求检查 `C:\Users\Yang\Desktop\作品集\旋转圆盘\watsu`：对应详情项目 `cross-ripple` 和站内素材已存在，但首页最后的 Product Language 圆形转盘 `expansionCards` 中还没有 Watsu。
+- 已生成轻量圆盘图 `/portfolio/watsu-orbit-fast.webp`（640x640 WebP，约 15KB），避免把原 1254 方图重新放回首页圆盘加载路径。
+- 已在 `expansionCards` 中新增 Watsu 卡片：`id: 'watsu'`、`projectId: 'cross-ripple'`、label `Watsu`，点击进入现有 Cross-ripple / Watsu 详情页。
+- 保留现有圆盘几何、GSAP scroll、拖拽/点击、图片 blob 预取和接近视口挂载逻辑；本轮只新增一张轻量图和一条卡片数据。
+- 验证已通过：`npm run build`；本地生产版 Playwright 桌面 1440x1200 与移动 390x844 均为 9 张圆盘卡、9/9 WebP 图片加载完成、横向溢出 `0`、控制台错误 `0`；桌面点击 Watsu 可进入 Cross-ripple 详情，且 Watsu 媒体正常渲染。
+
 ## 2026-07-01 首页图片加载优化
 - 已继续完成交接里暂停的“网站加载慢”排查，先本地生产构建并用 Playwright 抓资源瀑布，不凭感觉压图或重写动画。
 - 实测首屏 5 秒内原本会提前加载最后 Product Language 圆盘的 8 张 1254x1254 方图，约 `10.3MB`；这些图片位于页面底部，且每个 item 有 `.expansion-card-bg` / `.expansion-card-img` 两层。

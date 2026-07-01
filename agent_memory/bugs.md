@@ -1,7 +1,7 @@
 # 问题与风险
 
 ## 当前风险
-- 2026-07-01 首轮网站加载慢排查已完成并修复一个明确首屏问题：最后圆盘 8 张图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；页面稳定后会按低优先级队列后台预热后续图片。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
+- 2026-07-01 首轮网站加载慢排查已完成并修复一个明确首屏问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 接入后当前为 9 张轻量圆盘图。页面稳定后会按低优先级队列后台预热后续图片。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
 - `momenta-touch` 是硬件 / 工业设计外观项目，只能用于圆形圆盘和对应产品详情页；不要覆盖或改名原有 `momenta` UI 项目，也不要把 Momenta Touch 套入 Web/App 倾斜舞台或 case-study 文字模板。
 - `momenta-detail-video.m4v` 体积约 103MB，提交/推送 GitHub 前需要注意 GitHub 单文件大小限制；如 push 被拒，优先和用户确认是否压缩视频、转码为 webm/mp4、或使用外部托管。
 - `heart-bracelet` 当前为了圆形圆盘可点击临时使用 `capstone-watch-wall-card.png` 作为占位图。后续用户发来真实心脏病手环套件素材后，必须替换圆盘图和详情页图，不能把临时图当成最终证据。
@@ -17,7 +17,8 @@
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。
 
 ## 已修复问题
-- 2026-07-01：首屏会提前加载页面底部 Product Language 圆盘 8 张 1254 方图，合计约 `10.3MB`。已将首页圆盘切换到 8 张 640 WebP 展示版，合计约 198KB；圆盘图片节点初始不挂载，页面空闲后通过同源 `fetch` 预取为 blob，接近圆盘区后再挂载图片节点。打开初期圆盘图片节点数为 `0`，接近圆盘区后 8 张圆盘图全部加载完成。
+- 2026-07-01：`cross-ripple` / Watsu 详情项目和素材已存在，但未接入最后 Product Language 圆形转盘。已新增轻量 `/portfolio/watsu-orbit-fast.webp` 并把 Watsu 作为第 9 张转盘卡接入，继续复用当前圆盘的 blob 预取与接近视口挂载逻辑；桌面/移动验证均为 9/9 图片加载完成、横向溢出 `0`。
+- 2026-07-01：首屏会提前加载页面底部 Product Language 圆盘 8 张 1254 方图，合计约 `10.3MB`。已将首页圆盘切换到 640 WebP 展示版；Watsu 接入后当前为 9 张轻量圆盘图。圆盘图片节点初始不挂载，页面空闲后通过同源 `fetch` 预取为 blob，接近圆盘区后再挂载图片节点。打开初期圆盘图片节点数为 `0`，接近圆盘区后圆盘图全部加载完成。
 - 2026-06-29：`TCM Knowledge Graph` 首图不应再使用 `tcm-graph-clean.jpg` 作为第一张交付图；该图天然尺寸只有 `740x430`，已改为高清完整流程板 `tcm-full-process-board.png`，并在移动端映射到 `tcm-full-process-board-mobile.png`。`tcm-graph-clean.jpg` 只能作为第二张辅助证据图。
 - 2026-06-01：`Compress-Archive` 曾返回但没有生成 zip；`package-china-dist.mjs` 已增加 zip 存在性检查和 `.NET ZipFile` fallback。
 - 2026-06-01：`deployment_evidence.json` 输出到子目录时报告路径可能解析错误；`generate-deployment-evidence.mjs` 已按 evidence 文件位置生成相对路径，同时保留项目根目录命令输出。
