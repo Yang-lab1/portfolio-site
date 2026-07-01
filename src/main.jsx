@@ -2157,13 +2157,13 @@ function useHomepageImageWarmup(enabled) {
       schedule(startWarmup, 1800);
       schedule(() => {
         loadExpansionImageBlobSources().catch(() => {});
-      }, 3600);
+      }, 1200);
     } else {
       const onLoad = () => {
         schedule(startWarmup, 1800);
         schedule(() => {
           loadExpansionImageBlobSources().catch(() => {});
-        }, 3600);
+        }, 1200);
       };
       window.addEventListener('load', onLoad, { once: true });
       timers.push(() => window.removeEventListener('load', onLoad));
