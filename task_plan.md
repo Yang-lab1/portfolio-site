@@ -14,6 +14,7 @@ Phase 46 is complete as a focused homepage image-loading fix. The bottom Product
 - [x] Keep the existing React + Vite + CSS + GSAP structure and avoid rewriting the orbit.
 - [x] Change only `.expansion-card-bg` and `.expansion-card-img` to lazy loading with low fetch priority.
 - [x] Add a low-priority idle image warmup queue for post-load homepage images.
+- [x] Add a near-viewport warmup trigger for Product Language orbit images.
 - [x] Re-run `npm run build`.
 - [x] Verify desktop local production resources, orbit image loading after scroll, console errors, and horizontal overflow.
 - [x] Verify mobile `390x844` first-load behavior, orbit image loading after scroll, console errors, and horizontal overflow.

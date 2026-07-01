@@ -2086,6 +2086,10 @@ function warmImageSource(src) {
   image.src = src;
 }
 
+function warmExpansionImages() {
+  expansionCards.forEach((card) => warmImageSource(card.image));
+}
+
 function useHomepageImageWarmup(enabled) {
   useEffect(() => {
     if (!enabled || typeof window === 'undefined') return undefined;
@@ -4274,6 +4278,28 @@ function About({ lang, motionEnabled, onOpenProject }) {
   const sectionRef = useRef(null);
   const activeExpansionLabelRef = useRef(null);
   const activeExpansionProjectRef = useRef(expansionCards[0]?.label ?? '');
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof window === 'undefined') return undefined;
+
+    if (!('IntersectionObserver' in window)) {
+      const timer = window.setTimeout(warmExpansionImages, 8000);
+      return () => window.clearTimeout(timer);
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        warmExpansionImages();
+        observer.disconnect();
+      },
+      { rootMargin: '1800px 0px 1800px 0px', threshold: 0 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     if (!sectionRef.current || !motionEnabled) return undefined;

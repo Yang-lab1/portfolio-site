@@ -34,14 +34,15 @@
 - 每个圆盘 item 渲染两层图片：`.expansion-card-bg` 和 `.expansion-card-img`；两层原本都是 `loading="eager"`。
 - 已把这两层改为 `loading="lazy"` + `fetchPriority="low"`，不改图片源、圆盘几何、点击、拖拽、GSAP scroll 行为或详情页数据。
 - 已新增页面 `load` 后的低优先级空闲预加载队列：按 3 张一批预热 Daima 后续图、实体产品图、图片墙前段和圆盘图；省流量或 2G 连接时跳过。
+- 已新增圆盘段接近视口触发器：`.expansion-section` 接近视口约 1800px 内时提前预热 8 张圆盘图，解决快速滚到圆盘区域时图片还没加载的问题。
 
 本地验证结果：
 
 1. `npm run build` 通过。
 2. 桌面 1440x1100 本地生产版：打开 1 秒仍只加载 `6.76MB` 核心资源，圆盘图初始加载数 `0`。
 3. 桌面等待约 10 秒后：后续图片开始后台预热，圆盘图仍不抢初始加载。
-4. 桌面滚完整页后：8 张圆盘图全部加载完成，`naturalWidth=1254`，横向溢出 `0`，控制台错误 `0`。
-5. 移动端 390x844：初始圆盘图加载数 `0`，等待后后续图会预热，滚到底部后 8/8 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
+4. 桌面快速滚完整页后：8 张圆盘图全部加载完成，横向溢出 `0`，控制台错误 `0`。
+5. 移动端 390x844：初始圆盘图加载数 `0`，快速滚到底部后 8/8 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
 
 仍然未处理的性能候选项：
 
@@ -601,5 +602,5 @@ Bottom ZH:
 可以直接把下面这段给新的 Codex：
 
 ```text
-你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交从 9130d94 之后继续，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。网站加载慢的首轮修复已完成：底部圆盘双层图片改为 lazy + low fetch priority，并新增页面稳定后的低优先级图片预热队列；已通过本地生产构建和桌面/移动 Playwright 验证。接手后先看 git status、最新提交和 Vercel 部署状态。
+你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交从 9130d94 之后继续，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。网站加载慢的首轮修复已完成：底部圆盘双层图片改为 lazy + low fetch priority，并新增页面稳定后的低优先级图片预热队列和圆盘段接近视口预热触发器；已通过本地生产构建和桌面/移动 Playwright 验证。接手后先看 git status、最新提交和 Vercel 部署状态。
 ```
