@@ -3,6 +3,7 @@
 ## 2026-06-30 当前作品集任务上下文
 - 当前主要任务是作品集首页与详情页的视觉内容整理，不是中国域名发布任务。
 - 最后的圆形圆盘模块定位为 `Product Language & Sensibility / 产品语言与感知`，只展示工业设计、产品外观、材质、CMF、概念硬件等真实产品项目，不放 AI 网站截图、数据图、知识图谱或流程图。
+- 2026-07-01 当前 Product Language 圆盘为 8 张入口：Xiaomi、CatToy、Cup's Cup、Opera、Watsu、Miro(`miro-hardware`)、Momenta(`momenta-touch`)、Watch(`cmf-electronics`)；白色 M 模块 `capstone-device` 已从圆盘入口移除以避免和 `miro-hardware` 重复，但项目本体未删除。
 - Momenta 在项目里有两个方向：原有 `momenta` 是 UI / music interaction 方向；新增 `momenta-touch` 才是硬件外观方向。后续修改圆形圆盘或产品详情页时，必须优先确认是否指的是 `Momenta Touch`。
 - 工业设计产品详情页如果用户已给素材顺序，应按素材顺序直接展示视频和图片；不要自动套用 Web/App 的倾斜屏幕模板，也不要强行生成大段文字案例分析。
 

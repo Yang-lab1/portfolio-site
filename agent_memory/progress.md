@@ -1,20 +1,27 @@
 # 当前任务进度
 
+## 2026-07-01 圆盘速度、空白滚动区域与重复入口修正
+- 已根据用户截图继续修正 Product Language 圆形转盘：删除圆盘里的重复白色 M 模块入口 `capstone-device`，只保留左侧来自用户文件的蓝色布面 M 硬件入口 `miro-hardware`；`capstone-device` 项目和素材本身未删除。
+- 当前 `expansionCards` 为 8 张：Xiaomi、CatToy、Cup's Cup、Opera、Watsu、Miro、Momenta、Watch。
+- 已把圆盘滚轮接管从“大椭圆区域”收窄为“可见图片本身及图片附近小范围”：用户截图中左侧空白、右侧空白、底部文字/空白处滚轮会继续向下滚到 footer；鼠标落在可见图片上或图片近旁时才旋转圆盘。
+- 已加快鼠标滚轮旋转手感：单次滚轮换算系数从 `0.006` 提到 `0.01`，单次上限从 `240` 提到 `300`，动画时长从 `0.42s` 降到 `0.26s`。
+- 验证已通过：`npm run build`；本地生产版桌面 1920x900 真实滚轮检查显示 8 张圆盘卡、8/8 图片加载、无 `capstone-device`、横向溢出 `0`；鼠标在图片上滚轮只旋转圆盘且页面 `scrollY` 不变，截图标注的三处空白区域均可继续向下滚动。移动端 390x844 轻量检查为 8 张卡、8/8 图片可加载、横向溢出 `0`。
+
 ## 2026-07-01 圆盘加载、Cup's Cup 素材与滚轮交互修复
 - 已按用户紧急反馈继续处理最后 Product Language 圆形转盘：用户指出快速下滑到圆盘时图片显现速度仍跟不上滚动速度，同时要求接入 `C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup` 中的 Cup's Cup 素材，并修正鼠标停留在圆盘区域时滚轮应持续旋转圆盘而不是继续翻页的问题。
 - 已把 Cup's Cup 文件夹素材更新到站内：`正方形.png` 覆盖为 `/portfolio/cup-cup-orbit-square.png`，并重新生成 `/portfolio/cup-cup-orbit-fast.webp`（640x640 WebP，约 14KB）；`详情页第一张图.png` 到 `详情页第八张图.png` 按顺序接入为 `/portfolio/cup-cup-detail-01.png` 到 `/portfolio/cup-cup-detail-08.png`。
 - 已更新 `cup-cup` 项目数据：圆盘/详情封面使用新的正方形图，详情页 gallery 使用 8 张宽幅详情图，来源记录为用户给定本地文件夹；图片墙原 `cup-cup-wall-card.png` 保持不动，避免影响之前已调好的首页图片墙。
-- 已把圆盘 9 张轻量图提前纳入首页 warmup，并在圆盘组件自身加 650ms 早期预取保险：`expansionCards` 图片在 Daima 后续图之后优先预热，圆盘 blob 预取从原来的 load 后较晚队列提前到页面稳定约 650ms 后启动，同时向 `<head>` 插入 9 个圆盘 WebP 的 `preload` 链接，仍保持省流量/2G 跳过策略。
+- 已把当前圆盘 8 张轻量图提前纳入首页 warmup，并在圆盘组件自身加 650ms 早期预取保险：`expansionCards` 图片在 Daima 后续图之后优先预热，圆盘 blob 预取从原来的 load 后较晚队列提前到页面稳定约 650ms 后启动，同时向 `<head>` 插入当前 8 个圆盘 WebP 的 `preload` 链接，仍保持省流量/2G 跳过策略。
 - 已新增圆盘滚轮捕获逻辑：当页面已经进入圆盘阶段，且鼠标位于圆盘图片或下方圆盘区域内时，滚轮只驱动圆盘无限旋转并阻止页面继续下滑；鼠标移到圆盘区域外的空白处再滚动时，页面恢复正常向下滚动。
-- 验证已通过：`npm run build`；本地生产版桌面 1440x1100 打开约 3.2 秒后已预取 9 张圆盘轻量图，快速滚到圆盘后 9/9 图片已加载、横向溢出 `0`；圆盘区域内滚轮保持页面 `scrollY` 不变并切换 active 卡，圆盘外空白滚轮可继续翻页；点击 Cup's Cup 可进入详情页，8 张详情图正常显示为宽幅图。
-- 移动端 390x844 验证已通过：打开约 3.2 秒后已预取 9 张圆盘轻量图，圆盘区 9/9 图片已加载、横向溢出 `0`；Cup's Cup 详情页标题正确、8 张详情图存在、首张为 `/portfolio/cup-cup-detail-01.png`，控制台无错误。
+- 验证已通过：`npm run build`；当前本地生产版桌面检查为 8 张圆盘卡、8/8 图片加载、横向溢出 `0`；圆盘图片上滚轮保持页面 `scrollY` 不变并切换 active 卡，截图标注的空白区域滚轮可继续翻页；点击 Cup's Cup 可进入详情页，8 张详情图正常显示为宽幅图。
+- 移动端 390x844 验证已通过：当前圆盘为 8 张卡，圆盘区 8/8 图片可加载、横向溢出 `0`；Cup's Cup 详情页标题正确、8 张详情图存在、首张为 `/portfolio/cup-cup-detail-01.png`，控制台无错误。
 
 ## 2026-07-01 Watsu 接入 Product Language 圆形转盘
 - 已按用户要求检查 `C:\Users\Yang\Desktop\作品集\旋转圆盘\watsu`：对应详情项目 `cross-ripple` 和站内素材已存在，但首页最后的 Product Language 圆形转盘 `expansionCards` 中还没有 Watsu。
 - 已生成轻量圆盘图 `/portfolio/watsu-orbit-fast.webp`（640x640 WebP，约 15KB），避免把原 1254 方图重新放回首页圆盘加载路径。
 - 已在 `expansionCards` 中新增 Watsu 卡片：`id: 'watsu'`、`projectId: 'cross-ripple'`、label `Watsu`，点击进入现有 Cross-ripple / Watsu 详情页。
 - 保留现有圆盘几何、GSAP scroll、拖拽/点击、图片 blob 预取和接近视口挂载逻辑；本轮只新增一张轻量图和一条卡片数据。
-- 验证已通过：`npm run build`；本地生产版 Playwright 桌面 1440x1200 与移动 390x844 均为 9 张圆盘卡、9/9 WebP 图片加载完成、横向溢出 `0`、控制台错误 `0`；桌面点击 Watsu 可进入 Cross-ripple 详情，且 Watsu 媒体正常渲染。
+- 验证已通过：`npm run build`；Watsu 接入后后续又移除重复 `capstone-device` 圆盘入口，当前桌面与移动均为 8 张圆盘卡、8/8 WebP 图片加载完成、横向溢出 `0`；桌面点击 Watsu 可进入 Cross-ripple 详情，且 Watsu 媒体正常渲染。
 
 ## 2026-07-01 首页图片加载优化
 - 已继续完成交接里暂停的“网站加载慢”排查，先本地生产构建并用 Playwright 抓资源瀑布，不凭感觉压图或重写动画。

@@ -3,7 +3,7 @@
 ## 0. 本次交接状态
 
 - 更新时间：2026-07-01
-- 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新追加修复是提前预取 Product Language 圆形转盘图片、把 Cup's Cup 本地素材更新到圆盘和详情页，并让鼠标停留在圆盘区域时滚轮持续旋转圆盘而不继续翻页。本地桌面/移动验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
+- 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新追加修复是提前预取 Product Language 圆形转盘图片、把 Cup's Cup 本地素材更新到圆盘和详情页、加快圆盘滚轮旋转、把滚轮接管范围收窄到可见图片附近，并移除与 `miro-hardware` 相邻重复的白色 M 模块 `capstone-device` 圆盘入口。本地桌面/移动验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
 - 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
 - GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
 - 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
@@ -35,17 +35,17 @@
 - 已把这两层改为 `loading="lazy"` + `fetchPriority="low"`，不改图片源、圆盘几何、点击、拖拽、GSAP scroll 行为或详情页数据。
 - 已新增页面 `load` 后的低优先级空闲预加载队列：按 3 张一批预热 Daima 后续图、实体产品图、图片墙前段和圆盘图；省流量或 2G 连接时跳过。
 - 已新增圆盘段接近视口触发器：`.expansion-section` 接近视口约 1800px 内时提前预热圆盘图，解决快速滚到圆盘区域时图片还没加载的问题。
-- 已生成 `640x640` WebP 圆盘首页展示版，文件名为 `*-orbit-fast.webp`；Watsu 接入后当前圆盘为 9 张轻量图。首页圆盘使用这些轻量图，原 1254 方图保留但不再作为首页圆盘首选加载资源。
+- 已生成 `640x640` WebP 圆盘首页展示版，文件名为 `*-orbit-fast.webp`；移除重复 `capstone-device` 圆盘入口后当前圆盘为 8 张轻量图。首页圆盘使用这些轻量图，原 1254 方图保留但不再作为首页圆盘首选加载资源。
 - 最终实现不是单纯依赖 `img loading`：圆盘图片节点初始不挂载，页面空闲后用同源 `fetch` 预取 WebP 为 blob URL，圆盘接近视口后再挂载真实图片节点并优先使用 blob。
-- 2026-07-01 追加优化：用户反馈快速下滑时图片显现仍慢于滚动速度，因此 `expansionCards` 的 9 张圆盘轻量图已提前到首页 warmup 队列前段，并在圆盘组件自身加了约 650ms 的后台 blob 预取保险和 `<head>` preload 链接；仍遵守省流量 / 2G 跳过策略。
+- 2026-07-01 追加优化：用户反馈快速下滑时图片显现仍慢于滚动速度，因此当前 `expansionCards` 的 8 张圆盘轻量图已提前到首页 warmup 队列前段，并在圆盘组件自身加了约 650ms 的后台 blob 预取保险和 `<head>` preload 链接；仍遵守省流量 / 2G 跳过策略。
 
 本地验证结果：
 
 1. `npm run build` 通过。
 2. 桌面 1440x1100 本地生产版：打开 1 秒仍只加载 `6.76MB` 核心资源，圆盘图初始加载数 `0`。
 3. 桌面等待约 10 秒后：后续图片开始后台预热，圆盘图仍不抢初始加载。
-4. 桌面接近圆盘区后：当前 9 张 WebP 圆盘图全部加载完成，横向溢出 `0`，控制台错误 `0`。
-5. 移动端 390x844：初始圆盘图片节点数 `0`，接近圆盘区后当前 9/9 WebP 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
+4. 桌面接近圆盘区后：当前 8 张 WebP 圆盘图全部加载完成，横向溢出 `0`，控制台错误 `0`。
+5. 移动端 390x844：初始圆盘图片节点数 `0`，接近圆盘区后当前 8/8 WebP 圆盘图加载完成，横向溢出 `0`，控制台错误 `0`。
 
 仍然未处理的性能候选项：
 
@@ -232,14 +232,14 @@ C:\Users\Yang\.local\bin\rtk.exe git log --oneline -12
 5. `watsu`，projectId `cross-ripple`，label `Watsu`，图 `/portfolio/watsu-orbit-fast.webp`
 6. `miro-hardware`，projectId `miro-hardware`，label `Miro`，图 `/portfolio/miro-hardware-orbit-fast.webp`
 7. `momenta-touch`，projectId `momenta-touch`，label `Momenta`，图 `/portfolio/momenta-orbit-fast.webp`
-8. `capstone-device`，projectId `capstone-device`，label `Capstone`，图 `/portfolio/capstone-device-orbit-fast.webp`
-9. `cmf-electronics`，projectId `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-fast.webp`
+8. `cmf-electronics`，projectId `cmf-electronics`，label `Watch`，图 `/portfolio/capstone-watch-orbit-fast.webp`
 
 当前圆盘滚轮交互规则：
 - 圆盘仍是 GSAP ScrollTrigger pinned section + scrub 的主结构，不要改成普通静态卡片墙。
-- 当页面已进入圆盘阶段，且鼠标位于圆盘图片或下方圆盘区域内时，wheel 事件会被捕获并转化为圆盘旋转；此时页面 `scrollY` 不应继续向下。
-- 鼠标离开圆盘图片/圆盘区域，移动到旁边或上方空白处后再滚轮，页面应恢复正常向下滚动。
-- 这个行为来自用户 2026-07-01 的明确要求：只要鼠标还在整个圆盘外围区域内，滚轮就可以无限循环旋转圆盘；不要在未复测前删除或弱化。
+- 当鼠标位于可见圆盘图片或图片附近小范围内时，wheel 事件会被捕获并转化为圆盘旋转；此时页面 `scrollY` 不应继续向下。
+- 用户截图标注的左侧空白、右侧空白、底部文字/空白区域必须恢复正常页面滚动，能继续下滑到黑色 footer。
+- 不要恢复旧的“大椭圆区域整块拦截”逻辑；那会让空白区域滚轮也被圆盘吃掉，复现用户指出的问题。
+- 鼠标落在图片上时圆盘旋转速度应保持当前较快手感：wheel delta scale `0.01`、clamp `300`、tween `0.26s`。
 
 这里有几个非常容易搞错的点：
 
@@ -555,8 +555,8 @@ Bottom ZH:
 
 ### 性能风险
 
-- 首轮加载问题已本地修复：底部圆盘双层图片不再 eager 抢首屏网络，首页圆盘使用 640 WebP 展示版，并在圆盘组件自身约 650ms 后提前后台预取 9 张圆盘 blob。
-- 快速滚到圆盘时图片空白/慢显的问题已本地缓解并验证：桌面/移动本地生产版进入圆盘前可观察到 9 张圆盘轻量图预取，圆盘区 9/9 图片加载完成。
+- 首轮加载问题已本地修复：底部圆盘双层图片不再 eager 抢首屏网络，首页圆盘使用 640 WebP 展示版，并在圆盘组件自身约 650ms 后提前后台预取当前 8 张圆盘 blob。
+- 快速滚到圆盘时图片空白/慢显的问题已本地缓解并验证：桌面/移动本地生产版进入圆盘前可观察到当前 8 张圆盘轻量图预取，圆盘区 8/8 图片加载完成。
 - 大视频资源仍需要单独测量，尤其是 `momenta-detail-video.m4v` 约 103MB。
 - 图片墙完整滚动后的总图片体积仍较大，后续要先测 waterfall 再优化。
 
@@ -605,8 +605,8 @@ Bottom ZH:
 8. 产品三卡拖拽、惯性、点击仍正常。
 9. 图片墙自动移动、拖拽、点击仍正常。
 10. 详情页底部没有“证据 / 同方向作品”，而是图片墙。
-11. 圆盘模块 9 个 item 可点击，且进入正确详情页；其中 Watsu 必须进入 `cross-ripple`，Cup's Cup 必须进入 `cup-cup` 并显示 8 张详情图。
-12. 快速滚到圆盘区域时 9/9 圆盘图加载完成；鼠标在圆盘图片/下方圆盘区域内滚轮应旋转圆盘且不继续翻页，鼠标移到圆盘区域外空白处滚轮应恢复页面滚动。
+11. 圆盘模块 8 个 item 可点击，且进入正确详情页；其中 Watsu 必须进入 `cross-ripple`，Cup's Cup 必须进入 `cup-cup` 并显示 8 张详情图，`capstone-device` 不应再作为圆盘入口出现。
+12. 快速滚到圆盘区域时 8/8 圆盘图加载完成；鼠标在可见圆盘图片/图片附近滚轮应旋转圆盘且不继续翻页，鼠标移到截图标注的空白区域后滚轮应恢复页面滚动。
 13. `miro` 和 `miro-hardware` 不混。
 14. `momenta` 和 `momenta-touch` 不混。
 15. 桌面端和 390px 左右移动端无横向溢出。

@@ -1,7 +1,9 @@
 # 问题与风险
 
 ## 当前风险
-- 2026-07-01 首轮网站加载慢排查已完成并继续修复圆盘快速下滑时图片跟不上的问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 与 Cup's Cup 更新后当前为 9 张轻量圆盘图。页面稳定约 650ms 后会提前后台预取圆盘 blob，圆盘组件自身也有同样的早期预取保险，同时仍保留接近视口预热与省流量/2G 跳过策略。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
+- 2026-07-01 圆盘滚轮交互已按用户截图收窄：只有可见圆盘图片及图片附近小范围会接管滚轮并旋转圆盘；左侧空白、右侧空白、底部文字/空白处应继续正常页面滚动到黑色 footer。后续不要再恢复“大椭圆区域整块拦截”，否则会复现用户指出的无法滚到底部问题。
+- 2026-07-01 Product Language 圆盘当前为 8 张轻量图，`capstone-device` 白色 M 模块已从圆盘入口移除，保留用户文件对应的 `miro-hardware` 蓝色布面 M 入口。`capstone-device` 项目详情和素材仍可保留在项目库中，不要误删项目本体。
+- 2026-07-01 首轮网站加载慢排查已完成并继续修复圆盘快速下滑时图片跟不上的问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 与 Cup's Cup 更新后、并移除重复 `capstone-device` 圆盘入口后，当前为 8 张轻量圆盘图。页面稳定约 650ms 后会提前后台预取圆盘 blob，圆盘组件自身也有同样的早期预取保险，同时仍保留接近视口预热与省流量/2G 跳过策略。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
 - `momenta-touch` 是硬件 / 工业设计外观项目，只能用于圆形圆盘和对应产品详情页；不要覆盖或改名原有 `momenta` UI 项目，也不要把 Momenta Touch 套入 Web/App 倾斜舞台或 case-study 文字模板。
 - `momenta-detail-video.m4v` 体积约 103MB，提交/推送 GitHub 前需要注意 GitHub 单文件大小限制；如 push 被拒，优先和用户确认是否压缩视频、转码为 webm/mp4、或使用外部托管。
 - `heart-bracelet` 当前为了圆形圆盘可点击临时使用 `capstone-watch-wall-card.png` 作为占位图。后续用户发来真实心脏病手环套件素材后，必须替换圆盘图和详情页图，不能把临时图当成最终证据。
@@ -17,11 +19,14 @@
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。
 
 ## 已修复问题
+- 2026-07-01：圆盘区域拦截范围过大，导致用户截图标注的左侧空白、右侧空白、底部文字/空白处滚轮无法继续滚到黑色 footer。已把 wheel capture 改为只检查可见 `.expansion-card` 及其附近 padding，并过滤不可见卡片；本地桌面真实滚轮验证三处空白均可继续向下滚动。
+- 2026-07-01：Product Language 圆盘中 `miro-hardware` 蓝色 M 硬件入口与 `capstone-device` 白色 M 模块入口相邻，视觉上像重复项目。已从 `expansionCards` 移除 `capstone-device` 圆盘入口，仅保留 `miro-hardware`；当前圆盘为 8 张卡，8/8 图片加载完成。
+- 2026-07-01：圆盘滚轮速度相对用户预期偏慢。已提高滚轮换算系数和单次上限，并缩短 GSAP 响应动画时长；本地桌面验证图片上滚轮可明显切换圆盘且页面 `scrollY` 不变。
 - 2026-07-01：Cup's Cup 本地文件夹 `C:\Users\Yang\Desktop\作品集\旋转圆盘\cup‘s cup` 未完整反映到圆形转盘和详情页。已复制用户提供的正方形图与 8 张详情图，重新生成 `/portfolio/cup-cup-orbit-fast.webp`，并把 `cup-cup` 详情 gallery 更新为 `/portfolio/cup-cup-detail-01.png` 到 `/portfolio/cup-cup-detail-08.png`；图片墙横图保持原先已调好的 `cup-cup-wall-card.png`。
-- 2026-07-01：快速滚到 Product Language 圆盘时，圆盘图片显现速度仍可能慢于用户下滑速度。已把 9 张圆盘轻量图提前放入首页 warmup，并在圆盘组件自身加 650ms 早期 blob 预取保险；本地与线上桌面/移动生产版验证进入圆盘前已预取 9 张，圆盘区 9/9 图片加载完成。
+- 2026-07-01：快速滚到 Product Language 圆盘时，圆盘图片显现速度仍可能慢于用户下滑速度。已把当前 8 张圆盘轻量图提前放入首页 warmup，并在圆盘组件自身加 650ms 早期 blob 预取保险；本地桌面/移动生产版验证进入圆盘前可预取当前 8 张，圆盘区 8/8 图片加载完成。
 - 2026-07-01：鼠标停留在圆盘图片或圆盘区域时继续滚轮会推动页面下滑，不能无限旋转圆盘。已新增圆盘区域 wheel capture：进入圆盘阶段后，鼠标位于图片或下方圆盘区域内时滚轮只旋转圆盘并阻止页面滚动；鼠标离开圆盘区域到空白处时恢复正常页面滚动。
-- 2026-07-01：`cross-ripple` / Watsu 详情项目和素材已存在，但未接入最后 Product Language 圆形转盘。已新增轻量 `/portfolio/watsu-orbit-fast.webp` 并把 Watsu 作为第 9 张转盘卡接入，继续复用当前圆盘的 blob 预取与接近视口挂载逻辑；桌面/移动验证均为 9/9 图片加载完成、横向溢出 `0`。
-- 2026-07-01：首屏会提前加载页面底部 Product Language 圆盘 8 张 1254 方图，合计约 `10.3MB`。已将首页圆盘切换到 640 WebP 展示版；Watsu 接入后当前为 9 张轻量圆盘图。圆盘图片节点初始不挂载，页面空闲后通过同源 `fetch` 预取为 blob，接近圆盘区后再挂载图片节点。打开初期圆盘图片节点数为 `0`，接近圆盘区后圆盘图全部加载完成。
+- 2026-07-01：`cross-ripple` / Watsu 详情项目和素材已存在，但未接入最后 Product Language 圆形转盘。已新增轻量 `/portfolio/watsu-orbit-fast.webp` 并接入 Watsu；后续移除重复 `capstone-device` 圆盘入口后，当前桌面/移动验证为 8/8 图片加载完成、横向溢出 `0`。
+- 2026-07-01：首屏会提前加载页面底部 Product Language 圆盘 8 张 1254 方图，合计约 `10.3MB`。已将首页圆盘切换到 640 WebP 展示版；Watsu 接入并移除重复 `capstone-device` 圆盘入口后，当前为 8 张轻量圆盘图。圆盘图片节点初始不挂载，页面空闲后通过同源 `fetch` 预取为 blob，接近圆盘区后再挂载图片节点。打开初期圆盘图片节点数为 `0`，接近圆盘区后圆盘图全部加载完成。
 - 2026-06-29：`TCM Knowledge Graph` 首图不应再使用 `tcm-graph-clean.jpg` 作为第一张交付图；该图天然尺寸只有 `740x430`，已改为高清完整流程板 `tcm-full-process-board.png`，并在移动端映射到 `tcm-full-process-board-mobile.png`。`tcm-graph-clean.jpg` 只能作为第二张辅助证据图。
 - 2026-06-01：`Compress-Archive` 曾返回但没有生成 zip；`package-china-dist.mjs` 已增加 zip 存在性检查和 `.NET ZipFile` fallback。
 - 2026-06-01：`deployment_evidence.json` 输出到子目录时报告路径可能解析错误；`generate-deployment-evidence.mjs` 已按 evidence 文件位置生成相对路径，同时保留项目根目录命令输出。

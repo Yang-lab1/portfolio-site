@@ -2059,13 +2059,6 @@ const expansionCards = [
     imageFit: 'cover',
   },
   {
-    id: 'capstone-device',
-    projectId: 'capstone-device',
-    label: 'Capstone',
-    image: '/portfolio/capstone-device-orbit-fast.webp',
-    imageFit: 'cover',
-  },
-  {
     id: 'cmf-electronics',
     projectId: 'cmf-electronics',
     label: 'Watch',
@@ -4611,26 +4604,33 @@ function About({ lang, motionEnabled, onOpenProject }) {
       });
 
       const isInOrbitWheelArea = (event) => {
-        if (event.target?.closest?.('.expansion-card')) return true;
         const rect = section.getBoundingClientRect();
         if (!rect.width || !rect.height) return false;
 
         const mobile = window.matchMedia('(max-width: 820px)').matches;
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        const centerX = rect.width * 0.5;
-        const centerY = rect.height * (mobile ? 0.72 : 0.7);
-        const radiusX = rect.width * (mobile ? 0.58 : 0.54);
-        const radiusY = rect.height * (mobile ? 0.5 : 0.52);
-        const ellipse =
-          ((x - centerX) ** 2) / (radiusX ** 2) +
-          ((y - centerY) ** 2) / (radiusY ** 2);
+        const padding = mobile ? 28 : 46;
+        const isWheelActiveCard = (node) => {
+          const style = getComputedStyle(node);
+          return style.pointerEvents !== 'none' && Number(style.opacity) > 0.08;
+        };
+        const cardTarget = event.target?.closest?.('.expansion-card');
+        if (cardTarget && isWheelActiveCard(cardTarget)) return true;
 
-        return y > rect.height * (mobile ? 0.3 : 0.24) && ellipse <= 1.16;
+        return cards.some(({ node }) => {
+          if (!isWheelActiveCard(node)) return false;
+
+          const cardRect = node.getBoundingClientRect();
+          return (
+            event.clientX >= cardRect.left - padding &&
+            event.clientX <= cardRect.right + padding &&
+            event.clientY >= cardRect.top - padding &&
+            event.clientY <= cardRect.bottom + padding
+          );
+        });
       };
 
       const handleExpansionWheel = (event) => {
-        if (progressState.value < 0.34 || !isInOrbitWheelArea(event)) return;
+        if (!isInOrbitWheelArea(event)) return;
 
         event.preventDefault();
         event.stopPropagation();
@@ -4639,13 +4639,13 @@ function About({ lang, motionEnabled, onOpenProject }) {
 
         const modeScale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
         const primaryDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-        const delta = clamp(primaryDelta * modeScale, -240, 240) * 0.006;
+        const delta = clamp(primaryDelta * modeScale, -300, 300) * 0.01;
         if (!delta) return;
 
         gsap.to(wheelState, {
           offset: wheelState.offset + delta,
-          duration: 0.42,
-          ease: 'power3.out',
+          duration: 0.26,
+          ease: 'power2.out',
           overwrite: true,
           onUpdate: () => renderExpansion(progressState.value),
         });

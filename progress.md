@@ -1,5 +1,23 @@
 # Progress Log
 
+## Session: 2026-07-01 Orbit Speed, Blank Scroll Boundary, and Duplicate Entry Fix
+- **Status:** complete locally; publishing through GitHub/Vercel.
+- User direction:
+  - Make the Product Language circular orbit rotate as quickly as the earlier feel.
+  - Let wheel input over the screenshot-marked blank areas continue scrolling down to the black footer.
+  - Remove the duplicate adjacent M-looking orbit entry and keep the left entry from the user's supplied file.
+- Actions completed:
+  - Removed `capstone-device` from `expansionCards` only; the project record/assets remain in the portfolio.
+  - Kept `miro-hardware` as the single M hardware orbit entry.
+  - Narrowed orbit wheel capture from the broad ellipse to visible `.expansion-card` bounds plus a small padding, ignoring invisible cards.
+  - Removed the old `progressState.value < 0.34` gate so visible cards can take wheel input as soon as they are actually under the cursor.
+  - Increased wheel response by raising the delta scale from `0.006` to `0.01`, the clamp from `240` to `300`, and shortening the tween from `0.42s` to `0.26s`.
+- Verification:
+  - `npm run build` passed.
+  - Desktop local production check at `1920x900`: 8 orbit cards, 8/8 images loaded, no `capstone-device`, `overflowX=0`.
+  - Desktop wheel QA: wheel over a visible card rotated the orbit with `scrollY` unchanged; left blank, right blank, and bottom text/blank coordinates all resumed normal page scrolling.
+  - Mobile smoke at `390x844`: 8 cards, 8/8 orbit images load near the section, `overflowX=0`.
+
 ## Session: 2026-07-01 Cup's Cup Orbit Assets + Wheel Capture
 - **Status:** complete locally; publishing through GitHub/Vercel.
 - User direction:
