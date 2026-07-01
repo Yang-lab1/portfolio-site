@@ -10,7 +10,7 @@
   - Copied the supplied Cup's Cup square image and eight detail images into `public/portfolio`.
   - Regenerated `/portfolio/cup-cup-orbit-fast.webp` from the new square image.
   - Updated the `cup-cup` project to use the new square cover and eight detail images, while leaving the existing image-wall card unchanged.
-  - Moved `expansionCards` images earlier in the homepage warmup list and started low-priority orbit blob prefetch about 650ms after page stabilization.
+  - Moved `expansionCards` images earlier in the homepage warmup list and added a matching orbit-component 650ms early prefetch path for low-priority orbit blobs.
   - Added wheel capture for the lower orbit/image area once the Product Language section reaches the orbit phase, so wheel input rotates the orbit while keeping page scroll locked inside that zone.
 - Verification:
   - `npm run build` passed.

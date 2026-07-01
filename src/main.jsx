@@ -4341,17 +4341,37 @@ function About({ lang, motionEnabled, onOpenProject }) {
     const section = sectionRef.current;
     if (!section || typeof window === 'undefined') return undefined;
 
-    const activateExpansionImages = () => {
+    let earlyWarmupTimer = 0;
+
+    const primeExpansionBlobSources = () => {
       warmExpansionImages();
-      setShouldLoadExpansionImages(true);
-      loadExpansionImageBlobSources().then((sources) => {
-        setExpansionLoadedSources(sources);
-      });
+      loadExpansionImageBlobSources()
+        .then((sources) => {
+          setExpansionLoadedSources(sources);
+        })
+        .catch(() => {});
     };
+
+    const activateExpansionImages = () => {
+      if (earlyWarmupTimer) {
+        window.clearTimeout(earlyWarmupTimer);
+        earlyWarmupTimer = 0;
+      }
+      primeExpansionBlobSources();
+      setShouldLoadExpansionImages(true);
+    };
+
+    earlyWarmupTimer = window.setTimeout(() => {
+      earlyWarmupTimer = 0;
+      primeExpansionBlobSources();
+    }, 650);
 
     if (!('IntersectionObserver' in window)) {
       const timer = window.setTimeout(activateExpansionImages, 8000);
-      return () => window.clearTimeout(timer);
+      return () => {
+        if (earlyWarmupTimer) window.clearTimeout(earlyWarmupTimer);
+        window.clearTimeout(timer);
+      };
     }
 
     const observer = new IntersectionObserver(
@@ -4364,7 +4384,10 @@ function About({ lang, motionEnabled, onOpenProject }) {
     );
 
     observer.observe(section);
-    return () => observer.disconnect();
+    return () => {
+      if (earlyWarmupTimer) window.clearTimeout(earlyWarmupTimer);
+      observer.disconnect();
+    };
   }, []);
 
   useLayoutEffect(() => {
