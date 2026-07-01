@@ -4558,7 +4558,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 draggable="false"
                 loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
                 decoding="async"
-                fetchPriority="low"
+                fetchPriority={shouldLoadExpansionImages ? 'high' : 'low'}
                 onError={(event) => {
                   event.currentTarget.style.opacity = '0';
                 }}
@@ -4571,7 +4571,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 draggable="false"
                 loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
                 decoding="async"
-                fetchPriority="low"
+                fetchPriority={shouldLoadExpansionImages ? 'high' : 'low'}
                 onError={(event) => {
                   event.currentTarget.style.opacity = '0';
                 }}
