@@ -2095,7 +2095,7 @@ function getHomepageWarmupImages() {
   ].filter(Boolean);
 }
 
-function warmImageSource(src) {
+function warmImageSource(src, fetchPriority = 'low') {
   if (!src || warmedImageSources.has(src)) return;
   warmedImageSources.add(src);
 
@@ -2108,12 +2108,12 @@ function warmImageSource(src) {
   image.onload = release;
   image.onerror = release;
   image.decoding = 'async';
-  image.fetchPriority = 'low';
+  image.fetchPriority = fetchPriority;
   image.src = src;
 }
 
 function warmExpansionImages() {
-  expansionCards.forEach((card) => warmImageSource(card.image));
+  expansionCards.forEach((card) => warmImageSource(card.image, 'auto'));
 }
 
 function loadExpansionImageBlobSources() {
@@ -2123,7 +2123,7 @@ function loadExpansionImageBlobSources() {
 
   expansionImageBlobSourcesPromise = Promise.all(
     expansionCards.map(async (card) => {
-      const response = await fetch(card.image, { cache: 'force-cache', priority: 'low' });
+      const response = await fetch(card.image, { cache: 'force-cache' });
       if (!response.ok) throw new Error(`Failed to warm ${card.image}`);
       const blob = await response.blob();
       return [card.image, URL.createObjectURL(blob)];
