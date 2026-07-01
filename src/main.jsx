@@ -4286,20 +4286,26 @@ function About({ lang, motionEnabled, onOpenProject }) {
   const sectionRef = useRef(null);
   const activeExpansionLabelRef = useRef(null);
   const activeExpansionProjectRef = useRef(expansionCards[0]?.label ?? '');
+  const [shouldLoadExpansionImages, setShouldLoadExpansionImages] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || typeof window === 'undefined') return undefined;
 
+    const activateExpansionImages = () => {
+      warmExpansionImages();
+      setShouldLoadExpansionImages(true);
+    };
+
     if (!('IntersectionObserver' in window)) {
-      const timer = window.setTimeout(warmExpansionImages, 8000);
+      const timer = window.setTimeout(activateExpansionImages, 8000);
       return () => window.clearTimeout(timer);
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
-        warmExpansionImages();
+        activateExpansionImages();
         observer.disconnect();
       },
       { rootMargin: '1800px 0px 1800px 0px', threshold: 0 },
@@ -4549,7 +4555,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 src={card.image}
                 alt=""
                 draggable="false"
-                loading="lazy"
+                loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
                 decoding="async"
                 fetchPriority="low"
                 onError={(event) => {
@@ -4561,7 +4567,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
                 src={card.image}
                 alt=""
                 draggable="false"
-                loading="lazy"
+                loading={shouldLoadExpansionImages ? 'eager' : 'lazy'}
                 decoding="async"
                 fetchPriority="low"
                 onError={(event) => {
