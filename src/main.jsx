@@ -2140,7 +2140,7 @@ function loadExpansionImageBlobSources() {
 
   expansionImageBlobSourcesPromise = Promise.all(
     expansionCards.map(async (card) => {
-      const response = await fetch(card.image, { cache: 'force-cache' });
+      const response = await fetch(card.image);
       if (!response.ok) throw new Error(`Failed to warm ${card.image}`);
       const blob = await response.blob();
       return [card.image, URL.createObjectURL(blob)];
