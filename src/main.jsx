@@ -4299,7 +4299,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
       return 'detail-media-product-wide-frame';
     }
     if (src.includes('palifood-handheld-fresh.png')) {
-      return 'detail-media-source-aspect';
+      return 'detail-media-palifood-hero';
     }
     if (
       src.includes('ufei-precision-cabinet-render-crop.png') ||
@@ -4325,7 +4325,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
     const root = mediaGridRef.current;
     const firstFigure = root?.querySelector('figure:first-child');
     const firstImage = firstFigure?.querySelector('img');
-    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital')) {
+    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital') || project.id === 'palifood') {
       return undefined;
     }
 
