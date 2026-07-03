@@ -623,3 +623,51 @@
 - The Agent is still local and rule-based in this pass. The future RAG/API version should replace this local response layer without regressing the minimal panel UI.
 - Initial panel content should stay minimal: close button plus search/chat input only. Reintroducing title text, guidance copy, suggestion chips, or hide/restore rows would regress the user's latest request.
 - Local QA confirmed the direct navigation path with `帮我找一下拍立食`; more aliases can be added in `agentProjectAliases` when new project names or nicknames appear.
+## 2026-07-01 拍立食滚动交互发现
+- AWSMD 参考段的关键体验不是普通页面滚动，而是进入一段被 pin 住的黑色全屏区域：中心手机保持主视觉，左右两侧的卡片随滚动持续上移。
+- 当前项目没有可直接复刻 AWSMD 手部/手机分层素材；为避免使用第三方原图与用户禁止的绿色手持图，采用站内拍立食界面图 + CSS 手机框实现同类滚动节奏。
+- `palifood-handheld-fresh.png` 已从本次交互中排除；自动检查确认新展示段内未引用该图。
+- 桌面端和移动端均未发现横向溢出；移动端使用静态手机 + 横向素材条，避免强制 pin 造成滚动卡顿。
+## 2026-07-02 拍立食真实 P2 素材确认
+- 用户指出上一批 App 截图不属于当前拍立食版本；经核对，错误候选来自旧英文/GASTRONOMIA 原型。
+- 正确来源应为用户本地 `C:\Users\Yang\Desktop\拍立食\frontend\p2\`，其页面包含 `看见食材，即刻料理`、`确认食材`、`生成结果`、`档案馆` 等中文 P2 路由。
+- 左右背景候选必须先由用户确认编号，不允许再直接把未经确认的截图接进滚动交互。
+- 用户最新指出背景八张图大小不一致、左右上下没有对齐；根因是此前实现把参考站的背景误做成四个散点式上下小组，而参考站更接近等宽竖列阵列。
+- 当前修正策略：四条竖列统一宽度、统一卡片比例、统一间距、统一滚动位移；D/G、E/H、I/K、J/L 分别同列堆叠，避免上下行错位。
+- 中心手机不应再用一张静态 C 图硬贴；当前改为用户提供的纯黑屏手持母版 + 真实 P2 页面截图生成的流程视频，并由滚动进度控制视频时间。
+## 2026-07-02 Pai Li Shi center onboarding slider measured-fit findings
+- The previous center `palifood-center-flow.mp4` recording was visually too busy and did not match the user's simpler requested onboarding interaction.
+- Current center phone interaction uses three real P2 onboarding screenshots A/B/C as a horizontal slide track: `p2-center-onboarding-1.webp`, `p2-center-onboarding-2.webp`, `p2-center-onboarding-3.webp`.
+- The hand-held phone screen fit is no longer manually nudged. It is derived from the transparent aperture in `hand-user-black-mask.png`: image `1817x866`, aperture `x=720`, `y=35`, `w=354`, `h=731`.
+- Playwright verification at `1920x900` measured actual-vs-target deltas around `0.016px`; all three center images loaded at `430x940`, and horizontal overflow was `0`.
+- Latest proof files are under `tmp/palifood-onboarding-slider-qa/`, including three state screenshots, an aperture overlay, a scroll recording, side-by-side reference comparison, and `metrics.json`.
+- This work is local only. Do not push or deploy until the user approves the latest screenshots/video.
+## 2026-07-02 Pai Li Shi Continuous Wall Findings
+
+- Current side backgrounds are no longer rendered as four independent DOM columns. `tmp/palifood-continuous-wall-qa/metrics.json` reports `.palifood-background-wall=2`, `.palifood-background-column=0`, and `.palifood-background-screen=0`.
+- The two wall assets are complete P2 app screenshot walls, not loose food/background images. Both load at natural `888x3844` and render left/right at `748px` wide in a `1920px` viewport.
+- The current hand layer uses `public/portfolio/palifood-showcase/hand-user-black-mask.png`. Visible RGB comparison against the user-provided black-screen hand source found `changedVisiblePixels=0` and `maxVisibleRgbDiff=0`.
+- Center screen fit remains measured from the transparent aperture of the hand image and has about `0.016px` target-vs-actual delta in Playwright QA.
+- Remaining acceptance gate is visual approval from the user. No push or Vercel deployment should happen before that approval.
+
+## 2026-07-02 Pai Li Shi Measurement-Based Fit Findings
+
+- The reliable source of truth for the center phone content is the alpha-transparent screen aperture in `hand-user-black-mask.png`, not manual visual offsets.
+- The aperture bbox is `x=720`, `y=35`, `w=354`, `h=731` inside the `1817x866` hand image. CSS percentages are derived from those values.
+- The active onboarding slide is now measured separately from the aperture. It keeps the real phone screenshot ratio `430/940`, covers the aperture by width, and crops symmetrically on the top and bottom.
+- Latest browser metrics at `1920x900` show:
+  - aperture DOM delta vs measured source target is about `0.016px`;
+  - active slide center deviation is about `0.008px`, `1.621px`, and `2.966px` at the three captured scroll states;
+  - expected equal vertical crop is about `21.413px` per side;
+  - horizontal overflow is `0`.
+- The side wall cards were regenerated as actual rounded phone cards. The source wall asset corners are clipped, not merely hidden by CSS. Pixel checks on the wall assets show black wall pixels at the outer rounded-corner samples and screenshot pixels after the corner radius begins.
+- The current evidence path is `tmp/palifood-continuous-wall-qa/`, including updated screenshots, metrics, side-by-side comparison, and the scroll recording.
+- This is still local-only work. Do not push or deploy until the user approves the visual result.
+
+## 2026-07-03 Pai Li Shi Edge And Smoothness Findings
+
+- The lower-left second background card was not a DOM width mismatch: Playwright measured all background screenshots at the same rendered width and height. The underfilled feeling came from the source card's darker side edges and the center hand partially covering that column.
+- The far left/right gaps came from full rounded corners being visible at the viewport edge. The current fix clips only the page-facing outer corners, while keeping rounded corners inside the grid.
+- Moving-column filters and large card shadows add cost because all 32 app screenshots move during the pinned scroll. Removing those effects plus lowering scrub to `0.42` made the scroll feel more responsive without changing the core layout.
+- Latest metrics after the pass: four columns at `[0..360]`, `[384..744]`, `[1176..1536]`, `[1560..1920]`, gap `24px`, horizontal overflow `0`, and center phone frame still within measured tolerance.
+- This is local-only until the user approves the new screenshots/video.

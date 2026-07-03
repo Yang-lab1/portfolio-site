@@ -2643,6 +2643,7 @@ function App() {
   const appRef = useRef(null);
   const [lang, setLang] = useState('en');
   const [selectedId, setSelectedId] = useState(null);
+  const [pendingScrollTarget, setPendingScrollTarget] = useState(null);
   const selected = projects.find((project) => project.id === selectedId);
   const motion = useMotionProfile();
   const pinEnabled = !selected && !motion.reduced && !motion.mobile;
@@ -2677,6 +2678,52 @@ function App() {
     };
   }, []);
 
+  const scrollToPageSection = useCallback((targetId) => {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 68;
+    const targetOffset = targetId === 'about'
+      ? headerHeight + Math.min(140, Math.max(96, window.innerHeight * 0.14))
+      : headerHeight + 12;
+    const lenis = window.__portfolioLenis;
+    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - targetOffset);
+
+    if (lenis?.scrollTo) {
+      lenis.scrollTo(top, {
+        immediate: motion.reduced,
+        force: true,
+      });
+      return;
+    }
+
+    window.scrollTo({ top, behavior: motion.reduced ? 'auto' : 'smooth' });
+  }, [motion.reduced]);
+
+  useEffect(() => {
+    if (selected || !pendingScrollTarget) return undefined;
+
+    const timer = window.setTimeout(() => {
+      scrollToPageSection(pendingScrollTarget);
+      setPendingScrollTarget(null);
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [pendingScrollTarget, scrollToPageSection, selected]);
+
+  const handleHeaderNavigate = useCallback((item) => {
+    const targetId = item?.targetId;
+    if (!targetId) return;
+
+    if (selectedId) {
+      setPendingScrollTarget(targetId);
+      setSelectedId(null);
+      return;
+    }
+
+    scrollToPageSection(targetId);
+  }, [scrollToPageSection, selectedId]);
+
   const openProject = (id) => {
     const targetProject = projects.find((project) => project.id === id);
     if (!hasProjectDetailMedia(targetProject)) return;
@@ -2694,7 +2741,7 @@ function App() {
 
   return (
     <div className="app-shell" ref={appRef}>
-      <Header lang={lang} setLang={setLang} />
+      <Header lang={lang} setLang={setLang} onNavigate={handleHeaderNavigate} />
       {selected ? (
         <ProjectDetail lang={lang} project={selected} onBack={() => setSelectedId(null)} onOpenProject={openProject} motionEnabled={!motion.reduced} />
       ) : (
@@ -2717,7 +2764,7 @@ function App() {
   );
 }
 
-function GooeyNav({ items, initialActiveIndex = 0 }) {
+function GooeyNav({ items, initialActiveIndex = 0, onNavigate }) {
   const containerRef = useRef(null);
   const navRef = useRef(null);
   const filterRef = useRef(null);
@@ -2794,6 +2841,16 @@ function GooeyNav({ items, initialActiveIndex = 0 }) {
     if (filterRef.current) makeParticles(filterRef.current);
   };
 
+  const handleItemNavigation = (event, item, index) => {
+    activateItem(event.currentTarget.parentElement, index);
+
+    if (!onNavigate) return;
+    event.preventDefault();
+    event.stopPropagation();
+    event.nativeEvent?.stopImmediatePropagation?.();
+    onNavigate(item, index, event);
+  };
+
   useEffect(() => {
     const activeItem = navRef.current?.querySelectorAll('li')[activeIndex];
     if (activeItem) {
@@ -2818,11 +2875,17 @@ function GooeyNav({ items, initialActiveIndex = 0 }) {
             <li key={item.href} className={activeIndex === index ? 'active' : ''}>
               <a
                 href={item.href}
-                onClick={(event) => activateItem(event.currentTarget.parentElement, index)}
+                onClick={(event) => handleItemNavigation(event, item, index)}
                 onKeyDown={(event) => {
                   if (event.key === ' ') {
                     event.preventDefault();
                     activateItem(event.currentTarget.parentElement, index);
+                    if (onNavigate) {
+                      event.stopPropagation();
+                      event.nativeEvent?.stopImmediatePropagation?.();
+                      onNavigate(item, index, event);
+                      return;
+                    }
                     window.location.hash = item.href.replace('#', '');
                   }
                 }}
@@ -2839,10 +2902,10 @@ function GooeyNav({ items, initialActiveIndex = 0 }) {
   );
 }
 
-function Header({ lang, setLang }) {
+function Header({ lang, setLang, onNavigate }) {
   const navItems = useMemo(() => [
-    { label: copy[lang].work, href: '#work' },
-    { label: copy[lang].about, href: '#about' },
+    { label: copy[lang].work, href: '#work', targetId: 'work' },
+    { label: copy[lang].about, href: '#about', targetId: 'about' },
   ], [lang]);
 
   return (
@@ -2852,7 +2915,7 @@ function Header({ lang, setLang }) {
         <span>{copy[lang].brand}</span>
       </a>
       <nav className="header-actions">
-        <GooeyNav key={lang} items={navItems} />
+        <GooeyNav key={lang} items={navItems} onNavigate={onNavigate} />
         <button className="language-toggle" data-magnetic type="button" onClick={() => setLang(lang === 'en' ? 'zh' : 'en')}>
           <Languages size={15} />
           <span>{lang === 'en' ? '中文' : 'EN'}</span>
@@ -3015,7 +3078,7 @@ function CountUp({
 
 function AchievementCards({ lang }) {
   return (
-    <section className="achievement-section" aria-label={copy[lang].achievementLabel}>
+    <section id="about" className="achievement-section" aria-label={copy[lang].achievementLabel}>
       {achievementCards.map((card) => {
         const { number, suffix } = getAchievementValueParts(card.value);
         return (
@@ -4063,6 +4126,145 @@ function PinnedCapabilitySection({ lang, motionEnabled }) {
   );
 }
 
+const palifoodCenterSlides = [
+  '/portfolio/palifood-showcase/p2-center-fit-onboarding-1.webp',
+  '/portfolio/palifood-showcase/p2-center-fit-onboarding-2.webp',
+  '/portfolio/palifood-showcase/p2-center-fit-onboarding-3.webp',
+];
+
+const palifoodBackgroundColumns = [
+  {
+    className: 'palifood-background-column--left-a',
+    screens: [
+      '/portfolio/palifood-showcase/p2-left-top-auth.webp',
+      '/portfolio/palifood-showcase/p2-left-bottom-workbench.webp',
+    ],
+  },
+  {
+    className: 'palifood-background-column--left-b',
+    screens: [
+      '/portfolio/palifood-showcase/p2-left-top-nexus.webp',
+      '/portfolio/palifood-showcase/p2-left-bottom-generation.webp',
+    ],
+  },
+  {
+    className: 'palifood-background-column--right-a',
+    screens: [
+      '/portfolio/palifood-showcase/p2-right-top-result.webp',
+      '/portfolio/palifood-showcase/p2-right-bottom-community.webp',
+    ],
+  },
+  {
+    className: 'palifood-background-column--right-b',
+    screens: [
+      '/portfolio/palifood-showcase/p2-right-top-archive.webp',
+      '/portfolio/palifood-showcase/p2-right-bottom-settings.webp',
+    ],
+  },
+];
+
+const repeatPalifoodScreens = (screens, times = 4) =>
+  Array.from({ length: times }, () => screens).flat();
+
+function PaiFoodScrollShowcase({ motionEnabled }) {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const reduceForViewport = window.matchMedia('(max-width: 760px)').matches;
+
+    const renderProgress = (value) => {
+      const progress = Math.min(1, Math.max(0, value));
+      const wallProgress = Math.min(1, Math.max(0, (progress - 0.18) / 0.82));
+      const slideProgress = Math.min(1, Math.max(0, (progress - 0.08) / 0.84));
+      const handProgress = Math.min(1, Math.max(0, (progress - 0.08) / 0.92));
+      section.style.setProperty('--palifood-wall-y', `${(-1580 * wallProgress).toFixed(1)}px`);
+      section.style.setProperty('--palifood-hand-lift', `${(42 * handProgress).toFixed(1)}px`);
+      section.style.setProperty('--palifood-slide-x', `${(-200 * slideProgress).toFixed(2)}%`);
+    };
+
+    renderProgress(0);
+
+    if (!motionEnabled || reduceForViewport) {
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top top',
+        end: () => `+=${Math.max(window.innerHeight * 2.9, 2300)}`,
+        pin: true,
+        scrub: 0.42,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onEnter: () => document.body.classList.add('is-palifood-showcase-active'),
+        onEnterBack: () => document.body.classList.add('is-palifood-showcase-active'),
+        onLeave: () => document.body.classList.remove('is-palifood-showcase-active'),
+        onLeaveBack: () => document.body.classList.remove('is-palifood-showcase-active'),
+        onUpdate: (self) => renderProgress(self.progress),
+        onRefresh: (self) => renderProgress(self.progress || 0),
+      });
+    }, section);
+
+    return () => {
+      document.body.classList.remove('is-palifood-showcase-active');
+      ctx.revert();
+    };
+  }, [motionEnabled]);
+
+  return (
+    <section className={`palifood-scroll-showcase${motionEnabled ? '' : ' is-static'}`} ref={sectionRef} aria-label="Pai Li Shi mobile flow showcase">
+      <div className="palifood-showcase-stage">
+        <div className="palifood-background-grid" aria-hidden="true">
+          {palifoodBackgroundColumns.map((column) => (
+            <div className={`palifood-background-column ${column.className}`} key={column.className}>
+              {repeatPalifoodScreens(column.screens).map((src, index) => (
+                <img
+                  className="palifood-background-screen"
+                  src={src}
+                  alt=""
+                  key={`${column.className}-${src}-${index}`}
+                  loading="eager"
+                  fetchPriority="high"
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="palifood-hand-stage">
+          <div className="palifood-hand-composite" aria-hidden="true">
+            <div className="palifood-hand-screen">
+              <div className="palifood-hand-screen-track">
+                {palifoodCenterSlides.map((src) => (
+                  <img
+                    className="palifood-hand-screen-slide"
+                    src={src}
+                    alt=""
+                    key={src}
+                    loading="eager"
+                    fetchPriority="high"
+                  />
+                ))}
+              </div>
+            </div>
+            <img
+              className="palifood-hand-reference"
+              src="/portfolio/palifood-showcase/hand-user-black-mask.png"
+              alt=""
+              loading="eager"
+              fetchPriority="high"
+            />
+            <span className="palifood-hand-dynamic-island" />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) {
   const mediaGridRef = useRef(null);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
@@ -4199,6 +4401,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
           </dl>
         </div>
       </section>
+      {project.id === 'palifood' ? (
+        <PaiFoodScrollShowcase motionEnabled={motionEnabled} />
+      ) : null}
       <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
         {detailVideo ? (
           <figure className="detail-media-video-frame">
@@ -4664,7 +4869,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
   }, [motionEnabled]);
 
   return (
-    <section id="about" className={`about-section expansion-section${motionEnabled ? '' : ' is-static'}`} ref={sectionRef}>
+    <section id="product-language" className={`about-section expansion-section${motionEnabled ? '' : ' is-static'}`} ref={sectionRef}>
       <div className="expansion-orbit" aria-hidden="true" />
       <div className="expansion-title-stack">
         <span>{lang === 'zh' ? '产品语言' : 'Product Language'}</span>

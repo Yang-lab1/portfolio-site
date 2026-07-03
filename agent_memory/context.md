@@ -1,6 +1,8 @@
 # 项目上下文
 
 ## 2026-06-30 当前作品集任务上下文
+- 2026-07-01 顶部 `About / 关于` 导航已重新定义为全站回到首页黑色成就数据卡片段（`#about`，四张卡：51、20+、12+、4），不是底部 Product Language 圆盘段；Product Language 圆盘段当前锚点为 `#product-language`。
+- Header 的 Work/About 链接现在由 `App` 接管跳转，以便从项目详情页先返回主页再滚到目标段。不要直接恢复原生锚点行为，因为 Lenis `anchors: true` 会二次触发默认 `#about` 跳转并覆盖自定义落点。
 - 当前主要任务是作品集首页与详情页的视觉内容整理，不是中国域名发布任务。
 - 最后的圆形圆盘模块定位为 `Product Language & Sensibility / 产品语言与感知`，只展示工业设计、产品外观、材质、CMF、概念硬件等真实产品项目，不放 AI 网站截图、数据图、知识图谱或流程图。
 - 2026-07-01 当前 Product Language 圆盘为 8 张入口：Xiaomi、CatToy、Cup's Cup、Opera、Watsu、Miro(`miro-hardware`)、Momenta(`momenta-touch`)、Watch(`cmf-electronics`)；白色 M 模块 `capstone-device` 已从圆盘入口移除以避免和 `miro-hardware` 重复，但项目本体未删除。
@@ -174,3 +176,18 @@
 - Current four panels: `Miro AI Rehearsal System`, `Pai Li Shi`, `Li Bai Interactive Website`, and `Home Form Coach`.
 - `Home Form Coach` is the sport project from `C:\Users\Yang\Desktop\sport` / `https://github.com/Yang-lab1/sport`, with live site `https://sport-yangs-projects-d2ad4c9e.vercel.app`.
 - The fourth Daima panel and primary digital case sequence now point to `sport`; the old `Offer Quest` project record remains in data for reference but is no longer the fourth showcase panel.
+# 2026-07-01 拍立食滚动交互上下文
+- 拍立食详情页新增 AWSMD 参考式滚动展示段：固定中心手机框、左右拍立食素材轨随滚动上移、中心手机屏幕按滚动进度切换。参考站只用于动效/布局学习，不复制 AWSMD 图像资产。
+- 用户明确要求：`/portfolio/palifood-handheld-fresh.png`（浅绿色背景手持手机图）不要用于这次滚动交互。该图可继续作为既有静态拍立食素材/封面语境保留，但不要放入 `PaiFoodScrollShowcase` 或其素材轨。
+- 新交互素材来自 `https://github.com/instant-food-team/Instant-Food.git` 的拍立食原型截图和食物背景图，已转为轻量 WebP 放在 `public/portfolio/palifood-showcase/`。
+# 2026-07-02 拍立食滚动交互真实素材来源
+- 用户确认此前从 `instant-food-team/Instant-Food` 英文/GASTRONOMIA 原型提取的 App 截图不是当前拍立食版本，后续不得再作为左右背景候选。
+- 当前拍立食真实 App 截图来源应以用户本地文件夹 `C:\Users\Yang\Desktop\拍立食\frontend\p2\` 为准；该版本包含 `看见食材，即刻料理`、`确认食材`、`生成结果`、`档案馆` 等 P2 中文 H5 页面。
+- 已从本地 P2 路由生成真实整屏手机截图候选板：`tmp/palifood-p2-real-screens/p2-real-app-screen-candidates-v2.png`。必须等用户确认编号后，才能把这些截图用于左右滚动背景。
+
+# 2026-07-03 拍立食四列背景当前基线
+- 当前拍立食 AWSMD 式滚动展示已进入用户确认后的四列真实 App 截图实现：`.palifood-background-column=4`、`.palifood-background-screen=32`、`.palifood-background-wall=0`。
+- 1920x900 QA 视口下目标几何：四列等宽 `360px`，列间距 `24px`，左外列贴 `x=0`，右外列贴 `right=1920`，`overflowX=0`。
+- 背景卡片仍然是圆角 App 截图；仅最左列的左侧圆角、最右列的右侧圆角改为视口裁边，避免页面左右边缘出现黑色圆角缝。不要把所有卡片改成直角。
+- `p2-left-bottom-generation.webp` 已做轻微边缘补满：左右各去掉 10px 后回到 `430x940`，减少用户指出的“左下第二张没撑满”观感；备份在 `tmp/palifood-continuous-wall-qa/p2-left-bottom-generation-before-edge-fill.webp`。
+- 滚动顺滑度基线：移除移动背景列上的 filter/重阴影压力，Pai Li Shi ScrollTrigger `scrub` 为 `0.42`。回归需跑 `node tmp\verify-palifood-continuous-wall.mjs` 和 `npm run build`，并先给用户看截图/视频，确认前不要推送或部署。

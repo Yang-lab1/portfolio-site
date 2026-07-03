@@ -1,5 +1,25 @@
 # 当前任务进度
 
+## 2026-07-03 拍立食 AWSMD 式滚动展示最终视觉修正
+- 已按用户最新反馈继续修正拍立食详情页的 AWSMD 式滚动展示，不推送、不部署，等待用户看截图确认。
+- 中心手持手机已替换为用户最新提供的高清黑屏手图 `C:\Users\Yang\AppData\Local\Temp\codex-clipboard-d21b0018-e009-46e4-b1bb-229e47d3d68c.png`；该图原始尺寸为 `1818x865`，已归一到站内既有 `1817x866` 坐标系，避免屏幕内容、透明洞口和 CSS 坐标重新漂移。
+- 保持中心屏幕真实几何不变：透明洞口和 `.palifood-hand-screen` 均按 `x=714`, `y=28`, `w=354`, `h=731` 对齐，Playwright 指标显示中心屏幕 delta 约 `0px`。
+- 左右背景已从两张拼接 wall 改为 DOM 渲染的四列完整 APP 截图卡片：`.palifood-background-wall=0`、`.palifood-background-column=4`、`.palifood-background-screen=32`，每张为完整手机界面截图，统一宽高、圆角和间距。
+- 根据最新对照结果，外侧两列已从“略微推出画布”改为贴齐画布边缘：1920x900 QA 中第一列 `x=0`，第四列 `right=1920`，避免圆角手机截图被裁边。
+- 进一步按参考图量出的节奏收紧侧列几何：1920x900 QA 中背景卡片宽 `360px`、列间隙 `24px`，比旧的 `354px / 33.6px` 更贴近 AWSMD 参考。
+- 中心手持手机整体已上提：旧的 header 安全下推从 `30-38px` 收到 `0-6px`，最新 QA 中中心屏幕顶部约 `34px-49px`，更接近参考站靠上的主体位置，且登录按钮未被遮挡。
+- 用户指出左侧背景中出现一条横线；已定位为原始 `p2-left-bottom-workbench.webp` 底部自带的 iOS home indicator，不是 CSS 新增。已只清理该一张图底部横线，其他 7 张背景截图未改动。
+- 已加轻微中心手机内侧玻璃暗边；背景侧列现在贴齐画布边缘，不再向外退到被裁切的位置。
+- 验证已通过：`npm run build`、`node tmp\verify-palifood-continuous-wall.mjs`。
+- 最新确认图：`tmp/palifood-continuous-wall-qa/01-entry.png`、`02-mid.png`、`03-late.png`、`24-entry-left-wall-clean-check.png`、`25-reference-vs-current-edge-aligned.png`、`26-reference-vs-current-measured-360-24.png`、`27-reference-vs-current-raised-phone.png`。
+
+## 2026-07-01 顶部 About 全站回到数据卡片
+- 已按用户截图要求，把顶部 `About / 关于` 导航的目标改为首页黑色成就数据卡片段（`51`、`20+`、`12+`、`4`），而不是旧的底部 Product Language 圆形转盘段。
+- `AchievementCards` 现在承接 `id="about"`；原 Product Language 圆盘段改为 `id="product-language"`，避免重复锚点。
+- 顶部 GooeyNav 现在由 `App` 接管 Work/About 跳转：主页任意滚动位置点击 About 会滚回数据卡片；项目详情页点击 About 会先退出详情页，再落到同一数据卡片位置。
+- 已阻止 Lenis `anchors: true` 对顶部受控导航点击进行第二次默认锚点跳转；否则会把自定义落点覆盖到约 `88px` 的错误位置。
+- 验证已通过：`npm run build`；本地生产预览 1920x920 下，从主页顶部、主页底部、项目详情页三种路径点击 About，最终均落在 `#about` 数据卡片段，`aboutTop` 约 `197px`，且 `hasDetail=false`、活动导航为 `#about`。
+
 ## 2026-07-01 圆盘速度、空白滚动区域与重复入口修正
 - 已根据用户截图继续修正 Product Language 圆形转盘：删除圆盘里的重复白色 M 模块入口 `capstone-device`，只保留左侧来自用户文件的蓝色布面 M 硬件入口 `miro-hardware`；`capstone-device` 项目和素材本身未删除。
 - 当前 `expansionCards` 为 8 张：Xiaomi、CatToy、Cup's Cup、Opera、Watsu、Miro、Momenta、Watch。
@@ -498,3 +518,159 @@
 - 正式站已从 `palifood` 和 `food-health-model` 浏览顺序中撤掉偏离参考的 `palifood-mobile-flow-showcase.png` 与 `palifood-feedback-loop-showcase.png`，拍立食详情页暂只保留用户确认风格的 `palifood-handheld-fresh.png`。
 - 移动端单独修正 `detail-media-project-palifood` 展示：容器保持 100svh，图片放大为沉浸式裁切，避免 16:9 横图在手机端变成矮条。
 - 验证：`npm run verify:detail-format -- http://127.0.0.1:5220/` 返回 `checked=46`、`visibleProjectCount=22`、`issueCount=0`；`npm run build` 通过。
+# 2026-07-01 拍立食详情页滚动展示段
+- 已按用户要求复刻 AWSMD 参考站的关键滚动逻辑到拍立食详情页：桌面端新增 `PaiFoodScrollShowcase`，进入该段后固定中心手机框，左右两侧拍立食素材轨随滚动上移，中心手机屏幕从 Scan / Processing / Refine / Result 四个状态按滚动进度切换。
+- 已确认不使用用户禁止的 `/portfolio/palifood-handheld-fresh.png` 作为新交互素材；新段落中检测结果 `oldImageInShowcase=false`。该图仍未删除，继续作为既有拍立食静态素材保留。
+- 已从 `instant-food-team/Instant-Food` 仓库导出并压缩新素材到 `public/portfolio/palifood-showcase/`：8 张 app/原型界面 WebP 与 6 张食物背景 WebP；中途发现一张人物街景跑题，已替换为食物图。
+- 验证已通过：`npm run build`；本地生产预览桌面端拍立食详情页新段落 20/20 图片加载，4 个中心屏状态可切换，左右轨道 transform 从 0 推进到约 -960px，控制台错误 0，横向溢出 0；390px 移动端降级为静态手机 + 横向素材条，横向溢出 0。
+# 2026-07-02 拍立食真实背景候选修正
+- 用户指出上一批 App 截图候选不属于当前拍立食版本。
+- 已作废旧英文/GASTRONOMIA 候选，改从 `C:\Users\Yang\Desktop\拍立食\frontend\p2\` 本地 P2 版本抓取真实页面。
+- 已生成新的 A-L 候选板，全部来自真实 P2 路由截图；用户已确认中心手持手机使用 C，左上 D/E、左下 G/H、右上 I/J、右下 K/L。
+- 已将确认后的整屏 App 截图接入拍立食详情页滚动交互，并移除旧英文/GASTRONOMIA、零散食物图候选在该交互中的使用。
+- 已根据用户反馈把中心 C 图缩进手持手机内框，避免图片越过红色/黑色机身边框。
+- 验证：`npm run build` 通过；本地生产预览用 Playwright 真滚轮截图验证左右整屏 App 截图会上移，中心 C 图保持在手机边框内，横向溢出为 0。截图保存在 `tmp/palifood-overlay-fit-qa/`，等待用户确认后再推送/部署。
+# 2026-07-02 Pai Li Shi AWSMD 圆角与对齐返工
+- 根据用户指出的背景截图大小不一、上下左右未对齐、没有圆角的问题，重新生成左右背景墙：真实 P2 截图统一 430x940、38px 圆角、28px 间距，并合成 `palifood-left-app-wall.webp` / `palifood-right-app-wall.webp`。
+- 根据用户指出的中心手持手机屏幕边缘不齐问题，收紧 `.palifood-hand-screen` 到透明屏幕洞范围内；后续已改为三张导览页滑动，不再使用中心流程视频作为当前方案。
+- 验证：`npm run build` 通过；最新截图在 `tmp/palifood-rounded-wall-qa/`，并生成参考站并排对照图 `compare-reference-current.png`。
+- 状态：未推送、未部署，等待用户看截图确认。
+## 2026-07-02 Pai Li Shi red-box vertical bar QA
+- Rechecked the user-marked vertical bars in the AWSMD-style Pai Li Shi showcase.
+- Conclusion: the red-box bars are not a real app control and not a full screenshot-processing failure across all assets. They mainly came from the generated background-wall gaps visually merging with dark screenshot edges while the center hand covered part of the wall.
+- Regenerated `palifood-left-app-wall.webp` and `palifood-right-app-wall.webp` as solid black RGB wall images with uniform 430x940 phone screenshots, consistent gaps, rounded clipping, and a small side inset crop in the generated wall to hide captured dark edge strips.
+- Superseded by the latest correction: the current desktop layout now uses four DOM columns of real 430x940 P2 screenshots, `.palifood-background-wall` count is 0, the center slider has three onboarding screenshots, and horizontal overflow is 0.
+- `npm run build` passed. Latest evidence is in `tmp/palifood-wall-seam-qa/01-entry.png`, `02-mid.png`, `03-late.png`, and `metrics.json`.
+- Status: not pushed, not deployed, waiting for user visual approval.
+
+## 2026-07-02 Pai Li Shi center onboarding slider + measured screen fit
+- User rejected approximate/manual pixel nudging for the center hand-held phone. The screen layer must be measured against the phone-mask aperture instead of eyeballed.
+- Replaced the old `palifood-center-flow.mp4` center animation with three real P2 onboarding screenshots: `p2-center-onboarding-1.webp`, `p2-center-onboarding-2.webp`, and `p2-center-onboarding-3.webp`.
+- Center animation is now a scroll-driven horizontal slide track: A -> B -> C, matching the user's requested three onboarding pages rather than the previous multi-screen mixed recording.
+- The `.palifood-hand-screen` frame is set from the transparent aperture measured in `hand-user-black-mask.png`: source aperture `x=720`, `y=35`, `w=354`, `h=731` within the `1817x866` hand image.
+- Playwright verification at 1920x900 measured actual screen frame vs aperture target deltas of about `0px left`, `-0.016px top`, `-0.016px width`, `0px height`, and horizontal overflow `0`.
+- Latest local evidence is in `tmp/palifood-onboarding-slider-qa/`: `01-onboarding-a.png`, `02-onboarding-b.png`, `03-onboarding-c.png`, `04-fit-overlay-red-actual-green-target.png`, `05-onboarding-slider-scroll.webm`, `06-reference-current-side-by-side.png`, and `metrics.json`.
+- `npm run build` passed. Not pushed or deployed; wait for user visual approval before publishing.
+
+## 2026-07-02 Pai Li Shi continuous app screenshot walls
+- User reiterated that the side backgrounds should look like the AWSMD reference: full app-sized phone screenshots in left/right background walls, not loose individual pictures.
+- Replaced the desktop background render from four `.palifood-background-column` DOM columns to two continuous wall images:
+  - `public/portfolio/palifood-showcase/palifood-left-app-wall.webp`
+  - `public/portfolio/palifood-showcase/palifood-right-app-wall.webp`
+- Each wall is built from the confirmed real P2 full-screen app screenshots, then rendered as one left wall and one right wall to remove the scattered/断层 feeling.
+- New QA at 1920x900 reports:
+  - `.palifood-background-wall` count: `2`
+  - `.palifood-background-column` count: `0`
+  - `.palifood-background-screen` count: `0`
+  - wall natural size: `888x3844`
+  - center hand source: `/portfolio/palifood-showcase/hand-user-black-mask.png`
+  - center aperture fit deltas: about `0.016px`
+  - horizontal overflow: `0`
+- Hand source proof: current visible hand pixels match the user-provided black-screen hand image with `changedVisiblePixels=0` and `maxVisibleRgbDiff=0`.
+- Latest evidence is in `tmp/palifood-continuous-wall-qa/`: `01-entry.png`, `02-mid.png`, `03-late.png`, `04-reference-current-mid.png`, `05-hand-source-proof.png`, `06-continuous-wall-scroll.webm`, `metrics.json`, and `hand-source-metrics.json`.
+- `npm run build` passed before QA. Not pushed or deployed; wait for user visual approval.
+
+## 2026-07-02 Pai Li Shi measured fit and rounded wall refresh
+- User rejected manual pixel nudging for the hand-held phone screen. Current center fitting now uses measured geometry, not eyeballing.
+- Source of truth: `public/portfolio/palifood-showcase/hand-user-black-mask.png`, image `1817x866`, transparent aperture `x=720`, `y=35`, `w=354`, `h=731`.
+- `.palifood-hand-screen-track` is centered inside that aperture, uses the real `430/940` onboarding screenshot ratio, covers by width, and crops evenly top/bottom.
+- `tmp/verify-palifood-continuous-wall.mjs` now records active slide center deltas, expected cover frame, and crop amount.
+- Rebuilt the continuous left/right walls from real P2 screenshots using normalized `430x940` cards, `46px` radius clipping, `28px` gaps, and solid black wall background.
+- `npm run build` passed. Latest browser QA at `1920x900` reports aperture delta about `0.016px`, active slide center deltas about `0.008px`, `1.621px`, `2.966px`, wall natural size `888x3844`, rendered wall width `748px`, and `overflowX=0`.
+- Latest screenshots/video: `tmp/palifood-continuous-wall-qa/01-entry.png`, `02-mid.png`, `03-late.png`, `04-reference-vs-current-mid.png`, and `06-continuous-wall-scroll.webm`.
+- Not pushed or deployed. Waiting for user visual approval.
+
+## 2026-07-02 Pai Li Shi white-background local trial
+- User asked to try a white background because the eight P2 screenshots are mostly black and their rounded corners/gaps are hard to see on a black stage.
+- Current local trial changes the Pai Li Shi AWSMD-style showcase to a warm white stage.
+- The desktop background no longer renders the two composite wall images. It renders four live columns of full P2 phone screenshots with real CSS rounded clipping. The eight unique selected screenshots are repeated once only to maintain scroll continuity.
+- Latest 1920x900 QA reports `4` background columns, `16` rendered screenshot nodes, `0` composite wall nodes, source natural size `430x940`, rendered cards `360x787`, gap `42.24px`, radius `39.36px`, and `overflowX=0`.
+- `npm run build` passed. Latest trial screenshots are in `tmp/palifood-continuous-wall-qa/01-entry.png`, `02-mid.png`, and `03-late.png`.
+- Not pushed or deployed. Waiting for user review.
+
+## 2026-07-02 Pai Li Shi AWSMD 黑底与中心洞口比例重制
+- 用户确认白底有对比但当前不作为方向，要求把 Pai Li Shi 详情页 AWSMD 式互动背景全部改回黑色。
+- 已恢复 `.palifood-scroll-showcase` / `.palifood-showcase-stage` 黑底；背景仍使用真实 P2 App 手机截图列阵，不回退到散图或旧英文原型图。
+- 已按 `hand-user-black-mask.png` 透明屏幕洞口实测比例重制三张中心导览图：原 `430x940` 上下各裁 26px 后输出为 `354x731`，对应文件为 `p2-center-fit-onboarding-1/2/3.webp`。
+- 已把中心动画切换到这三张洞口比例专用图，`.palifood-hand-screen-track` 现在直接填满洞口高度，不再用 `430/940` 比例上下裁切。
+- 本地验证通过：`npm run build`；Playwright 重新生成 `tmp/palifood-continuous-wall-qa/01-entry.png`、`02-mid.png`、`03-late.png`、`04-center-fit-overlay-red-aperture-green-slide.png` 和滚动视频。指标显示中心图天然尺寸 `354x731`、vertical crop `0px`、洞口误差约 `0.016px`、横向溢出 `0`。
+- 尚未推送、尚未部署；等待用户看截图确认。
+# 2026-07-02 Pai Li Shi pink-frame measured center correction
+- User clarified that the center phone content must be aligned from the pink/red phone body frame, not from the transparent aperture alone, because the left finger occludes part of the real screen and makes aperture-based fitting look right-shifted.
+- Current source geometry from `hand-user-black-mask.png` (`1817x866`): pink/front phone frame `x=700..1081`, `y=14..772`; inner content frame after the real black bezel `x=712`, `y=29`, `w=357`, `h=729`.
+- Rendered QA at `1920x900` reports the center content target-vs-actual delta at about `0px`; the black bezel inside the pink frame is now about `12px / 12px / 15px / 14px`.
+- Regenerated the three center onboarding fit images to `357x729`, updated `.palifood-hand-screen`, and kept `.palifood-hand-dynamic-island` on the same phone centerline.
+- Regenerated the continuous background wall assets from real P2 app screenshots with `430x940` cards, `54px` rounded corners, `54px` gaps, subtle borders, and black background. Current wall natural size is `914x3922`.
+- `npm run build` passed. Latest QA screenshots and measured overlay are in `tmp/palifood-continuous-wall-qa/`: `01-entry.png`, `02-mid.png`, `03-late.png`, `02-mid-measured-overlay.png`, `02-mid-center-closeup-measured.png`, `06-continuous-wall-scroll.webm`, and `metrics.json`.
+- Not pushed and not deployed. Waiting for user visual approval.
+
+# 2026-07-02 Pai Li Shi staggered continuous app walls
+- Continued toward the user requirement that the AWSMD-style side background must not read as loose/single images or broken rows.
+- Regenerated `palifood-left-app-wall.webp` and `palifood-right-app-wall.webp` as staggered two-column continuous walls:
+  - each visible card remains a real full P2 App screenshot normalized to `430x940`
+  - card radius `54px`, gap `54px`
+  - second column is vertically offset by half a card period (`497px`) so horizontal row gaps no longer line up across the whole wall
+  - current wall natural size: `914x4970`
+- Reduced the dark overlay and brightened/saturated the background wall display so the App screenshots remain readable on black, closer to the AWSMD reference.
+- Verification passed:
+  - `npm run build`
+  - Playwright screenshot QA at `1920x900`
+  - DOM/metrics: `.palifood-background-wall=2`, `.palifood-background-column=0`, `.palifood-background-screen=0`, `overflowX=0`, center screen target delta about `0px`.
+- Latest comparison evidence: `tmp/palifood-continuous-wall-qa/10-reference-vs-current-brighter-staggered-wall.png`.
+- Not pushed and not deployed. Waiting for user visual approval.
+
+# 2026-07-02 Pai Li Shi measured reference-like wall gap
+- Follow-up comparison showed the previous staggered wall still had overly large black seams; the wall rendered about `45px` gaps, which read as breaks.
+- Updated the wall rendering to match the reference more closely:
+  - CSS wall gap token restored to `clamp(28px, 1.7vw, 36px)`
+  - regenerated wall assets with natural gap `32px`, radius `42px`
+  - rendered QA at `1920x900` gives wall width about `752.6px`, individual app-card width about `363px`, and rendered gap about `27px`
+  - wall assets are now `892x4860`
+- Follow-up display tuning kept the same wall assets but raised the rendered wall filter to `brightness(1.12) contrast(1.08) saturate(1.1)` and reduced the showcase dark overlay so the app screenshots stay readable on black and the seams do not read as broken rows.
+- Verification passed:
+  - `npm run build`
+  - Playwright QA at `1920x900`
+  - metrics: `.palifood-background-wall=2`, old single-column/screen nodes `0`, `overflowX=0`, center screen delta about `0px`.
+- Latest evidence: `tmp/palifood-continuous-wall-qa/11-reference-vs-current-measured-gap-wall.png` and `02-mid.png`.
+- Not pushed and not deployed. Waiting for user visual approval.
+## 2026-07-03 Pai Li Shi 中心手机无裁切与粉红边框基线
+- 已按用户最新截图反馈修正 Pai Li Shi / AWSMD 式滚动展示段：进入该展示段时站点顶部导航完全隐藏，不再压住中心手机顶部的登录按钮。
+- 已停止使用从 430x940 旧截图硬裁出来的中心图，改为从本地 P2 导览页按目标内屏比例重新渲染三张无裁切导览图；正式资源 `p2-center-fit-onboarding-1/2/3.webp` 现在为 2x 清晰度 `708x1462`，对应 CSS 内屏比例 `354x731`。
+- 中心手机屏幕层和 PNG 透明洞口已改为依据用户强调的粉红/红色手机外框重新居中：当前基线为 `hand-user-black-mask.png` 源图 `1817x866` 内的 `x=714,y=28,w=354,h=731`。
+- Playwright QA 于 1920x900 重新通过：`.palifood-background-wall=2`，旧散列背景节点为 0，中心 slide 与 screen 的 left/top/width/height/center 偏差均为 0，`overflowX=0`。
+- 最新截图：`tmp/palifood-continuous-wall-qa/01-entry.png`、`02-mid.png`、`03-late.png`、`16-reference-scroll-vs-current-entry.png`；本轮仍未推送、未部署，等待用户看图确认。
+
+## 2026-07-03 Pai Li Shi result-background recapture
+- User flagged the right-side `Result / 生成结果` background card as looking cropped or enlarged compared with the other seven app screenshots.
+- Confirmed the rendered layout was not scaling that card differently: the problem was the source screenshot style itself.
+- Re-captured the local P2 runtime `艺术的诞生` result page at a true mobile `430x940` frame and replaced `public/portfolio/palifood-showcase/p2-right-top-result.webp` with that normalized full-page capture.
+- The card still keeps the same required background-column geometry as the other seven screenshots: natural `430x940`, rendered `360px` wide at the `1920x900` QA viewport, `24px` column gap, shared rounded clipping.
+- Verification passed after replacement: `node tmp\verify-palifood-continuous-wall.mjs` and `npm run build`.
+- Latest evidence: `tmp/palifood-continuous-wall-qa/01-entry.png` and `tmp/palifood-continuous-wall-qa/32-result-recapture-before-after.png`.
+- Status: local only; do not push or deploy until the user approves the latest screenshots.
+
+## 2026-07-03 Pai Li Shi edge-fill and smoothness pass
+- User accepted the overall direction but flagged three issues: scroll felt not smooth enough, the lower-left second app screenshot looked not fully filled, and the far left/right page edges still showed gaps.
+- Kept the existing four-column DOM implementation and made a minimal local pass:
+  - Reduced moving-background cost by removing the column filter and heavy card shadows.
+  - Changed Pai Li Shi `ScrollTrigger` scrub from `0.75` to `0.42` for a more responsive scroll feel.
+  - Squared only the viewport-facing corners on the leftmost/rightmost columns so the side edges do not expose black rounded-corner holes; interior rounded corners remain.
+  - Lightly edge-filled `p2-left-bottom-generation.webp` by trimming/resizing 10px on each side, preserving visible controls/text/CTA.
+- Verification passed:
+  - `node tmp\verify-palifood-continuous-wall.mjs`
+  - `npm run build`
+- Latest evidence for user approval:
+  - `tmp/palifood-continuous-wall-qa/01-entry.png`
+  - `tmp/palifood-continuous-wall-qa/02-mid.png`
+  - `tmp/palifood-continuous-wall-qa/03-late.png`
+  - `tmp/palifood-continuous-wall-qa/06-continuous-wall-scroll.webm`
+  - `tmp/palifood-continuous-wall-qa/37-generation-edge-fill-before-after.png`
+- Status: local only; not pushed and not deployed. Wait for user visual approval.
+# 2026-07-03 Pai Li Shi AWSMD motion direction correction
+
+- User asked to compare the interaction against AWSMD frame-by-frame: side app screenshots move upward, while the hand/phone should move downward and reach the lower end position.
+- Corrected the Pai Li Shi showcase hand motion from slight upward drift to downward scroll-linked motion.
+- Kept the measured phone aperture, horizontal center alignment, four-column app screenshot wall, rounded corners, and equal gaps unchanged.
+- Verification passed: `node tmp\verify-palifood-continuous-wall.mjs`; `npm run build`.
+- Latest evidence: `tmp/palifood-continuous-wall-qa/01-entry.png`, `02-mid.png`, `03-late.png`, `06-continuous-wall-scroll.webm`.
+- Status: local only; not pushed or deployed. Waiting for user visual approval.

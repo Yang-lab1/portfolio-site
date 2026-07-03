@@ -1,6 +1,15 @@
 # 问题与风险
 
+## 2026-07-03 Pai Li Shi showcase regression guardrail
+- Do not push the outer app-screen background columns outside the viewport again. At the 1920x900 QA viewport, the first column must start at `x=0` and the fourth column must end at `x=1920`; otherwise the rounded phone-screen edges are cropped and the AWSMD-style app wall no longer matches the reference.
+- Keep the side app-screen rhythm at the measured reference proportions for the 1920x900 QA viewport: `360px` card width and `24px` column gap. The previous `354px / 33.6px` geometry made the side images read more separated than the AWSMD reference.
+- Do not restore the old `30-38px` center-hand safety offset while the showcase header is hidden. The current center screen top should stay around `34px-49px` across the 1920x900 scroll QA states.
+- Keep the latest QA comparison image `tmp/palifood-continuous-wall-qa/27-reference-vs-current-raised-phone.png` as the visual check before asking the user to approve push/deploy.
+
 ## 当前风险
+- 2026-07-03 拍立食 AWSMD 式滚动展示当前已改为四列完整 APP 截图卡片，旧的两张拼接 wall 图不应再作为渲染结构恢复。回归门槛：`.palifood-background-wall` 必须为 `0`，`.palifood-background-column` 必须为 `4`，`.palifood-background-screen` 必须为 `32`，且每张背景卡片保持完整手机界面截图、统一尺寸、圆角和间距。
+- 2026-07-03 中心手持手机必须使用用户最新给的高清黑屏手图归一化版本，站内文件为 `public/portfolio/palifood-showcase/hand-user-black-mask.png`。不要再换回旧手图、参考站手图或自行找图；如再次替换，必须保持 `1817x866` 坐标系以及 `x=714,y=28,w=354,h=731` 的屏幕洞口/内容坐标。
+- 2026-07-03 `p2-left-bottom-workbench.webp` 原始底部自带 iOS home indicator 横线，已局部清理。后续重新生成背景截图或覆盖该文件时，需要检查底部横线不要重新出现。
 - 2026-07-01 圆盘滚轮交互已按用户截图收窄：只有可见圆盘图片及图片附近小范围会接管滚轮并旋转圆盘；左侧空白、右侧空白、底部文字/空白处应继续正常页面滚动到黑色 footer。后续不要再恢复“大椭圆区域整块拦截”，否则会复现用户指出的无法滚到底部问题。
 - 2026-07-01 Product Language 圆盘当前为 8 张轻量图，`capstone-device` 白色 M 模块已从圆盘入口移除，保留用户文件对应的 `miro-hardware` 蓝色布面 M 入口。`capstone-device` 项目详情和素材仍可保留在项目库中，不要误删项目本体。
 - 2026-07-01 首轮网站加载慢排查已完成并继续修复圆盘快速下滑时图片跟不上的问题：最后圆盘图不再用 1254 原图抢首屏网络，首页圆盘改用 640 WebP 展示版；Watsu 与 Cup's Cup 更新后、并移除重复 `capstone-device` 圆盘入口后，当前为 8 张轻量圆盘图。页面稳定约 650ms 后会提前后台预取圆盘 blob，圆盘组件自身也有同样的早期预取保险，同时仍保留接近视口预热与省流量/2G 跳过策略。后续若继续性能任务，仍要先测量再改；剩余风险是 `momenta-detail-video.m4v` 约 103MB、图片墙大量视觉资产、以及真实线上 / 国内网络 waterfall 未复测。
@@ -19,6 +28,7 @@
 - PowerShell 下直接运行 `npm` 可能触发 `npm.ps1` 执行策略问题；使用 `cmd /c npm ...`。
 
 ## 已修复问题
+- 2026-07-01：顶部 `About / 关于` 从详情页或主页任意位置点击时，原生 `#about` 只适用于主页，且 Lenis `anchors: true` 会覆盖自定义落点。已改为由 `App` 接管 Header 导航：详情页先退出到主页，再滚到首页黑色成就数据卡片段；点击事件会阻止 Lenis 二次锚点处理。本地生产预览三路径验证均停在 `aboutTop` 约 `197px`，不再留在详情页或跳到旧 Product Language 圆盘段。
 - 2026-07-01：圆盘区域拦截范围过大，导致用户截图标注的左侧空白、右侧空白、底部文字/空白处滚轮无法继续滚到黑色 footer。已把 wheel capture 改为只检查可见 `.expansion-card` 及其附近 padding，并过滤不可见卡片；本地桌面真实滚轮验证三处空白均可继续向下滚动。
 - 2026-07-01：Product Language 圆盘中 `miro-hardware` 蓝色 M 硬件入口与 `capstone-device` 白色 M 模块入口相邻，视觉上像重复项目。已从 `expansionCards` 移除 `capstone-device` 圆盘入口，仅保留 `miro-hardware`；当前圆盘为 8 张卡，8/8 图片加载完成。
 - 2026-07-01：圆盘滚轮速度相对用户预期偏慢。已提高滚轮换算系数和单次上限，并缩短 GSAP 响应动画时长；本地桌面验证图片上滚轮可明显切换圆盘且页面 `scrollY` 不变。
@@ -207,3 +217,84 @@
 - `cbs5502`、`tcm-systems`、`food-health-model`、`capstone-device`、`ufei-precision-cabinet` 已有移动端专用首图；不要把它们删回单一横图，否则手机端会重新出现只露边缘、标题被裁或首图空白过多的问题。
 - 证据板/流程板首图应使用 source-contain/full-contain 或对应移动端安全图，不能用普通 `object-fit: cover` 强行裁掉图表文字。
 - 手机端 source-contain 首图黑色媒体标签已隐藏，避免压住图内标题；不要在未重测截图前恢复。
+# 2026-07-01 拍立食滚动交互风险
+- 用户已明确禁止把 `/portfolio/palifood-handheld-fresh.png`（浅绿色手持手机图）用于拍立食新滚动交互。后续维护 `PaiFoodScrollShowcase` 时不要把它加入中心手机屏幕或左右素材轨。
+- AWSMD 参考站只允许作为滚动节奏、布局和动效参考；不要把 AWSMD 的 hand/media/phone 图像资产复制进作品集生产资源。当前实现使用拍立食仓库素材和 CSS 手机框。
+- 用户已提供纯黑屏手持手机母版用于新交互；中心屏幕内容应作为独立视频/截图层放进黑屏内，不要再把带旧界面的手持图当底图。
+# 2026-07-02 拍立食素材误用风险
+- 不要再使用旧英文/GASTRONOMIA 原型截图作为拍立食 AWSMD 式滚动交互背景；用户已明确指出那不是当前 App。
+- 左右背景必须来自真实 App 整屏截图，且必须先给用户确认编号后再接入交互。
+- `C:\Users\Yang\Desktop\作品集\拍立食\1.png` 与用户之前禁止的绿色手持图一致：可作为识别正确视觉方向的参考，但不要直接用于新滚动交互，除非用户重新明确允许。
+- 背景八张图必须保持参考站式等宽竖列阵列，不要回退为四个散点式上下小组；回归检查应量卡片宽高、列 x 坐标和横向溢出。
+# 2026-07-02 Pai Li Shi AWSMD 对齐守卫
+- 背景墙必须是等宽、等高、等间距的手机截图矩阵；每一张 430x940 截图都要先做圆角裁切，再合成左右墙图。不要直接拼无圆角方图，也不要回退到散落小组布局。
+- 中心手持手机必须使用用户提供的纯黑屏手持母版；屏幕内容层必须严格放在透明屏幕洞内，不能超过红/黑手机边框，也不能露出底图黑屏边缘。
+- 推送或部署前必须先给用户看当前截图；用户未确认前不要发布。
+## 2026-07-02 Pai Li Shi screenshot-edge guardrail
+- Do not treat the AWSMD-style background gaps as app UI if they are simply column spacing. Check source screenshots, generated wall assets, and rendered DOM metrics before changing assets.
+- D/E/G/H/I/J/K/L selected P2 app screenshots are complete phone screenshots. The user-marked vertical bars came from the generated background-wall gaps and dark screenshot edges being partially covered by the center hand, not from a broken app screen.
+- Superseded correction: the current QA baseline uses two continuous background wall images generated from real 430x940 P2 phone screenshots, not four separate DOM columns. Regression checks should confirm `.palifood-background-wall` count is 2, `.palifood-background-column` and `.palifood-background-screen` counts are 0, the center slider has exactly three onboarding screenshots, and horizontal overflow is 0.
+- Before push/deploy, show the latest screenshots to the user and wait for approval.
+
+## 2026-07-02 Pai Li Shi center-screen fit guardrail
+- Do not manually nudge the center phone screen by eye. Derive `.palifood-hand-screen` from the transparent aperture in `hand-user-black-mask.png`: `x=720`, `y=35`, `w=354`, `h=731` within the `1817x866` hand image.
+- The center phone animation should use the three onboarding slides A/B/C unless the user explicitly asks to restore a recorded app-flow video. The old `palifood-center-flow.mp4` is no longer the intended center interaction.
+- Latest measured fit is effectively exact: Playwright reports target-vs-actual deltas around `0.016px` and `overflowX=0`. If future screenshots look misaligned, re-run the aperture/DOM measurement before changing CSS.
+- User has not approved push/deploy yet. Keep changes local until screenshots/video are accepted.
+
+## 2026-07-02 Pai Li Shi continuous-wall guardrail
+- Keep the desktop background as two continuous P2 app screenshot walls: `palifood-left-app-wall.webp` and `palifood-right-app-wall.webp`. They are generated from the user-confirmed D/E/G/H/I/J/K/L full phone screenshots and rendered as `.palifood-background-wall`.
+- Do not revert to loose food images, old English/GASTRONOMIA screenshots, or four independent DOM columns unless the user explicitly asks for that rollback.
+- Current measured QA evidence lives in `tmp/palifood-continuous-wall-qa/`. Required checks before any push/deploy: two wall images loaded at natural `888x3844`, old scattered background node counts are 0, center screen aperture delta stays near `0.016px`, `overflowX=0`, and the user approves the screenshots/video.
+- The hand layer is proven to come from the user-provided black-screen hand image: visible RGB diff is `0` over `197703` compared pixels. Keep `hand-user-black-mask.png` as the source layer for this interaction.
+
+## 2026-07-02 Pai Li Shi measured-fit guardrail
+- Do not fix center phone misalignment by visually nudging a few pixels. First measure the hand-mask aperture and rendered slide geometry.
+- Current required source geometry: `hand-user-black-mask.png` is `1817x866`; its transparent screen aperture is `x=720`, `y=35`, `w=354`, `h=731`.
+- The active onboarding slide must be center-aligned to that aperture, not just visually fitted. Regression QA should record active slide center delta, slide width/height delta, expected equal crop, and `overflowX`.
+- The side background walls must retain real rounded cards: normalize screenshots to `430x940`, clip each card with `46px` radius, use `28px` gaps, then composite into the wall images. Do not paste square-corner screenshots directly.
+- Latest local baseline: aperture delta about `0.016px`, active slide center deltas about `0.008px`, `1.621px`, and `2.966px` across the captured scroll states, wall natural size `888x3844`, rendered width `748px`, and horizontal overflow `0`.
+- User approval is still required before any push or Vercel deployment.
+
+## 2026-07-02 Pai Li Shi black-background and aperture-fit guardrail
+- User rejected keeping the white-background trial as the current direction. Keep the AWSMD-style Pai Li Shi interaction on a black background unless the user explicitly asks to revisit white.
+- Center phone animation must use aperture-ratio assets (`354x731`) derived from the measured transparent screen opening in `hand-user-black-mask.png`; do not restore the original `430x940` center slides directly into the phone hole.
+- Regression checks must verify: center slide natural size `354x731`, vertical crop `0px`, aperture delta around `0.016px`, no horizontal overflow, and screenshots shown to the user before push/deploy.
+# 2026-07-02 Pai Li Shi pink-frame alignment guardrail
+- Do not use the transparent aperture `x=720,y=35,w=354,h=731` as the final center content frame anymore. The user clarified this was the wrong baseline because the left finger occludes the real screen and makes the visible hole misleading.
+- Current required baseline is the pink/red phone body frame in `hand-user-black-mask.png`: source image `1817x866`, front frame `x=700..1081`, `y=14..772`.
+- The content layer must sit inside that frame with a realistic but narrower black bezel: current measured frame is `x=712`, `y=29`, `w=357`, `h=729`, giving rendered margins at 1920x900 of about left `12px`, right `12px`, top `15px`, bottom `14px`.
+- The center onboarding assets must match this frame at `357x729`; do not restore `341x716` or `354x731` unless the user explicitly asks for thicker black bezels or the old visible-hole look.
+- The dynamic island overlay must be centered on the same phone-frame centerline.
+- Side background walls must keep real rounded app screenshots, currently `430x940` cards with `54px` radius and `54px` gap inside `palifood-left-app-wall.webp` / `palifood-right-app-wall.webp`.
+- Do not push or deploy before the user approves the latest screenshots.
+
+# 2026-07-02 Pai Li Shi side-wall continuity guardrail
+- Side backgrounds must visually read as continuous walls of real app screenshots, not as loose isolated pictures or random cropped food/images.
+- Current wall assets are `palifood-left-app-wall.webp` and `palifood-right-app-wall.webp`, each `914x4970`, generated from real full-screen P2 App screenshots.
+- Keep the staggered two-column layout inside each wall: column 2 is offset by half a card period so row gaps do not align into a full-width horizontal break.
+- Regression checks before approval/push: `.palifood-background-wall=2`, old `.palifood-background-column=0`, old `.palifood-background-screen=0`, wall natural size `914x4970`, `overflowX=0`, and latest screenshot comparison shown to the user.
+
+# 2026-07-02 Pai Li Shi wall-gap guardrail
+- Do not re-expand the side-wall seams to the previous `54px` natural gap / about `45px` rendered gap. That creates the user-rejected "断层" feeling.
+- Current wall assets use natural gap `32px` and radius `42px`; at the `1920x900` QA viewport they render app-card width about `363px` and gap about `27px`, closer to the AWSMD reference.
+- Current expected wall natural size is `892x4860`, not `914x4970`.
+- Required regression evidence before push/deploy: wall natural size `892x4860`, `.palifood-background-wall=2`, old background DOM nodes `0`, `overflowX=0`, and screenshot comparison against the reference.
+# 2026-07-03 Pai Li Shi center-screen current guardrail
+- Current center-phone baseline supersedes older `x=720,w=354`, `x=712,w=357`, `x=708,w=365`, and cropped `357x729` notes.
+- Do not crop the three onboarding pages to make them fit. The login button and bottom slider must remain fully visible.
+- Current required center frame is derived from the pink/red phone body in `hand-user-black-mask.png`: source `1817x866`, content frame and transparent cutout `x=714,y=28,w=354,h=731`.
+- Current center slide assets are no-crop Playwright captures of the real local P2 onboarding pages at `354x731` CSS pixels, saved at 2x as `708x1462` WebP: `p2-center-fit-onboarding-1/2/3.webp`.
+- While the Pai Li Shi showcase is active, the site header must be hidden so it cannot cover the center phone login button.
+- Push/deploy remains blocked until the user approves the latest screenshots.
+
+## 2026-07-03 Pai Li Shi result-card source guardrail
+- Do not restore `p2-right-top-result.webp` from the older tight-top capture. The user flagged that version as looking cropped/enlarged compared with the other app screenshots.
+- Current replacement source is a fresh local P2 runtime capture of `艺术的诞生` normalized to `430x940`; keep it as a full mobile screenshot source.
+- Regression checks before push/deploy: the `Result / 生成结果` background card must remain `430x940`, share the same rendered width/radius/gap as the other seven cards, and appear in `tmp/palifood-continuous-wall-qa/01-entry.png` without a tight/cropped topbar.
+
+## 2026-07-03 Pai Li Shi edge/smoothness guardrail
+- Do not bring back the heavy moving-column `filter` or per-card large shadows in the Pai Li Shi background wall; they made the 32 moving screenshots feel less smooth.
+- The outer page-edge gap fix is intentionally asymmetric by column: only `.palifood-background-column--left-a` left corners and `.palifood-background-column--right-b` right corners are square/clipped. Interior corners must remain rounded.
+- The lower-left generation card has a backup before edge-fill at `tmp/palifood-continuous-wall-qa/p2-left-bottom-generation-before-edge-fill.webp`. If the user dislikes the current edge-fill, restore from that backup instead of recropping by eye.
+- Push/deploy remains blocked until the user approves the fresh screenshots/video after this pass.

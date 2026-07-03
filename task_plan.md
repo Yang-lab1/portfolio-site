@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 46 is complete as a focused homepage image-loading fix. The bottom Product Language orbit images now lazy-load at low fetch priority instead of competing with the first viewport, and the homepage warms follow-up images in low-priority idle batches after load. Remaining performance work should be measured separately before changing videos, image-wall assets, or deployment settings.
+Phase 47 is in local visual approval for the Pai Li Shi AWSMD-style detail interaction. The current local version uses real app screenshot columns, keeps the center phone aperture measured/aligned, moves the background upward during scroll, and now moves the hand/phone downward toward the bottom position. Nothing is pushed or deployed until the user approves screenshots.
 
 ## Phases
 
@@ -20,6 +20,19 @@ Phase 46 is complete as a focused homepage image-loading fix. The bottom Product
 - [x] Verify desktop local production resources, orbit image loading after scroll, console errors, and horizontal overflow.
 - [x] Verify mobile `390x844` first-load behavior, orbit image loading after scroll, console errors, and horizontal overflow.
 - **Status:** complete; publishing through GitHub/Vercel.
+
+### Phase 47: Pai Li Shi AWSMD-Style Detail Interaction
+- [x] Use the user-provided clear black-screen hand image.
+- [x] Replace stitched side backgrounds with four DOM columns of real app screenshots.
+- [x] Keep background card size, gaps, and rounded corners consistent.
+- [x] Align the center content to the measured phone aperture, not to the finger edge.
+- [x] Compare the motion against AWSMD reference frames.
+- [x] Correct the scroll motion so side screenshots move up while the hand/phone moves down toward the lower end position.
+- [x] Re-run local screenshot/video QA.
+- [x] Re-run build.
+- [ ] Wait for user visual approval.
+- [ ] Commit, push, and trigger deployment only after approval.
+- **Status:** local only; awaiting visual approval.
 
 ### Phase 1: Planning and Requirement Recovery
 - [x] Create persistent planning files: `task_plan.md`, `findings.md`, `progress.md`
@@ -567,3 +580,67 @@ Phase 46 is complete as a focused homepage image-loading fix. The bottom Product
 - [x] Push to GitHub and deploy production.
 - [x] Run public Playwright QA against `https://portfolio-site-three-rose.vercel.app/`.
 - **Status:** complete. GitHub `main` includes commit `359c67d`; Vercel production deployment `dpl_CyUSw8w1Ds9T9tMFogDGrkLNwpZK` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+## Phase 47: 拍立食 AWSMD 参考式滚动交互
+- [x] 用浏览器录制/观察 AWSMD 参考站的滚动段，确认核心是 pinned section、左右图片列上移、中心手机内容切换。
+- [x] 从 `instant-food-team/Instant-Food` 提取拍立食项目素材，并转成站内轻量 WebP。
+- [x] 在拍立食详情页新增专属滚动展示段，不使用用户明确禁止的绿色手持手机图。
+- [x] 保持 AWSMD 只作动效参考，不复制其图片资产。
+- [x] 验证桌面端滚动切换、左右图片位移、无横向溢出；验证移动端降级显示。
+- **Status:** 本地实现与验证完成，尚未推送/部署。
+## Phase 48: 拍立食 AWSMD 交互纠偏
+- [x] 作废旧英文/GASTRONOMIA 背景截图候选。
+- [x] 从用户本地 P2 版本抓取真实 App 整屏截图候选。
+- [x] 写入交互规格与素材禁用规则。
+- [x] 按用户确认接入 C、D/E、G/H、I/J、K/L。
+- [x] 将左右背景重做为四条等宽竖列，保证同宽、同高、同间距、上下同列对齐。
+- [x] 将中心手机换成用户提供的纯黑屏手持母版，并接入真实 P2 流程视频层。
+- [ ] 截图交给用户确认后再决定是否推送部署。
+# Phase 49: Pai Li Shi AWSMD 圆角/对齐返工
+- [x] 重新生成左右背景墙图，所有 P2 截图统一尺寸、圆角和间距。
+- [x] 调整中心手持手机屏幕层，避免视频越过手机边框。
+- [x] 重新运行生产构建。
+- [x] 重新截取桌面首段与中段截图，并生成参考站并排对照图。
+- [ ] 用户确认截图后再继续推送和 Vercel 部署。
+- **Status:** 本地修正和截图完成，等待用户确认。
+## Phase 50: Pai Li Shi center onboarding slider measured-fit correction
+- [x] Extract and show the previous center recording preview for comparison.
+- [x] Replace the center flow video with three real P2 onboarding screenshots A/B/C.
+- [x] Measure the transparent screen aperture from the user-provided black-screen hand image instead of manually nudging pixels.
+- [x] Set `.palifood-hand-screen` from the measured aperture percentages.
+- [x] Run `npm run build`.
+- [x] Run Playwright QA for three scroll states, aperture target-vs-actual deltas, loaded image sizes, and horizontal overflow.
+- [x] Capture updated screenshots, red/green fit overlay, a short scroll recording, and a reference/current side-by-side image.
+- [ ] User approval before push/deploy.
+- **Status:** local correction and QA complete; not pushed and not deployed.
+
+## Phase 51: Pai Li Shi continuous wall correction
+- [x] Replace the four separate background DOM columns with two continuous app screenshot wall assets.
+- [x] Keep the wall content based on user-confirmed real P2 full-phone screenshots.
+- [x] Verify old scattered background nodes are gone: `.palifood-background-column=0`, `.palifood-background-screen=0`.
+- [x] Verify current desktop wall geometry: two `892x4860` wall images, each rendered about `753px` wide at 1920px viewport.
+- [x] Verify the center hand uses the user-provided black-screen hand image by visible-pixel RGB comparison.
+- [x] Capture fresh screenshots, reference/current comparison, hand-source proof, metrics, and an updated scroll recording in `tmp/palifood-continuous-wall-qa/`.
+- [ ] User approval before push/deploy.
+- **Status:** local correction and QA complete; not pushed and not deployed.
+
+## Phase 52: Pai Li Shi measured center fit + rounded wall refresh
+- [x] Stop manual/eyeballed center-phone nudging and derive alignment from the hand image aperture.
+- [x] Measure the transparent screen aperture in `hand-user-black-mask.png`: source `1817x866`, aperture `x=720`, `y=35`, `w=354`, `h=731`.
+- [x] Align the center slide track by geometry: aperture center equals active slide center, slide ratio remains `430/940`, and top/bottom crop is equal.
+- [x] Update Playwright QA to record active slide rect, center delta, expected cover frame, and crop amount.
+- [x] Regenerate the two P2 background wall assets with `430x940` cards, `46px` rounded corners, and `28px` gaps.
+- [x] Run production build.
+- [x] Run browser QA and capture updated screenshots/video in `tmp/palifood-continuous-wall-qa/`.
+- [ ] User approval before push/deploy.
+- **Status:** local correction and QA complete; not pushed and not deployed.
+
+## Phase 53: Pai Li Shi edge-fill and scroll smoothness pass
+- [x] Keep the current four-column real App screenshot implementation; do not return to the old two stitched wall images.
+- [x] Remove side-edge black holes by clipping only viewport-facing outer corners.
+- [x] Lightly edge-fill `p2-left-bottom-generation.webp` so the lower-left second card reads more fully filled.
+- [x] Improve scroll feel by removing moving-column filters/heavy shadows and tightening ScrollTrigger scrub to `0.42`.
+- [x] Run `node tmp\verify-palifood-continuous-wall.mjs`.
+- [x] Run production build.
+- [x] Capture updated entry/mid/late screenshots and scroll recording in `tmp/palifood-continuous-wall-qa/`.
+- [ ] User approval before push/deploy.
+- **Status:** local correction and QA complete; not pushed and not deployed.
