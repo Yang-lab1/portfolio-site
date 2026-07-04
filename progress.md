@@ -1,3 +1,15 @@
+# 2026-07-04 Product Language orbit wheel smoothness
+
+- User asked for the bottom Product Language orbit to respond faster and more smoothly to mouse-wheel rotation.
+- Local-only code change in `src/main.jsx` keeps the current wheel capture boundary unchanged: only visible orbit cards and their nearby area capture the wheel; blank areas still scroll the page normally.
+- Wheel input now accumulates into a target orbit offset, so repeated/fast wheel gestures keep their full momentum instead of being clipped by the previous in-progress tween.
+- Desktop wheel movement scale increased from `0.01` to `0.018`, per-event clamp increased from `300` to `520`, and easing changed to a slightly longer `power3.out` tween for smoother motion. Mobile uses a lighter `0.014` scale with a `380` clamp.
+- Verification passed: `npm run build`; local browser QA at `1920x900` recorded screenshot/video evidence.
+- QA metrics: visible orbit cards `7`; active label changed from `Opera` to `Xiaomi` after four wheel ticks on a visible image; image-wheel page scroll delta stayed `0`; blank-area wheel scroll delta was `647px`; page errors `0`.
+- Latest evidence: `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-before-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`, and `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-metrics-v1.json`.
+- User confirmed the preview and approved push/deploy.
+- Status: publishing in progress.
+
 # 2026-07-04 detail page bottom module removal
 
 - User asked to remove the bottom “title/headline + four numbered cards” module from every detail page.

@@ -18,6 +18,16 @@
 - GSAP motion pass is confirmed: use `gsap` with timeline/ScrollTrigger, do not add Hero buttons, place the pinned section after work rails and before the capability summary, and keep parallax subtle.
 - Motion should stay restrained and portfolio-grade; avoid playful bouncy easing, large magnetic displacement, or heavy parallax.
 
+## 2026-07-04 Product Language Orbit Wheel Smoothness Findings
+- The wheel interaction lives in the shared Product Language expansion section in `src/main.jsx`.
+- The previous speed pass used `clamp(..., -300, 300) * 0.01` and animated `wheelState.offset` to `wheelState.offset + delta`.
+- Because each new wheel event used the current in-progress animated value as its base, quick repeated gestures could feel like they were losing some accumulated distance.
+- The current local change keeps the existing visible-card proximity hit test untouched, but adds a separate accumulated `wheelTargetOffset`.
+- Desktop wheel response now uses a larger `0.018` scale and `520` clamp; mobile uses a lighter `0.014` scale and `380` clamp. The tween changed to `power3.out` with a slightly longer duration so the faster movement still reads smooth.
+- Regression QA must confirm: wheel over a visible orbit image changes the active card while page `scrollY` stays stable; wheel over blank orbit-section space still scrolls the page normally.
+- Local QA at `1920x900` passed: four wheel ticks over the visible `Opera` card changed the active label to `Xiaomi` with page scroll delta `0`; moving to a blank point near the lower section and wheeling produced page scroll delta `647px`.
+- Latest evidence: `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-before-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`, and metrics JSON.
+
 ## 2026-07-04 Detail Page Bottom Module Findings
 - The red-boxed bottom module is the shared `case-study-section` rendered inside `ProjectDetail`.
 - Removing that single render path removes the “title/headline + four numbered cards” block from all detail pages, without changing project data, galleries, live-link bridges, or the bottom work showcase.

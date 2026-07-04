@@ -4753,6 +4753,7 @@ function About({ lang, motionEnabled, onOpenProject }) {
       };
       const progressState = { value: 0 };
       const wheelState = { offset: 0 };
+      let wheelTargetOffset = 0;
 
       const updateActiveProject = (label) => {
         if (activeExpansionProjectRef.current !== label) {
@@ -4967,13 +4968,15 @@ function About({ lang, motionEnabled, onOpenProject }) {
 
         const modeScale = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
         const primaryDelta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-        const delta = clamp(primaryDelta * modeScale, -300, 300) * 0.01;
+        const mobile = window.matchMedia('(max-width: 820px)').matches;
+        const delta = clamp(primaryDelta * modeScale, mobile ? -380 : -520, mobile ? 380 : 520) * (mobile ? 0.014 : 0.018);
         if (!delta) return;
 
+        wheelTargetOffset += delta;
         gsap.to(wheelState, {
-          offset: wheelState.offset + delta,
-          duration: 0.26,
-          ease: 'power2.out',
+          offset: wheelTargetOffset,
+          duration: mobile ? 0.3 : 0.34,
+          ease: 'power3.out',
           overwrite: true,
           onUpdate: () => renderExpansion(progressState.value),
         });

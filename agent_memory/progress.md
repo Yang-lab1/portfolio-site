@@ -735,3 +735,12 @@
 - Vercel production 已部署：`dpl_GBif3EoDZ66sC7ycQSghvk4qXpTe`，已别名到 `https://portfolio-site-three-rose.vercel.app/`。
 - 线上 QA 已通过：首页 `200 OK`；线上 Cup’s Cup 详情页 `caseSection=0`、`caseCards=0`，旧卡片文案不存在。
 - 状态：已完成并部署。
+# 2026-07-04 Product Language 转盘滚轮丝滑度
+- 用户反馈底部 Product Language 转盘的鼠标滚轮响应仍不够快、不够丝滑，希望滚一下能带动更多旋转。
+- 本轮只做本地交互微调，不改转盘布局、图片、文案、项目数据或详情页。
+- 已在 `src/main.jsx` 中保留原有“可见图片及附近小范围才接管滚轮”的规则；空白区域继续正常页面滚动。
+- 已把滚轮输入改为累加目标位移，并提高桌面端换算速度：`0.01` -> `0.018`、单次 clamp `300` -> `520`，动画曲线改为 `power3.out`；移动端使用较轻的 `0.014` / `380`。
+- 验证已通过：`npm run build`；本地浏览器 QA 录屏显示图片上滚轮时 active 从 `Opera` 切到 `Xiaomi`，页面 `scrollY` 不变；空白处滚轮页面继续下滑 `647px`。
+- 最新确认素材：`tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png` 与 `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`。
+- 用户已确认预览，并批准 push / deploy。
+- 状态：正在发布。
