@@ -1,3 +1,12 @@
+# 2026-07-04 Work mega menu typography step-down
+
+- User said the Work dropdown text still feels too large and asked to shrink the latest version by another half step.
+- Local-only change: reduced Work menu category headings to about `10.5px` at `1920x900`, and project names to about `16.5px`.
+- Scope guard: do not change the approved dark translucent menu, six-column layout, project routing, hover dimming, text-near hitbox, or blank-click close rule.
+- Verification passed: `npm run build`; Playwright local screenshot/metrics confirmed heading font `10.496px`, item font `16.512px`, column-gap hover `null`, near-text hover `Pai Li Shi`, and top blank click closes the menu.
+- Latest evidence: `tmp/work-menu-font-v2/work-menu-font-open-v2.png`, `tmp/work-menu-font-v2/work-menu-font-hover-v2.png`, and `tmp/work-menu-font-v2/work-menu-font-metrics-v2.json`.
+- Status: user approved this v2 typography; ready for GitHub push and Vercel production deployment.
+
 # 2026-07-04 Work mega menu hitbox and close-rule refinement
 
 - User clarified that project hover should trigger only when the cursor is on or very near a project name, not across the whole row, whole column, or column-gap area.

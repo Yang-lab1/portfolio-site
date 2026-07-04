@@ -4,9 +4,17 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 56 has user approval for publishing. The dark translucent real-project Work mega menu remains visually unchanged; only project text-near hover/click sensing and blank-area closing were adjusted. Next step is GitHub push and Vercel production deployment.
+Phase 57 has user approval for publishing. The Work mega menu typography is now set to about `16.5px` project names and `10.5px` category labels, while preserving the approved dark translucent menu, six-column layout, text-near hover hit area, and blank-click close behavior.
 
 ## Phases
+
+### Phase 57: Work Mega Menu Typography Step Down
+- [x] Keep the approved dark translucent real-project menu, six columns, hover dimming, text-near hit area, and blank-click close behavior.
+- [x] Reduce the Work menu category and project-name font sizes by the requested extra half-step.
+- [x] Re-run production build and browser QA for the half-step revision.
+- [x] Capture a new local screenshot for user review.
+- [x] Wait for user visual approval before any push or Vercel deployment.
+- **Status:** approved for GitHub push and Vercel production deployment.
 
 ### Phase 56: Work Mega Menu Hitbox And Close Rules
 - [x] Keep the approved dark translucent real-project menu visual direction.

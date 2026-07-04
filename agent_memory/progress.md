@@ -1,3 +1,11 @@
+# 2026-07-04 Work 菜单字号微调
+- 用户反馈 Work 下拉菜单整体字号仍偏大，要求在上一版基础上再缩小半个字号。
+- 当前本地改动只调整 `.work-mega-menu__column h2` 和 `.work-mega-menu__item` 的 `font-size`：目标为 1920x900 下分类标题约 `10.5px`，项目名约 `16.5px`。
+- 不改黑透视觉方向、六列布局、真实项目分组、hover 变暗、文字近区热区、空白点击关闭和项目跳转逻辑。
+- 验证已通过：`npm run build`；Playwright 本地截图/指标确认分类字号 `10.496px`、项目字号 `16.512px`、列间空白 hover 为 `null`、文字附近 hover 为 `Pai Li Shi`、顶部空白点击会关闭菜单。
+- 最新确认图：`tmp/work-menu-font-v2/work-menu-font-open-v2.png`、`tmp/work-menu-font-v2/work-menu-font-hover-v2.png`。
+- 状态：用户已确认 v2 字号，可推送 GitHub 并进行 Vercel production 部署。
+
 # 2026-07-04 Work 菜单 hover 热区与关闭规则
 - 用户最新确认：hover 不是必须压在文字像素上，文字周围一小圈也可以触发；但不能把整行、整列、两列中间或大块空白算作选中。
 - 用户最新确认：Work 下拉菜单打开后，只有点击具体项目文字/文字附近热区才进入详情页；点击其它任何位置都应关闭菜单，包括顶部面板空白、分类标题、行/列空白、下方页面区域。

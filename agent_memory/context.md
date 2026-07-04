@@ -1,6 +1,7 @@
 # 项目上下文
 
 ## 2026-07-04 Work 菜单当前状态
+- 最新一轮用户反馈：Work 下拉菜单整体字号缩小到项目名约 `16.5px`、分类约 `10.5px` 的 v2 版本已被用户确认，可推送 GitHub 并部署 Vercel production。
 - Work 顶部全屏下拉菜单已经接入真实项目短名和详情跳转，但最新一轮只是在本地细化 hover 热区与点击关闭规则。
 - 当前本地规则：项目 hover/click 只在文字及周围小范围触发；列间空白、同行远处空白、分类标题、面板空白和下方页面点击都关闭菜单。
 - 最新确认资料在 `tmp/work-menu-hitbox-v1/`，包括 open/hover/detail 截图、交互视频和 metrics JSON。用户已确认，可推送 GitHub 并部署 Vercel production；发布后验证线上地址。

@@ -49,6 +49,14 @@
 - Project click QA passed: clicking `Pai Li Shi` opened the `Pai Li Shi` detail page and left the menu closed.
 - Latest evidence: `tmp/work-menu-hitbox-v1/work-menu-hitbox-open-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-hover-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-project-click-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-interaction-v1.webm`, and `tmp/work-menu-hitbox-v1/work-menu-hitbox-metrics-v1.json`.
 
+## 2026-07-04 Work Mega Menu Typography Step-Down Findings
+- User asked for the Work dropdown text to be slightly smaller again, then requested another half-step down from `17.28px` to about `16.5px` for project names and from `11.136px` to about `10.5px` for category labels.
+- Local CSS-only adjustment hit the requested values at `1920x900`: category heading font `10.496px`, project-item font `16.512px`.
+- The approved menu geometry stayed stable: panel height `360px`, grid left/right margins `64px / 64px`, and six equal columns.
+- Browser QA still passed the key interaction guards: column-gap hover returned `null`, near-text hover returned `Pai Li Shi`, dimmed item opacity stayed `0.18`, and top blank click closed the menu.
+- Latest evidence: `tmp/work-menu-font-v2/work-menu-font-open-v2.png`, `tmp/work-menu-font-v2/work-menu-font-hover-v2.png`, and `tmp/work-menu-font-v2/work-menu-font-metrics-v2.json`.
+- User approved the v2 screenshot; this pass is ready for GitHub push and Vercel production deployment.
+
 ## 2026-07-01 Performance Findings
 - Local production waterfall showed the first loading bottleneck was not the visible first viewport layout itself, but the bottom Product Language orbit images being requested too early.
 - Before the fix, the first five seconds loaded about `17.06MB`, including the eight bottom orbit square images at about `10.3MB` total.
