@@ -722,3 +722,13 @@
 - Verification passed: `node tmp\verify-palifood-continuous-wall.mjs`; `npm run build`.
 - Latest evidence: `tmp/palifood-continuous-wall-qa/01-entry.png`, `02-mid.png`, `03-late.png`, `06-continuous-wall-scroll.webm`.
 - Status: local only; not pushed or deployed. Waiting for user visual approval.
+# 2026-07-04 详情页底部说明模块移除
+
+- 用户要求每一个详情页最下面的“标题说明 + 四张编号卡片”模块彻底去掉，以后不要这个模块。
+- 已在统一详情页组件 `ProjectDetail` 中移除 `case-study-section` 渲染入口；这是全站详情页共同入口，所以会影响所有详情页。
+- 保留详情页图片/视频内容、外链桥接和底部作品墙，不改项目真实数据。
+- 验证已通过：`npm run build`；本地浏览器 QA 显示 `caseSection=0`、`caseCards=0`，Cup’s Cup 旧卡片文案不再出现。
+- 最新截图：`tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png` 与 `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`。
+- 用户已确认截图并批准推送部署。
+- 重要范围：这不是 Cup’s Cup 单项目删除，而是共享详情页模板删除；以后新增并使用 `ProjectDetail` 的项目也不应再出现这块模块。
+- 状态：可推送 GitHub 并部署 Vercel production。

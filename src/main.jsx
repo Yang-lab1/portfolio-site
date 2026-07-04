@@ -4599,24 +4599,6 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
           )}
         </section>
       ) : null}
-      {project.mediaOnlyDetail ? null : (
-        <section className={`case-study-section case-study-${caseStudy.kind}`}>
-          <div className="case-study-head">
-            <span>{caseStudy.label}</span>
-            <h2>{caseStudy.displayTitle || (lang === 'zh' ? '从项目调性出发' : 'Shaped around the project')}</h2>
-            <p>{caseStudy.headline}</p>
-          </div>
-          <div className="case-study-grid">
-            {caseStudy.sections.map((section, index) => (
-              <article className="case-study-card" key={`${section.title}-${index}`}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <h3>{section.title}</h3>
-                <p>{section.body}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-        )}
       <DetailShowcaseFooter lang={lang} onOpenProject={onOpenProject} motionEnabled={motionEnabled} />
     </main>
   );

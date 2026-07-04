@@ -18,6 +18,14 @@
 - GSAP motion pass is confirmed: use `gsap` with timeline/ScrollTrigger, do not add Hero buttons, place the pinned section after work rails and before the capability summary, and keep parallax subtle.
 - Motion should stay restrained and portfolio-grade; avoid playful bouncy easing, large magnetic displacement, or heavy parallax.
 
+## 2026-07-04 Detail Page Bottom Module Findings
+- The red-boxed bottom module is the shared `case-study-section` rendered inside `ProjectDetail`.
+- Removing that single render path removes the “title/headline + four numbered cards” block from all detail pages, without changing project data, galleries, live-link bridges, or the bottom work showcase.
+- The existing case-study data is still used for detail hero copy and media-kind decisions, so the minimal safe change is to stop rendering the bottom card section rather than deleting all case-study metadata.
+- Local QA confirmed `caseSection=0`, `caseCards=0`, no old Cup’s Cup card text remains, and the detail page still has the bottom work showcase.
+- Latest evidence: `tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png`, `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`, and `tmp/detail-bottom-module-removal-v1/metrics.json`.
+- User confirmed the screenshot and clarified the rule must apply to every current and future detail page, not only Cup’s Cup.
+
 ## 2026-07-04 Work Mega Menu Visual Findings
 - User chose the first dark translucent Work menu option.
 - Current stage is visual-only: keep six fixed categories and `XXX` placeholders until the user approves the layout.

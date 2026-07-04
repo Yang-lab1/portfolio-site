@@ -303,3 +303,7 @@
 - The outer page-edge gap fix is intentionally asymmetric by column: only `.palifood-background-column--left-a` left corners and `.palifood-background-column--right-b` right corners are square/clipped. Interior corners must remain rounded.
 - The lower-left generation card has a backup before edge-fill at `tmp/palifood-continuous-wall-qa/p2-left-bottom-generation-before-edge-fill.webp`. If the user dislikes the current edge-fill, restore from that backup instead of recropping by eye.
 - Push/deploy remains blocked until the user approves the fresh screenshots/video after this pass.
+## 2026-07-04 详情页底部说明模块 guardrail
+- 不要再把详情页底部的 `case-study-section` 当作默认模块恢复。用户明确要求所有详情页都移除这块“标题说明 + 四张编号说明卡片”。
+- 这条规则覆盖当前所有详情页，也覆盖之后新加入、继续使用 `ProjectDetail` 的项目详情页。
+- 后续详情页如需补充项目信息，应优先用真实媒体、必要的详情页正文或用户确认的新模块，不要自动恢复旧的四卡片说明区。

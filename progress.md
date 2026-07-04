@@ -1,3 +1,14 @@
+# 2026-07-04 detail page bottom module removal
+
+- User asked to remove the bottom “title/headline + four numbered cards” module from every detail page.
+- Local code change removes the shared `case-study-section` render from `ProjectDetail`.
+- Scope guard: keep detail media, live-link bridge, project data, and bottom work showcase unchanged.
+- Verification passed: `npm run build`; local browser QA shows `caseSection=0`, `caseCards=0`, and the old Cup’s Cup card labels are absent.
+- Latest screenshots: `tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png` and `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`.
+- User confirmed the screenshot and approved push/deploy.
+- Important scope: this is a shared detail-template removal, not a Cup’s Cup-only removal; future projects using `ProjectDetail` should not show the removed module.
+- Status: approved for GitHub push and Vercel production deployment.
+
 # 2026-07-04 Work mega menu typography step-down
 
 - User said the Work dropdown text still feels too large and asked to shrink the latest version by another half step.

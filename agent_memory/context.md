@@ -197,3 +197,8 @@
 - 背景卡片仍然是圆角 App 截图；仅最左列的左侧圆角、最右列的右侧圆角改为视口裁边，避免页面左右边缘出现黑色圆角缝。不要把所有卡片改成直角。
 - `p2-left-bottom-generation.webp` 已做轻微边缘补满：左右各去掉 10px 后回到 `430x940`，减少用户指出的“左下第二张没撑满”观感；备份在 `tmp/palifood-continuous-wall-qa/p2-left-bottom-generation-before-edge-fill.webp`。
 - 滚动顺滑度基线：移除移动背景列上的 filter/重阴影压力，Pai Li Shi ScrollTrigger `scrub` 为 `0.42`。回归需跑 `node tmp\verify-palifood-continuous-wall.mjs` 和 `npm run build`，并先给用户看截图/视频，确认前不要推送或部署。
+## 2026-07-04 详情页底部说明模块
+- 用户要求所有项目详情页最底部的“标题说明 + 四张编号说明卡片”模块以后不要出现。
+- 当前实现从统一 `ProjectDetail` 渲染中移除了 `case-study-section`；详情页媒体、外链桥接和底部作品墙保持不变。
+- 这不是只针对 Cup’s Cup：只要以后新增项目继续走 `ProjectDetail` 详情页模板，就不应再出现这组底部说明卡片。
+- 用户已确认截图并批准 push / Vercel deploy。

@@ -4,9 +4,18 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 57 has user approval for publishing. The Work mega menu typography is now set to about `16.5px` project names and `10.5px` category labels, while preserving the approved dark translucent menu, six-column layout, text-near hover hit area, and blank-click close behavior.
+Phase 58 has user approval for GitHub push and Vercel production deployment. The bottom case-study card module has been removed from the shared detail-page template, so current and future projects using `ProjectDetail` will not show it.
 
 ## Phases
+
+### Phase 58: Detail Page Bottom Case-Study Module Removal
+- [x] Confirm the requested module is the shared `case-study-section` at the bottom of detail pages.
+- [x] Remove the shared render path so the module disappears from every detail page.
+- [x] Run production build.
+- [x] Capture a local detail-page screenshot showing the module is gone.
+- [x] Wait for user confirmation before GitHub push or Vercel deployment.
+- [ ] Push to GitHub and deploy to Vercel production.
+- **Status:** approved for GitHub push and Vercel production deployment.
 
 ### Phase 57: Work Mega Menu Typography Step Down
 - [x] Keep the approved dark translucent real-project menu, six columns, hover dimming, text-near hit area, and blank-click close behavior.
