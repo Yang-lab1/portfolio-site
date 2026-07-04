@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 59 has been approved by the user and is being pushed/deployed. The Product Language orbit wheel response is faster and smoother while preserving the existing image-near wheel capture boundary.
+Phase 59 is complete and deployed. The Product Language orbit wheel response is faster and smoother while preserving the existing image-near wheel capture boundary.
 
 ## Phases
 
@@ -16,9 +16,9 @@ Phase 59 has been approved by the user and is being pushed/deployed. The Product
 - [x] Run production build.
 - [x] Capture local screenshot/video for user review.
 - [x] Wait for user confirmation before GitHub push or Vercel deployment.
-- [ ] Push to GitHub and deploy to Vercel production.
-- [ ] Verify the production site after deployment.
-- **Status:** user approved; publishing in progress.
+- [x] Push to GitHub and deploy to Vercel production.
+- [x] Verify the production site after deployment.
+- **Status:** complete; commit `e2626e6` is pushed to GitHub and production deployment `dpl_HjAaBjXamBhiiymJMKjwRvFXkZ6Z` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 58: Detail Page Bottom Case-Study Module Removal
 - [x] Confirm the requested module is the shared `case-study-section` at the bottom of detail pages.

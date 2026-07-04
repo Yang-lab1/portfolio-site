@@ -27,6 +27,7 @@
 - Regression QA must confirm: wheel over a visible orbit image changes the active card while page `scrollY` stays stable; wheel over blank orbit-section space still scrolls the page normally.
 - Local QA at `1920x900` passed: four wheel ticks over the visible `Opera` card changed the active label to `Xiaomi` with page scroll delta `0`; moving to a blank point near the lower section and wheeling produced page scroll delta `647px`.
 - Latest evidence: `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-before-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`, and metrics JSON.
+- Production deployment `dpl_HjAaBjXamBhiiymJMKjwRvFXkZ6Z` was aliased to `https://portfolio-site-three-rose.vercel.app/`; the same browser QA passed on the fixed public URL.
 
 ## 2026-07-04 Detail Page Bottom Module Findings
 - The red-boxed bottom module is the shared `case-study-section` rendered inside `ProjectDetail`.

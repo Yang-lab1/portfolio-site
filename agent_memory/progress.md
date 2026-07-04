@@ -743,4 +743,7 @@
 - 验证已通过：`npm run build`；本地浏览器 QA 录屏显示图片上滚轮时 active 从 `Opera` 切到 `Xiaomi`，页面 `scrollY` 不变；空白处滚轮页面继续下滑 `647px`。
 - 最新确认素材：`tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png` 与 `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`。
 - 用户已确认预览，并批准 push / deploy。
-- 状态：正在发布。
+- GitHub push 已完成：commit `e2626e6`。
+- Vercel production deployment 已完成：`dpl_HjAaBjXamBhiiymJMKjwRvFXkZ6Z`，已别名到 `https://portfolio-site-three-rose.vercel.app/`。
+- 线上 QA 已通过：图片上滚轮 active 从 `Opera` 切到 `Xiaomi` 且页面不下滑；空白处滚轮页面继续下滑 `647px`；页面错误 `0`。
+- 状态：已完成并部署。

@@ -8,7 +8,10 @@
 - QA metrics: visible orbit cards `7`; active label changed from `Opera` to `Xiaomi` after four wheel ticks on a visible image; image-wheel page scroll delta stayed `0`; blank-area wheel scroll delta was `647px`; page errors `0`.
 - Latest evidence: `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-before-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-after-v1.png`, `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-v1.webm`, and `tmp/product-orbit-wheel-smoothness-v1/orbit-wheel-smoothness-metrics-v1.json`.
 - User confirmed the preview and approved push/deploy.
-- Status: publishing in progress.
+- GitHub push completed with commit `e2626e6`.
+- Vercel production deployment completed: `dpl_HjAaBjXamBhiiymJMKjwRvFXkZ6Z`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed on the fixed production URL: visible orbit cards `7`, active label changed from `Opera` to `Xiaomi`, image-wheel page scroll delta `0`, blank-area wheel scroll delta `647px`, page errors `0`.
+- Status: complete and deployed.
 
 # 2026-07-04 detail page bottom module removal
 
