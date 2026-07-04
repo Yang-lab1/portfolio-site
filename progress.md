@@ -1,3 +1,39 @@
+# 2026-07-04 Work mega menu real project wiring
+
+- User approved the dark translucent v5 Work menu visual direction and asked to continue.
+- Replaced the `XXX` placeholders with real existing project entries under the six approved categories.
+- Used real project short names in the menu so the larger approved typography stays readable and the panel remains exactly about `40%` viewport height.
+- Project clicks now use the existing `openProject` detail-page flow; clicking `Pai Li Shi` opened its detail page and closed the menu.
+- Verification passed:
+  - `npm run build`
+  - local Playwright screenshot, hover screenshot, and click-through recording
+- Latest evidence:
+  - `tmp/work-menu-real-preview-v7.png`
+  - `tmp/work-menu-real-hover-v7.png`
+  - `tmp/work-menu-real-hover-click-v7.webm`
+  - `tmp/work-menu-real-v7-metrics.json`
+- Metrics at 1920x900: panel height `360` (`40%` viewport), grid left/right margin `64/64`, 6 columns, each column `262px`, all gaps `44px`, 24 real project items, `hasXXX=false`, heading top `155px`, first item top `183px`, item font `18.88px`, hover opacity `1`, dimmed opacity `0.18`, project-click leaves menu closed.
+- Status: local only; not pushed and not deployed. Waiting for user visual approval before publishing.
+
+# 2026-07-04 Work mega menu dark visual adjustment
+
+- User selected the first/dark translucent Work menu direction.
+- Adjusted the local Work mega menu draft only:
+  - moved the menu content lower by increasing the top padding;
+  - changed the six-column grid from centered max-width to full available width;
+  - reduced horizontal padding and column gaps so left/right margins are balanced;
+  - kept all project entries as `XXX` placeholders.
+- Fixed duplicate React keys for repeated `XXX` placeholders by keying with category id and index.
+- Verification passed:
+  - `npm run build`
+  - local Playwright screenshot and open/close recording
+- Latest evidence:
+  - `tmp/work-menu-dark-preview-v5.png`
+  - `tmp/work-menu-dark-hover-v5.png`
+  - `tmp/work-menu-dark-hover-open-close-v5.webm`
+- Metrics at 1920x900: panel height `360`, grid left/right margin `64/64`, 6 columns, each column `262px`, all gaps `44px`, directory heading top `155px`, project item top `183px`, heading font `12.288px` / weight `480`, item font `18.88px` / weight `800`, unique item text `XXX`, hovered opacity `1`, dimmed opacity `0.18`, close-on-lower-area click works.
+- Status: local only; not pushed and not deployed. Waiting for user visual approval before any commit, upload, deployment, real project data, or detail-link wiring.
+
 # 2026-07-03 Pai Li Shi AWSMD motion direction correction
 
 - User asked to compare the interaction against AWSMD frame-by-frame: the side app screenshots should move upward while the hand/phone reaches the lower end position instead of drifting upward.

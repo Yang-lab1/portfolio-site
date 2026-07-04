@@ -4,9 +4,32 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 47 is in local visual approval for the Pai Li Shi AWSMD-style detail interaction. The current local version uses real app screenshot columns, keeps the center phone aperture measured/aligned, moves the background upward during scroll, and now moves the hand/phone downward toward the bottom position. Nothing is pushed or deployed until the user approves screenshots.
+Phase 55 is in local visual approval for the Work top mega menu with real project short names and detail routing. The dark translucent v5 visual direction is preserved, six columns remain evenly distributed, and nothing is pushed or deployed until the user approves the new screenshot/video.
 
 ## Phases
+
+### Phase 55: Work Mega Menu Real Project Wiring
+- [x] Replace `XXX` placeholders with real existing project entries only.
+- [x] Keep the six approved category columns in the exact user-specified order.
+- [x] Use concise real project short names so the panel stays at about 40% viewport height with the approved larger typography.
+- [x] Preserve hover dimming and click-lower-area close behavior.
+- [x] Wire project clicks through the existing detail-page opener.
+- [x] Run production build.
+- [x] Capture local screenshot, hover screenshot, and click-through video for user review.
+- [ ] Wait for user visual approval.
+- [ ] Push and deploy only after explicit user approval.
+- **Status:** local only; not pushed and not deployed.
+
+### Phase 54: Work Mega Menu Visual Approval
+- [x] Keep this phase visual-only: six categories and `XXX` placeholders, no real project names, no data scraping, no detail-link wiring.
+- [x] Preserve the dark translucent full-width panel direction selected by the user.
+- [x] Move the content lower so the title rows no longer sit too close to the top edge.
+- [x] Refit the six columns to the available width so left/right margins are balanced and internal gaps are even.
+- [x] Run production build.
+- [x] Capture local screenshot and open/close video for user review.
+- [x] Wait for user visual approval.
+- [x] Only after approval, continue to real project names and detail routing.
+- **Status:** complete locally; superseded by Phase 55.
 
 ### Phase 46: Product Language Orbit First-Load Performance
 - [x] Measure the local production build before changing code.

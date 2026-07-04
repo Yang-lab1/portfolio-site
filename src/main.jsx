@@ -997,6 +997,66 @@ const projectShortCopy = {
   },
 };
 
+const workMenuCategories = [
+  {
+    id: 'ai-products',
+    title: 'AI Agent / AI Products',
+    projectIds: ['miro', 'palifood', 'sport', 'momenta'],
+  },
+  {
+    id: 'b2b-scenarios',
+    title: 'B2B Scenarios',
+    projectIds: ['miro-governance', 'food-health-model', 'tcm-systems', 'libai-data'],
+  },
+  {
+    id: 'b2b-products',
+    title: 'B2B Products',
+    projectIds: ['smart-waste', 'ufei-precision-cabinet', 'baling-press', 'miro-hardware'],
+  },
+  {
+    id: 'c2c-products',
+    title: 'C2C Products',
+    projectIds: ['offer-quest', 'libai', 'tcm-kg', 'cbs5502'],
+  },
+  {
+    id: 'cmf-products',
+    title: 'CMF Products',
+    projectIds: ['xiaomi-cmf', 'cmf-electronics', 'cat-turntable', 'cup-cup'],
+  },
+  {
+    id: 'concept-products',
+    title: 'Concept Products',
+    projectIds: ['momenta-touch', 'cross-ripple', 'opera-ruler', 'capstone-device'],
+  },
+];
+
+const workMenuProjectLabels = {
+  miro: 'Miro',
+  palifood: 'Pai Li Shi',
+  sport: 'Home Form Coach',
+  momenta: 'Momenta AI Music',
+  'miro-governance': 'Miro Governance',
+  'food-health-model': 'Food Health Model',
+  'tcm-systems': 'Formula Network',
+  'libai-data': 'Li Bai Data Narrative',
+  'smart-waste': 'Smart Waste Tank',
+  'ufei-precision-cabinet': 'Precision Cabinet',
+  'baling-press': 'Baling Press',
+  'miro-hardware': 'Miro Hardware',
+  'offer-quest': 'Offer Quest',
+  libai: 'Li Bai Website',
+  'tcm-kg': 'TCM Knowledge Graph',
+  cbs5502: 'Feel NLP',
+  'xiaomi-cmf': 'Xiaomi CMF',
+  'cmf-electronics': 'CMF Electronics',
+  'cat-turntable': 'CatToy',
+  'cup-cup': "Cup's Cup",
+  'momenta-touch': 'Momenta Touch',
+  'cross-ripple': 'Cross-ripple',
+  'opera-ruler': 'Opera Drawing Ruler',
+  'capstone-device': 'Capstone Device',
+};
+
 const projectKinds = {
   miro: 'digital',
   palifood: 'digital',
@@ -2644,6 +2704,14 @@ function App() {
   const [lang, setLang] = useState('en');
   const [selectedId, setSelectedId] = useState(null);
   const [pendingScrollTarget, setPendingScrollTarget] = useState(null);
+  const [workMenuOpen, setWorkMenuOpen] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return new URLSearchParams(window.location.search).get('workMenu') === '1';
+  });
+  const [workMenuTheme] = useState(() => {
+    if (typeof window === 'undefined') return 'dark';
+    return new URLSearchParams(window.location.search).get('workMenuTheme') === 'light' ? 'light' : 'dark';
+  });
   const selected = projects.find((project) => project.id === selectedId);
   const motion = useMotionProfile();
   const pinEnabled = !selected && !motion.reduced && !motion.mobile;
@@ -2715,6 +2783,13 @@ function App() {
     const targetId = item?.targetId;
     if (!targetId) return;
 
+    if (targetId === 'work') {
+      setWorkMenuOpen(true);
+      return;
+    }
+
+    setWorkMenuOpen(false);
+
     if (selectedId) {
       setPendingScrollTarget(targetId);
       setSelectedId(null);
@@ -2728,6 +2803,7 @@ function App() {
     const targetProject = projects.find((project) => project.id === id);
     if (!hasProjectDetailMedia(targetProject)) return;
 
+    setWorkMenuOpen(false);
     setSelectedId(id);
     window.setTimeout(() => {
       const lenis = window.__portfolioLenis;
@@ -2742,6 +2818,12 @@ function App() {
   return (
     <div className="app-shell" ref={appRef}>
       <Header lang={lang} setLang={setLang} onNavigate={handleHeaderNavigate} />
+      <WorkMegaMenu
+        open={workMenuOpen}
+        theme={workMenuTheme}
+        onClose={() => setWorkMenuOpen(false)}
+        onOpenProject={openProject}
+      />
       {selected ? (
         <ProjectDetail lang={lang} project={selected} onBack={() => setSelectedId(null)} onOpenProject={openProject} motionEnabled={!motion.reduced} />
       ) : (
@@ -2898,6 +2980,64 @@ function GooeyNav({ items, initialActiveIndex = 0, onNavigate }) {
       </nav>
       <span className="effect filter" ref={filterRef} aria-hidden="true" />
       <span className="effect text" ref={textRef} aria-hidden="true" />
+    </div>
+  );
+}
+
+function WorkMegaMenu({ open, theme, onClose, onOpenProject }) {
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, open]);
+
+  const handleOverlayClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div
+      className={`work-mega-menu work-mega-menu--${theme}${open ? ' is-open' : ''}`}
+      aria-hidden={!open}
+      onClick={handleOverlayClick}
+    >
+      <div className="work-mega-menu__panel" role="dialog" aria-modal="true" aria-label="Work index">
+        <div className="work-mega-menu__grid">
+          {workMenuCategories.map((category) => (
+            <section className="work-mega-menu__column" key={category.id}>
+              <h2>{category.title}</h2>
+              <div className="work-mega-menu__items">
+                {category.projectIds?.map((projectId) => {
+                  const project = projects.find((item) => item.id === projectId);
+                  if (!project || !hasProjectDetailMedia(project)) return null;
+                  return (
+                    <button
+                      className="work-mega-menu__item"
+                      type="button"
+                      key={projectId}
+                      onClick={() => onOpenProject(projectId)}
+                    >
+                      {workMenuProjectLabels[projectId] ?? t(project.title, 'en')}
+                    </button>
+                  );
+                })}
+                {category.placeholders?.map((label, index) => (
+                  <span className="work-mega-menu__item work-mega-menu__item--placeholder" key={`${category.id}-${index}`}>
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,27 @@
 # 当前任务进度
 
+## 2026-07-04 Work 顶部全屏下拉菜单真实项目版
+- 用户已确认黑色半透明 v5 视觉方向，并要求继续按这个方向接入真实项目名和跳转。
+- 已把 `XXX` 占位替换为站内既有真实项目入口，不新增项目、不抓取外部数据、不接入用户未确认的新素材。
+- 为保持用户确认的大字号和约 40% 屏幕高度，菜单内显示真实项目短名；完整标题仍保留在详情页中，点击菜单项会进入对应详情页。
+- 六列顺序保持用户指定顺序：`AI Agent / AI Products`、`B2B Scenarios`、`B2B Products`、`C2C Products`、`CMF Products`、`Concept Products`。
+- 当前 1920x900 本地 QA：panelHeight `360`（`40%` 视口），gridLeft/gridRight `64/64`，6 列每列 `262px`，5 个列间距均为 `44px`，真实项目数 `24`，`hasXXX=false`。
+- hover 视觉保持：当前项目 opacity `1`，其余项目 opacity `0.18`；点击 `Pai Li Shi` 可进入详情页，并且 Work 菜单会关闭。
+- 验证已通过：`npm run build`；Playwright 本地截图、hover 截图和点击跳转视频已生成。
+- 最新确认图与视频：`tmp/work-menu-real-preview-v7.png`、`tmp/work-menu-real-hover-v7.png`、`tmp/work-menu-real-hover-click-v7.webm`。
+- 状态：本地已完成，等待用户看图/视频确认；确认前不要 push、不要 Vercel deploy。
+
+## 2026-07-04 Work 顶部全屏下拉菜单视觉确认
+- 用户已选择黑色半透明方案作为 Work 菜单方向，当前阶段仍只做视觉定稿，不接真实项目名、不做项目详情跳转、不推送、不部署。
+- 已按用户反馈调整本地草稿：菜单内容整体下移，避免贴近顶部；六列从居中定宽改为按可用宽度等分，减少左右尤其右侧留白。
+- 当前 1920x900 本地 QA：panelHeight `360`，gridLeft/gridRight 均为 `64`，6 列每列 `262px`，5 个列间距均为 `44px`，目录标题 top 为 `155px`、字号约 `12.288px`、字重 `480`；项目占位 top 为 `183px`、字号约 `18.88px`、字重 `800`，占位内容唯一值仍为 `XXX`。
+- 已按用户新参考图调换视觉层级：目录小而轻，项目名大而加粗。
+- 已新增 hover 视觉：鼠标悬停某一项目时，当前项目 opacity 为 `1`，其他项目 opacity 为 `0.18`。
+- 已修复占位 `XXX` 重复 key 的预览警告风险，不改变视觉与真实数据接入状态。
+- 验证已通过：`npm run build`；Playwright 本地截图与开合视频已生成。
+- 最新确认图与视频：`tmp/work-menu-dark-preview-v5.png`、`tmp/work-menu-dark-hover-v5.png`、`tmp/work-menu-dark-hover-open-close-v5.webm`。
+- 状态：等待用户确认截图/视频；确认前不要 push、不要 Vercel deploy、不要接真实项目数据。
+
 ## 2026-07-03 拍立食 AWSMD 式滚动展示最终视觉修正
 - 已按用户最新反馈继续修正拍立食详情页的 AWSMD 式滚动展示，不推送、不部署，等待用户看截图确认。
 - 中心手持手机已替换为用户最新提供的高清黑屏手图 `C:\Users\Yang\AppData\Local\Temp\codex-clipboard-d21b0018-e009-46e4-b1bb-229e47d3d68c.png`；该图原始尺寸为 `1818x865`，已归一到站内既有 `1817x866` 坐标系，避免屏幕内容、透明洞口和 CSS 坐标重新漂移。

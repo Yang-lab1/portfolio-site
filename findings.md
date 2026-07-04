@@ -18,6 +18,27 @@
 - GSAP motion pass is confirmed: use `gsap` with timeline/ScrollTrigger, do not add Hero buttons, place the pinned section after work rails and before the capability summary, and keep parallax subtle.
 - Motion should stay restrained and portfolio-grade; avoid playful bouncy easing, large magnetic displacement, or heavy parallax.
 
+## 2026-07-04 Work Mega Menu Visual Findings
+- User chose the first dark translucent Work menu option.
+- Current stage is visual-only: keep six fixed categories and `XXX` placeholders until the user approves the layout.
+- The previous preview looked uneven because the grid was capped at `1560px` and centered inside a 1920px viewport, leaving extra side whitespace.
+- The local adjustment removes the grid max-width, uses full available width, narrows horizontal padding, and keeps `repeat(6, minmax(0, 1fr))`.
+- At 1920x900, measured grid margins are balanced at `64px / 64px`, all six columns are `262px`, and all five column gaps are `44px`.
+- Content was moved down to match the user's middle-lower reference: directory heading top is now `155px`, project item top is `181px`, and the panel stays about `40svh` tall (`360px` at 900px viewport height).
+- The visual hierarchy now follows the user's second reference: directory labels are smaller/lighter (`12.288px`, weight `480`), while project names/placeholders are larger/bolder (`18.88px`, weight `800`).
+- Hover behavior is implemented for project items: when one item is hovered, the hovered item measures opacity `1` and other project items measure opacity `0.18`.
+- Lower-page click-to-close still works, and menu-internal placeholder content remains only `XXX`.
+
+## 2026-07-04 Work Mega Menu Real Project Findings
+- After the user approved the v5 visual direction, the menu was wired to real existing project IDs only; no new project records were invented.
+- The menu uses concise real project short names rather than full detail-page titles, because full titles pushed the panel to about `407px` high and caused many wraps.
+- The approved layout is preserved at `1920x900`: panel height `360px` (`40%` viewport), grid margins `64px / 64px`, six columns at `262px`, and all five gaps at `44px`.
+- The fixed category order is: `AI Agent / AI Products`, `B2B Scenarios`, `B2B Products`, `C2C Products`, `CMF Products`, `Concept Products`.
+- Browser QA found `24` menu items, `hasXXX=false`, heading font `12.288px` / weight `480`, item font `18.88px` / weight `800`.
+- Hover QA still works with real names: hovered item opacity `1`, dimmed project item opacity `0.18`.
+- Click QA opened `Pai Li Shi` through the existing detail-page path and left the Work menu closed after navigation.
+- Latest evidence: `tmp/work-menu-real-preview-v7.png`, `tmp/work-menu-real-hover-v7.png`, `tmp/work-menu-real-hover-click-v7.webm`, and `tmp/work-menu-real-v7-metrics.json`.
+
 ## 2026-07-01 Performance Findings
 - Local production waterfall showed the first loading bottleneck was not the visible first viewport layout itself, but the bottom Product Language orbit images being requested too early.
 - Before the fix, the first five seconds loaded about `17.06MB`, including the eight bottom orbit square images at about `10.3MB` total.
