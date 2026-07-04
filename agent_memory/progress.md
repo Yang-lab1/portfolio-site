@@ -731,4 +731,7 @@
 - 最新截图：`tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png` 与 `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`。
 - 用户已确认截图并批准推送部署。
 - 重要范围：这不是 Cup’s Cup 单项目删除，而是共享详情页模板删除；以后新增并使用 `ProjectDetail` 的项目也不应再出现这块模块。
-- 状态：可推送 GitHub 并部署 Vercel production。
+- GitHub 已推送 commit `b9bd5c6`。
+- Vercel production 已部署：`dpl_GBif3EoDZ66sC7ycQSghvk4qXpTe`，已别名到 `https://portfolio-site-three-rose.vercel.app/`。
+- 线上 QA 已通过：首页 `200 OK`；线上 Cup’s Cup 详情页 `caseSection=0`、`caseCards=0`，旧卡片文案不存在。
+- 状态：已完成并部署。

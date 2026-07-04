@@ -7,7 +7,10 @@
 - Latest screenshots: `tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png` and `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`.
 - User confirmed the screenshot and approved push/deploy.
 - Important scope: this is a shared detail-template removal, not a Cup’s Cup-only removal; future projects using `ProjectDetail` should not show the removed module.
-- Status: approved for GitHub push and Vercel production deployment.
+- GitHub push completed with commit `b9bd5c6`.
+- Vercel production deployment completed: `dpl_GBif3EoDZ66sC7ycQSghvk4qXpTe`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed: homepage returned `200 OK`; deployed Cup’s Cup detail page reports `caseSection=0`, `caseCards=0`, and no old card labels.
+- Status: complete and deployed.
 
 # 2026-07-04 Work mega menu typography step-down
 

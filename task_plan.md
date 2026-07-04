@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 58 has user approval for GitHub push and Vercel production deployment. The bottom case-study card module has been removed from the shared detail-page template, so current and future projects using `ProjectDetail` will not show it.
+Phase 58 is complete and deployed. The bottom case-study card module has been removed from the shared detail-page template, so current and future projects using `ProjectDetail` will not show it.
 
 ## Phases
 
@@ -14,8 +14,8 @@ Phase 58 has user approval for GitHub push and Vercel production deployment. The
 - [x] Run production build.
 - [x] Capture a local detail-page screenshot showing the module is gone.
 - [x] Wait for user confirmation before GitHub push or Vercel deployment.
-- [ ] Push to GitHub and deploy to Vercel production.
-- **Status:** approved for GitHub push and Vercel production deployment.
+- [x] Push to GitHub and deploy to Vercel production.
+- **Status:** complete; production deployment `dpl_GBif3EoDZ66sC7ycQSghvk4qXpTe` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 57: Work Mega Menu Typography Step Down
 - [x] Keep the approved dark translucent real-project menu, six columns, hover dimming, text-near hit area, and blank-click close behavior.

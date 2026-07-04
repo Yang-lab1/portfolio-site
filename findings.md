@@ -25,6 +25,7 @@
 - Local QA confirmed `caseSection=0`, `caseCards=0`, no old Cup’s Cup card text remains, and the detail page still has the bottom work showcase.
 - Latest evidence: `tmp/detail-bottom-module-removal-v1/cup-cup-boundary-after-removal.png`, `tmp/detail-bottom-module-removal-v1/cup-cup-bottom-after-removal.png`, and `tmp/detail-bottom-module-removal-v1/metrics.json`.
 - User confirmed the screenshot and clarified the rule must apply to every current and future detail page, not only Cup’s Cup.
+- Deployed QA against `https://portfolio-site-three-rose.vercel.app/` confirmed the same removal: `caseSection=0`, `caseCards=0`, old card labels absent, and no browser errors recorded by the verification script.
 
 ## 2026-07-04 Work Mega Menu Visual Findings
 - User chose the first dark translucent Work menu option.
