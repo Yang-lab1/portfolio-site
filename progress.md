@@ -1,3 +1,16 @@
+# 2026-07-04 About portrait intro
+
+- User approved the Option 02 / Cinematic Offset direction and selected the discrete/hidden-order copy direction.
+- Implemented the new About intro section on the real homepage, placed between the Hero and the existing metric cards.
+- Added optimized portrait asset `public/portfolio/yang-lin-portrait.webp` from the user-provided portrait.
+- `About / 关于` now scrolls to the new portrait intro section (`#about`); the existing metrics block remains directly below as `#about-metrics`.
+- Copy is single-language by site language state:
+  - EN: `I look for hidden order in behavior, technology, and form, / then shape it into usable products.`
+  - ZH: `我寻找行为、技术与形态中的隐藏秩序，/ 并把它转化为可用的产品。`
+- Verification passed locally: `npm run build`; browser QA confirmed two-line EN/ZH text, right-edge alignment, `42px` name-to-copy gap, loaded portrait, final CountUp metrics, and no horizontal overflow on desktop/mobile.
+- Latest local evidence: `tmp/about-intro-final/about-intro-en-final.png`, `tmp/about-intro-final/about-intro-zh-desktop.png`, `tmp/about-intro-final/about-intro-mobile.png`, and metrics JSON.
+- Status: user approved push/deploy; GitHub push and Vercel production deployment are the next step.
+
 # 2026-07-04 Product Language orbit wheel smoothness
 
 - User asked for the bottom Product Language orbit to respond faster and more smoothly to mouse-wheel rotation.

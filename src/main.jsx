@@ -43,6 +43,12 @@ const copy = {
     aboutTitle: 'A portfolio system for hybrid product work.',
     aboutCopy:
       'The work connects industrial design, CMF, hardware delivery, AI interaction, web prototypes, and data systems into one evidence structure.',
+    aboutIntroKicker: 'Portfolio / Systems / Objects',
+    aboutIntroLine: [
+      'I look for hidden order in behavior, technology, and form,',
+      'then shape it into usable products.',
+    ],
+    aboutIntroSignals: ['Research', 'Prototype', 'Interface', 'Object'],
     process: 'Process',
     role: 'Role',
     year: 'Year',
@@ -82,6 +88,12 @@ const copy = {
     aboutTitle: '一个面向复合型产品能力的作品系统。',
     aboutCopy:
       '这里把工业设计、CMF、硬件推进、AI 交互、Web 原型和数据系统组织成一套连续的证据结构。',
+    aboutIntroKicker: '作品集 / 系统 / 物体',
+    aboutIntroLine: [
+      '我寻找行为、技术与形态中的隐藏秩序，',
+      '并把它转化为可用的产品。',
+    ],
+    aboutIntroSignals: ['研究', '原型', '界面', '物体'],
     process: '过程',
     role: '角色',
     year: '年份',
@@ -2751,9 +2763,7 @@ function App() {
     if (!target) return;
 
     const headerHeight = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 68;
-    const targetOffset = targetId === 'about'
-      ? headerHeight + Math.min(140, Math.max(96, window.innerHeight * 0.14))
-      : headerHeight + 12;
+    const targetOffset = headerHeight + 12;
     const lenis = window.__portfolioLenis;
     const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - targetOffset);
 
@@ -2829,6 +2839,7 @@ function App() {
       ) : (
         <>
           <Hero lang={lang} />
+          <AboutIntro lang={lang} />
           <AchievementCards lang={lang} />
           <ModuleIntro content={moduleIntros.aiProducts} lang={lang} className="module-intro-daima" variant="dark" />
           <DaimaWorksShowcase lang={lang} onOpenProject={openProject} motionEnabled={!motion.reduced} />
@@ -3217,9 +3228,38 @@ function CountUp({
   return <span className={className} ref={ref} />;
 }
 
+function AboutIntro({ lang }) {
+  const introLines = copy[lang].aboutIntroLine;
+  const signals = copy[lang].aboutIntroSignals;
+
+  return (
+    <section id="about" className="about-profile-section" aria-label={copy[lang].about}>
+      <div className="about-profile-grid">
+        <figure className="about-profile-portrait">
+          <img src="/portfolio/yang-lin-portrait.webp" alt="Yang Lin portrait" loading="lazy" decoding="async" />
+        </figure>
+        <div className="about-profile-copy">
+          <p className="about-profile-kicker">{copy[lang].aboutIntroKicker}</p>
+          <h2>Yang Lin</h2>
+          <p className={`about-profile-line is-${lang}`}>
+            {introLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </p>
+          <div className="about-profile-signals" aria-label={lang === 'zh' ? '设计信号' : 'Design signals'}>
+            {signals.map((signal) => (
+              <span key={signal}>{signal}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function AchievementCards({ lang }) {
   return (
-    <section id="about" className="achievement-section" aria-label={copy[lang].achievementLabel}>
+    <section id="about-metrics" className="achievement-section" aria-label={copy[lang].achievementLabel}>
       {achievementCards.map((card) => {
         const { number, suffix } = getAchievementValueParts(card.value);
         return (

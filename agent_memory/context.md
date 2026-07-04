@@ -1,5 +1,12 @@
 # 项目上下文
 
+## 2026-07-04 About 头像介绍区当前状态
+- 用户已选择 About 新增介绍区的 Option 02 / Cinematic Offset，并进一步选择“离散 / 隐藏秩序”方向文案。
+- 当前正式实现：首页 Hero 后、原黑色数据卡片前新增黑底头像介绍区；左侧使用用户头像轻量 WebP，右侧为 `Yang Lin`、两行介绍文案和少量信号标签。
+- About 顶部导航现在落到新的头像介绍区 `#about`；原四张数据卡片段改为 `#about-metrics` 并继续紧接在介绍区下方。
+- 当前确认文案只单语显示，随站点语言切换，不中英同屏。英文为 `I look for hidden order in behavior, technology, and form, / then shape it into usable products.`；中文为 `我寻找行为、技术与形态中的隐藏秩序，/ 并把它转化为可用的产品。`
+- 右侧介绍文字需要保持两行、与 `Yang Lin` 右边界平齐，并与姓名保留约 `42px` 垂直间距；头像不要放大到压迫页面，应保持黑底融合和呼吸感。
+
 ## 2026-07-04 Work 菜单当前状态
 - 最新一轮用户反馈：Work 下拉菜单整体字号缩小到项目名约 `16.5px`、分类约 `10.5px` 的 v2 版本已被用户确认，可推送 GitHub 并部署 Vercel production。
 - Work 顶部全屏下拉菜单已经接入真实项目短名和详情跳转，但最新一轮只是在本地细化 hover 热区与点击关闭规则。
@@ -7,7 +14,7 @@
 - 最新确认资料在 `tmp/work-menu-hitbox-v1/`，包括 open/hover/detail 截图、交互视频和 metrics JSON。用户已确认，可推送 GitHub 并部署 Vercel production；发布后验证线上地址。
 
 ## 2026-06-30 当前作品集任务上下文
-- 2026-07-01 顶部 `About / 关于` 导航已重新定义为全站回到首页黑色成就数据卡片段（`#about`，四张卡：51、20+、12+、4），不是底部 Product Language 圆盘段；Product Language 圆盘段当前锚点为 `#product-language`。
+- 2026-07-04 更新：顶部 `About / 关于` 导航现在全站回到首页新增的黑底头像介绍区（`#about`）；原黑色成就数据卡片段改为 `#about-metrics`，仍显示 51、20+、12+、4，并位于头像介绍区下方。Product Language 圆盘段当前锚点为 `#product-language`。
 - Header 的 Work/About 链接现在由 `App` 接管跳转，以便从项目详情页先返回主页再滚到目标段。不要直接恢复原生锚点行为，因为 Lenis `anchors: true` 会二次触发默认 `#about` 跳转并覆盖自定义落点。
 - 当前主要任务是作品集首页与详情页的视觉内容整理，不是中国域名发布任务。
 - 最后的圆形圆盘模块定位为 `Product Language & Sensibility / 产品语言与感知`，只展示工业设计、产品外观、材质、CMF、概念硬件等真实产品项目，不放 AI 网站截图、数据图、知识图谱或流程图。

@@ -18,6 +18,14 @@
 - GSAP motion pass is confirmed: use `gsap` with timeline/ScrollTrigger, do not add Hero buttons, place the pinned section after work rails and before the capability summary, and keep parallax subtle.
 - Motion should stay restrained and portfolio-grade; avoid playful bouncy easing, large magnetic displacement, or heavy parallax.
 
+## 2026-07-04 About Portrait Intro Findings
+- The selected visual target is Option 02 / Cinematic Offset: black background, portrait on the left, `Yang Lin` on the right, concise copy below, then the existing black metric cards.
+- The user clarified that language switching must show only one language at a time. English and Chinese should have similar visual line count, not appear together.
+- The accepted personal copy direction is about hidden/discrete order: finding order in behavior, technology, and form, then shaping it into usable products.
+- The About navigation anchor now belongs to the new portrait intro section (`#about`). The existing metrics section remains below and now uses `#about-metrics`.
+- Local browser QA confirmed the important layout constraints: English and Chinese intro lines both render as two lines, the intro text right edge aligns with `Yang Lin`, the vertical gap is `42px`, the portrait asset loads at `1200px` natural width, and horizontal overflow is `0` on desktop and mobile.
+- Latest evidence: `tmp/about-intro-final/about-intro-en-final.png`, `tmp/about-intro-final/about-intro-zh-desktop.png`, `tmp/about-intro-final/about-intro-mobile.png`, and `tmp/about-intro-final/about-intro-metrics.json`.
+
 ## 2026-07-04 Product Language Orbit Wheel Smoothness Findings
 - The wheel interaction lives in the shared Product Language expansion section in `src/main.jsx`.
 - The previous speed pass used `clamp(..., -300, 300) * 0.01` and animated `wheelState.offset` to `wheelState.offset + delta`.

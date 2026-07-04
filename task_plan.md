@@ -4,9 +4,23 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 59 is complete and deployed. The Product Language orbit wheel response is faster and smoother while preserving the existing image-near wheel capture boundary.
+Phase 60 is approved for release. The About portrait intro has been implemented locally with the selected discrete/hidden-order copy and is ready for GitHub push plus Vercel production deployment.
 
 ## Phases
+
+### Phase 60: About Portrait Intro Section
+- [x] Confirm the selected visual direction: Option 02 / Cinematic Offset.
+- [x] Replace simultaneous bilingual preview copy with single-language content controlled by the existing language state.
+- [x] Use the selected discrete/hidden-order personal copy in balanced two-line English and Chinese.
+- [x] Add a black portrait intro section above the existing About metrics cards.
+- [x] Move the About anchor to the new intro section and keep the metrics directly below as `about-metrics`.
+- [x] Optimize the user-provided portrait as a lightweight site asset.
+- [x] Run production build.
+- [x] Verify desktop English, desktop Chinese, and mobile layout with browser QA.
+- [x] Wait for user approval before release.
+- [ ] Push to GitHub and deploy to Vercel production.
+- [ ] Verify the production site after deployment.
+- **Status:** user approved implementation and release; local QA passed, deployment pending.
 
 ### Phase 59: Product Language Orbit Wheel Smoothness
 - [x] Confirm the scope is only the bottom Product Language orbit wheel response.

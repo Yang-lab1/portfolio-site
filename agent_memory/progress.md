@@ -1,3 +1,46 @@
+# 2026-07-04 About 头像介绍区正式实现
+- 用户确认采用 Option 02 / Cinematic Offset 的整体排版，并选择“离散 / 隐藏秩序”方向文案后，已把预览方案落到正式首页。
+- 正式改动：在 Hero 与原数据卡片之间新增 `AboutIntro` 组件；`#about` 现在指向头像介绍区，原 `AchievementCards` 改为 `#about-metrics`。
+- 头像来源为用户提供的 `C:\Users\Yang\Desktop\628e2573-7f68-481d-8878-dac7f9a4e5c7.png`，已生成站内轻量资源 `public/portfolio/yang-lin-portrait.webp`。
+- 正式文案保持单语切换、两行呈现：
+  - EN: `I look for hidden order in behavior, technology, and form, / then shape it into usable products.`
+  - ZH: `我寻找行为、技术与形态中的隐藏秩序，/ 并把它转化为可用的产品。`
+- 本地验证已通过：`npm run build`；Playwright 检查英文/中文均为两行、右边界与 `Yang Lin` 对齐、姓名与文案间距 `42px`、头像资源加载成功、桌面与移动端无横向溢出。
+- 最新本地截图：`tmp/about-intro-final/about-intro-en-final.png`、`tmp/about-intro-final/about-intro-zh-desktop.png`、`tmp/about-intro-final/about-intro-mobile.png`。
+- 状态：用户已要求推送并部署；发布后需要验证线上 `About` 入口、英文/中文两行文案、头像加载和下方数据卡片衔接。
+
+# 2026-07-04 About 头像介绍区三版视觉预览
+- 用户新需求：在首页 About 数据卡片上方增加黑底个人介绍区，左侧放用户头像，右侧放 `Yang Lin` 与一句简短介绍；整体要简洁、高级、有呼吸感，并与下方四张黑色数据卡片衔接。
+- 当前阶段仅做 Product Design 视觉方向预览，未改正式 `src` 代码、未 push、未部署。
+- 已用用户提供头像 `C:\Users\Yang\Desktop\628e2573-7f68-481d-8878-dac7f9a4e5c7.png` 在 `tmp/about-intro-options/` 生成三套整体页面截图，截图同时展示新介绍区和下方数据卡片。
+- 三套方向：
+  - Option 01 / Wide Silence：更经典的左右大留白，文案为 “I design AI products, interfaces, and physical systems that make complex signals feel clear.” / “我设计 AI 产品、界面与实体系统，让复杂信号变得清晰可感。”
+  - Option 02 / Cinematic Offset：头像更沉稳、右侧信息更靠下，文案为 “Designing quiet, intelligent systems across AI, web, product, and material experience.” / “在 AI、Web、产品与材料体验之间，设计安静而智能的系统。”
+  - Option 03 / Signal Index：更艺术书页式的三段横向结构，文案为 “I turn research, behavior, and technology into products people can read, trust, and use.” / “我把研究、行为与技术转化为可读、可信、可用的产品体验。”
+- 最新预览图：`tmp/about-intro-options/option-1-wide-silence.png`、`tmp/about-intro-options/option-2-cinematic-offset.png`、`tmp/about-intro-options/option-3-signal-index.png`。
+- 状态：等待用户选择方案或指出要混合/调整的点；确认前不要写入正式页面，不要推送部署。
+
+# 2026-07-04 About 头像介绍区图二细化
+- 用户选择 Option 02 / Cinematic Offset，但澄清正式效果不应中英文同时显示，而是语言切换后单独显示英文或中文；英文和中文切换后的呈现行数应尽量一致。
+- 当前仍只修改 `tmp/about-intro-options/` 临时预览稿，未写入正式 `src` 页面、未 push、未部署。
+- 已按用户要求缩小图二右侧介绍文字字号，缩小头像展示尺寸，并加大左右间距，让整体呼吸感更强。
+- 已把图二文案调整为单语言预览：
+  - 英文三行：`Designing quiet, intelligent systems / across AI, web, product, and / material experience.`
+  - 中文三行：`在 AI、Web、产品与材料体验之间，/ 设计安静而智能的系统，/ 让体验更清晰、可信、可用。`
+- 最新预览图：`tmp/about-intro-options/option-2-refined-en.png`、`tmp/about-intro-options/option-2-refined-zh.png`。
+- 状态：等待用户确认这版图二；确认前不要正式制作、不要推送部署。
+
+# 2026-07-04 About 头像介绍区图二两行右对齐版
+- 用户继续反馈：中文切换后介绍文字离 `Yang Lin` 太近，要求介绍文字整体再小一点，最好压到两行，并让右侧介绍文字的右边界与 `Yang Lin` 最后一个 `n` 的最右边平齐，同时名字和介绍之间留出上下间隙。
+- 当前仍只修改 `tmp/about-intro-options/` 临时预览稿，未写入正式 `src` 页面、未 push、未部署。
+- 已调整 Option 02：介绍文字改为两行、字号继续缩小、文本块右对齐，名字和介绍之间保留 `42px` 垂直间隙。
+- 当前文案：
+  - 英文：`Designing intelligent systems across AI, web, / product, and material experience.`
+  - 中文：`在 AI、Web、产品与材料体验之间，/ 设计安静、智能、清晰的系统。`
+- 浏览器测量确认：英文和中文状态下 `bioRight - nameRight = 0`，即介绍文字右边界与 `Yang Lin` 右边界对齐；垂直间隙为 `42px`。
+- 最新预览图仍覆盖输出为：`tmp/about-intro-options/option-2-refined-en.png`、`tmp/about-intro-options/option-2-refined-zh.png`。
+- 状态：等待用户确认这版；确认前不要正式制作、不要推送部署。
+
 # 2026-07-04 Work 菜单字号微调
 - 用户反馈 Work 下拉菜单整体字号仍偏大，要求在上一版基础上再缩小半个字号。
 - 当前本地改动只调整 `.work-mega-menu__column h2` 和 `.work-mega-menu__item` 的 `font-size`：目标为 1920x900 下分类标题约 `10.5px`，项目名约 `16.5px`。
