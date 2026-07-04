@@ -1,5 +1,10 @@
 # 问题与风险
 
+## 2026-07-04 Work 菜单 hover / close guardrail
+- Work 顶部下拉菜单的项目 hover/click 热区必须是“项目文字 + 周围一小圈”，不能恢复成整行、整列或整块 column 宽度。`.work-mega-menu__item` 不要再用 `width: 100%`，否则鼠标在同行远处空白也会误触发项目 hover。
+- Work 菜单打开后，只有点击项目文字热区才能进入详情页；点击顶部面板空白、分类标题、行/列空白、列间空白、下方页面区域都应关闭菜单。
+- 回归检查：列间空白 hover 应为 `null`，同行远处空白 hover 应为 `null`，文字外缘 hover 应为对应项目名；顶部空白/标题/下方区域点击后 `.work-mega-menu.is-open` 数量应为 `0`。
+
 ## 2026-07-03 Pai Li Shi showcase regression guardrail
 - Do not push the outer app-screen background columns outside the viewport again. At the 1920x900 QA viewport, the first column must start at `x=0` and the fourth column must end at `x=1920`; otherwise the rounded phone-screen edges are cropped and the AWSMD-style app wall no longer matches the reference.
 - Keep the side app-screen rhythm at the measured reference proportions for the 1920x900 QA viewport: `360px` card width and `24px` column gap. The previous `354px / 33.6px` geometry made the side images read more separated than the AWSMD reference.

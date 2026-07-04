@@ -1,3 +1,23 @@
+# 2026-07-04 Work mega menu hitbox and close-rule refinement
+
+- User clarified that project hover should trigger only when the cursor is on or very near a project name, not across the whole row, whole column, or column-gap area.
+- User also clarified that after the Work dropdown opens, every click outside a project text hot area should close the menu; only clicking a project should navigate to detail.
+- Local code changes:
+  - menu root now closes on any non-project click;
+  - project buttons stop propagation and keep the existing detail opener;
+  - project item hitboxes changed from full-width rows to fit-content text buttons with a small invisible `3px 6px` near-text perimeter.
+- Verification passed:
+  - `npm run build`
+  - local Playwright QA for column-gap hover, same-row blank hover, near-text hover, top blank close, heading close, lower-page close, and project click-through.
+- Latest evidence:
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-open-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-hover-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-project-click-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-interaction-v1.webm`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-metrics-v1.json`
+- Key metrics at 1920x900: column gap hover `null`, same-row blank hover `null`, near-text hover `Pai Li Shi`, top blank/heading/lower-page clicks all close the menu, and `Pai Li Shi` click opens its detail page.
+- Status: user approved publishing; ready for GitHub push and Vercel production deployment.
+
 # 2026-07-04 Work mega menu real project wiring
 
 - User approved the dark translucent v5 Work menu visual direction and asked to continue.

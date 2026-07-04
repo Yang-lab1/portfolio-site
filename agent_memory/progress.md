@@ -1,3 +1,21 @@
+# 2026-07-04 Work 菜单 hover 热区与关闭规则
+- 用户最新确认：hover 不是必须压在文字像素上，文字周围一小圈也可以触发；但不能把整行、整列、两列中间或大块空白算作选中。
+- 用户最新确认：Work 下拉菜单打开后，只有点击具体项目文字/文字附近热区才进入详情页；点击其它任何位置都应关闭菜单，包括顶部面板空白、分类标题、行/列空白、下方页面区域。
+- 本地已最小改动：
+  - Work 菜单根层现在处理所有非项目点击并关闭菜单；
+  - 项目按钮点击仍走现有详情页打开逻辑，并阻止冒泡到关闭处理；
+  - `.work-mega-menu__item` 从整列 `width: 100%` 收回到 `fit-content`，仅保留 `3px 6px` 的文字外缘感应范围。
+- 验证已通过：
+  - `npm run build`
+  - Playwright 本地 QA：列间空白 hover 为 `null`，同行远处空白 hover 为 `null`，文字外缘 hover 为 `Pai Li Shi`；顶部空白、标题、下方页面点击均关闭菜单；点击 `Pai Li Shi` 进入详情页且菜单关闭。
+- 最新给用户确认的截图/视频：
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-open-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-hover-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-project-click-v1.png`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-interaction-v1.webm`
+  - `tmp/work-menu-hitbox-v1/work-menu-hitbox-metrics-v1.json`
+- 状态：用户已确认截图/视频，可推送 GitHub 并进行 Vercel production 部署。
+
 # 当前任务进度
 
 ## 2026-07-04 Work 顶部全屏下拉菜单真实项目版

@@ -2996,17 +2996,15 @@ function WorkMegaMenu({ open, theme, onClose, onOpenProject }) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose, open]);
 
-  const handleOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
-      onClose();
-    }
+  const handleMenuClick = () => {
+    onClose();
   };
 
   return (
     <div
       className={`work-mega-menu work-mega-menu--${theme}${open ? ' is-open' : ''}`}
       aria-hidden={!open}
-      onClick={handleOverlayClick}
+      onClick={handleMenuClick}
     >
       <div className="work-mega-menu__panel" role="dialog" aria-modal="true" aria-label="Work index">
         <div className="work-mega-menu__grid">
@@ -3022,7 +3020,10 @@ function WorkMegaMenu({ open, theme, onClose, onOpenProject }) {
                       className="work-mega-menu__item"
                       type="button"
                       key={projectId}
-                      onClick={() => onOpenProject(projectId)}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onOpenProject(projectId);
+                      }}
                     >
                       {workMenuProjectLabels[projectId] ?? t(project.title, 'en')}
                     </button>

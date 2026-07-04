@@ -39,6 +39,16 @@
 - Click QA opened `Pai Li Shi` through the existing detail-page path and left the Work menu closed after navigation.
 - Latest evidence: `tmp/work-menu-real-preview-v7.png`, `tmp/work-menu-real-hover-v7.png`, `tmp/work-menu-real-hover-click-v7.webm`, and `tmp/work-menu-real-v7-metrics.json`.
 
+## 2026-07-04 Work Mega Menu Hitbox Findings
+- The user's corrected hover rule is text-proximity based: the mouse may trigger a project when it is on the project name or in a small surrounding ring, but not when it is in the middle of a row, a column gap, or broad blank space.
+- The prior implementation made `.work-mega-menu__item` `width: 100%`, so same-row blank space inside a column could still count as hovering that project.
+- The current local fix changes menu items to `inline-flex` / `fit-content` with `3px 6px` invisible padding and matching negative margins, preserving a small near-text hot area without expanding to the full row.
+- Click-close behavior now treats every non-project click as a close action: top blank panel space, category headings, row/column blank space, and the lower page area all close the menu. Project text clicks still open the existing detail page and close the menu.
+- Local QA at `1920x900` passed: column-gap hover returned `null`, same-row blank hover returned `null`, near-text hover returned `Pai Li Shi`, `Pai Li Shi` opacity became `1`, and other items dimmed to `0.18`.
+- Blank click QA passed: top blank, heading, and lower-page clicks all left `.work-mega-menu.is-open` count at `0`.
+- Project click QA passed: clicking `Pai Li Shi` opened the `Pai Li Shi` detail page and left the menu closed.
+- Latest evidence: `tmp/work-menu-hitbox-v1/work-menu-hitbox-open-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-hover-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-project-click-v1.png`, `tmp/work-menu-hitbox-v1/work-menu-hitbox-interaction-v1.webm`, and `tmp/work-menu-hitbox-v1/work-menu-hitbox-metrics-v1.json`.
+
 ## 2026-07-01 Performance Findings
 - Local production waterfall showed the first loading bottleneck was not the visible first viewport layout itself, but the bottom Product Language orbit images being requested too early.
 - Before the fix, the first five seconds loaded about `17.06MB`, including the eight bottom orbit square images at about `10.3MB` total.

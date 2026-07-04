@@ -1,5 +1,10 @@
 # 项目上下文
 
+## 2026-07-04 Work 菜单当前状态
+- Work 顶部全屏下拉菜单已经接入真实项目短名和详情跳转，但最新一轮只是在本地细化 hover 热区与点击关闭规则。
+- 当前本地规则：项目 hover/click 只在文字及周围小范围触发；列间空白、同行远处空白、分类标题、面板空白和下方页面点击都关闭菜单。
+- 最新确认资料在 `tmp/work-menu-hitbox-v1/`，包括 open/hover/detail 截图、交互视频和 metrics JSON。用户已确认，可推送 GitHub 并部署 Vercel production；发布后验证线上地址。
+
 ## 2026-06-30 当前作品集任务上下文
 - 2026-07-01 顶部 `About / 关于` 导航已重新定义为全站回到首页黑色成就数据卡片段（`#about`，四张卡：51、20+、12+、4），不是底部 Product Language 圆盘段；Product Language 圆盘段当前锚点为 `#product-language`。
 - Header 的 Work/About 链接现在由 `App` 接管跳转，以便从项目详情页先返回主页再滚到目标段。不要直接恢复原生锚点行为，因为 Lenis `anchors: true` 会二次触发默认 `#about` 跳转并覆盖自定义落点。
