@@ -1,3 +1,11 @@
+# 2026-07-05 About intro to metrics black transition
+
+- User flagged two visible horizontal seams between the black About portrait intro and the black metric cards.
+- User then decided not to keep the additional lamp/glow treatment, and approved returning to the cleaner no-glow transition shown in the provided screenshot.
+- Minimal local CSS fix: keep the extended About intro bottom fade, metrics-section `1px` overlap, and softened top edge; remove the added radial lamp layer from the transition overlay.
+- Verification passed: `npm run build`; local browser screenshot generated at `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`; horizontal overflow is `0`.
+- Status: approved by user for push and deployment; GitHub push and Vercel production deployment are in progress.
+
 # 2026-07-04 About portrait intro
 
 - User approved the Option 02 / Cinematic Offset direction and selected the discrete/hidden-order copy direction.

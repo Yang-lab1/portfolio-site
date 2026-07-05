@@ -1,3 +1,9 @@
+# 2026-07-05 About intro to metrics transition follow-up
+- User decided not to keep the extra overhead lamp/glow treatment and approved returning to the cleaner no-glow transition shown in the latest screenshot they provided.
+- Current local CSS keeps the seam fix: `.about-profile-section::after` remains taller, the metrics section overlaps upward by `1px`, and the metrics top edge stays dark/soft. The added radial lamp layer has been removed.
+- Verification passed: `npm run build`; local browser screenshot is `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`; horizontal overflow is `0`.
+- Status: user approved push and Vercel deployment for this no-glow version; push, deployment, and public URL QA remain.
+
 # 2026-07-04 About 头像介绍区正式实现
 - 用户确认采用 Option 02 / Cinematic Offset 的整体排版，并选择“离散 / 隐藏秩序”方向文案后，已把预览方案落到正式首页。
 - 正式改动：在 Hero 与原数据卡片之间新增 `AboutIntro` 组件；`#about` 现在指向头像介绍区，原 `AchievementCards` 改为 `#about-metrics`。
@@ -790,3 +796,8 @@
 - Vercel production deployment 已完成：`dpl_HjAaBjXamBhiiymJMKjwRvFXkZ6Z`，已别名到 `https://portfolio-site-three-rose.vercel.app/`。
 - 线上 QA 已通过：图片上滚轮 active 从 `Opera` 切到 `Xiaomi` 且页面不下滑；空白处滚轮页面继续下滑 `647px`；页面错误 `0`。
 - 状态：已完成并部署。
+# 2026-07-05 About 介绍区与数字卡片黑底衔接
+- 用户指出 About 头像介绍区与下方数据卡片之间出现两条明显横向接缝，要求黑色到黑色的过渡更自然。
+- 本轮只做 `src/styles.css` 的最小视觉修正：加长 About 介绍区底部黑色收尾渐变，把数据卡片区顶部光晕下移并减弱，并让数据区向上重叠 `1px` 避免边界抗锯齿线。
+- 验证已通过：`npm run build` 成功；本地 Playwright 截图已生成 `tmp/about-transition-seam-v1/about-transition-fixed.png`。
+- 状态：本地修正完成，等待用户看截图确认；未 push，未 Vercel deploy。

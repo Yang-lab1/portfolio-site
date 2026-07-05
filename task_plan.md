@@ -4,9 +4,19 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 60 is approved for release. The About portrait intro has been implemented locally with the selected discrete/hidden-order copy and is ready for GitHub push plus Vercel production deployment.
+Phase 61 is approved for release. The About portrait intro and metric-card black background transition should use the cleaner no-glow version from the user's screenshot; push to GitHub and deploy to Vercel production.
 
 ## Phases
+
+### Phase 61: About Portrait To Metrics Seam Fix
+- [x] Confirm the scope is only the visual seam between the About portrait intro and the metrics cards.
+- [x] Preserve the accepted portrait layout, copy, navigation target, and metric-card content.
+- [x] Extend the About section's bottom black fade and soften the metrics section's top edge without the extra lamp/glow overlay.
+- [x] Run production build.
+- [x] Capture a local screenshot of the transition for final evidence.
+- [x] Wait for user visual approval before push/deploy.
+- [ ] Push to GitHub and deploy to Vercel only after explicit approval.
+- **Status:** local verification passed; user approved the no-glow transition for push and deployment.
 
 ### Phase 60: About Portrait Intro Section
 - [x] Confirm the selected visual direction: Option 02 / Cinematic Offset.

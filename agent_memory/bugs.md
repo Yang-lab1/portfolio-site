@@ -1,5 +1,10 @@
 # 问题与风险
 
+## 2026-07-05 About transition guardrail
+- The user rejected the extra overhead lamp/glow treatment for the About portrait intro to metrics-card transition.
+- Keep the cleaner no-glow black transition: no hard/double horizontal seam, but also no obvious radial lamp overlay between the portrait intro and the metric cards.
+- If revisiting this area, compare against the user's approved no-glow screenshot rather than restoring `tmp/about-transition-seam-v5/about-transition-light-restored.png`.
+
 ## 2026-07-04 About 头像介绍区 guardrail
 - 顶部 `About / 关于` 现在应落到新增黑底头像介绍区 `#about`，不要再把 `#about` 恢复给原数据卡片段；原数据卡片段现在是 `#about-metrics`。
 - About 介绍文案必须随语言状态单语显示，不要把英文和中文同时放在同一个页面状态里。
@@ -318,3 +323,7 @@
 - 左右大块空白、底部文字附近空白、两张图片之间距离较远的位置，应继续让页面正常向下滚动，而不是强行旋转转盘。
 - 速度调优应优先调整 `wheelTargetOffset`、换算系数、clamp 和 GSAP tween，不要改转盘轨道几何、图片数量、项目入口或文字内容。
 - 回归检查至少覆盖：图片上滚轮时 active label 改变且页面 `scrollY` 基本不变；空白处滚轮时页面继续下滑。
+# 2026-07-05 About 黑底衔接 guardrail
+- About 头像介绍区与下方数据卡片区都应读成同一片黑色空间，不要再让数据区顶部径向光晕贴着 section 边界出现硬横线。
+- 后续若调整 `.about-profile-section::after` 或 `.achievement-section` 背景，必须复测两区交界处，确认没有双线、亮带或明显拼接边。
+- 当前本地修正截图为 `tmp/about-transition-seam-v1/about-transition-fixed.png`；用户确认前不要 push/deploy。
