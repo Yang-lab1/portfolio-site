@@ -3,7 +3,10 @@
 - User flagged that the bottom of the metric cards also needs to be handled: the area below the cards had a subtle gray horizontal glow before the next dark intro text.
 - Local CSS change removed the lower radial glow from `.achievement-section` while preserving the card styling, the no-glow top transition, and the dark module intro below.
 - Verification passed: `npm run build`; local browser screenshots generated at `tmp/about-metrics-bottom-clean-v1/about-metrics-bottom-clean-v1.png` and `tmp/about-metrics-bottom-clean-v1/about-metrics-bottom-clean-match-user-v1.png`; horizontal overflow is `0`.
-- Status: local screenshot ready for user confirmation. Not pushed or deployed.
+- GitHub push completed with commit `40aa540`.
+- Vercel production deployment completed: `dpl_ESPAPb6wNsNrW3SFTHBFjxFVD86W`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed on the fixed production URL: deployed CSS asset is `index-BeFfQURw.css`, transition screenshot is `tmp/about-metrics-bottom-clean-production/about-metrics-bottom-clean-production.png`, horizontal overflow is `0`, and browser error count is `0`.
+- Status: complete and deployed.
 
 # 2026-07-05 About intro to metrics black transition
 

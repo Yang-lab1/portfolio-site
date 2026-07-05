@@ -14,9 +14,9 @@ Phase 62 is local-only. The About metric-card bottom transition has been cleaned
 - [x] Remove the lower metric-section radial glow that created the bottom bright mark.
 - [x] Run production build.
 - [x] Capture local screenshots of the bottom transition for user review.
-- [ ] Wait for user visual approval before push/deploy.
-- [ ] Push to GitHub and deploy to Vercel only after explicit approval.
-- **Status:** local screenshots ready; not pushed and not deployed.
+- [x] Wait for user visual approval before push/deploy.
+- [x] Push to GitHub and deploy to Vercel only after explicit approval.
+- **Status:** complete; commit `40aa540` is pushed and production deployment `dpl_ESPAPb6wNsNrW3SFTHBFjxFVD86W` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 61: About Portrait To Metrics Seam Fix
 - [x] Confirm the scope is only the visual seam between the About portrait intro and the metrics cards.
