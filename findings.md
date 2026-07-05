@@ -4,7 +4,7 @@
 - The visible double-line seam came from the meeting point between `.about-profile-section` and `.achievement-section`: the About section ended with a short fade while the metrics section began with a bright radial glow near the top edge.
 - The safe fix is CSS-only and keeps the accepted About layout/content unchanged.
 - Final user-approved direction is the cleaner no-glow version: `.about-profile-section::after` stays at `220px`, the metrics section overlaps upward by `1px`, and the metrics top edge remains dark/soft without the extra radial lamp overlay.
-- Deployment is complete for this no-glow transition. Local verification passed with `npm run build`; local screenshot evidence is `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`. Public QA against `https://portfolio-site-three-rose.vercel.app/` passed with CSS asset `index-Z0S6uCY2.css`, horizontal overflow `0`, and browser error count `0`.
+- Deployment is complete for this no-glow transition. Local verification passed with `npm run build`; local screenshot evidence is `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`. Public QA against `https://portfolio-site-three-rose.vercel.app/` passed with CSS asset `index-Z0S6uCY2.css`, screenshot `tmp/about-transition-no-glow-production-final/about-transition-no-glow-production-final.png`, horizontal overflow `0`, and browser error count `0`.
 
 ## Requirements
 - The site needs persistent planning files and every stage should update `task_plan.md`, `findings.md`, and `progress.md`.

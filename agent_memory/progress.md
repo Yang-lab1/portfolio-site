@@ -3,8 +3,8 @@
 - Current local CSS keeps the seam fix: `.about-profile-section::after` remains taller, the metrics section overlaps upward by `1px`, and the metrics top edge stays dark/soft. The added radial lamp layer has been removed.
 - Verification passed: `npm run build`; local browser screenshot is `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`; horizontal overflow is `0`.
 - GitHub push completed with runtime commit `7e133e3`.
-- Vercel production deployment completed: `dpl_DS5hjGadZMGztREggGRJTwL2Ffps`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
-- Public QA passed on the fixed production URL: deployed CSS asset is `index-Z0S6uCY2.css`, transition screenshot is `tmp/about-transition-no-glow-production/about-transition-no-glow-production.png`, horizontal overflow is `0`, and browser error count is `0`.
+- Vercel production deployment completed: `dpl_FhXX9Zf7QXtn8j3MFshtf4EUUEZ1`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed on the fixed production URL: deployed CSS asset is `index-Z0S6uCY2.css`, transition screenshot is `tmp/about-transition-no-glow-production-final/about-transition-no-glow-production-final.png`, horizontal overflow is `0`, and browser error count is `0`.
 - Status: complete and deployed.
 
 # 2026-07-04 About 头像介绍区正式实现
