@@ -1,5 +1,10 @@
 # 问题与风险
 
+## 2026-07-05 Product Showcase card/image morph guardrail
+- Product Showcase 三卡轮播的侧卡透视不能只靠外层 `clip-path` 斜切；图片内容需要跟随同一张卡片平面连续变化。
+- 后续不要恢复侧卡图片强制 `object-fit: cover` 的规则，否则 `contain` 项目从侧卡转到正面时会重新出现突然换裁切/换比例的跳变。
+- 回归检查至少覆盖：桌面 start/mid/end 三态截图、点击侧卡转正视频、`npm run build`、移动端单卡显示和 `overflowX=0`。
+
 ## 2026-07-05 About transition guardrail
 - The user rejected the extra overhead lamp/glow treatment for the About portrait intro to metrics-card transition.
 - Keep the cleaner no-glow black transition: no hard/double horizontal seam, no obvious radial lamp overlay between the portrait intro and the metric cards, and no lower gray glow below the metric cards before the next dark intro.

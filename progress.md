@@ -1,3 +1,21 @@
+# 2026-07-05 Product Showcase card/image morph
+
+- User clarified that the Product Showcase three-card carousel should not only skew/clip the outer card frame; the image itself should morph with the frame as a side card moves into the front position.
+- Local code change keeps the existing carousel structure, project data, click behavior, drag behavior, and mobile fallback unchanged.
+- The side-card visual state is now driven by one continuous progress value: clip path, shallow `rotateY`, depth, image padding, and image scale all interpolate together.
+- Removed the abrupt side-card image override that forced `contain` images to switch to `cover`; contain assets now keep stable fitting while padding eases between side and front states.
+- Verification passed: `npm run build`; desktop Playwright screenshots/video generated; mobile QA confirmed one visible card, horizontal overflow `0`, and error count `0`.
+- The first click-to-change proof video was not clear enough for the user, so a slow-drag proof pass was generated. An intermediate mouse-event recording attempt failed to move the carousel and should not be used as evidence; the final v4 proof uses direct pointer events and records real continuous card movement.
+- Latest evidence:
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-normal-v4.webm`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-v4.webm`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-00.png`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-02.png`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-04.png`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-06.png`
+  - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-metrics-v4.json`
+- Status: local only; waiting for user visual approval before GitHub push or Vercel deployment.
+
 # 2026-07-05 About metrics bottom transition cleanup
 
 - User flagged that the bottom of the metric cards also needs to be handled: the area below the cards had a subtle gray horizontal glow before the next dark intro text.

@@ -4062,22 +4062,20 @@ img {
 }
 
 .product-orbit-card img {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  padding: var(--orbit-image-padding, 0px);
   pointer-events: none;
+  transform: translateZ(0.01px) scale(var(--orbit-image-scale, 1));
+  transform-origin: center;
   user-select: none;
+  will-change: transform, padding;
 }
 
 .product-orbit-card.is-contain img {
   object-fit: contain;
-  padding: clamp(16px, 2vw, 32px);
-}
-
-.product-orbit-card.is-side-left img,
-.product-orbit-card.is-side-right img {
-  object-fit: cover;
-  padding: 0;
 }
 
 .product-orbit-card.is-active {

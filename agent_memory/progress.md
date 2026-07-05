@@ -1,3 +1,12 @@
+# 2026-07-05 Product Showcase 三卡图片连续形变
+- 用户新需求：Physical Product Foundations / Product Showcase 三卡轮播中，侧边卡片从边缘转到正面时，不应只是外框斜切，图片内容也要跟着外框作为同一平面自然形变，避免从侧面到正面时突然换裁切/比例。
+- 当前本地改动只涉及 `src/main.jsx` 的 `ProductShowcase3D` 和 `src/styles.css` 的 `.product-orbit-card` 图片样式；项目数据、点击详情、拖动逻辑、移动端一张主卡 fallback 均未改变。
+- 实现方式：用 `offset` 推导连续 `sideProgress`，同步驱动 `clipPath`、浅 `rotateY`、depth、图片 padding 和图片 scale；移除侧卡强制把 `contain` 图片切到 `cover` 的突兀规则。
+- 验证已通过：`npm run build`；桌面已生成慢拖视频和带辅助线中间帧；移动端验证仍为 1 张可见卡、`overflowX=0`、错误数 `0`。
+- 注意：第一次点击自动转正视频不够清楚，随后一次普通 mouse 录屏脚本没有真正触发拖动，不能作为证据；最终有效证据是 `tmp/product-orbit-slow-drag-v4/` 下的 pointer 慢拖版本。
+- 最新确认素材：`tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-normal-v4.webm`、`product-orbit-slow-drag-guide-v4.webm`、`product-orbit-slow-drag-guide-frame-00.png`、`product-orbit-slow-drag-guide-frame-02.png`、`product-orbit-slow-drag-guide-frame-04.png`、`product-orbit-slow-drag-guide-frame-06.png`。
+- 状态：本地待用户确认，未 push，未 Vercel deploy。
+
 # 2026-07-05 About metrics bottom transition cleanup
 - User flagged that the metric-card bottom area also needs cleanup; the blank black area below the cards showed a subtle gray horizontal glow before the next dark intro.
 - Local CSS change removed the lower radial glow from `.achievement-section` while preserving the accepted card styling, the top no-glow transition, and the following `.module-intro-dark` content.

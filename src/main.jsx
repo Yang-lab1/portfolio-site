@@ -3427,11 +3427,24 @@ function ProductShowcase3D({ lang, onOpenProject }) {
           const offset = virtualIndex - orbitPosition;
           const absOffset = Math.abs(offset);
           const isActive = absOffset < 0.5;
+          const sideProgress = Math.min(1, absOffset);
+          const sideDirection = offset < -0.015 ? -1 : offset > 0.015 ? 1 : 0;
+          const clipInset = Number((sideProgress * 9).toFixed(3));
+          const clipPath = sideDirection < 0
+            ? `polygon(0 ${clipInset}%, 100% 0, 100% 100%, 0 ${100 - clipInset}%)`
+            : sideDirection > 0
+              ? `polygon(0 0, 100% ${clipInset}%, 100% ${100 - clipInset}%, 0 100%)`
+              : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+          const containPaddingProgress = project.imageFit === 'contain' ? Math.max(0, 1 - sideProgress) : 0;
+          const imagePadding = project.imageFit === 'contain'
+            ? `clamp(${(16 * containPaddingProgress).toFixed(3)}px, ${(2 * containPaddingProgress).toFixed(3)}vw, ${(32 * containPaddingProgress).toFixed(3)}px)`
+            : '0px';
+          const imageScale = Number((1 + sideProgress * 0.018).toFixed(4));
           const xPosition = offset * 43.4;
-          const rotate = 0;
+          const rotate = sideDirection * sideProgress * 8;
           const scale = 1;
-          const depth = isActive ? 0 : -24;
-          const sideClass = isActive ? '' : offset < 0 ? ' is-side-left' : ' is-side-right';
+          const depth = -24 * sideProgress;
+          const sideClass = sideDirection < 0 ? ' is-side-left' : sideDirection > 0 ? ' is-side-right' : '';
           const width = `${cardWidthFor(offset)}px`;
           return (
             <button
@@ -3442,10 +3455,14 @@ function ProductShowcase3D({ lang, onOpenProject }) {
               aria-label={lang === 'zh' ? `打开${t(project.title, lang)}项目` : `Open ${t(project.title, lang)} project`}
               style={{
                 '--orbit-offset': offset,
+                '--orbit-side-progress': sideProgress,
+                '--orbit-image-padding': imagePadding,
+                '--orbit-image-scale': imageScale,
                 zIndex: Math.round(30 - absOffset * 10),
                 width,
                 transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center center',
                 opacity: absOffset > 1.28 ? 0.72 : 1,
+                clipPath,
                 transform: `translate3d(calc(-50% + ${xPosition}vw), -50%, ${depth}px) rotateY(${rotate}deg) scale(${scale})`,
               }}
               onClick={() => {
