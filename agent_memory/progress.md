@@ -5,7 +5,10 @@
 - 验证已通过：`npm run build`；桌面已生成慢拖视频和带辅助线中间帧；移动端验证仍为 1 张可见卡、`overflowX=0`、错误数 `0`。
 - 注意：第一次点击自动转正视频不够清楚，随后一次普通 mouse 录屏脚本没有真正触发拖动，不能作为证据；最终有效证据是 `tmp/product-orbit-slow-drag-v4/` 下的 pointer 慢拖版本。
 - 最新确认素材：`tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-normal-v4.webm`、`product-orbit-slow-drag-guide-v4.webm`、`product-orbit-slow-drag-guide-frame-00.png`、`product-orbit-slow-drag-guide-frame-02.png`、`product-orbit-slow-drag-guide-frame-04.png`、`product-orbit-slow-drag-guide-frame-06.png`。
-- 状态：本地待用户确认，未 push，未 Vercel deploy。
+- 用户已确认 v4 慢拖证明并要求推送部署。
+- GitHub runtime commit：`ce87990`。
+- Vercel production deployment：`dpl_9DtW7Tk77UjdB6BUaP1if4kVR3HE`，已 alias 到 `https://portfolio-site-three-rose.vercel.app/`。
+- 状态：已推送并完成生产部署。
 
 # 2026-07-05 About metrics bottom transition cleanup
 - User flagged that the metric-card bottom area also needs cleanup; the blank black area below the cards showed a subtle gray horizontal glow before the next dark intro.

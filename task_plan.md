@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 63 has been approved by the user for GitHub push and Vercel production deployment. The Product Showcase three-card carousel now uses one continuous side-progress value to drive the side-card frame, image layer, shallow rotateY, and contain-image padding so the image morphs with the card instead of jumping between side and front states.
+Phase 63 is complete and deployed. The Product Showcase three-card carousel now uses one continuous side-progress value to drive the side-card frame, image layer, shallow rotateY, and contain-image padding so the image morphs with the card instead of jumping between side and front states.
 
 ## Phases
 
@@ -27,8 +27,8 @@ Phase 63 has been approved by the user for GitHub push and Vercel production dep
 - [x] Capture local screenshots and a transition video for user review.
 - [x] Verify mobile still has one visible card and no horizontal overflow.
 - [x] Wait for user visual approval before push/deploy.
-- [ ] Push to GitHub and deploy to Vercel only after explicit approval.
-- **Status:** user approved the v4 slow-drag proof; ready for GitHub push and Vercel production deployment.
+- [x] Push to GitHub and deploy to Vercel only after explicit approval.
+- **Status:** complete; runtime commit `ce87990` is pushed and production deployment `dpl_9DtW7Tk77UjdB6BUaP1if4kVR3HE` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 61: About Portrait To Metrics Seam Fix
 - [x] Confirm the scope is only the visual seam between the About portrait intro and the metrics cards.

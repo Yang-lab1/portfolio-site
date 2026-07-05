@@ -14,7 +14,11 @@
   - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-04.png`
   - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-guide-frame-06.png`
   - `tmp/product-orbit-slow-drag-v4/product-orbit-slow-drag-metrics-v4.json`
-- Status: local only; waiting for user visual approval before GitHub push or Vercel deployment.
+- User approved the v4 slow-drag proof and requested push/deploy.
+- GitHub push completed with runtime commit `ce87990`.
+- Vercel production deployment completed: `dpl_9DtW7Tk77UjdB6BUaP1if4kVR3HE`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Vercel inspect reports target `production`, status `Ready`, and aliases include the fixed production URL.
+- Status: complete and deployed.
 
 # 2026-07-05 About metrics bottom transition cleanup
 

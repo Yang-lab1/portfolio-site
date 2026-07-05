@@ -7,7 +7,9 @@
 - `contain` projects no longer switch to `cover` on side cards, which removes the most obvious image-fit jump.
 - Local verification passed: `npm run build`; final slow-drag screenshot/video evidence is in `tmp/product-orbit-slow-drag-v4/`; mobile remains one visible card with horizontal overflow `0`.
 - Evidence note: the first click-to-change video was too fast to judge, and one ordinary mouse-event recording attempt failed to trigger drag movement. Use the v4 pointer-driven slow-drag proof, especially the guide video and frames, when reviewing the morph.
-- Status: local only, not pushed, not deployed.
+- User approved the v4 slow-drag proof for release.
+- Runtime commit `ce87990` was pushed to GitHub.
+- Production deployment `dpl_9DtW7Tk77UjdB6BUaP1if4kVR3HE` completed on Vercel and is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ## 2026-07-05 About Metrics Bottom Transition Findings
 - The bottom bright mark came from the lower radial glow in `.achievement-section`, placed around `62% 82%`, which became visible in the empty black space between the cards and the following dark module intro.
