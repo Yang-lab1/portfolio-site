@@ -3804,7 +3804,6 @@ img {
   background:
     linear-gradient(to bottom, #030303 0%, rgba(3, 3, 3, 0.96) 9%, rgba(3, 3, 3, 0.38) 24%, rgba(3, 3, 3, 0) 42%),
     radial-gradient(ellipse at 54% 16%, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.065) 22%, rgba(255, 255, 255, 0) 50%),
-    radial-gradient(circle at 62% 82%, rgba(255, 255, 255, 0.075), transparent 20%),
     #030303;
 }
 

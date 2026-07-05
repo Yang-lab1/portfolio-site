@@ -2,7 +2,7 @@
 
 ## 2026-07-05 About transition guardrail
 - The user rejected the extra overhead lamp/glow treatment for the About portrait intro to metrics-card transition.
-- Keep the cleaner no-glow black transition: no hard/double horizontal seam, but also no obvious radial lamp overlay between the portrait intro and the metric cards.
+- Keep the cleaner no-glow black transition: no hard/double horizontal seam, no obvious radial lamp overlay between the portrait intro and the metric cards, and no lower gray glow below the metric cards before the next dark intro.
 - If revisiting this area, compare against the user's approved no-glow screenshot rather than restoring `tmp/about-transition-seam-v5/about-transition-light-restored.png`.
 
 ## 2026-07-04 About 头像介绍区 guardrail

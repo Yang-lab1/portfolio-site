@@ -1,5 +1,11 @@
 # Findings
 
+## 2026-07-05 About Metrics Bottom Transition Findings
+- The bottom bright mark came from the lower radial glow in `.achievement-section`, placed around `62% 82%`, which became visible in the empty black space between the cards and the following dark module intro.
+- The safe local fix is CSS-only: remove that lower radial glow while keeping the card backgrounds, the top no-glow transition, and the following `.module-intro-dark` layout unchanged.
+- Local verification passed with `npm run build`; screenshot evidence is `tmp/about-metrics-bottom-clean-v1/about-metrics-bottom-clean-match-user-v1.png`.
+- Do not push or deploy until the user visually confirms this bottom transition pass.
+
 ## 2026-07-05 About Transition Seam Findings
 - The visible double-line seam came from the meeting point between `.about-profile-section` and `.achievement-section`: the About section ended with a short fade while the metrics section began with a bright radial glow near the top edge.
 - The safe fix is CSS-only and keeps the accepted About layout/content unchanged.

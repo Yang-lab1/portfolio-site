@@ -1,3 +1,9 @@
+# 2026-07-05 About metrics bottom transition cleanup
+- User flagged that the metric-card bottom area also needs cleanup; the blank black area below the cards showed a subtle gray horizontal glow before the next dark intro.
+- Local CSS change removed the lower radial glow from `.achievement-section` while preserving the accepted card styling, the top no-glow transition, and the following `.module-intro-dark` content.
+- Verification passed: `npm run build`; local screenshots are `tmp/about-metrics-bottom-clean-v1/about-metrics-bottom-clean-v1.png` and `tmp/about-metrics-bottom-clean-v1/about-metrics-bottom-clean-match-user-v1.png`; horizontal overflow is `0`.
+- Status: waiting for user visual confirmation; do not push or deploy yet.
+
 # 2026-07-05 About intro to metrics transition follow-up
 - User decided not to keep the extra overhead lamp/glow treatment and approved returning to the cleaner no-glow transition shown in the latest screenshot they provided.
 - Current local CSS keeps the seam fix: `.about-profile-section::after` remains taller, the metrics section overlaps upward by `1px`, and the metrics top edge stays dark/soft. The added radial lamp layer has been removed.
