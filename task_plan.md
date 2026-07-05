@@ -15,8 +15,8 @@ Phase 61 is approved for release. The About portrait intro and metric-card black
 - [x] Run production build.
 - [x] Capture a local screenshot of the transition for final evidence.
 - [x] Wait for user visual approval before push/deploy.
-- [ ] Push to GitHub and deploy to Vercel only after explicit approval.
-- **Status:** local verification passed; user approved the no-glow transition for push and deployment.
+- [x] Push to GitHub and deploy to Vercel only after explicit approval.
+- **Status:** complete; runtime commit `7e133e3` is pushed and production deployment `dpl_DS5hjGadZMGztREggGRJTwL2Ffps` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 60: About Portrait Intro Section
 - [x] Confirm the selected visual direction: Option 02 / Cinematic Offset.

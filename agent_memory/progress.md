@@ -2,7 +2,10 @@
 - User decided not to keep the extra overhead lamp/glow treatment and approved returning to the cleaner no-glow transition shown in the latest screenshot they provided.
 - Current local CSS keeps the seam fix: `.about-profile-section::after` remains taller, the metrics section overlaps upward by `1px`, and the metrics top edge stays dark/soft. The added radial lamp layer has been removed.
 - Verification passed: `npm run build`; local browser screenshot is `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`; horizontal overflow is `0`.
-- Status: user approved push and Vercel deployment for this no-glow version; push, deployment, and public URL QA remain.
+- GitHub push completed with runtime commit `7e133e3`.
+- Vercel production deployment completed: `dpl_DS5hjGadZMGztREggGRJTwL2Ffps`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed on the fixed production URL: deployed CSS asset is `index-Z0S6uCY2.css`, transition screenshot is `tmp/about-transition-no-glow-production/about-transition-no-glow-production.png`, horizontal overflow is `0`, and browser error count is `0`.
+- Status: complete and deployed.
 
 # 2026-07-04 About 头像介绍区正式实现
 - 用户确认采用 Option 02 / Cinematic Offset 的整体排版，并选择“离散 / 隐藏秩序”方向文案后，已把预览方案落到正式首页。

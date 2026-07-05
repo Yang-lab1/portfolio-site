@@ -4,7 +4,10 @@
 - User then decided not to keep the additional lamp/glow treatment, and approved returning to the cleaner no-glow transition shown in the provided screenshot.
 - Minimal local CSS fix: keep the extended About intro bottom fade, metrics-section `1px` overlap, and softened top edge; remove the added radial lamp layer from the transition overlay.
 - Verification passed: `npm run build`; local browser screenshot generated at `tmp/about-transition-no-glow-final/about-transition-no-glow-final.png`; horizontal overflow is `0`.
-- Status: approved by user for push and deployment; GitHub push and Vercel production deployment are in progress.
+- GitHub push completed with runtime commit `7e133e3`.
+- Vercel production deployment completed: `dpl_DS5hjGadZMGztREggGRJTwL2Ffps`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA passed on the fixed production URL: deployed CSS asset is `index-Z0S6uCY2.css`, transition screenshot is `tmp/about-transition-no-glow-production/about-transition-no-glow-production.png`, horizontal overflow is `0`, and browser error count is `0`.
+- Status: complete and deployed.
 
 # 2026-07-04 About portrait intro
 
