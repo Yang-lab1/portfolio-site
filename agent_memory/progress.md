@@ -1,3 +1,13 @@
+# 2026-07-07 Momenta software copy separation cleanup
+- Continued the active Momenta quality pass after production deployment and found two residual software-case copy candidates that still leaned toward device/hardware framing: `projectShortCopy.momenta` and the non-visible fallback `caseStudyOverrides.momenta` section formerly titled "Device Layer".
+- Updated only `src/main.jsx` copy so the software Momenta case stays framed around SwiftUI AI music, context signals, prototype material, and interaction evidence.
+- No order, images, videos, Work menu data, or scroll interaction implementation changed.
+- Verification passed: `npm run build`; local QA confirmed 13 media figures, 23 Momenta images, 11 notes, one normal intro video, two no-video scroll interactions, final image 05, no Li Bai/libai/device/hardware residue visible, no horizontal overflow, and no browser errors.
+- Runtime commit `0afe390` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_6Z9FYqoynGCRbnGB9ArDd3CABm1g` is `Ready` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA after deploy passed: radial-wave `frame 1 -> 2 -> 1`; crossfade `frame 1 -> 6 -> 11 -> 1`; zero sequence videos; no forbidden visible text; no horizontal overflow; no browser errors. Evidence: `tmp/momenta-production-semantic-qa-v3/audit.json`.
+- Status: deployed and verified.
+
 # 2026-07-07 Momenta headline copy alignment
 - After the deployed Momenta order/interactions passed, a follow-up audit found the detail hero headline still used an older phrase: "public SwiftUI music prototype with local device-render evidence".
 - This wording risked blending the software/app Momenta case with hardware/device evidence, so `caseStudyOverrides.momenta` was minimally updated to "Mood, signals, and AI music" and a headline about context signals, prototype evidence, and testable/replayable generated output.

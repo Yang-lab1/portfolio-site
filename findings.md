@@ -1,3 +1,9 @@
+# 2026-07-07 Momenta residual device-language finding
+
+- Even after the visible detail headline was corrected, `projectShortCopy.momenta` still described "local device-interaction evidence" and the fallback case-study copy still used "Device Layer" / "hardware-presence layer".
+- Those strings were not part of the current main media flow, but they are semantically risky because Momenta software and `momenta-touch` hardware must remain clearly separated.
+- The safe correction is copy-only: keep Momenta software about SwiftUI AI music, context signals, prototype evidence, and interaction flow; reserve device/hardware/object wording for `momenta-touch`.
+
 # 2026-07-07 Momenta headline wording finding
 
 - The Momenta software case should stay framed as an AI product loop, not a hardware/device evidence case.

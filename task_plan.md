@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 68 is active. The former Li Bai project/module has been replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. A later correction moved `momenta-software-05.webp` to the final gallery position to match the PPT/story logic, expanded the Momenta narrative notes to 11, and was pushed/deployed after approval. A follow-up copy audit removed the old "device-render evidence" headline language so the software case reads as an AI music product loop around context signals, prototype evidence, and testable/replayable generated output. This copy-only refinement has now been pushed, deployed, and verified on the fixed production URL.
+Phase 68 is active. The former Li Bai project/module has been replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. A later correction moved `momenta-software-05.webp` to the final gallery position to match the PPT/story logic, expanded the Momenta narrative notes to 11, and was pushed/deployed after approval. Follow-up copy audits removed the old "device-render evidence" headline language and then cleaned residual device/hardware wording from Momenta short/fallback copy, so the software case now stays framed around SwiftUI AI music, context signals, prototype evidence, and testable/replayable generated output. The latest semantic cleanup has been pushed, deployed, and verified on the fixed production URL.
 
 ## Phases
 
@@ -35,7 +35,10 @@ Phase 68 is active. The former Li Bai project/module has been replaced by the so
 - [x] Re-run local build and browser QA after the headline refinement.
 - [x] Push and redeploy the headline refinement.
 - [x] Verify the fixed production URL after the headline refinement deploy.
-- **Status:** deployed and verified; production deployment `dpl_ETEo9ATAdbW5PQLKaNEQFZmCrTDM` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- [x] Clean residual Momenta short/fallback copy that still blurred the software case with device/hardware framing.
+- [x] Push and redeploy the semantic cleanup.
+- [x] Verify the fixed production URL after the semantic cleanup deploy.
+- **Status:** deployed and verified; latest production deployment `dpl_6Z9FYqoynGCRbnGB9ArDd3CABm1g` is aliased to `https://portfolio-site-three-rose.vercel.app/`.
 
 ### Phase 67: Momenta Image2 21:9 And Scroll Interaction Correction
 - [x] Acknowledge the corrected distinction between a playable video and a scroll-driven page interaction.

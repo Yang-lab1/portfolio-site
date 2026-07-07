@@ -1,3 +1,17 @@
+# 2026-07-07 Momenta software copy separation cleanup
+
+- Continued the active Momenta detail-page QA after the headline deployment and found two residual copy candidates that could still blur the software/app Momenta case with device/hardware language.
+- Updated only copy in `src/main.jsx`:
+  - `projectShortCopy.momenta` now describes a SwiftUI AI music prototype with context-signal and interaction evidence.
+  - The non-visible fallback section formerly named `Device Layer` is now `Signal Layer` and stays anchored in software flow.
+- No media sequence, image asset, intro video, Work menu entry, or scroll interaction logic changed.
+- Verification passed locally: `npm run build`; browser QA confirmed the new semantics did not disturb the page structure or animation counts.
+- Runtime commit `0afe390` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_6Z9FYqoynGCRbnGB9ArDd3CABm1g` is `Ready` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA evidence after deploy is in `tmp/momenta-production-semantic-qa-v3/`: 13 media figures, 23 images, 11 notes, one normal video, two scroll-driven image interactions, zero sequence videos, final image 05, no forbidden visible text, no horizontal overflow, and no browser errors.
+- Production interaction samples pass: radial-wave `1 -> 2 -> 1`; crossfade `1 -> 6 -> 11 -> 1`.
+- Status: deployed and verified.
+
 # 2026-07-07 Momenta headline copy alignment
 
 - Follow-up audit after deployment found the Momenta detail hero headline still described the project as a SwiftUI prototype plus "device-render evidence", which was too close to hardware language for the software/app Momenta case.
