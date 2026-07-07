@@ -1,3 +1,13 @@
+# 2026-07-07 Momenta production redeploy confirmation
+
+- User approved pushing/deploying the current Momenta software detail page after confirming the temporary order labels and resource paths were only QA artifacts, not live site content.
+- No tracked runtime code changes were pending: local `HEAD` matched `origin/main` at `8f862147f273ad20402d1d65da5c19ef34ee1037`.
+- Local build passed with `npm run build`.
+- Production redeploy completed through Vercel: `dpl_CmAkNqSLtLwb1BVfxtftxbyZ5pBt`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Post-deploy browser QA on the fixed production URL passed from the real Work menu path into `Momenta AI Music`: 13 media figures, 23 images, 11 notes, one normal intro video, two scroll-driven image interactions, zero sequence videos, no forbidden visible text, no horizontal overflow, and no browser errors.
+- Interaction samples passed: opening radial-wave `1 -> 2 -> 2 -> 1`; long crossfade sequence `1 -> 6 -> 11 -> 1`.
+- Status: redeployed and verified.
+
 # 2026-07-07 Momenta software copy separation cleanup
 - Continued the active Momenta quality pass after production deployment and found two residual software-case copy candidates that still leaned toward device/hardware framing: `projectShortCopy.momenta` and the non-visible fallback `caseStudyOverrides.momenta` section formerly titled "Device Layer".
 - Updated only `src/main.jsx` copy so the software Momenta case stays framed around SwiftUI AI music, context signals, prototype material, and interaction evidence.

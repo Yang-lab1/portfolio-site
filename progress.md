@@ -1,3 +1,12 @@
+# 2026-07-07 Momenta production redeploy confirmation
+
+- User approved release after clarifying that the temporary order-storyboard labels and asset paths are not live site content.
+- There were no tracked code changes to push; local `HEAD` already matched `origin/main` at `8f862147f273ad20402d1d65da5c19ef34ee1037`.
+- Local production build passed.
+- Vercel production redeploy completed: `dpl_CmAkNqSLtLwb1BVfxtftxbyZ5pBt`, aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Post-deploy QA on the fixed URL passed: Momenta has 13 media figures, 23 images, 11 notes, one normal intro video, two scroll-driven interactions, no sequence videos, no forbidden visible labels/paths/Li Bai residue, no horizontal overflow, and no browser errors.
+- The two scroll interactions reverse cleanly: radial-wave `1 -> 2 -> 2 -> 1`, crossfade `1 -> 6 -> 11 -> 1`.
+
 # 2026-07-07 Momenta software copy separation cleanup
 
 - Continued the active Momenta detail-page QA after the headline deployment and found two residual copy candidates that could still blur the software/app Momenta case with device/hardware language.

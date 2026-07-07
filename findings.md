@@ -1,3 +1,9 @@
+# 2026-07-07 Momenta redeploy verification finding
+
+- The current production alias now points to Vercel deployment `dpl_CmAkNqSLtLwb1BVfxtftxbyZ5pBt`.
+- The Momenta software detail page still renders as intended after redeploy: one normal intro video, two scroll-driven frame interactions, and no visible QA labels, resource paths, or Li Bai residue.
+- The two key interactions can be checked by frame transitions: `1 -> 2 -> 2 -> 1` for the short radial reveal and `1 -> 6 -> 11 -> 1` for the long crossfade sequence.
+
 # 2026-07-07 Momenta residual device-language finding
 
 - Even after the visible detail headline was corrected, `projectShortCopy.momenta` still described "local device-interaction evidence" and the fallback case-study copy still used "Device Layer" / "hardware-presence layer".
