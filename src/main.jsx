@@ -1504,10 +1504,10 @@ caseStudyOverrides['offer-quest'] = {
 
 caseStudyOverrides.momenta = {
   label: { en: 'Music interaction case', zh: '音乐交互案例' },
-  displayTitle: { en: 'Mood, music, and device presence', zh: '情绪、音乐与设备存在感' },
+  displayTitle: { en: 'Mood, signals, and AI music', zh: '情绪、信号与 AI 音乐' },
   headline: {
-    en: 'Momenta combines a public SwiftUI music prototype with local device-render evidence to frame an AI music interaction concept.',
-    zh: 'Momenta 结合公开 SwiftUI 音乐原型与本地设备渲染证据，呈现一个 AI 音乐交互概念。',
+    en: 'Momenta frames an AI music product loop around context signals, prototype evidence, and generated output that can be tested and replayed.',
+    zh: 'Momenta 围绕情境信号、原型证据与可测试、可回放的生成结果，呈现一个 AI 音乐产品闭环。',
   },
   sections: [
     {

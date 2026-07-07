@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 68 is active. The former Li Bai project/module has been replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. A later local correction moved `momenta-software-05.webp` to the final gallery position to match the PPT/story logic, expanded the Momenta narrative notes to 11, and passed local build/browser QA. This latest order correction is local only and still needs explicit push/deploy approval.
+Phase 68 is active. The former Li Bai project/module has been replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. A later correction moved `momenta-software-05.webp` to the final gallery position to match the PPT/story logic, expanded the Momenta narrative notes to 11, and was pushed/deployed after approval. A follow-up copy audit removed the old "device-render evidence" headline language so the software case reads as an AI music product loop around context signals, prototype evidence, and testable/replayable generated output. This copy-only refinement has passed local build/browser QA and is ready to push/deploy.
 
 ## Phases
 
@@ -31,7 +31,11 @@ Phase 68 is active. The former Li Bai project/module has been replaced by the so
 - [x] Generate a clean full-detail scroll preview video starting directly from the Momenta detail page.
 - [x] Push to GitHub and deploy to Vercel production after explicit approval.
 - [x] Verify the fixed production URL after deployment.
-- **Status:** complete; runtime commit `116b95a` is pushed and Vercel deployment `dpl_GbCizw6z9jJtJ69454UT8mTg6JRS` is aliased to `https://portfolio-site-three-rose.vercel.app/`. Public QA confirms both Momenta scroll-driven interactions progress and reverse correctly.
+- [x] Refine the Momenta detail hero headline away from hardware/device language and toward AI product-loop language.
+- [x] Re-run local build and browser QA after the headline refinement.
+- [ ] Push and redeploy the headline refinement.
+- [ ] Verify the fixed production URL after the headline refinement deploy.
+- **Status:** deployed interaction/order baseline is complete; the copy-only headline refinement is locally verified and pending push/deploy.
 
 ### Phase 67: Momenta Image2 21:9 And Scroll Interaction Correction
 - [x] Acknowledge the corrected distinction between a playable video and a scroll-driven page interaction.

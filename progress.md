@@ -1,3 +1,13 @@
+# 2026-07-07 Momenta headline copy alignment
+
+- Follow-up audit after deployment found the Momenta detail hero headline still described the project as a SwiftUI prototype plus "device-render evidence", which was too close to hardware language for the software/app Momenta case.
+- Updated only `caseStudyOverrides.momenta` in `src/main.jsx`: display title is now `Mood, signals, and AI music`; headline now frames the page as an AI music product loop around context signals, prototype evidence, and testable/replayable generated output.
+- No media order, no asset mapping, and no scroll interaction implementation changed.
+- Verification passed locally: `npm run build`; local browser QA confirmed the new headline is visible, the old `device-render evidence` text is gone, there are 13 media figures / 23 images / 11 notes / 1 normal video / 2 scroll-driven image interactions / 0 sequence videos, final image 05, no forbidden visible text, no horizontal overflow, and no browser errors.
+- Interaction samples after the copy update still pass: radial-wave `1 -> 2 -> 1`; crossfade `1 -> 6 -> 11 -> 1`.
+- Evidence: `tmp/momenta-goal-audit-local-after-copy/audit.json` and `tmp/momenta-goal-audit-local-after-copy/local-momenta-after-copy.png`.
+- Status: ready for commit, push, and production redeploy.
+
 # 2026-07-07 Momenta software order correction
 
 - User flagged that the black device/phone visual (`momenta-software-05.webp`) is a closing/final presentation page in the PPT logic and should not appear in the early flow.

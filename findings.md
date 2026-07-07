@@ -1,3 +1,10 @@
+# 2026-07-07 Momenta headline wording finding
+
+- The Momenta software case should stay framed as an AI product loop, not a hardware/device evidence case.
+- The existing `caseStudyOverrides.momenta.headline` still said "device-render evidence"; this was technically small but semantically risky because the portfolio also has a separate `momenta-touch` hardware/device project.
+- The safer wording emphasizes context signals, prototype evidence, generated output, testability, and replayability. This is better aligned with AI PM / AI evaluation / agent-adjacent interview positioning without overclaiming model capability.
+- Regression checks after changing this copy should still verify the two scroll-driven interactions, because the project page is sensitive to Momenta/Momenta Touch confusion and previous Li Bai residue.
+
 # 2026-07-07 Momenta replaces Li Bai findings
 
 - The user-approved replacement uses the existing `momenta` software/app project, not the separate `momenta-touch` hardware case.
