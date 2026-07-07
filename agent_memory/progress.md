@@ -1046,3 +1046,12 @@
 - Other final images currently remain static unless the user identifies another source animation group.
 - Verification passed after correction: `npm run build`; Playwright captured active animation states in `tmp/momenta-wave-sequence-v15/`, with `radialWaveCount=1`, `crossfadeSequenceCount=1`, `normalVideos=1`, `sequenceVideos=0`, and `overflowX=0`.
 - Status: local preview only. Show `tmp/momenta-wave-sequence-v15/` screenshot/video evidence to the user; do not push/deploy until explicit approval.
+# 2026-07-07 Momenta software scroll-animation correction
+- User rejected the previous Momenta software detail interaction because `momenta-software-03.webp` -> `momenta-software-02.webp` was not behaving as the first grey-to-color animation, and the photo capture sequence was split into many images instead of one continuous interaction.
+- Current local fix keeps the approved green cover unchanged: `public/portfolio/momenta-green-cover.png` matches the user's source hash from `C:\Users\Yang\Desktop\作品集\新建文件夹\1600ca18-ab4e-4f73-a942-19588b1193df.png`.
+- `03 -> 02` is now one scroll-driven `radialWave` frame sequence with two aligned 1916x821 frames.
+- User provided `C:\Users\Yang\Desktop\作品集\旋转圆盘\momenta\软件\7月7日.mp4`; it was converted into one no-controls scroll-driven frame sequence: 126 WebP frames at 1918x822 under `public/portfolio/momenta-software/scroll/photo-flow-video/`.
+- Old wrong `photo-0` through `photo-6` frame folders were removed from `public/portfolio/momenta-software/scroll/` and the page no longer maps those folders into separate visual blocks.
+- Added a separating explanatory note between `momenta-software-23.webp` and final `momenta-software-05.webp`, so the two white-background closing visuals are not stacked directly together.
+- Verification passed locally: `npm run build`; production-preview Playwright QA reports sequences `[radial-wave:2, frame-snap:126, frame-snap:18]`, approved green cover present, tail order `22 -> 23 -> NOTE -> 05`, no horizontal overflow, and zero failed requests.
+- Status: ready to commit, push, and deploy per user instruction.

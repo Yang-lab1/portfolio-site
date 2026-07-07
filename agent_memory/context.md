@@ -209,3 +209,8 @@
 - 当前实现从统一 `ProjectDetail` 渲染中移除了 `case-study-section`；详情页媒体、外链桥接和底部作品墙保持不变。
 - 这不是只针对 Cup’s Cup：只要以后新增项目继续走 `ProjectDetail` 详情页模板，就不应再出现这组底部说明卡片。
 - 用户已确认截图并批准 push / Vercel deploy；commit `b9bd5c6` 已推送，production deployment `dpl_GBif3EoDZ66sC7ycQSghvk4qXpTe` 已别名到 `https://portfolio-site-three-rose.vercel.app/`。
+# 2026-07-07 Momenta current interaction baseline
+- `momenta` is the software/app case. `momenta-touch` is the hardware case; keep them separate.
+- Approved Momenta software cover remains `public/portfolio/momenta-green-cover.png`.
+- Current Momenta software detail interaction baseline: intro video first, then static image 01, then one `03 -> 02` radial-wave scroll reveal, then one 126-frame photo capture scroll animation converted from the user's `7月7日.mp4`, then static/process images, exploded-view sequence, image 22, image 23, explanatory note, final image 05.
+- The photo capture animation must remain one scroll-driven no-controls frame sequence, not multiple visible image blocks and not a video player.

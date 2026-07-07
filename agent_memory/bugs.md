@@ -381,3 +381,9 @@
 - The accepted local direction is a scroll-driven, no-controls, center/radial wave reveal. It must remain page interaction, not a playable video.
 - Do not split same-interface animation states into separate image blocks just because the user delivered them as individual 21:9 files. First inspect the PPT/source order and group related frames into one interaction when they are clearly the same motion.
 - Regression checks before any Momenta push/deploy: one radial-wave sequence exists for `03 -> 02`, one crossfade/frame sequence exists for `11 -> 21`, no video controls appear inside sequence sections, and screenshots/video are shown to the user first.
+# 2026-07-07 Momenta scroll-animation regression guardrail
+- Do not replace `public/portfolio/momenta-green-cover.png` with Li Bai, landscape, or any generated cover. It must remain the approved green spotlight cover unless the user explicitly provides a new cover.
+- Do not render `momenta-software-03.webp` and `momenta-software-02.webp` as consecutive static images. They are one aligned scroll-driven grey-to-color interface reveal.
+- Do not split the photo capture interaction back into `photo-0` through `photo-6` as separate page blocks. The current source is the user-provided `7月7日.mp4`, converted to one scroll-driven 126-frame sequence under `scroll/photo-flow-video/`.
+- The photo-flow sequence must remain one no-controls page animation, not a normal video player and not a stack of multiple images.
+- Keep an explanatory text block between `momenta-software-23.webp` and final `momenta-software-05.webp` so the two white closing visuals do not collide visually.

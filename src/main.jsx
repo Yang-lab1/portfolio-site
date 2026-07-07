@@ -216,17 +216,19 @@ const momentaSoftwareScrollSequence = (slug, count) =>
     `/portfolio/momenta-software/scroll/${slug}/frame-${String(index + 1).padStart(3, '0')}.webp`
   );
 
-const momentaSoftwareInteractionSequences = [
-  { slug: 'photo-0', count: 6, label: { en: 'Photo capture step 0', zh: '拍照交互 0' } },
-  { slug: 'photo-1', count: 18, label: { en: 'Photo capture step 1', zh: '拍照交互 1' } },
-  { slug: 'photo-2', count: 6, label: { en: 'Photo capture step 2', zh: '拍照交互 2' } },
-  { slug: 'photo-3', count: 18, label: { en: 'Photo capture step 3', zh: '拍照交互 3' } },
-  { slug: 'photo-4', count: 36, label: { en: 'Photo capture step 4', zh: '拍照交互 4' } },
-  { slug: 'photo-5', count: 18, label: { en: 'Photo capture step 5', zh: '拍照交互 5' } },
-  { slug: 'photo-6', count: 48, label: { en: 'Photo capture step 6', zh: '拍照交互 6' } },
-];
+const momentaSoftwareVideoPhotoFlowFrames = Array.from({ length: 126 }, (_, index) =>
+  `/portfolio/momenta-software/scroll/photo-flow-video/photo-flow-${String(index + 1).padStart(3, '0')}.webp`
+);
 
 const momentaSoftwareSequenceNotes = {
+  opening: {
+    en: 'The first interface motion moves from a quiet grey system map into the full-color product state, making the AI loop feel discovered rather than explained.',
+    zh: '第一段界面动画从克制的灰度系统图过渡到完整的彩色产品状态，让 AI 闭环像被用户自然发现，而不是先被解释。',
+  },
+  photoFlow: {
+    en: 'The capture flow is one continuous interaction: camera, context reading, loading, and result review stay in the same story instead of becoming separate screenshots.',
+    zh: '拍照流程是一段连续交互：摄影、情境读取、生成加载和结果回看都在同一条故事里，而不是分裂成一张张截图。',
+  },
   'photo-1': {
     en: 'The capture flow treats place, touch, and timing as signals. The user records a scene; the system turns it into a music task.',
     zh: '拍照流程把地点、触感和时间变成信号。用户记录一个场景，系统再把它转成音乐任务。',
@@ -247,6 +249,10 @@ const momentaSoftwareStaticNotes = {
     en: 'Implementation evidence connects the product idea back to native iOS structure, prototype states, and testable AI behavior.',
     zh: '实现证据把产品想法落回 iOS 原生结构、原型状态，以及可以被测试的 AI 行为。',
   },
+  23: {
+    en: 'The interface principle comes before the final render: remove noise, keep the model output legible, and let the generated memory feel ready to be reviewed.',
+    zh: '在最终效果图之前，先说明界面原则：去掉噪声，让模型输出更容易被判断，也让生成的记忆可以被回看。',
+  },
   5: {
     en: 'The final screen closes the story with a generated track: Momenta is framed as a replayable memory, not a one-off AI output.',
     zh: '最后一屏回到生成结果：Momenta 被定义为可回放的记忆，而不是一次性的 AI 输出。',
@@ -265,21 +271,23 @@ const momentaSoftwareGallery = [
     },
   },
   {
-    src: momentaSoftwareImage(2),
-    className: 'detail-media-momenta-source-frame',
+    src: momentaSoftwareImage(3),
+    type: 'frameSequence',
+    frames: [momentaSoftwareImage(3), momentaSoftwareImage(2)],
+    effect: 'radialWave',
+    label: { en: 'Interface reveal interaction', zh: '界面展开交互' },
+    note: momentaSoftwareSequenceNotes.opening,
+    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-short-frame-sequence',
   },
-  ...momentaSoftwareInteractionSequences.map(({ slug, count, label }) => {
-    const frames = momentaSoftwareScrollSequence(slug, count);
-    return {
-      src: frames[0],
-      type: 'frameSequence',
-      frames,
-      effect: 'frameSnap',
-      label,
-      note: momentaSoftwareSequenceNotes[slug] || null,
-      className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-momenta-scroll-sequence',
-    };
-  }),
+  {
+    src: momentaSoftwareVideoPhotoFlowFrames[0],
+    type: 'frameSequence',
+    frames: momentaSoftwareVideoPhotoFlowFrames,
+    effect: 'frameSnap',
+    label: { en: 'Photo capture interaction', zh: '拍照生成交互' },
+    note: momentaSoftwareSequenceNotes.photoFlow,
+    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-momenta-scroll-sequence detail-media-momenta-photo-flow-sequence',
+  },
   ...momentaSoftwareStaticOrder.map((index) => ({
     src: momentaSoftwareImage(index),
     note: momentaSoftwareStaticNotes[index] || null,
@@ -300,11 +308,11 @@ const momentaSoftwareGallery = [
   },
   {
     src: momentaSoftwareImage(23),
+    note: momentaSoftwareStaticNotes[23],
     className: 'detail-media-momenta-source-frame',
   },
   {
     src: momentaSoftwareImage(5),
-    note: momentaSoftwareStaticNotes[5],
     className: 'detail-media-momenta-source-frame',
   },
 ];

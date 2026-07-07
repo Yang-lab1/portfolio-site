@@ -1858,6 +1858,12 @@ img {
   min-height: 900px;
 }
 
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-photo-flow-sequence,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-photo-flow-sequence:first-child {
+  height: calc(min(42.865vw, calc(100svh - var(--header-height, 68px))) + 260svh);
+  min-height: 2700px;
+}
+
 .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence,
 .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence:first-child,
 .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence .detail-scroll-frame-sequence {
@@ -1963,6 +1969,12 @@ img {
   .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-scroll-sequence:first-child {
     height: calc(42.865vw + 58svh);
     min-height: 680px;
+  }
+
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-photo-flow-sequence,
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-photo-flow-sequence:first-child {
+    height: calc(42.865vw + 230svh);
+    min-height: 2200px;
   }
 }
 
