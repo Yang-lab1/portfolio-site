@@ -16,7 +16,10 @@
 - User approved push/deploy after clarifying that the engineering labels and resource paths shown in the temporary order storyboard are not live site content.
 - Final pre-release local QA passed: `npm run build`; Momenta detail has 13 media figures, 1 normal video, 2 scroll-driven image interactions, 0 sequence videos, 11 notes, final image 05, no visible Li Bai/path/order-label residue, no horizontal overflow, and no browser errors.
 - Interaction sampling passed: 03 -> 02 radial-wave moves from progress `0.0000` to `1.0000` and reverses to `0.0000`; 11 -> 21 crossfade moves frame `1 -> 11` and reverses to frame `1`.
-- Status: approved for GitHub push and Vercel production deployment.
+- Runtime commit `116b95a` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_GbCizw6z9jJtJ69454UT8mTg6JRS` is `Ready` and aliased to the fixed production URL `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA against the fixed URL passed with the same two-interaction checks, no forbidden visible text, no horizontal overflow, and no browser errors.
+- Status: deployed and verified.
 
 # 2026-07-07 Momenta replaces Li Bai release
 - User approved release: replace the former Li Bai project/module with the software/app Momenta case.

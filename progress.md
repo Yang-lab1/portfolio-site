@@ -15,7 +15,10 @@
 - User confirmed the temporary engineering labels in the order storyboard are acceptable as non-site QA artifacts and approved push/deploy as long as the two interactions are smooth and normal.
 - Final pre-release QA passed locally: `npm run build`; Momenta detail has 13 media figures, 1 normal intro video, 2 scroll-driven image interactions, 0 sequence videos, 11 narrative notes, no forbidden visible text (`Li Bai`, `libai`, `Image 09`, `trust logic`, resource paths), no horizontal overflow, and no browser errors.
 - The two interaction checks passed: the 03 -> 02 radial-wave sequence progresses `0.0000 -> 0.5190 -> 1.0000` and reverses to `0.0000`; the 11 -> 21 crossfade sequence progresses frame `1 -> 6 -> 11` and reverses to frame `1`.
-- Status: approved for GitHub push and Vercel production deployment.
+- Runtime commit `116b95a` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_GbCizw6z9jJtJ69454UT8mTg6JRS` is `Ready` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA against the fixed production URL passed with the same animation samples: radial-wave `0.0000 -> 0.5190 -> 1.0000 -> 0.0000`, crossfade frame `1 -> 6 -> 11 -> 1`, no forbidden visible text, no sequence videos, no horizontal overflow, and no browser errors.
+- Status: deployed and verified.
 
 # 2026-07-07 Momenta replaces Li Bai release QA
 

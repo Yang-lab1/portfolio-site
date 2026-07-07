@@ -29,8 +29,9 @@ Phase 68 is active. The former Li Bai project/module has been replaced by the so
 - [x] Generate a clearer live-page storyboard so the current order is visually readable instead of only listed in text.
 - [x] Re-verify the two scroll-driven interactions reverse when scrolling back up.
 - [x] Generate a clean full-detail scroll preview video starting directly from the Momenta detail page.
-- [ ] Push to GitHub and deploy to Vercel production after explicit approval.
-- **Status:** latest order, note alignment, storyboard evidence, clean scroll preview, and reverse-interaction QA are local only; build and browser QA passed, waiting for explicit push/deploy approval.
+- [x] Push to GitHub and deploy to Vercel production after explicit approval.
+- [x] Verify the fixed production URL after deployment.
+- **Status:** complete; runtime commit `116b95a` is pushed and Vercel deployment `dpl_GbCizw6z9jJtJ69454UT8mTg6JRS` is aliased to `https://portfolio-site-three-rose.vercel.app/`. Public QA confirms both Momenta scroll-driven interactions progress and reverse correctly.
 
 ### Phase 67: Momenta Image2 21:9 And Scroll Interaction Correction
 - [x] Acknowledge the corrected distinction between a playable video and a scroll-driven page interaction.
