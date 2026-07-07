@@ -220,6 +220,8 @@ const momentaSoftwareOpeningSequence = [
   momentaSoftwareImage(2),
 ];
 
+const momentaSoftwareStaticOrder = [4, 6, 7, 8, 9, 10];
+
 const momentaSoftwareGallery = [
   {
     src: momentaSoftwareImage(1),
@@ -233,8 +235,8 @@ const momentaSoftwareGallery = [
     label: { en: 'App system reveal', zh: 'App \u7cfb\u7edf\u5c55\u5f00' },
     className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-short-frame-sequence detail-media-radial-wave-sequence',
   },
-  ...Array.from({ length: 7 }, (_, index) => ({
-    src: momentaSoftwareImage(index + 4),
+  ...momentaSoftwareStaticOrder.map((index) => ({
+    src: momentaSoftwareImage(index),
     className: 'detail-media-momenta-source-frame',
   })),
   {
@@ -250,6 +252,10 @@ const momentaSoftwareGallery = [
   },
   {
     src: momentaSoftwareImage(23),
+    className: 'detail-media-momenta-source-frame',
+  },
+  {
+    src: momentaSoftwareImage(5),
     className: 'detail-media-momenta-source-frame',
   },
 ];
@@ -447,35 +453,49 @@ const projects = [
     },
     source: { en: 'Public GitHub source: https://github.com/JosicZhou/MOMENTA plus confirmed local presentation and video evidence', zh: '\u516c\u5f00 GitHub \u6765\u6e90\uff1ahttps://github.com/JosicZhou/MOMENTA\uff0c\u5e76\u6709\u672c\u5730\u6c47\u62a5\u4e0e\u89c6\u9891\u8bc1\u636e' },
     mediaNarrative: [
-      null,
       {
-        en: 'Momenta begins from a product question: how can AI music respond to a real moment, instead of acting like a blank prompt box?',
-        zh: 'Momenta \u4ece\u4e00\u4e2a\u4ea7\u54c1\u95ee\u9898\u5f00\u59cb\uff1aAI \u97f3\u4e50\u5982\u4f55\u56de\u5e94\u4e00\u4e2a\u771f\u5b9e\u77ac\u95f4\uff0c\u800c\u4e0d\u53ea\u662f\u4e00\u4e2a\u7a7a\u767d\u63d0\u793a\u8bcd\u8f93\u5165\u6846\uff1f',
+        en: 'The opening frame sets Momenta inside an Apple-native product language before the case moves into the detailed AI music flow.',
+        zh: '开场先把 Momenta 放进 Apple 原生产品语境里，再进入后面的 AI 音乐流程讲解。',
       },
       {
-        en: 'The core input is designed as situation plus emotion plus memory. The user describes the moment, while AI carries the composition work.',
-        zh: '\u6838\u5fc3\u8f93\u5165\u88ab\u5b9a\u4e49\u4e3a\u60c5\u5883\u3001\u60c5\u7eea\u4e0e\u8bb0\u5fc6\u3002\u7528\u6237\u63cf\u8ff0\u5f53\u4e0b\uff0cAI \u8d1f\u8d23\u628a\u5b83\u8f6c\u8bd1\u6210\u97f3\u4e50\u7ed3\u6784\u3002',
+        en: 'The first interaction moves from wireframe logic into the finished app system, setting up Momenta as a product flow rather than a single AI feature.',
+        zh: '第一个交互从线框逻辑展开到完整 App 系统，把 Momenta 定义成一个产品流程，而不是单个 AI 功能点。',
       },
-      null,
+      {
+        en: 'The core input is designed as situation plus emotion plus memory. The user describes the moment; AI carries the composition work.',
+        zh: '核心输入被定义为情境、情绪与记忆。用户描述当下，AI 负责把它转译成音乐结构。',
+      },
       {
         en: 'The case keeps implementation evidence visible, linking product judgment back to SwiftUI structure, prototype testing, and native interaction limits.',
-        zh: '\u9875\u9762\u4fdd\u7559\u5b9e\u73b0\u8bc1\u636e\uff0c\u628a\u4ea7\u54c1\u5224\u65ad\u843d\u56de SwiftUI \u7ed3\u6784\u3001\u539f\u578b\u6d4b\u8bd5\u4e0e\u539f\u751f\u4ea4\u4e92\u9650\u5236\u3002',
+        zh: '页面保留实现证据，把产品判断落回 SwiftUI 结构、原型测试与原生交互限制。',
       },
-      null,
-      null,
-      null,
+      {
+        en: 'Health and privacy are treated as product boundaries, not decoration: the system needs enough context without exposing more than the user intends.',
+        zh: '健康与隐私不是装饰信息，而是产品边界：系统需要足够语境，但不能越过用户愿意暴露的范围。',
+      },
+      {
+        en: 'Sharing is framed as a moment after generation, where the output becomes something that can be replayed, remembered, or passed on.',
+        zh: '分享被放在生成之后：结果不只是播完一首歌，而是可以回放、记住、再传递的瞬间。',
+      },
       {
         en: 'The system logic focuses on trust: what context is useful, what data should stay private, and when an AI result is ready to surface.',
-        zh: '\u7cfb\u7edf\u903b\u8f91\u805a\u7126\u5728\u4fe1\u4efb\uff1a\u54ea\u4e9b\u60c5\u5883\u6709\u7528\uff0c\u54ea\u4e9b\u6570\u636e\u5e94\u4fdd\u6301\u79c1\u5bc6\uff0c\u4ee5\u53ca AI \u7ed3\u679c\u4f55\u65f6\u9002\u5408\u5448\u73b0\u3002',
+        zh: '系统逻辑聚焦在信任：哪些情境有用，哪些数据应保持私密，以及 AI 结果何时适合呈现。',
       },
       {
-        en: 'The scroll interaction expresses the AI loop as a state change: sense the scene, process it, then reveal completion only when the output feels ready.',
-        zh: '\u6eda\u52a8\u4ea4\u4e92\u628a AI \u95ed\u73af\u53d8\u6210\u72b6\u6001\u53d8\u5316\uff1a\u611f\u77e5\u573a\u666f\u3001\u5904\u7406\u4fe1\u606f\uff0c\u5e76\u5728\u7ed3\u679c\u5c31\u7eea\u65f6\u518d\u5b8c\u6210\u5448\u73b0\u3002',
+        en: 'The implementation page turns the concept into evaluation evidence: code, preview, and simulator states make the AI behavior easier to test.',
+        zh: '实现页把概念转成评估证据：代码、预览和模拟器状态，让 AI 行为更容易被测试。',
       },
-      null,
       {
-        en: 'The final principle is restraint: personal context guides the music system, while the interface stays calm enough for the model behavior to be understood.',
-        zh: '\u6700\u540e\u56de\u5230\u514b\u5236\u539f\u5219\uff1a\u8ba9\u4e2a\u4eba\u60c5\u5883\u5f15\u5bfc\u97f3\u4e50\u7cfb\u7edf\uff0c\u540c\u65f6\u8ba9\u754c\u9762\u8db3\u591f\u5b89\u9759\uff0c\u4fbf\u4e8e\u7406\u89e3\u6a21\u578b\u884c\u4e3a\u3002',
+        en: 'The scroll sequence shows the AI loop as a state change: sense the scene, process it, then reveal completion only when the output is ready.',
+        zh: '滚动序列把 AI 闭环变成状态变化：感知场景、处理信息，并在结果就绪时再完成呈现。',
+      },
+      {
+        en: 'The signal layer separates useful personal context from uncontrolled data collection, so the product can use health and environment without overreaching.',
+        zh: '信号层把有用的个人语境和失控的数据收集区分开，让产品可以使用健康与环境信息，但不越界。',
+      },
+      {
+        en: 'The final principle is restraint: personal signals guide the music system, while the interface stays calm enough for the AI behavior to be understood.',
+        zh: '最后的原则是克制：让个人信号引导音乐系统，同时让界面足够安静，便于理解 AI 行为。',
       },
     ],
   },

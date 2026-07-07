@@ -1,3 +1,23 @@
+# 2026-07-07 Momenta software order correction
+- User pointed out that `momenta-software-05.webp` is a final/closing page in the PPT sequence, not an early-process visual.
+- Current local code now keeps image 05 as the final figure in the Momenta software detail gallery.
+- Static order before the long interaction is explicit: 04, 06, 07, 08, 09, 10. The 11-21 scroll-driven sequence stays grouped, followed by 22, 23, and final 05.
+- Supporting text was re-aligned to the new order and expanded to 11 concise narrative notes.
+- Verification passed locally: build succeeded; browser QA confirmed one intro video, 23 images, two scroll sequences, 11 notes, final figure is image 05, no Li Bai/libai residue, overflow 0, and no page errors.
+- Generated order evidence for user review:
+  - Current page order overview: `tmp/momenta-order-overview/momenta-current-order-overview-en.png`.
+  - Source-image numbering overview: `tmp/momenta-order-overview/momenta-source-01-23-contact.png`.
+- Current sequence shown to user: intro video -> 01 -> 03->02 animation -> 04 -> 06 -> 07 -> 08 -> 09 -> 10 -> 11->21 animation -> 22 -> 23 -> final 05.
+- Follow-up correction: the narrative note about code/preview/simulator evidence was moved back to image 10, where the implementation/evaluation visual actually appears. The 11-21 scroll sequence now describes the AI state-change loop; image 22 covers the personal/environment signal boundary; image 23 leads into the restrained final principle before closing image 05.
+- Latest QA after the note alignment: `npm run build` passed; Work menu -> Momenta browser QA reports 13 media figures, 1 normal video, 2 scroll sequences, 11 notes, last figure image 05, no Li Bai/libai residue, overflow 0, and errors 0. Evidence: `tmp/momenta-order-qa-v2/`.
+- Follow-up visibility pass for the user complaint "I cannot see the order": generated a live-page storyboard from the real local Momenta detail page, with 17 cards covering the intro video, every static image, 03->02 start/mid/end, 11->21 start/mid/end, and final image 05. Evidence: `tmp/momenta-live-order-storyboard-v1/momenta-live-order-storyboard.png`.
+- Reverse interaction QA passed with the page's own immediate Lenis scroll API: 03->02 moves from progress 0 to 0.5486 to 0.9986 and returns to 0; 11->21 moves frame 1 -> 5 -> 11 and returns 5 -> 1. Evidence: `tmp/momenta-interaction-reverse-qa-v2/reverse-metrics.json`.
+- Generated a clean full-detail scroll preview that starts directly on the Momenta detail page, not on the home/menu click: `tmp/momenta-clean-scroll-video-v1/momenta-clean-scroll-preview-v1.mp4` (1600x750, 224 frames, ~14.9s), plus contact sheet `tmp/momenta-clean-scroll-video-v1/momenta-clean-scroll-contact-v1.jpg`.
+- User approved push/deploy after clarifying that the engineering labels and resource paths shown in the temporary order storyboard are not live site content.
+- Final pre-release local QA passed: `npm run build`; Momenta detail has 13 media figures, 1 normal video, 2 scroll-driven image interactions, 0 sequence videos, 11 notes, final image 05, no visible Li Bai/path/order-label residue, no horizontal overflow, and no browser errors.
+- Interaction sampling passed: 03 -> 02 radial-wave moves from progress `0.0000` to `1.0000` and reverses to `0.0000`; 11 -> 21 crossfade moves frame `1 -> 11` and reverses to frame `1`.
+- Status: approved for GitHub push and Vercel production deployment.
+
 # 2026-07-07 Momenta replaces Li Bai release
 - User approved release: replace the former Li Bai project/module with the software/app Momenta case.
 - Green cover visual is preserved through the renamed asset `public/portfolio/momenta-green-cover.png`; do not reintroduce visible Li Bai naming.

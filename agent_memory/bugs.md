@@ -3,6 +3,9 @@
 - The approved green cover is now a Momenta asset (`momenta-green-cover.png`). Do not point live project data back to `libai-background.png`.
 - Old untracked `public/portfolio/libai-detail-*.png` and rejected `public/portfolio/momenta-source-*` files are excluded from Vercel uploads through `.vercelignore`; do not remove that protection while those local files exist.
 - Project separation remains important: `momenta` is the software/app case, while `momenta-touch` is the hardware/device case.
+- Momenta software detail order must follow the PPT/story logic rather than raw file numbering. `momenta-software-05.webp` is the closing device-and-phone visual and should remain the final figure unless the user explicitly changes the sequence.
+- Momenta note/image alignment guardrail: image 10 is the implementation/evaluation evidence page, so the code/preview/simulator note belongs there. Image 22 is the personal/environment signal boundary, image 23 is the final principle page, and image 05 is the closing product-presence image.
+- When showing the user the Momenta order, prefer the live-page storyboard `tmp/momenta-live-order-storyboard-v1/momenta-live-order-storyboard.png` over text-only lists, because the user could not visually judge the sequence from the earlier summary alone.
 
 # 2026-07-06 Momenta Image2 / interaction guardrail
 - The rejected Momenta static images must not be treated as final just because they are 21:9 / 4K files. The user specifically wants Image2/image-to-image expansion from the original PPT/source visuals into true 21:9, preserving structure without simple framing or redesign.

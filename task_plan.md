@@ -4,7 +4,7 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 68 is active and approved for release. The former Li Bai project/module is being replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. Local build and browser QA passed: Work menu opens Momenta, the detail page has no Li Bai/libai residue, keeps one intro video, renders two scroll-driven image interactions, and has no horizontal overflow. Push and production deployment are now approved by the user.
+Phase 68 is active. The former Li Bai project/module has been replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. A later local correction moved `momenta-software-05.webp` to the final gallery position to match the PPT/story logic, expanded the Momenta narrative notes to 11, and passed local build/browser QA. This latest order correction is local only and still needs explicit push/deploy approval.
 
 ## Phases
 
@@ -22,8 +22,15 @@ Phase 68 is active and approved for release. The former Li Bai project/module is
 - [x] Tighten the 03 -> 02 radial reveal timing so real wheel input completes it in about one short scroll gesture and reverses cleanly on upward scroll.
 - [x] Re-check the remaining 23-image set for other obvious animation groups; keep only 11-21 as the second confirmed scroll-driven sequence.
 - [x] Wait for user visual approval of `tmp/momenta-wave-sequence-v17-fast-reverse/`.
+- [x] Move `momenta-software-05.webp` to the final detail-gallery position because it is the closing device/phone page in the PPT logic.
+- [x] Re-align and expand the Momenta explanatory notes after the gallery order correction.
+- [x] Re-run production build and browser QA after the order correction.
+- [x] Fix the follow-up note/image mismatch so image 10 carries the implementation/evaluation note, the 11-21 sequence carries the AI loop transition note, and images 22/23 lead into the final principle and closing image 05.
+- [x] Generate a clearer live-page storyboard so the current order is visually readable instead of only listed in text.
+- [x] Re-verify the two scroll-driven interactions reverse when scrolling back up.
+- [x] Generate a clean full-detail scroll preview video starting directly from the Momenta detail page.
 - [ ] Push to GitHub and deploy to Vercel production after explicit approval.
-- **Status:** release approved; local build and browser QA passed, GitHub push and Vercel deployment next.
+- **Status:** latest order, note alignment, storyboard evidence, clean scroll preview, and reverse-interaction QA are local only; build and browser QA passed, waiting for explicit push/deploy approval.
 
 ### Phase 67: Momenta Image2 21:9 And Scroll Interaction Correction
 - [x] Acknowledge the corrected distinction between a playable video and a scroll-driven page interaction.
