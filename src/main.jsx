@@ -984,8 +984,8 @@ const projectShortCopy = {
     zh: '本地优先的摄像头姿态训练质检与报告系统。',
   },
   momenta: {
-    en: 'Public SwiftUI AI music repository plus local device-interaction evidence.',
-    zh: '公开 SwiftUI AI 音乐仓库，加本地设备交互证据。',
+    en: 'SwiftUI AI music prototype with context-signal and interaction evidence.',
+    zh: 'SwiftUI AI 音乐原型，以及情境信号与交互证据。',
   },
   'miro-hardware': {
     en: 'Physical Miro device concept with wearable presence and CMF direction.',
@@ -1525,10 +1525,10 @@ caseStudyOverrides.momenta = {
       },
     },
     {
-      title: { en: 'Device Layer', zh: '设备层' },
+      title: { en: 'Signal Layer', zh: '信号层' },
       body: {
-        en: 'Local Keynote and render material add a hardware-presence layer, connecting interface behavior with object identity.',
-        zh: '本地 Keynote 与渲染资料补充设备存在感，把界面行为与物件识别连接起来。',
+        en: 'Local Keynote and prototype material connect interface behavior with context signals while keeping the case anchored in the software flow.',
+        zh: '本地 Keynote 与原型资料把界面行为和情境信号连接起来，并让案例始终落在软件流程里。',
       },
     },
     {
