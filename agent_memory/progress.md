@@ -5,8 +5,10 @@
   - `public/portfolio/momenta-software/momenta-software-23.webp` for Purity of Elements / interface principle.
   - `public/portfolio/momenta-software/momenta-software-05.webp` for the final device-and-phone closing visual.
 - Confirmed the approved green cover remains `public/portfolio/momenta-green-cover.png` and `src/main.jsx` still references that cover only for Momenta.
-- Verification passed: `npm run build`.
-- Status: local replacement complete; not pushed or deployed in this step.
+- Verification passed: `npm run build`; Vercel production build also passed.
+- GitHub push completed at commit `58a2ebe`.
+- Vercel production deployment completed and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Status: deployed.
 
 # 2026-07-07 Momenta production redeploy confirmation
 
