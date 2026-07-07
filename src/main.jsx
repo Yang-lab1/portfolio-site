@@ -211,14 +211,47 @@ const steps = {
 const momentaSoftwareImage = (index) =>
   `/portfolio/momenta-software/momenta-software-${String(index).padStart(2, '0')}.webp`;
 
-const momentaSoftwareFrameSequence = Array.from({ length: 11 }, (_, index) =>
-  momentaSoftwareImage(index + 11)
-);
+const momentaSoftwareScrollSequence = (slug, count) =>
+  Array.from({ length: count }, (_, index) =>
+    `/portfolio/momenta-software/scroll/${slug}/frame-${String(index + 1).padStart(3, '0')}.webp`
+  );
 
-const momentaSoftwareOpeningSequence = [
-  momentaSoftwareImage(3),
-  momentaSoftwareImage(2),
+const momentaSoftwareInteractionSequences = [
+  { slug: 'photo-0', count: 6, label: { en: 'Photo capture step 0', zh: '拍照交互 0' } },
+  { slug: 'photo-1', count: 18, label: { en: 'Photo capture step 1', zh: '拍照交互 1' } },
+  { slug: 'photo-2', count: 6, label: { en: 'Photo capture step 2', zh: '拍照交互 2' } },
+  { slug: 'photo-3', count: 18, label: { en: 'Photo capture step 3', zh: '拍照交互 3' } },
+  { slug: 'photo-4', count: 36, label: { en: 'Photo capture step 4', zh: '拍照交互 4' } },
+  { slug: 'photo-5', count: 18, label: { en: 'Photo capture step 5', zh: '拍照交互 5' } },
+  { slug: 'photo-6', count: 48, label: { en: 'Photo capture step 6', zh: '拍照交互 6' } },
 ];
+
+const momentaSoftwareSequenceNotes = {
+  'photo-1': {
+    en: 'The capture flow treats place, touch, and timing as signals. The user records a scene; the system turns it into a music task.',
+    zh: '拍照流程把地点、触感和时间变成信号。用户记录一个场景，系统再把它转成音乐任务。',
+  },
+  'photo-6': {
+    en: 'The interface stays quiet while the AI loop becomes visible: input, context reading, generation status, and a result the user can review.',
+    zh: '界面保持克制，但 AI 闭环被看见：输入、情境读取、生成状态，以及可回看结果。',
+  },
+  exploded: {
+    en: 'The exploded view explains the companion object as part of the experience, not just a visual accessory.',
+    zh: '爆炸图说明这个随身物件属于体验的一部分，而不是单纯的视觉配件。',
+    tone: 'dark',
+  },
+};
+
+const momentaSoftwareStaticNotes = {
+  8: {
+    en: 'Implementation evidence connects the product idea back to native iOS structure, prototype states, and testable AI behavior.',
+    zh: '实现证据把产品想法落回 iOS 原生结构、原型状态，以及可以被测试的 AI 行为。',
+  },
+  5: {
+    en: 'The final screen closes the story with a generated track: Momenta is framed as a replayable memory, not a one-off AI output.',
+    zh: '最后一屏回到生成结果：Momenta 被定义为可回放的记忆，而不是一次性的 AI 输出。',
+  },
+};
 
 const momentaSoftwareStaticOrder = [4, 6, 7, 8, 9, 10];
 
@@ -226,25 +259,40 @@ const momentaSoftwareGallery = [
   {
     src: momentaSoftwareImage(1),
     className: 'detail-media-momenta-source-frame',
+    note: {
+      en: 'Momenta begins with a product question: how can AI music respond to a real moment instead of waiting for a blank prompt?',
+      zh: 'Momenta 从一个产品问题开始：AI 音乐如何回应真实情境，而不是等待一段空白提示词？',
+    },
   },
   {
-    src: momentaSoftwareOpeningSequence[0],
-    type: 'frameSequence',
-    effect: 'radialWave',
-    frames: momentaSoftwareOpeningSequence,
-    label: { en: 'App system reveal', zh: 'App \u7cfb\u7edf\u5c55\u5f00' },
-    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-short-frame-sequence detail-media-radial-wave-sequence',
+    src: momentaSoftwareImage(2),
+    className: 'detail-media-momenta-source-frame',
   },
+  ...momentaSoftwareInteractionSequences.map(({ slug, count, label }) => {
+    const frames = momentaSoftwareScrollSequence(slug, count);
+    return {
+      src: frames[0],
+      type: 'frameSequence',
+      frames,
+      effect: 'frameSnap',
+      label,
+      note: momentaSoftwareSequenceNotes[slug] || null,
+      className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-momenta-scroll-sequence',
+    };
+  }),
   ...momentaSoftwareStaticOrder.map((index) => ({
     src: momentaSoftwareImage(index),
+    note: momentaSoftwareStaticNotes[index] || null,
     className: 'detail-media-momenta-source-frame',
   })),
   {
-    src: momentaSoftwareFrameSequence[0],
+    src: momentaSoftwareScrollSequence('exploded', 18)[0],
     type: 'frameSequence',
-    frames: momentaSoftwareFrameSequence,
-    label: { en: 'Scroll interaction frames', zh: '\u6eda\u52a8\u4ea4\u4e92\u5e27' },
-    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame',
+    frames: momentaSoftwareScrollSequence('exploded', 18),
+    effect: 'frameSnap',
+    label: { en: 'Exploded view interaction', zh: '爆炸图交互' },
+    note: momentaSoftwareSequenceNotes.exploded,
+    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-momenta-scroll-sequence detail-media-momenta-dark-sequence',
   },
   {
     src: momentaSoftwareImage(22),
@@ -256,6 +304,7 @@ const momentaSoftwareGallery = [
   },
   {
     src: momentaSoftwareImage(5),
+    note: momentaSoftwareStaticNotes[5],
     className: 'detail-media-momenta-source-frame',
   },
 ];
@@ -4513,12 +4562,14 @@ function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
   }
 
   const isRadialWave = effect === 'radialWave' && frameSources.length >= 2;
+  const isFrameSnap = effect === 'frameSnap';
   const framePosition = sequenceState.progress * Math.max(0, frameSources.length - 1);
   const lowerFrameIndex = Math.floor(framePosition);
   const upperFrameIndex = Math.min(frameSources.length - 1, lowerFrameIndex + 1);
   const upperFrameOpacity = framePosition - lowerFrameIndex;
   const getFrameOpacity = (index) => {
     if (frameSources.length <= 1) return 1;
+    if (isFrameSnap) return index === sequenceState.activeIndex ? 1 : 0;
     if (index === lowerFrameIndex) return 1 - upperFrameOpacity;
     if (index === upperFrameIndex) return upperFrameOpacity;
     return 0;
@@ -4548,7 +4599,7 @@ function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
     <div
       ref={rootRef}
       className={`detail-scroll-frame-sequence is-${sequenceState.phase}`}
-      data-sequence-effect={isRadialWave ? 'radial-wave' : 'crossfade'}
+      data-sequence-effect={isRadialWave ? 'radial-wave' : isFrameSnap ? 'frame-snap' : 'crossfade'}
       data-active-frame={sequenceState.activeIndex + 1}
       data-progress={sequenceState.progress.toFixed(4)}
       style={waveStyle}
@@ -4748,7 +4799,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
             const showDefaultFigureLabel = index === 0 && !(project.id === 'momenta' && detailVideo);
             const figureLabel = mediaLabel || (showDefaultFigureLabel ? detailMediaLabel : '');
             const mobileSrc = detailMobileSources[project.id]?.[src];
-            const narrative = mediaNarrative[index];
+            const mediaNote = typeof media === 'string' ? null : media?.note || null;
+            const narrative = project.id === 'momenta' ? mediaNote : mediaNarrative[index];
+            const narrativeTone = typeof narrative === 'object' && narrative?.tone ? narrative.tone : '';
             return (
               <React.Fragment key={`${src}-${index}`}>
                 <figure className={getFigureClass(media)}>
@@ -4769,7 +4822,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
                   ) : null}
                 </figure>
                 {narrative ? (
-                  <div className="detail-media-note">
+                  <div className={`detail-media-note${narrativeTone === 'dark' ? ' detail-media-note-dark' : ''}`}>
                     <p>{t(narrative, lang)}</p>
                   </div>
                 ) : null}

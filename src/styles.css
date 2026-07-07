@@ -1772,6 +1772,11 @@ img {
   text-align: center;
 }
 
+.detail-media-note-dark {
+  background: #050505;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .detail-media-note p {
   max-width: 780px;
   margin: 0;
@@ -1834,8 +1839,8 @@ img {
 .detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame:first-child {
   position: relative;
   display: block;
-  height: 260svh;
-  min-height: 1600px;
+  height: calc(min(42.865vw, calc(100svh - var(--header-height, 68px))) + 58svh);
+  min-height: 960px;
   aspect-ratio: auto;
   overflow: visible;
   background: #fff;
@@ -1847,12 +1852,24 @@ img {
   min-height: 980px;
 }
 
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-scroll-sequence,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-scroll-sequence:first-child {
+  height: calc(min(42.865vw, calc(100svh - var(--header-height, 68px))) + 48svh);
+  min-height: 900px;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence:first-child,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-dark-sequence .detail-scroll-frame-sequence {
+  background: #050505;
+}
+
 .detail-scroll-frame-sequence {
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
-  height: calc(100svh - var(--header-height, 68px));
+  height: min(42.865vw, calc(100svh - var(--header-height, 68px)));
   overflow: hidden;
   background: #fff;
 }
@@ -1932,14 +1949,20 @@ img {
 
   .detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame,
   .detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame:first-child {
-    height: 220svh;
-    min-height: 1240px;
+    height: calc(42.865vw + 68svh);
+    min-height: 720px;
   }
 
   .detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence,
   .detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence:first-child {
     height: 132svh;
     min-height: 760px;
+  }
+
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-scroll-sequence,
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-scroll-sequence:first-child {
+    height: calc(42.865vw + 58svh);
+    min-height: 680px;
   }
 }
 

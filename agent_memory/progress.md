@@ -1,3 +1,13 @@
+# 2026-07-07 Momenta software white-background asset replacement
+- User supplied three corrected pure-white 21:9 Momenta software detail images and asked to replace the existing detail-page versions only.
+- Replaced the existing assets in place, preserving filenames and page order:
+  - `public/portfolio/momenta-software/momenta-software-08.webp` for SHARE / Create memories, together.
+  - `public/portfolio/momenta-software/momenta-software-23.webp` for Purity of Elements / interface principle.
+  - `public/portfolio/momenta-software/momenta-software-05.webp` for the final device-and-phone closing visual.
+- Confirmed the approved green cover remains `public/portfolio/momenta-green-cover.png` and `src/main.jsx` still references that cover only for Momenta.
+- Verification passed: `npm run build`.
+- Status: local replacement complete; not pushed or deployed in this step.
+
 # 2026-07-07 Momenta production redeploy confirmation
 
 - User approved pushing/deploying the current Momenta software detail page after confirming the temporary order labels and resource paths were only QA artifacts, not live site content.
