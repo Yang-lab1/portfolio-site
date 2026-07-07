@@ -1,4 +1,38 @@
+# 2026-07-07 Momenta / Li Bai release guardrail
+- Momenta software replacement must not visibly carry Li Bai naming, IDs, or detail captures. Keep code/page checks for `Li Bai`, `李白`, `libai`, `libai-data`, and `libai-detail` before release.
+- The approved green cover is now a Momenta asset (`momenta-green-cover.png`). Do not point live project data back to `libai-background.png`.
+- Old untracked `public/portfolio/libai-detail-*.png` and rejected `public/portfolio/momenta-source-*` files are excluded from Vercel uploads through `.vercelignore`; do not remove that protection while those local files exist.
+- Project separation remains important: `momenta` is the software/app case, while `momenta-touch` is the hardware/device case.
+
+# 2026-07-06 Momenta Image2 / interaction guardrail
+- The rejected Momenta static images must not be treated as final just because they are 21:9 / 4K files. The user specifically wants Image2/image-to-image expansion from the original PPT/source visuals into true 21:9, preserving structure without simple framing or redesign.
+- Do not use a still frame captured from the long intro video as the PPT interaction section. The intro video can remain as the first normal video, but PPT interaction motion must come from the PPT/source animation material.
+- PPT/source interaction motion must not show browser video controls. It should be scroll-driven or scroll-triggered page motion with controls hidden and pointer interaction disabled.
+- Current blocker for true Image2 generation: local `OPENAI_API_KEY` is missing. Do not fake Image2 with CSS, canvas padding, blur-fill, crop-only, or non-source generative imagery.
+- Before any push/deploy of the Momenta replacement, verify that rejected static assets `momenta-source-01..06.webp` are either replaced by true Image2-expanded assets or not referenced by the live page.
+- Do not use the low-resolution embedded Keynote thumbnails from `keynote_img_130`, `keynote_img_131`, `keynote_img_138`, `keynote_img_141`, `keynote_img_147`, `keynote_img_149`, `keynote_img_155`, `keynote_img_164`, or the tiny Apple Health badge as Image2 source images. They are now isolated in `tmp/momenta-image2-source-package-v2-clean/excluded-lowres-keynote-thumbnails/`.
+
+# 2026-07-06 Momenta source-preserving guardrail
+- Momenta software detail pages must not use newly generated, redesigned, or recomposed 21:9 images made from PPT/PDF ideas. The user explicitly rejected that direction.
+- Static visuals must preserve original PPT/PDF/Keynote slide/page content. Only export quality, 21:9 canvas adaptation, necessary crop, or letterboxing may change.
+- Original continuous PPT/Keynote animations should be preserved through original exports or existing Drive/local animation clips. If the animation has to be rebuilt, it must use original source elements and source timing/intent, then be shown to the user as video before release.
+- Do not reintroduce `momenta-software-01..06.webp` or `momenta-software-daima-cover.webp`; these generated WebP files were removed from `public/portfolio`.
+- Keep `momenta-software-intro-h264.mp4` only as the user-confirmed intro video transcode. It does not replace the source-preserving slide/process material.
+- Do not push or deploy any Momenta software replacement until the user approves the fresh source-preserving preview.
+
 # 问题与风险
+
+## 2026-07-06 Momenta software replacement guardrail
+- 用户这次要用来替换 Li Bai 的是软件/App 方向 `momenta`，不是硬件外观项目 `momenta-touch`。后续不要把 `public/portfolio/momenta-detail-video.m4v` 或 `momenta-detail-01..08.png` 这批硬件详情素材当作软件 Momenta 的主素材。
+- 当前 `Momenta Keynote.key` 和本地 `COMP5571-周一早/final project` 是更强的软件视觉/流程来源；GitHub `JosicZhou/MOMENTA` 主要证明真实 SwiftUI/iOS 开发和功能结构。
+- Google Drive 没找到明显 Momenta PPT/PDF/Slides；不要凭 Drive 搜索结果硬塞无关 TCM、旧设计课或通用 lecture PDF。
+- GitHub 源码中可能包含服务配置或敏感环境痕迹；后续只引用功能结构和视觉证据，不要公开粘贴密钥、配置值或敏感账号信息。
+
+## 2026-07-06 Li Bai detail guardrail
+- Li Bai 详情页当前只应使用用户确认范围内的 6 张 21:9 站内截图；不要把“诗仙生平”页面或“关于我们 / 成员组成”页面放进详情页 gallery。
+- `data.pdf` 和“总结-大结论”Word 文档已被用户明确否定为目标资料，后续不要再把它们截图或作为 Li Bai 汇报流程素材。
+- 原始 Li Bai HTML 可能含 API-key 风险，只能从本地页面截取视觉图，不要把原始 HTML 作为站点资源发布。
+- 当前 Li Bai 白底 21:9 版本处于本地预览确认阶段；用户确认前不要 push，不要 Vercel deploy。
 
 ## 2026-07-05 Product Showcase card/image morph guardrail
 - Product Showcase 三卡轮播的侧卡透视不能只靠外层 `clip-path` 斜切；图片内容需要跟随同一张卡片平面连续变化。
@@ -332,3 +366,15 @@
 - About 头像介绍区与下方数据卡片区都应读成同一片黑色空间，不要再让数据区顶部径向光晕贴着 section 边界出现硬横线。
 - 后续若调整 `.about-profile-section::after` 或 `.achievement-section` 背景，必须复测两区交界处，确认没有双线、亮带或明显拼接边。
 - 当前本地修正截图为 `tmp/about-transition-seam-v1/about-transition-fixed.png`；用户确认前不要 push/deploy。
+
+# 2026-07-06 Momenta 软件视频编码 guardrail
+- 不要直接把 Momenta 软件介绍视频的 HEVC 原文件作为网页引用；Playwright/Chromium 会黑屏，线上浏览器兼容性也不稳。
+- 当前详情页应引用 `public/portfolio/momenta-software-intro-h264.mp4`。原 HEVC 文件只保留在本地素材审计目录，不放进 public，也不用于 `detailVideo`。
+- Momenta 软件页和 `momenta-touch` 硬件页必须保持分离；不要把硬件视频、硬件 render 或设备叙述重新塞回软件详情页。
+- 推送部署前必须先给用户看 `tmp/momenta-software-detail-v3/` 里的截图和录屏并获得明确确认。
+
+# 2026-07-06 Momenta animation grouping guardrail
+- Do not render `momenta-software-03.webp` and `momenta-software-02.webp` as two consecutive static detail images. The user confirmed they represent one PPT/interface animation: a wireframe/app-system state transforming into the final multi-phone visual.
+- The accepted local direction is a scroll-driven, no-controls, center/radial wave reveal. It must remain page interaction, not a playable video.
+- Do not split same-interface animation states into separate image blocks just because the user delivered them as individual 21:9 files. First inspect the PPT/source order and group related frames into one interaction when they are clearly the same motion.
+- Regression checks before any Momenta push/deploy: one radial-wave sequence exists for `03 -> 02`, one crossfade/frame sequence exists for `11 -> 21`, no video controls appear inside sequence sections, and screenshots/video are shown to the user first.

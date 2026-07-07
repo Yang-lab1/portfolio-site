@@ -4,9 +4,81 @@
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.
 
 ## Current Stage
-Phase 63 is complete and deployed. The Product Showcase three-card carousel now uses one continuous side-progress value to drive the side-card frame, image layer, shallow rotateY, and contain-image padding so the image morphs with the card instead of jumping between side and front states.
+Phase 68 is active and approved for release. The former Li Bai project/module is being replaced by the software/app Momenta case while preserving the green cover visual as a renamed Momenta asset. Local build and browser QA passed: Work menu opens Momenta, the detail page has no Li Bai/libai residue, keeps one intro video, renders two scroll-driven image interactions, and has no horizontal overflow. Push and production deployment are now approved by the user.
 
 ## Phases
+
+### Phase 68: Momenta User-Provided 21:9 Assets And Scroll Frame Sequence
+- [x] Use the user-provided final assets from `C:\Users\Yang\Desktop\作品集\旋转圆盘\momenta\软件`.
+- [x] Convert 23 source PNGs into site WebP assets under `public/portfolio/momenta-software/`.
+- [x] Keep the confirmed Momenta software intro video as the first detail media.
+- [x] Arrange static images in the user/PPT order.
+- [x] Reclassify images 03 -> 02 as one opening interface animation instead of two standalone static images.
+- [x] Implement the opening transition as a no-controls scroll-driven radial/center wave reveal.
+- [x] Build frames 11-21 as a scroll-driven frame-sequence interaction, not a normal video player.
+- [x] Add short explanatory text between selected images to support the project story.
+- [x] Run production build.
+- [x] Capture screenshots and a scroll preview video for user approval.
+- [x] Tighten the 03 -> 02 radial reveal timing so real wheel input completes it in about one short scroll gesture and reverses cleanly on upward scroll.
+- [x] Re-check the remaining 23-image set for other obvious animation groups; keep only 11-21 as the second confirmed scroll-driven sequence.
+- [x] Wait for user visual approval of `tmp/momenta-wave-sequence-v17-fast-reverse/`.
+- [ ] Push to GitHub and deploy to Vercel production after explicit approval.
+- **Status:** release approved; local build and browser QA passed, GitHub push and Vercel deployment next.
+
+### Phase 67: Momenta Image2 21:9 And Scroll Interaction Correction
+- [x] Acknowledge the corrected distinction between a playable video and a scroll-driven page interaction.
+- [x] Keep the confirmed Momenta intro video as the first normal video.
+- [x] Add a `scrollVideo` detail media type for PPT/source interaction motion with no visible controls.
+- [x] Map scroll position to the interaction clip frame instead of exposing a video player.
+- [x] Remove rejected static Momenta source WebP references from the live gallery until true Image2 assets replace them.
+- [x] Run production build.
+- [x] Verify scroll-driven animation behavior locally.
+- [x] Prepare a user-side Image2 source package with static source images, animation thumbnails, animation keyframes, and manifests.
+- [x] Reclassify the flagged `keynote_img_141/147/149` feature composites as Keynote build/intermediate states rather than final static Image2 mothers.
+- [ ] Configure or receive access for true Image2/image-to-image outpainting.
+- [ ] Generate 21:9 / 4K Image2-expanded still assets from original PPT/source visuals without breaking structure.
+- [ ] Validate central/source composition preservation and output dimensions.
+- [ ] Capture a fresh screenshot/video preview for user approval.
+- [ ] Push and deploy only after explicit user approval.
+- **Status:** interaction behavior corrected locally; true Image2 still generation is blocked by missing local `OPENAI_API_KEY`.
+
+### Phase 66: Momenta Source-Preserving Detail Reset
+- [x] Acknowledge that the previous generated/composited 21:9 Momenta preview direction is wrong.
+- [x] Remove live code references to the generated Momenta 21:9 WebP images and generated cover.
+- [x] Remove the untracked generated Momenta WebP image files from `public/portfolio` so they cannot be accidentally pushed.
+- [x] Keep only the confirmed H.264 intro video as a temporary browser-safe video asset.
+- [x] Re-audit `Slide.key`, `Momenta Keynote.key`, local PDFs, Drive `animation`, Drive `videos`, UI, prototype, and final-render folders as original source material.
+- [x] Separate static source pages, already-exported animation clips, and Keynote/PPT internal animations that require original export or faithful reconstruction.
+- [x] Build the next preview only from original slide/page/video content, preserving layout and animation intent.
+- [x] Capture fresh screenshots/video for user approval before any push/deploy.
+- [ ] Wait for user visual approval.
+- [ ] Push to GitHub and deploy to Vercel production only after approval.
+- **Status:** v2 source-preserving preview ready; not pushed and not deployed.
+
+### Phase 65: Momenta Software Source Audit For Li Bai Replacement
+- [x] Confirm scope: replace Li Bai with the software/app Momenta project, not `momenta-touch` hardware.
+- [x] Preserve current unpushed Li Bai local preview changes until the replacement plan is confirmed; do not push/deploy them.
+- [x] Search local `semester1` project folders for Momenta presentation/report material.
+- [x] Search Google Drive for Momenta, COMP5571, app/music/generation-related PPT/PDF/Slides.
+- [x] Re-check the exact user-provided Google Drive folder after the file-name change; identify `Slide.key` and its UI/prototype/video asset folders.
+- [x] Clone and inspect the public GitHub source `https://github.com/JosicZhou/MOMENTA`.
+- [x] Generate preview sheets for local PDF/Keynote/GitHub visual assets.
+- [ ] Ask user which found source set should drive the final replacement visual direction.
+- [ ] Replace the Li Bai module with Momenta only after source/visual direction confirmation.
+- [ ] Capture screenshots/video for review before any push/deploy.
+- **Status:** source audit ready; local evidence is in `tmp/momenta-materials-audit/`.
+
+### Phase 64: Li Bai Detail White 21:9 Gallery
+- [x] Confirm the scope is only the Li Bai detail page media presentation.
+- [x] Preserve the existing first-media flip/perspective animation.
+- [x] Remove the black stage/background around the Li Bai screenshots and use a white full-width 21:9 presentation.
+- [x] Exclude the user-rejected “诗仙生平” and “关于我们 / 成员组成” screenshots.
+- [x] Search GitHub, local semester-one files, and Google Drive for Li Bai PPT/PDF/Slides; exclude `data.pdf` and summary conclusion docs.
+- [x] Run production build.
+- [x] Capture local screenshot/video for user review.
+- [ ] Wait for user visual approval before push/deploy.
+- [ ] Push to GitHub and deploy to Vercel production only after approval.
+- **Status:** superseded by Phase 65 direction change unless user asks to keep Li Bai.
 
 ### Phase 62: About Metrics Bottom Transition Cleanup
 - [x] Confirm the scope is only the bottom transition below the metric cards.
@@ -752,3 +824,24 @@ Phase 63 is complete and deployed. The Product Showcase three-card carousel now 
 - [x] Capture updated entry/mid/late screenshots and scroll recording in `tmp/palifood-continuous-wall-qa/`.
 - [ ] User approval before push/deploy.
 - **Status:** local correction and QA complete; not pushed and not deployed.
+
+## Phase 54: Momenta Software Detail Page
+- [x] Confirm the software Momenta intro video should be the first media on the detail page.
+- [x] Replace the Daima/Li Bai digital panel entry with Momenta software.
+- [x] Add Momenta software detail video, six 21:9 WebP visuals, and explanatory text between visuals.
+- [x] Convert the HEVC source video to H.264 for browser-safe playback.
+- [x] Run production build.
+- [x] Capture local preview screenshots and a scroll recording in `tmp/momenta-software-detail-v3/`.
+- [ ] User approval before push/deploy.
+- **Status:** local implementation and QA complete; not pushed and not deployed.
+
+## Phase 55: Momenta user 21:9 assets narrative and scroll QA
+- [x] Keep the user-provided 23 final Momenta software images unchanged.
+- [x] Use images 1-10 and 22-23 as static 21:9 detail visuals in source/PPT order.
+- [x] Use images 11-21 as a scroll-driven frame sequence, not a normal video player.
+- [x] Rewrite the Momenta detail bridge copy around AI product framing: situation/emotion/memory input, AI composition, SwiftUI implementation, privacy/data trust, and output timing.
+- [x] Hide the frame-sequence technical caption.
+- [x] Run production build.
+- [x] Capture local screenshots and down/up scroll recording in `tmp/momenta-software-story-v7/`.
+- [ ] User approval before push/deploy.
+- **Status:** local preview complete; not pushed and not deployed.

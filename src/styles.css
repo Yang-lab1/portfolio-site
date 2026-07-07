@@ -1761,6 +1761,188 @@ img {
   background: #050505;
 }
 
+.detail-media-note {
+  display: flex;
+  min-height: clamp(260px, 38svh, 430px);
+  align-items: center;
+  justify-content: center;
+  padding: clamp(72px, 11svh, 132px) clamp(28px, 8vw, 160px);
+  background: #fff;
+  color: rgba(0, 0, 0, 0.38);
+  text-align: center;
+}
+
+.detail-media-note p {
+  max-width: 780px;
+  margin: 0;
+  font-size: clamp(1.02rem, 1.35vw, 1.38rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+.detail-media-grid.detail-media-project-momenta {
+  margin-bottom: 0;
+  background: #fff;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-video-frame,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-video-frame:first-child {
+  display: flex;
+  width: 100vw;
+  height: 100svh;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-video-frame video,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-video-frame:first-child video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #050505;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-source-frame,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-source-frame:first-child {
+  display: flex;
+  width: 100vw;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 1916 / 821;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: #fff;
+  perspective: none;
+  overflow: visible;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-source-frame img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center;
+  transform: none;
+  box-shadow: none;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame:first-child {
+  position: relative;
+  display: block;
+  height: 260svh;
+  min-height: 1600px;
+  aspect-ratio: auto;
+  overflow: visible;
+  background: #fff;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence:first-child {
+  height: 128svh;
+  min-height: 980px;
+}
+
+.detail-scroll-frame-sequence {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100svh - var(--header-height, 68px));
+  overflow: hidden;
+  background: #fff;
+}
+
+.detail-scroll-frame-sequence.is-active {
+  position: fixed;
+  top: var(--header-height, 68px);
+  z-index: 2;
+}
+
+.detail-scroll-frame-sequence.is-after {
+  top: auto;
+  bottom: 0;
+}
+
+.detail-scroll-frame-sequence img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: translateZ(0);
+  transition: none;
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="crossfade"] img {
+  opacity: 0;
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="crossfade"] img.is-active {
+  opacity: 1;
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="radial-wave"] img {
+  opacity: 1;
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="radial-wave"] .detail-sequence-base {
+  transform: scale(var(--base-scale, 1));
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="radial-wave"] .detail-sequence-reveal {
+  transform: scale(var(--reveal-scale, 1));
+  clip-path: circle(var(--reveal-radius, 1%) at 50% 50%);
+}
+
+.detail-scroll-frame-sequence[data-sequence-effect="radial-wave"] .detail-sequence-wave {
+  position: absolute;
+  inset: 0;
+  opacity: var(--wave-opacity, 0);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      transparent var(--wave-inner, 8%),
+      rgba(255, 255, 255, 0.72) var(--wave-mid, 12%),
+      transparent var(--wave-outer, 20%)
+    );
+  pointer-events: none;
+}
+
+.detail-media-grid.detail-media-project-momenta figure.detail-media-momenta-source-frame figcaption,
+.detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame figcaption {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .detail-media-note {
+    min-height: 260px;
+    padding: 72px 24px;
+  }
+
+  .detail-media-note p {
+    max-width: 340px;
+    font-size: 1rem;
+  }
+
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame,
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-frame-sequence-frame:first-child {
+    height: 220svh;
+    min-height: 1240px;
+  }
+
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence,
+  .detail-media-grid.detail-media-project-momenta figure.detail-media-short-frame-sequence:first-child {
+    height: 132svh;
+    min-height: 760px;
+  }
+}
+
 .detail-media-grid figure.detail-media-momenta-frame,
 .detail-media-grid figure.detail-media-momenta-frame:first-child,
 .detail-media-grid figure.detail-media-product-wide-frame,

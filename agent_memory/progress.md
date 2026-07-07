@@ -1,3 +1,119 @@
+# 2026-07-07 Momenta replaces Li Bai release
+- User approved release: replace the former Li Bai project/module with the software/app Momenta case.
+- Green cover visual is preserved through the renamed asset `public/portfolio/momenta-green-cover.png`; do not reintroduce visible Li Bai naming.
+- Current local QA passed: Work menu -> `Momenta AI Music` opens Momenta detail, one intro video, two scroll-driven image sequences, 23 Momenta images, no Li Bai/libai residue, no horizontal overflow.
+- `.vercelignore` excludes old untracked `libai-detail-*` captures and rejected `momenta-source-*` temporary assets from local Vercel uploads.
+- Status: approved for GitHub push and Vercel production deployment.
+
+# 2026-07-06 Momenta 软件详情页叙事与滚动预览 v7
+- 本轮仅调整 Momenta 软件详情页：`src/main.jsx` 中 `momenta` 的 role / summary / `mediaNarrative` 文案，以及 `src/styles.css` 中逐帧段落的技术 caption 隐藏规则；没有改动其他项目详情页结构。
+- 文案主线已改为 AI 产品闭环：情境 + 情绪 + 记忆输入、AI 负责编曲、SwiftUI / 原生实现约束、隐私与健康数据信任边界、输出时机，以及克制界面如何让模型行为更容易被理解。
+- 继续使用用户提供的 23 张 21:9 成品素材：静态图按 1-10、22-23 顺序展示，11-21 作为滚动触发逐帧动画；没有重新生成图片，也没有把被用户拒绝的 report/PDF 页面放入详情页。
+- 已隐藏逐帧段落左上角原本会露出的 `Scroll interaction frames` 技术标签。
+- 验证已通过：`npm run build`；Playwright 桌面 1920x900 检查逐帧段落 start/mid/end 分别为 activeFrame `1/6/11`，上下滚轮记录从 `2` 增至 `11` 后再退回 `1`，说明下滑与上滑都能驱动帧变化。
+- 最新本地预览证据在 `tmp/momenta-software-story-v7/`：
+  - `01-hero-and-video-start.png`
+  - `02-first-narrative-note.png`
+  - `03-trust-and-data-note.png`
+  - `04-frame-sequence-start.png`
+  - `05-frame-sequence-mid.png`
+  - `06-frame-sequence-end.png`
+  - `momenta-scroll-down-up-preview.webm`
+  - `metrics.json`
+- 状态：本地预览已准备给用户确认；未 push，未 Vercel deploy。
+
+# 2026-07-06 Momenta 用户成品帧详情页预览
+- 用户已提供最终处理好的 Momenta 软件项目素材目录：`C:\Users\Yang\Desktop\作品集\旋转圆盘\momenta\软件`。
+- 已将 23 张用户成品 PNG 转换并接入站内：`public/portfolio/momenta-software/momenta-software-01.webp` 至 `momenta-software-23.webp`，尺寸均为 `1916x821`，约 21:9。
+- 当前 Momenta 软件详情页结构：
+  - 顶部保留用户确认的介绍视频 `momenta-software-intro-h264.mp4`。
+  - 静态图按用户提供/PPT顺序展示 1-10、22-23。
+  - 11-21 组成一段滚动触发逐帧动画，不显示视频控件，随页面滚动切换帧。
+  - 图与图之间保留短解释文字，辅助面试/读者理解项目流程。
+- 为避免浏览器 sticky 在当前滚动结构里失效，逐帧段改为 `before / active / after` 状态：进入动画段后固定在导航下方，按滚动进度切帧，结束后释放回页面流。
+- 验证已通过：`npm run build`；Playwright 本地验证 11 帧可从第 1 帧切到第 11 帧，固定层在开始/中间/末尾均保持 `top=68`、`bottom=900`。
+- 最新预览证据：`tmp/momenta-software-final-assets-preview-v4/01-momenta-detail-video-first.png`、`02-momenta-first-static-image.png`、`03-frame-sequence-start.png`、`04-frame-sequence-mid.png`、`05-frame-sequence-end.png`、`momenta-frame-sequence-scroll-preview.webm`。
+- 状态：本地预览完成，等待用户确认；确认前不要 push，不要 Vercel deploy。
+
+# 2026-07-06 Momenta source package for user-side Image2
+- User decided to generate the true Image2 21:9 images externally because the local OpenAI Image API key is not available.
+- Prepared source package at `tmp/momenta-image2-source-package-v1/`.
+- Static source images for user-side Image2 expansion:
+  - Folder: `tmp/momenta-image2-source-package-v1/static-source-to-expand/`
+  - Count: 41 original/source visuals, excluding the user-rejected report/PDF paper pages.
+  - Contact sheets: `preview-contact-sheets/static-to-generate-01.png` and `preview-contact-sheets/static-to-generate-02.png`.
+  - Manifest: `static-to-generate-manifest.csv`.
+- Animation source review package:
+  - Thumbnail folder: `tmp/momenta-image2-source-package-v1/animation-candidates/`
+  - Keyframe folder: `tmp/momenta-image2-source-package-v1/animation-keyframes/`
+  - Contact sheets: `preview-contact-sheets/animation-candidates.png` and `preview-contact-sheets/animation-keyframes.png`.
+  - Manifests: `animation-candidates-manifest.csv`, `animation-keyframes-manifest.json`, `source-video-files.json`.
+- Implementation rule after the user returns generated assets:
+  - Single stills become normal 21:9 detail images.
+  - A set of same-motion 21:9 keyframes can become scroll-driven frame-sequence animation.
+  - 21:9 videos can become scroll-driven no-controls video interactions.
+  - Do not use visible video controls for PPT/source interaction sections.
+- User flagged v1 images 35/36/37 as visually wrong because phone content sits too close to or overlaps text. Investigation confirmed these are not bad screenshots but low-resolution embedded Keynote JPG assets (`356x200`, around 14-16 KB). They are not suitable Image2 mothers.
+- Prepared clean package v2 at `tmp/momenta-image2-source-package-v2-clean/`: 32 static source images kept, 9 low-resolution Keynote thumbnails moved to `excluded-lowres-keynote-thumbnails/`. Use v2 clean package as the active source package going forward.
+
+# 2026-07-06 Momenta Image2 21:9 correction state
+- User rejected the v2 static Momenta treatment because it only adapted source images into 21:9 frames instead of using Image2 to extend/regenerate the original PPT/source visuals into true 21:9 while preserving the original structure.
+- New locked requirement: static PPT/source visuals must be expanded with Image2 / image-to-image outpainting to 21:9 4K, keeping the original composition and relationships intact. Do not use simple letterbox, contain, blur-fill, crop-only, or newly invented redesigns as the final answer.
+- Animation requirement clarified: PPT/source interaction motion must behave like page interaction. It should progress on scroll with no visible video controls, not appear as a normal playable video module.
+- Local code now removes the rejected static Momenta source WebP gallery references from the page so those wrong visuals cannot be accidentally previewed/published as final.
+- Local code keeps the confirmed Momenta intro video and adds one source-derived scroll-driven animation asset: `public/portfolio/momenta-source-rise-white-scroll.mp4`.
+- Verification for the interaction behavior passed locally: `npm run build`; Playwright confirmed the scroll-driven animation has `controls=false`, stays paused, and `currentTime` changes with scroll from start to end.
+- Blocker: true Image2/outpaint generation cannot run in the current local environment because `OPENAI_API_KEY` is not set. Do not claim Image2 assets are complete until this key is available or the user provides already-expanded 21:9 4K assets.
+- Status: local correction only; not pushed and not deployed.
+
+# 2026-07-06 Momenta source-preserving preview v2
+- Rebuilt the Momenta software detail preview from original source material only: final app renders, prototype render, Keynote/process screenshots, and original exported animation clips.
+- Static visuals are exported as 21:9 / 4K canvas assets at `3840x1646` without redesigning or rearranging the source visuals:
+  - `public/portfolio/momenta-source-01-overview.webp`
+  - `public/portfolio/momenta-source-02-prototype.webp`
+  - `public/portfolio/momenta-source-03-two-screens.webp`
+  - `public/portfolio/momenta-source-04-xcode.webp`
+  - `public/portfolio/momenta-source-05-apple-platform.webp`
+  - `public/portfolio/momenta-source-06-privacy.webp`
+- Original source animation clips were converted to 21:9 H.264 page assets:
+  - `public/portfolio/momenta-source-light.mp4`
+  - `public/portfolio/momenta-source-photo-sequence.mp4`
+- `ProjectDetail` now supports mixed image/video gallery entries while preserving string-gallery compatibility for existing projects.
+- Momenta software keeps the confirmed intro video as the first media, followed by source-preserving 21:9 visuals, source animation clips, and short explanatory text derived from the slide/report logic.
+- Verification passed: `npm run build`; asset checks confirmed all new static/video source assets are `3840x1646`.
+- Local browser preview evidence is in `tmp/momenta-source-preserving-preview/`:
+  - `momenta-detail-top.png`
+  - `momenta-detail-intro-video.png`
+  - `momenta-source-overview-clean.png`
+  - `momenta-software-preview.mp4`
+- Status: preview ready for user review; do not push or deploy until the user approves this v2 preview.
+
+# 2026-07-06 Momenta source-preserving correction
+- User rejected the previous Momenta 21:9 image direction: do not generate, redesign, or recompose new images from PPT/PDF material.
+- Static detail visuals must come from original PPT/PDF/Keynote page content, exported or adapted to 21:9 / 4K while preserving the original content and layout logic.
+- Continuous animations must come from original exported animation/video when available; if reconstruction is needed, use original source elements and original timing/intent, then show the user a video before release.
+- Local cleanup removed references to `momenta-software-01..06.webp` and `momenta-software-daima-cover.webp`; those untracked generated WebP files were removed from `public/portfolio`.
+- `momenta-software-intro-h264.mp4` remains as the browser-safe transcode of the user-confirmed intro video.
+- Status: local cleanup and source re-audit only; do not push or deploy before the next user-approved screenshot/video.
+
+# 2026-07-06 Momenta 软件项目替换 Li Bai 的资料盘点
+- 用户改变方向：准备把 `Li Bai Interactive Website` 模块替换为软件/App 方向的 `Momenta`，明确不是 `Momenta Touch` 硬件项目。
+- 当前只做资料搜集和盘点，暂不修改正式页面、不 push、不部署。上一步 Li Bai 白底 21:9 本地预览仍是未发布改动，后续大概率会被 Momenta 替换方案覆盖。
+- 本地关键资料已找到：`C:\Users\Yang\Desktop\semester1\COMP5571-周一早\final project`。其中 `文档` 下有 `Momenta Keynote.key`、`PROGRESS REPORT.pdf`、`Lin Yang_25124747G.pdf`、`one more thing.pdf`、PRD/演讲稿/任务/个人反思等 DOCX。
+- `Momenta Keynote.key` 已确认可作为压缩包读取，包含大量原始媒体：APP 多屏、Memory Palace、Health Data、Xcode 开发截图、分享页、Light Up Your Moment 等。预览图在 `tmp/momenta-materials-audit/keynote-preview/keynote-media-contact-sheet.png`。
+- PDF 预览已生成：`tmp/momenta-materials-audit/pdf-preview/PROGRESS REPORT-contact-sheet.jpg`、`Lin Yang_25124747G-contact-sheet.jpg`、`one more thing-contact-sheet.jpg`。
+- 已克隆并检查用户之前给过的 GitHub：`https://github.com/JosicZhou/MOMENTA`。本地副本在 `tmp/momenta-materials-audit/JosicZhou-MOMENTA`，确认是 SwiftUI iOS 软件项目，包含 Memories、Light、Share、Profile、Supabase、Suno、OpenAI lyrics、HealthKit、WeatherKit、Widget、Live Activity 等功能代码。
+- Google Drive 多关键词和文件类型搜索没有找到明显 Momenta PPT/PDF/Slides。Drive 里出现的 TCM、旧设计课等文件暂判为无关。
+- 下一步应先给用户看 Keynote/PDF/GitHub 预览图和资料清单，让用户确认哪一套作为替换视觉主线；确认前不要改 `libai`/`momenta` 正式入口。
+
+# 2026-07-06 Li Bai 详情页白底 21:9 视觉稿
+- 用户要求 Li Bai Interactive Website 详情页保留首图翻转/透视进入效果，但去掉图片两侧黑色舞台感，让展示区域回到白底，并把项目截图按 21:9 高清形式顺序铺开。
+- 已在本地只针对 `libai` 项目调整：新增 6 张 `3840x1646` 站内截图资产，排除了用户明确不要的“诗仙生平”和“关于我们”页面截图；没有发布原始 HTML。
+- 已排查 GitHub、本地 `semester1` final project 文件夹和 Google Drive；未找到符合用户描述的 Li Bai 汇报 PPT/PDF/Slides。`data.pdf` 与“总结-大结论”不是目标资料，已按用户要求不再截图。
+- 本地实现已完成并通过 `npm run build`；Playwright 验证 Li Bai 媒体区为白底、6 张图自然尺寸均为 `3840x1646`、横向溢出为 `0`。
+- 当前证据：`tmp/libai-detail-white-v1/libai-first-media-white.png`、`tmp/libai-detail-white-v1/libai-gallery-lower-white.png`、`tmp/libai-detail-white-v1/libai-detail-scroll-white.webm`。
+- 状态：等待用户看截图/视频确认；确认前不要 push，不要 Vercel deploy。
+
 # 2026-07-05 Product Showcase 三卡图片连续形变
 - 用户新需求：Physical Product Foundations / Product Showcase 三卡轮播中，侧边卡片从边缘转到正面时，不应只是外框斜切，图片内容也要跟着外框作为同一平面自然形变，避免从侧面到正面时突然换裁切/比例。
 - 当前本地改动只涉及 `src/main.jsx` 的 `ProductShowcase3D` 和 `src/styles.css` 的 `.product-orbit-card` 图片样式；项目数据、点击详情、拖动逻辑、移动端一张主卡 fallback 均未改变。
@@ -825,3 +941,33 @@
 - 本轮只做 `src/styles.css` 的最小视觉修正：加长 About 介绍区底部黑色收尾渐变，把数据卡片区顶部光晕下移并减弱，并让数据区向上重叠 `1px` 避免边界抗锯齿线。
 - 验证已通过：`npm run build` 成功；本地 Playwright 截图已生成 `tmp/about-transition-seam-v1/about-transition-fixed.png`。
 - 状态：本地修正完成，等待用户看截图确认；未 push，未 Vercel deploy。
+
+# 2026-07-06 Momenta 软件详情页首版
+- 用户确认 Momenta 软件项目使用 `c4790bd73653d55cccbd6efcc78551d0-copy.mp4` 这支介绍视频，并要求它作为详情页第一段媒体；下方再用 21:9 效果图和图间解释文字讲清设计过程。
+- 已将首页数字项目入口中原来的 Li Bai 面板替换为 Momenta 软件项目入口；`momenta-touch` 硬件详情页不动。
+- 已为 `momenta` 接入 H.264 兼容版视频 `public/portfolio/momenta-software-intro-h264.mp4`、六张 21:9 WebP 图和 `mediaNarrative` 图间说明文字；原 HEVC 视频只作为素材来源保留在临时审计目录，不放进 public。
+- 已在 `ProjectDetail` 增加可选 `mediaNarrative` 渲染和 `detailMediaLabel`，Momenta 标签显示为 `App prototype` / `App 原型`。
+- 验证已通过：`npm run build` 成功；本地 Playwright 预览截图/录屏已生成在 `tmp/momenta-software-detail-v3/`。
+- 状态：本地实现完成，已把截图和录屏发给用户确认；未 push，未 Vercel deploy。
+# 2026-07-06 Momenta feature animation state correction
+- User clarified that the three flagged feature images (`keynote_img_141`, `keynote_img_147`, `keynote_img_149`) should be understood as linked Keynote animation/build states, not standalone final static screenshots.
+- Re-audited the adjacent Keynote media range and short videos. The short exported clips (`keynote_video_057`, `keynote_video_066`, `keynote_video_190`, `photo-5`, `photo-6`, `light`) do not contain the Memories / Emotion Beyond Data / Light grey feature-slide final state.
+- Similar-image search found no higher-resolution exact versions of the three composites. Better candidates exist as separated build layers: phone-only states (`keynote_img_161`, `keynote_img_171`), title layers (`keynote_img_174`, `keynote_img_175`), and higher-resolution phone sources (`keynote-08`, `keynote-10`, `keynote-17`).
+- Created corrected source package `tmp/momenta-image2-source-package-v3-animation-state-fix/`: the three overlap/intermediate composites are isolated under `do-not-use-overlap-intermediate-frames/`, while cleaner layer/balanced candidates are under `animation-layer-and-balanced-candidates/`.
+- Status: source sorting only. Do not use the three flagged composites as final Image2 mothers unless the user explicitly asks to keep that exact composition.
+# 2026-07-06 Momenta 软件详情页最终预览 v10
+- 已使用用户最终提供的 `C:\Users\Yang\Desktop\作品集\旋转圆盘\momenta\软件` 目录作为当前唯一视觉来源。
+- 站内已接入 23 张 `momenta-software-01.webp` 至 `momenta-software-23.webp`，首段保留确认过的 `momenta-software-intro-h264.mp4`。
+- 页面结构为：介绍视频第一位，静态 21:9 图片按用户/PPT 顺序展示，图片之间穿插短说明文字，11-21 帧组成滚动触发逐帧动画；逐帧区不是视频播放器，且无可见视频控件。
+- 本轮额外修正详情页移动端浮动 Agent / Email 按钮尺寸与位置，减少遮挡说明文字的风险。
+- 验证通过：`npm run build`；Playwright 预览确认图片数 `23`、普通视频数 `1`、逐帧区视频数 `0`、说明文字 `6` 段、横向溢出 `0`、浏览器错误 `0`。
+- 最新确认素材在 `tmp/momenta-software-final-v10/`：`01-hero-video-start.png`、`02-first-21x9-static.png`、`03-first-explanation-note.png`、`04-trust-explanation-note.png`、`05-sequence-start.png`、`06-sequence-mid.png`、`07-sequence-end.png`、`09-chinese-first-explanation-note.png`、`10-mobile-first-explanation-note.png`、`11-mobile-trust-explanation-note.png`、`momenta-software-scroll-preview.webm`、`metrics.json`。
+- 状态：本地预览已准备给用户确认；未 push，未 Vercel deploy。
+
+# 2026-07-06 Momenta opening interface animation correction
+- User clarified that several Momenta 21:9 images are not independent static pages. Some are states of the same PPT/interface animation and must be grouped into scroll-driven interactions.
+- Current corrected grouping: `momenta-software-03.webp` -> `momenta-software-02.webp` is one opening app-system reveal, implemented as a scroll-driven radial/center wave transition, not two separate static images.
+- `momenta-software-11.webp` -> `momenta-software-21.webp` remains one separate scroll-driven frame sequence for the capture/generation flow.
+- Other final images currently remain static unless the user identifies another source animation group.
+- Verification passed after correction: `npm run build`; Playwright captured active animation states in `tmp/momenta-wave-sequence-v15/`, with `radialWaveCount=1`, `crossfadeSequenceCount=1`, `normalVideos=1`, `sequenceVideos=0`, and `overflowX=0`.
+- Status: local preview only. Show `tmp/momenta-wave-sequence-v15/` screenshot/video evidence to the user; do not push/deploy until explicit approval.

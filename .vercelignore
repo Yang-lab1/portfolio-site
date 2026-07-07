@@ -6,6 +6,9 @@ remotion-hero
 source-helix-frames
 tools
 
+public/portfolio/libai-detail-*.png
+public/portfolio/momenta-source-*
+
 *.log
 *.out.log
 *.err.log

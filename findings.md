@@ -1,4 +1,78 @@
+# 2026-07-07 Momenta replaces Li Bai findings
+
+- The user-approved replacement uses the existing `momenta` software/app project, not the separate `momenta-touch` hardware case.
+- The green Li Bai-looking cover may remain visually, but it must be referenced as Momenta-owned site asset (`/portfolio/momenta-green-cover.png`) so code and live content do not carry Li Bai naming.
+- The Work menu and detail page should not expose `Li Bai`, `李白`, `libai`, `libai-data`, or `libai-detail` references after this release.
+- Momenta detail media now contains one normal intro video and two scroll-driven image interactions; PPT/interface interactions remain page interactions, not additional video players.
+- Rejected or temporary source assets should stay out of deployment. `.vercelignore` protects local deploys from old Li Bai detail captures and rejected `momenta-source-*` files.
+
+# 2026-07-06 Momenta Narrative / Scroll QA Findings
+- PRD text confirms the strongest product framing: Momenta turns a user's situation, emotion, and memory into generated music; the user participates in describing the moment, while AI handles composition.
+- Personal reflection material supports the implementation framing: UI/UX direction, generative AI-assisted iteration, Play/Apple platform exploration, SwiftUI / Xcode implementation, HealthKit-related signals, and low-friction interaction constraints.
+- The detail page should not over-explain the project as a report. Short bridge text between images works better when it states a product decision: input signals, trust/privacy boundary, model output timing, and restrained interface behavior.
+- The frame-sequence caption should remain hidden because it reads as a technical artifact, not portfolio content.
+- Latest QA confirmed the scroll-driven sequence works in both directions: active frames advance to `11` while scrolling down and return to `1` while scrolling up.
+- Current approval evidence is in `tmp/momenta-software-story-v7/`; do not push/deploy until the user approves this preview.
+
+# 2026-07-06 Momenta User-Provided Frame Sequence Findings
+- The user-provided folder `C:\Users\Yang\Desktop\作品集\旋转圆盘\momenta\软件` supersedes the earlier blocked Image2-generation path for this preview.
+- The 23 PNGs are already 21:9-style finished assets (`1916x821` after inspection). They should be treated as final user-approved source visuals, not regenerated or redesigned.
+- Frames 11-21 form one continuous interaction sequence and should be rendered as a scroll-driven image sequence, not as a normal video player.
+- CSS `position: sticky` was unreliable in this detail-page context: metrics showed the sequence layer scrolled out of view even though the active frame index updated correctly.
+- The reliable fix is an explicit three-state sequence layer:
+  - `before`: positioned at the top of the long sequence figure.
+  - `active`: fixed below the 68px site header while scroll progress maps to frame index.
+  - `after`: positioned at the bottom of the sequence figure so following content resumes normally.
+- Local QA after the fix confirmed the sequence layer remains fixed at `top=68` and `bottom=900` for start, middle, and end captures, with active frames 1, 6, and 11 respectively.
+- Do not push/deploy until the user approves the v4 screenshots/video.
+
+# 2026-07-06 Momenta Image2 Correction Findings
+- The user is distinguishing two deliverables: the first Momenta intro video may remain a normal video, but PPT/source animations inside the detail page must behave as scroll-driven page interaction and must not expose playback controls.
+- The previously exported `momenta-source-01..06.webp` assets are insufficient because they preserve source material inside a 21:9 frame; the user wants Image2/image-to-image expansion into true 21:9 4K while preserving the original visual structure.
+- A safe implementation step was possible without Image2: add a `scrollVideo` media type, hide controls, disable pointer interaction, and map scroll progress to the source animation clip's `currentTime`.
+- Real Image2/outpaint remains blocked until `OPENAI_API_KEY` is available locally or the user provides already-expanded 21:9 4K source-preserving images.
+- Current page references should avoid the rejected still assets until they are replaced by proper Image2-expanded versions.
+
+# 2026-07-06 Momenta Source-Preserving Preview v2 Findings
+- The corrected Momenta software page can use the original Drive/Keynote/final-render assets without inventing new visuals: selected app-system, prototype, two-screen, Xcode, Apple platform, and privacy/process images were exported into uniform 21:9 `3840x1646` frames.
+- The safest static-image treatment is source-preserving containment on a 21:9 canvas: the source visual is scaled proportionally and centered, with the canvas background sampled from the source corners so black/white slides do not get artificial colored stages.
+- Original exported animation clips are available and should be preferred over recreated motion. The current preview uses the source `light.mp4` and a source `photo-0/photo-2/photo-4` capture sequence, both converted to `3840x1646` H.264.
+- `ProjectDetail` needed only a narrow compatibility extension: gallery entries may now be objects with `src`, `type`, `label`, and `className`; existing string galleries still render as before.
+- Momenta software and Momenta Touch remain separate. This preview uses software/app visuals and excludes hardware rotation/exploded-view clips unless the user asks to mix them.
+- Local QA passed: `npm run build`, asset dimension checks, and Playwright preview recording. Evidence is in `tmp/momenta-source-preserving-preview/`.
+- Do not push/deploy until the user approves the new source-preserving screenshot/video preview.
+
 # Findings
+
+## 2026-07-06 Momenta Source-Preserving Correction Findings
+- User rejected the first Momenta software detail preview because the 21:9 images were newly generated/composited from PPT/PDF ideas instead of preserving the original PPT/PDF/Keynote content.
+- New rule: Momenta static visuals must come from original slide/page content exported or reframed into 21:9 4K without redesigning, rearranging, or inventing visual content.
+- New rule: when the source deck has continuous animation, use the original exported animation/video when available. If the animation only exists as Keynote/PPT object animation and cannot be exported directly in this Windows environment, reconstruct it only from original slide elements and timing, and clearly mark it for user approval.
+- Cleaned the local implementation so `momenta` no longer references the generated `momenta-software-01..06.webp` visuals or `momenta-software-daima-cover.webp`. The temporary cover is back to the existing source-backed `momenta-phone-wall.jpg`, and the detail gallery is empty until original slide-derived assets are prepared.
+- Removed the untracked generated Momenta WebP files from `public/portfolio`; retained `momenta-software-intro-h264.mp4` because it is the browser-safe transcode of the user-confirmed intro video.
+- Drive source audit found usable original animation candidates in `tmp/momenta-materials-audit/drive-source/animation/`, including `light.mp4`, `photo-0..6.mp4`, `rise-black-bg.mp4`, `rise-white-bg.mp4`, `sweep-light-1..3.mp4`, and `switch.mp4`.
+- The user must approve the next source-preserving screenshot/video preview before any GitHub push or Vercel deployment.
+
+## 2026-07-06 Momenta Software Source Audit Findings
+- User changed direction: replace the Li Bai Interactive Website module with the software/app Momenta project. This means existing project `momenta`, not hardware project `momenta-touch`.
+- Existing code already separates `momenta` (`Momenta AI Music Interaction`, digital/software) and `momenta-touch` (`Momenta Touch`, hardware/concept). Future replacement should use `momenta` and avoid pulling `momenta-touch` hardware assets into this case.
+- Local source folder found: `C:\Users\Yang\Desktop\semester1\COMP5571-周一早\final project`. It contains structured assets such as `Ui`, `动画成品`, `原型图`, `场景图`, `效果图`, `文档`, `渲染`, and `logo`.
+- Local presentation/report files found in `文档`: `Momenta Keynote.key` (353.8 MB), `PROGRESS REPORT.pdf` (10 pages), `Lin Yang_25124747G.pdf` (4 pages), `one more thing.pdf` (1 page), plus related DOCX files including PRD, personal reflection, task, and speech notes.
+- `Momenta Keynote.key` can be opened as an archive and contains original media: 55 PNGs, 3 TIFFs, 1 MOV, 12 JPEGs, 41 JPGs, and Keynote IWA metadata. Preview sheet generated at `tmp/momenta-materials-audit/keynote-preview/keynote-media-contact-sheet.png`.
+- Local PDF preview sheets generated at `tmp/momenta-materials-audit/pdf-preview/`: `PROGRESS REPORT-contact-sheet.jpg`, `Lin Yang_25124747G-contact-sheet.jpg`, and `one more thing-contact-sheet.jpg`.
+- Public GitHub source cloned from `https://github.com/JosicZhou/MOMENTA` into `tmp/momenta-materials-audit/JosicZhou-MOMENTA`. The repo is an iOS/SwiftUI app with Memories, Light, Share, Profile, Auth, Supabase, Suno, OpenAI lyrics, HealthKit, WeatherKit, widgets, and Live Activity code.
+- GitHub image inventory is small and mostly atmospheric. Preview sheet generated at `tmp/momenta-materials-audit/github-preview/github-image-contact-sheet.jpg`; the stronger UI/process visuals are in the local Keynote/PDF sources.
+- Google Drive searches for `Momenta`, `MOMENTA`, `COMP5571`, `COMP5571 final`, `Lin Yang COMP5571`, `memory music`, `Photo2Music`, `AI music`, and `music generation` did not find a Momenta PPT/PDF/Slides deck because the shared Drive material uses generic names.
+- User later provided the exact Drive folder `https://drive.google.com/drive/folders/1IEVOmJeBydTla_2sIqyGa0j6Cmi2hwr3`; this folder contains `Slide.key` (443.7 MB), `原型图`, `ui`, `最终效果图`, `视频`, and `动画成品`. The `Slide.key` deck and image/video subfolders should be treated as the stronger Drive source for Momenta.
+- Security note: do not expose or copy API keys/config secrets from the GitHub source when using it as portfolio evidence.
+
+## 2026-07-06 Li Bai Detail White 21:9 Findings
+- The Li Bai detail page's black stage came from the shared digital media presentation rather than from the captured source screenshots themselves.
+- A scoped `libai` media-grid override can keep the existing first-image perspective animation while changing the gallery stage and each figure to white, full-width 21:9 presentation.
+- Six high-resolution source captures were selected from the local Li Bai website: home, emotion map, emotion stats, network, footprint, and drink. The user rejected the life timeline and about/member pages, so they are not part of the gallery.
+- GitHub, the local semester-one project folder, and Google Drive were checked for report-like PPT/PDF/Slides. No matching Li Bai deck was found; `data.pdf` and the summary conclusion docs are explicitly not the target.
+- Local verification passed: build succeeds, all six gallery images load at `3840x1646`, the media stage is white, and horizontal overflow is `0`.
+- Current visual evidence: `tmp/libai-detail-white-v1/libai-first-media-white.png`, `tmp/libai-detail-white-v1/libai-gallery-lower-white.png`, and `tmp/libai-detail-white-v1/libai-detail-scroll-white.webm`.
 
 ## 2026-07-05 Product Showcase Card/Image Morph Findings
 - The side-card taper previously came mainly from a discrete `.is-side-left/.is-side-right` `clip-path`, while the image layer could also switch fitting behavior when a `contain` project moved between side and active states.
@@ -761,3 +835,22 @@
 - Moving-column filters and large card shadows add cost because all 32 app screenshots move during the pinned scroll. Removing those effects plus lowering scrub to `0.42` made the scroll feel more responsive without changing the core layout.
 - Latest metrics after the pass: four columns at `[0..360]`, `[384..744]`, `[1176..1536]`, `[1560..1920]`, gap `24px`, horizontal overflow `0`, and center phone frame still within measured tolerance.
 - This is local-only until the user approves the new screenshots/video.
+
+## 2026-07-06 Momenta Software Detail Findings
+
+- The confirmed Momenta software intro video source was HEVC (`hvc1`) inside `.mp4`; Playwright/Chromium preview rendered it as black, and this codec can be unreliable on some web browsers.
+- The page now uses an H.264 conversion for the production-facing source: `public/portfolio/momenta-software-intro-h264.mp4`. Keep the original HEVC file only in the local material-audit source folder unless the user asks otherwise.
+- Momenta software and Momenta Touch must remain separate: software uses `momenta` with app/video/21:9 visuals; hardware uses `momenta-touch` with the existing hardware video and ordered hardware visuals.
+- The current preview evidence lives in `tmp/momenta-software-detail-v3/`. Do not push/deploy until the user approves that preview.
+# 2026-07-06 Momenta Feature Build-State Findings
+- The three user-flagged images `keynote_img_141`, `keynote_img_147`, and `keynote_img_149` are low-resolution Keynote composite/build frames (`356x200`), not reliable final static source images.
+- The user's explanation is correct: this group behaves like layered Keynote animation states, where title/text/phone layers appear and disappear. `keynote_img_147` in particular is an intermediate collision frame where phone and text overlap.
+- No higher-resolution exact duplicates were found by similarity search across the Momenta audit assets. The usable high-resolution sources are separate phone visuals such as `keynote-08.png`, `keynote-10.png`, and `keynote-17.png`, plus low-resolution title/build layers such as `keynote_img_174.png` and `keynote_img_175.png`.
+- The corrected package is `tmp/momenta-image2-source-package-v3-animation-state-fix/`, with overlap states isolated from animation-layer/balanced candidates. Use this package rather than the old v1 static-source list when discussing these three feature slides.
+
+# 2026-07-06 Momenta Opening Animation Findings
+- The user's correction changes the interpretation of the early Momenta gallery: `momenta-software-03.webp` and `momenta-software-02.webp` are not two separate slides. They are two states of the same opening app-system animation.
+- The current local implementation groups them into one scroll-driven radial/center-wave reveal: the wireframe composition remains as the base, and the final multi-phone visual expands outward from the center as the user scrolls.
+- This is implemented as page interaction with images and CSS masking, not as a video player. The sequence section contains no `<video>` element and exposes no playback controls.
+- Local QA evidence is in `tmp/momenta-wave-sequence-v15/`. Metrics confirmed `phase=active` across captured states, stage pinned below the `68px` header, `radialWaveCount=1`, `crossfadeSequenceCount=1`, `normalVideos=1`, `sequenceVideos=0`, and horizontal overflow `0`.
+- The remaining open issue is product judgment, not technical feasibility: user must approve whether this center-wave reveal matches the PPT feeling closely enough before push/deploy.

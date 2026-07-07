@@ -208,6 +208,52 @@ const steps = {
   zh: ['背景 / 问题', '思路 / 定义', '结构 / 原型', '界面 / 建模 / 系统', '渲染 / 效果', '结果 / 价值'],
 };
 
+const momentaSoftwareImage = (index) =>
+  `/portfolio/momenta-software/momenta-software-${String(index).padStart(2, '0')}.webp`;
+
+const momentaSoftwareFrameSequence = Array.from({ length: 11 }, (_, index) =>
+  momentaSoftwareImage(index + 11)
+);
+
+const momentaSoftwareOpeningSequence = [
+  momentaSoftwareImage(3),
+  momentaSoftwareImage(2),
+];
+
+const momentaSoftwareGallery = [
+  {
+    src: momentaSoftwareImage(1),
+    className: 'detail-media-momenta-source-frame',
+  },
+  {
+    src: momentaSoftwareOpeningSequence[0],
+    type: 'frameSequence',
+    effect: 'radialWave',
+    frames: momentaSoftwareOpeningSequence,
+    label: { en: 'App system reveal', zh: 'App \u7cfb\u7edf\u5c55\u5f00' },
+    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame detail-media-short-frame-sequence detail-media-radial-wave-sequence',
+  },
+  ...Array.from({ length: 7 }, (_, index) => ({
+    src: momentaSoftwareImage(index + 4),
+    className: 'detail-media-momenta-source-frame',
+  })),
+  {
+    src: momentaSoftwareFrameSequence[0],
+    type: 'frameSequence',
+    frames: momentaSoftwareFrameSequence,
+    label: { en: 'Scroll interaction frames', zh: '\u6eda\u52a8\u4ea4\u4e92\u5e27' },
+    className: 'detail-media-momenta-source-frame detail-media-frame-sequence-frame',
+  },
+  {
+    src: momentaSoftwareImage(22),
+    className: 'detail-media-momenta-source-frame',
+  },
+  {
+    src: momentaSoftwareImage(23),
+    className: 'detail-media-momenta-source-frame',
+  },
+];
+
 const projects = [
   {
     id: 'miro',
@@ -279,34 +325,7 @@ const projects = [
     },
     source: { en: 'Confirmed local project: Desktop/拍立食', zh: '已确认本地项目：Desktop/拍立食' },
   },
-  {
-    id: 'libai',
-    category: 'digital',
-    title: { en: 'Li Bai Interactive Website', zh: '李白互动网站' },
-    type: { en: 'Digital Humanities / Data Storytelling', zh: '数字人文 / 数据叙事' },
-    year: '2025',
-    image: '/portfolio/libai-background.png',
-    wallImage: '/portfolio/libai-daima-wall-card.png',
-    wallGroup: 'libai',
-    gallery: ['/portfolio/libai-background.png'],
-    launchNote: {
-      en: 'The Li Bai interactive site transforms poetry, geography, and knowledge links into an explorable cultural interface, making classical content easier to browse, connect, and understand.',
-      zh: '李白互动网站把诗歌、地图与知识关系组织成可探索界面，让传统文化内容更容易被浏览、连接和理解。',
-    },
-    role: {
-      en: 'Interactive narrative, map/network/chart integration, bilingual cultural interface',
-      zh: '互动叙事、地图/网络/图表整合、双语文化界面',
-    },
-    summary: {
-      en: 'A digital humanities site translating Li Bai biography, social network, emotional imagery, journey map, and Ask Li Bai interaction into one web experience.',
-      zh: '把李白生平、人物网络、情感意象、行旅地图和 Ask Li Bai 互动转译成网页体验。',
-    },
-    evidence: {
-      en: ['Leaflet map', 'Vis-network graph', 'Chart.js analytics', '76 nodes and 80 edges'],
-      zh: ['Leaflet 地图', 'Vis-network 网络', 'Chart.js 分析', '76 个节点与 80 条边'],
-    },
-    source: { en: 'Confirmed local project. Original HTML should not be published as-is due to API-key risk.', zh: '已确认本地项目。原 HTML 可能含 API Key 风险，不能原样公开。' },
-  },
+
   {
     id: 'tcm-kg',
     category: 'digital',
@@ -407,25 +426,60 @@ const projects = [
   {
     id: 'momenta',
     category: 'digital',
-    title: { en: 'Momenta AI Music Interaction', zh: 'Momenta AI 音乐交互' },
-    type: { en: 'SwiftUI iOS / AI Music / Device Concept', zh: 'SwiftUI iOS / AI 音乐 / 设备概念' },
+    title: { en: 'Momenta AI Music Interaction', zh: 'Momenta AI \u97f3\u4e50\u4ea4\u4e92' },
+    type: { en: 'SwiftUI iOS / AI Music / Context-Aware App', zh: 'SwiftUI iOS / AI \u97f3\u4e50 / \u60c5\u5883\u611f\u77e5 App' },
     year: '2025',
-    image: '/portfolio/momenta-phone-wall.jpg',
-    gallery: ['/portfolio/momenta-phone-wall.jpg', '/portfolio/momenta-github-compose-china.jpg', '/portfolio/momenta-github-share.png', '/portfolio/momenta-device-detail.jpg', '/portfolio/momenta-exploded-clean.jpg'],
+    image: '/portfolio/momenta-green-cover.png',
+    detailVideo: '/portfolio/momenta-software-intro-h264.mp4',
+    detailMediaLabel: { en: 'App prototype', zh: 'App \u539f\u578b' },
+    gallery: momentaSoftwareGallery,
     role: {
-      en: 'SwiftUI source review, interaction concept, mobile UI direction, device rendering',
-      zh: 'SwiftUI 源码核对、交互概念、移动界面方向、设备渲染',
+      en: 'AI product framing, SwiftUI iOS prototype, context-signal design, privacy-aware music flow',
+      zh: 'AI \u4ea7\u54c1\u5b9a\u4e49\u3001SwiftUI iOS \u539f\u578b\u3001\u60c5\u5883\u4fe1\u53f7\u8bbe\u8ba1\u3001\u9690\u79c1\u53cb\u597d\u7684\u97f3\u4e50\u6d41\u7a0b',
     },
     summary: {
-      en: 'A public SwiftUI iOS repository and local Keynote evidence for a mood, music, and wearable-device interaction concept.',
-      zh: '公开 SwiftUI iOS 仓库与本地 Keynote 证据共同指向情绪、音乐与穿戴设备交互概念。',
+      en: 'A context-aware AI music app that turns a user\u2019s situation, emotion, and memory into generated music that can be played, revisited, and shared.',
+      zh: '\u4e00\u4e2a\u60c5\u5883\u611f\u77e5 AI \u97f3\u4e50 App\uff0c\u628a\u7528\u6237\u7684\u60c5\u5883\u3001\u60c5\u7eea\u4e0e\u8bb0\u5fc6\u8f6c\u6210\u53ef\u64ad\u653e\u3001\u53ef\u56de\u8bbf\u3001\u53ef\u5206\u4eab\u7684\u751f\u6210\u97f3\u4e50\u3002',
     },
     evidence: {
-      en: ['Public GitHub repository found', 'SwiftUI iOS project structure', 'compose.png and share.png source assets', 'Local Keynote/device renders'],
-      zh: ['已找到公开 GitHub 仓库', 'SwiftUI iOS 项目结构', 'compose.png 与 share.png 源资产', '本地 Keynote 与设备渲染'],
+      en: ['Confirmed introduction video', 'SwiftUI iOS project structure', 'Context and music interaction screens', 'Process slides and prototype evidence'],
+      zh: ['\u5df2\u786e\u8ba4\u4ecb\u7ecd\u89c6\u9891', 'SwiftUI iOS \u9879\u76ee\u7ed3\u6784', '\u60c5\u5883\u4e0e\u97f3\u4e50\u4ea4\u4e92\u754c\u9762', '\u6d41\u7a0b\u5e7b\u706f\u7247\u4e0e\u539f\u578b\u8bc1\u636e'],
     },
-    source: { en: 'Public GitHub source: https://github.com/JosicZhou/MOMENTA plus confirmed local Keynote evidence', zh: '公开 GitHub 来源：https://github.com/JosicZhou/MOMENTA，并有本地 Keynote 证据' },
+    source: { en: 'Public GitHub source: https://github.com/JosicZhou/MOMENTA plus confirmed local presentation and video evidence', zh: '\u516c\u5f00 GitHub \u6765\u6e90\uff1ahttps://github.com/JosicZhou/MOMENTA\uff0c\u5e76\u6709\u672c\u5730\u6c47\u62a5\u4e0e\u89c6\u9891\u8bc1\u636e' },
+    mediaNarrative: [
+      null,
+      {
+        en: 'Momenta begins from a product question: how can AI music respond to a real moment, instead of acting like a blank prompt box?',
+        zh: 'Momenta \u4ece\u4e00\u4e2a\u4ea7\u54c1\u95ee\u9898\u5f00\u59cb\uff1aAI \u97f3\u4e50\u5982\u4f55\u56de\u5e94\u4e00\u4e2a\u771f\u5b9e\u77ac\u95f4\uff0c\u800c\u4e0d\u53ea\u662f\u4e00\u4e2a\u7a7a\u767d\u63d0\u793a\u8bcd\u8f93\u5165\u6846\uff1f',
+      },
+      {
+        en: 'The core input is designed as situation plus emotion plus memory. The user describes the moment, while AI carries the composition work.',
+        zh: '\u6838\u5fc3\u8f93\u5165\u88ab\u5b9a\u4e49\u4e3a\u60c5\u5883\u3001\u60c5\u7eea\u4e0e\u8bb0\u5fc6\u3002\u7528\u6237\u63cf\u8ff0\u5f53\u4e0b\uff0cAI \u8d1f\u8d23\u628a\u5b83\u8f6c\u8bd1\u6210\u97f3\u4e50\u7ed3\u6784\u3002',
+      },
+      null,
+      {
+        en: 'The case keeps implementation evidence visible, linking product judgment back to SwiftUI structure, prototype testing, and native interaction limits.',
+        zh: '\u9875\u9762\u4fdd\u7559\u5b9e\u73b0\u8bc1\u636e\uff0c\u628a\u4ea7\u54c1\u5224\u65ad\u843d\u56de SwiftUI \u7ed3\u6784\u3001\u539f\u578b\u6d4b\u8bd5\u4e0e\u539f\u751f\u4ea4\u4e92\u9650\u5236\u3002',
+      },
+      null,
+      null,
+      null,
+      {
+        en: 'The system logic focuses on trust: what context is useful, what data should stay private, and when an AI result is ready to surface.',
+        zh: '\u7cfb\u7edf\u903b\u8f91\u805a\u7126\u5728\u4fe1\u4efb\uff1a\u54ea\u4e9b\u60c5\u5883\u6709\u7528\uff0c\u54ea\u4e9b\u6570\u636e\u5e94\u4fdd\u6301\u79c1\u5bc6\uff0c\u4ee5\u53ca AI \u7ed3\u679c\u4f55\u65f6\u9002\u5408\u5448\u73b0\u3002',
+      },
+      {
+        en: 'The scroll interaction expresses the AI loop as a state change: sense the scene, process it, then reveal completion only when the output feels ready.',
+        zh: '\u6eda\u52a8\u4ea4\u4e92\u628a AI \u95ed\u73af\u53d8\u6210\u72b6\u6001\u53d8\u5316\uff1a\u611f\u77e5\u573a\u666f\u3001\u5904\u7406\u4fe1\u606f\uff0c\u5e76\u5728\u7ed3\u679c\u5c31\u7eea\u65f6\u518d\u5b8c\u6210\u5448\u73b0\u3002',
+      },
+      null,
+      {
+        en: 'The final principle is restraint: personal context guides the music system, while the interface stays calm enough for the model behavior to be understood.',
+        zh: '\u6700\u540e\u56de\u5230\u514b\u5236\u539f\u5219\uff1a\u8ba9\u4e2a\u4eba\u60c5\u5883\u5f15\u5bfc\u97f3\u4e50\u7cfb\u7edf\uff0c\u540c\u65f6\u8ba9\u754c\u9762\u8db3\u591f\u5b89\u9759\uff0c\u4fbf\u4e8e\u7406\u89e3\u6a21\u578b\u884c\u4e3a\u3002',
+      },
+    ],
   },
+
   {
     id: 'momenta-touch',
     category: 'concept',
@@ -857,30 +911,7 @@ const projects = [
     },
     source: { en: 'Confirmed local project: CBS5504', zh: '已确认本地项目：CBS5504' },
   },
-  {
-    id: 'libai-data',
-    category: 'research',
-    title: { en: 'Li Bai Data Narrative', zh: '李白数据叙事' },
-    type: { en: 'Cultural Dataset / Network Narrative', zh: '文化数据集 / 网络叙事' },
-    year: '2025',
-    image: '/portfolio/libai-background.png',
-    wallImage: '/portfolio/libai-daima-wall-card.png',
-    wallGroup: 'libai',
-    gallery: ['/portfolio/libai-background.png'],
-    role: {
-      en: 'Poem data, journey data, social graph, emotional imagery analysis',
-      zh: '诗歌数据、行旅数据、人物网络、情感意象分析',
-    },
-    summary: {
-      en: 'A research layer for the Li Bai site, organizing biography, travel, poetry imagery, and relationship data into a navigable interface.',
-      zh: '李白网站的研究层，把生平、行旅、诗歌意象和人物关系组织成可导航界面。',
-    },
-    evidence: {
-      en: ['Poem database', 'Journey data', '76 nodes', '80 edges'],
-      zh: ['诗歌数据库', '行旅数据', '76 个节点', '80 条边'],
-    },
-    source: { en: 'Confirmed local project: CHC5904 final project', zh: '已确认本地项目：CHC5904 final project' },
-  },
+
   {
     id: 'food-health-model',
     category: 'research',
@@ -919,10 +950,7 @@ const projectShortCopy = {
     en: 'Mobile food-recognition flow from capture to health feedback.',
     zh: '从拍摄识别到健康反馈的移动端体验。',
   },
-  libai: {
-    en: 'Cultural data, map, network, and dialogue in one poetic web interface.',
-    zh: '把地图、网络、诗歌数据和问答组织成诗意网页。',
-  },
+
   'tcm-kg': {
     en: 'Classical medicine knowledge graph for cultural education.',
     zh: '面向文化教育的中医药知识图谱。',
@@ -999,10 +1027,7 @@ const projectShortCopy = {
     en: 'Formula and herb network for exploring historical relationships.',
     zh: '用于探索古籍方药关系的网络系统。',
   },
-  'libai-data': {
-    en: 'Research layer behind the Li Bai data narrative.',
-    zh: '李白数据叙事背后的研究层。',
-  },
+
   'food-health-model': {
     en: 'Recognition, feedback, and social expression as one mobile loop.',
     zh: '把识别、反馈和社交表达组织成移动闭环。',
@@ -1018,7 +1043,7 @@ const workMenuCategories = [
   {
     id: 'b2b-scenarios',
     title: 'B2B Scenarios',
-    projectIds: ['miro-governance', 'food-health-model', 'tcm-systems', 'libai-data'],
+    projectIds: ['miro-governance', 'food-health-model', 'tcm-systems', 'cbs5502'],
   },
   {
     id: 'b2b-products',
@@ -1028,7 +1053,7 @@ const workMenuCategories = [
   {
     id: 'c2c-products',
     title: 'C2C Products',
-    projectIds: ['offer-quest', 'libai', 'tcm-kg', 'cbs5502'],
+    projectIds: ['offer-quest', 'tcm-kg', 'cbs5502'],
   },
   {
     id: 'cmf-products',
@@ -1049,14 +1074,12 @@ const workMenuProjectLabels = {
   momenta: 'Momenta AI Music',
   'miro-governance': 'Miro Governance',
   'food-health-model': 'Food Health Model',
-  'tcm-systems': 'Formula Network',
-  'libai-data': 'Li Bai Data Narrative',
+  'tcm-systems': 'Formula Network',
   'smart-waste': 'Smart Waste Tank',
   'ufei-precision-cabinet': 'Precision Cabinet',
   'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
-  'offer-quest': 'Offer Quest',
-  libai: 'Li Bai Website',
+  'offer-quest': 'Offer Quest',
   'tcm-kg': 'TCM Knowledge Graph',
   cbs5502: 'Feel NLP',
   'xiaomi-cmf': 'Xiaomi CMF',
@@ -1071,8 +1094,7 @@ const workMenuProjectLabels = {
 
 const projectKinds = {
   miro: 'digital',
-  palifood: 'digital',
-  libai: 'digital',
+  palifood: 'digital',
   'tcm-kg': 'research',
   'offer-quest': 'digital',
   sport: 'digital',
@@ -1092,8 +1114,7 @@ const projectKinds = {
   'cmf-electronics': 'cmf',
   cbs5502: 'research',
   'miro-governance': 'research',
-  'tcm-systems': 'research',
-  'libai-data': 'research',
+  'tcm-systems': 'research',
   'food-health-model': 'research',
 };
 
@@ -1193,43 +1214,7 @@ const caseStudyOverrides = {
       },
     ],
   },
-  libai: {
-    label: { en: 'Digital humanities case', zh: '数字人文案例' },
-    headline: {
-      en: 'The Li Bai site uses data as atmosphere: map, network, chart, biography, poetry, and dialogue support one cultural journey.',
-      zh: '李白网站把数据做成氛围：地图、网络、图表、生平、诗歌和对话共同支撑一次文化旅程。',
-    },
-    sections: [
-      {
-        title: { en: 'Narrative Frame', zh: '叙事框架' },
-        body: {
-          en: 'The page starts from biography and journey, then lets relationship data and poetic imagery become navigable material.',
-          zh: '页面从生平与行旅出发，再让人物关系和诗歌意象变成可浏览的材料。',
-        },
-      },
-      {
-        title: { en: 'Data Surfaces', zh: '数据表面' },
-        body: {
-          en: 'Leaflet, Vis-network, and charts are not decorative widgets; each one answers a different cultural question.',
-          zh: 'Leaflet、Vis-network 和图表不是装饰组件，而是分别回答不同的文化问题。',
-        },
-      },
-      {
-        title: { en: 'Interaction Tone', zh: '交互语气' },
-        body: {
-          en: 'The Ask Li Bai flow keeps the interface poetic while still exposing structured evidence.',
-          zh: 'Ask Li Bai 流程让界面保留诗性，同时仍能暴露结构化证据。',
-        },
-      },
-      {
-        title: { en: 'Handoff Boundary', zh: '交付边界' },
-        body: {
-          en: 'Original HTML is treated carefully because direct publishing may expose API-key-like values.',
-          zh: '原 HTML 需要谨慎处理，因为直接发布可能暴露类似 API Key 的值。',
-        },
-      },
-    ],
-  },
+
   sport: {
     label: { en: 'Fitness AI case', zh: '运动 AI 案例' },
     displayTitle: { en: 'Local posture coaching loop', zh: '本地姿态教练闭环' },
@@ -1887,44 +1872,7 @@ caseStudyOverrides['tcm-systems'] = {
   ],
 };
 
-caseStudyOverrides['libai-data'] = {
-  label: { en: 'Cultural data case', zh: '文化数据案例' },
-  displayTitle: { en: 'Poetry, journeys, and relationships as data', zh: '把诗歌、行旅与关系变成数据' },
-  headline: {
-    en: 'Li Bai Data Narrative organizes poems, journeys, biography, emotional imagery, and relationship data into a navigable cultural layer.',
-    zh: '李白数据叙事把诗歌、行旅、生平、情感意象与人物关系组织成可导航的文化层。',
-  },
-  sections: [
-    {
-      title: { en: 'Data Selection', zh: '数据选择' },
-      body: {
-        en: 'The work identifies which parts of Li Bai material can become maps, networks, timelines, or narrative prompts.',
-        zh: '项目判断李白材料中哪些部分可以成为地图、网络、时间线或叙事提示。',
-      },
-    },
-    {
-      title: { en: 'Narrative Structure', zh: '叙事结构' },
-      body: {
-        en: 'Biography and travel organize the reading path, while graph and poem data add comparison and discovery.',
-        zh: '生平与行旅组织阅读路径，图谱和诗歌数据提供比较与发现。',
-      },
-    },
-    {
-      title: { en: 'Interface Evidence', zh: '界面证据' },
-      body: {
-        en: 'The page keeps the same visual evidence as the Li Bai site because the research and interface layers are connected.',
-        zh: '页面沿用李白网站视觉证据，因为研究层与界面层本来就是连接的。',
-      },
-    },
-    {
-      title: { en: 'Cultural Tone', zh: '文化语气' },
-      body: {
-        en: 'The goal is to make classical material explorable without flattening it into purely technical dashboards.',
-        zh: '目标是在不把古典材料压平成纯技术仪表盘的前提下，让它变得可探索。',
-      },
-    },
-  ],
-};
+
 
 caseStudyOverrides['food-health-model'] = {
   label: { en: 'Health feedback logic case', zh: '健康反馈逻辑案例' },
@@ -2020,7 +1968,7 @@ const pinnedStories = [
       zh: '地图、图谱、Schema、治理说明和语言处理流程被组织成可以阅读、比较和交接的界面系统。',
     },
     image: '/portfolio/tcm-graph-clean.jpg',
-    projects: ['libai', 'tcm-kg', 'miro-governance'],
+    projects: ['momenta', 'tcm-kg', 'miro-governance'],
   },
 ];
 
@@ -2048,7 +1996,7 @@ const achievementCards = [
 ];
 
 const productShowcaseIds = ['cross-ripple', 'smart-waste', 'ufei-precision-cabinet', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
-const digitalCaseIds = ['miro', 'palifood', 'libai', 'momenta', 'sport'];
+const digitalCaseIds = ['miro', 'palifood', 'momenta', 'sport'];
 const daimaWorkPanels = [
   {
     id: 'daima-miro',
@@ -2065,11 +2013,11 @@ const daimaWorkPanels = [
     image: '/portfolio/daima-work-cover-02.png',
   },
   {
-    id: 'daima-libai',
-    projectId: 'libai',
-    title: { en: 'Li Bai Interactive Website', zh: '李白互动网站' },
-    category: { en: 'Digital Humanities / Web Experience', zh: '数字人文 / Web 体验' },
-    image: '/portfolio/daima-work-cover-03.png',
+    id: 'daima-momenta',
+    projectId: 'momenta',
+    title: { en: 'Momenta AI Music Interaction', zh: 'Momenta AI \u97f3\u4e50\u4ea4\u4e92' },
+    category: { en: 'AI Music / iOS Interaction', zh: 'AI \u97f3\u4e50 / iOS \u4ea4\u4e92' },
+    image: '/portfolio/momenta-green-cover.png',
   },
   {
     id: 'daima-sport',
@@ -4463,6 +4411,161 @@ function PaiFoodScrollShowcase({ motionEnabled }) {
   );
 }
 
+function getMediaSrc(media) {
+  return typeof media === 'string' ? media : media?.src || '';
+}
+
+function getMediaType(media) {
+  return typeof media === 'string' ? 'image' : media?.type || 'image';
+}
+
+function getMediaLabel(media) {
+  return typeof media === 'string' ? '' : media?.label || '';
+}
+
+function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
+  const rootRef = useRef(null);
+  const frameSources = useMemo(
+    () => (Array.isArray(frames) ? frames.filter(Boolean) : []),
+    [frames]
+  );
+  const [sequenceState, setSequenceState] = useState({ activeIndex: 0, phase: 'before', progress: 0 });
+
+  useEffect(() => {
+    if (!frameSources.length) {
+      return undefined;
+    }
+
+    frameSources.forEach((src) => {
+      const image = new Image();
+      image.src = src;
+    });
+
+    let frame = 0;
+
+    const updateFrame = () => {
+      frame = 0;
+      const root = rootRef.current;
+      const figure = root?.closest('figure') || root;
+      if (!figure) return;
+
+      const rect = figure.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight || 1;
+      const stickyTop = document.querySelector('.site-header')?.getBoundingClientRect().height ?? 68;
+      const stickyHeight = root.getBoundingClientRect().height || viewportHeight - stickyTop;
+      const travel = Math.max(1, rect.height - stickyHeight);
+      const rawProgress = (stickyTop - rect.top) / travel;
+      const progress = Math.min(1, Math.max(0, rawProgress));
+      const phase = rawProgress <= 0 ? 'before' : rawProgress >= 1 ? 'after' : 'active';
+      const framePosition = progress * (frameSources.length - 1);
+      const nextIndex = Math.min(
+        frameSources.length - 1,
+        Math.max(0, Math.round(framePosition))
+      );
+
+      setSequenceState((current) => (
+        current.activeIndex === nextIndex && current.phase === phase && Math.abs(current.progress - progress) < 0.001
+          ? current
+          : { activeIndex: nextIndex, phase, progress }
+      ));
+    };
+
+    const requestUpdate = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(updateFrame);
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame);
+      }
+      window.removeEventListener('scroll', requestUpdate);
+      window.removeEventListener('resize', requestUpdate);
+    };
+  }, [frameSources]);
+
+  if (!frameSources.length) {
+    return null;
+  }
+
+  const isRadialWave = effect === 'radialWave' && frameSources.length >= 2;
+  const framePosition = sequenceState.progress * Math.max(0, frameSources.length - 1);
+  const lowerFrameIndex = Math.floor(framePosition);
+  const upperFrameIndex = Math.min(frameSources.length - 1, lowerFrameIndex + 1);
+  const upperFrameOpacity = framePosition - lowerFrameIndex;
+  const getFrameOpacity = (index) => {
+    if (frameSources.length <= 1) return 1;
+    if (index === lowerFrameIndex) return 1 - upperFrameOpacity;
+    if (index === upperFrameIndex) return upperFrameOpacity;
+    return 0;
+  };
+  const waveProgress = (() => {
+    const normalized = Math.min(1, Math.max(0, (sequenceState.progress - 0.08) / 0.58));
+    return 1 - Math.pow(1 - normalized, 3);
+  })();
+  const waveRadius = 1 + waveProgress * 154;
+  const waveBand = 11 + waveProgress * 78;
+  const waveStyle = isRadialWave
+    ? {
+        '--sequence-progress': sequenceState.progress.toFixed(4),
+        '--reveal-radius': `${waveRadius.toFixed(2)}%`,
+        '--reveal-solid': `${Math.max(0, waveRadius - 16).toFixed(2)}%`,
+        '--reveal-soft': `${Math.max(0, waveRadius - 5).toFixed(2)}%`,
+        '--reveal-scale': (1.012 - waveProgress * 0.012).toFixed(4),
+        '--base-scale': (1 + waveProgress * 0.006).toFixed(4),
+        '--wave-inner': `${Math.max(0, waveBand - 4).toFixed(2)}%`,
+        '--wave-mid': `${waveBand.toFixed(2)}%`,
+        '--wave-outer': `${Math.min(150, waveBand + 9).toFixed(2)}%`,
+        '--wave-opacity': (Math.sin(waveProgress * Math.PI) * 0.5).toFixed(4),
+      }
+    : undefined;
+
+  return (
+    <div
+      ref={rootRef}
+      className={`detail-scroll-frame-sequence is-${sequenceState.phase}`}
+      data-sequence-effect={isRadialWave ? 'radial-wave' : 'crossfade'}
+      data-active-frame={sequenceState.activeIndex + 1}
+      data-progress={sequenceState.progress.toFixed(4)}
+      style={waveStyle}
+    >
+      {isRadialWave ? (
+        <>
+          <img
+            className="detail-sequence-base"
+            src={frameSources[0]}
+            alt=""
+            loading="eager"
+            style={{ opacity: 1 }}
+          />
+          <img
+            className="detail-sequence-reveal"
+            src={frameSources[frameSources.length - 1]}
+            alt=""
+            loading="eager"
+          />
+          <span className="detail-sequence-wave" aria-hidden="true" />
+        </>
+      ) : (
+        frameSources.map((src, index) => (
+          <img
+            key={`${src}-${index}`}
+            className={index === sequenceState.activeIndex ? 'is-active' : ''}
+            src={src}
+            alt=""
+            loading={index <= 1 ? 'eager' : 'lazy'}
+            style={{ opacity: getFrameOpacity(index) }}
+          />
+        ))
+      )}
+    </div>
+  );
+}
+
 function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) {
   const mediaGridRef = useRef(null);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
@@ -4473,14 +4576,16 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   const heroMedia = referenceHeroMedia[project.id];
   const detailMedia =
     heroMedia
-      ? [heroMedia, ...rawDetailMedia.filter((src) => src !== heroMedia)]
+      ? [heroMedia, ...rawDetailMedia.filter((media) => getMediaSrc(media) !== heroMedia)]
       : rawDetailMedia;
   const caseStudy = getCaseStudy(project, lang);
   const mediaKind = getDetailMediaKind(project, caseStudy);
   const heroCopy = getDetailHeroCopy(project, lang, caseStudy);
+  const mediaNarrative = Array.isArray(project.mediaNarrative) ? project.mediaNarrative : [];
+  const detailMediaLabel = project.detailMediaLabel ? t(project.detailMediaLabel, lang) : getDetailMediaLabel(mediaKind, lang);
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
-  const getFigureClass = (src) => {
+  const getLegacyFigureClass = (src) => {
     if (project.id === 'cat-turntable' && src.includes('cat-toy-detail-')) {
       return 'detail-media-product-wide-frame';
     }
@@ -4517,6 +4622,12 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
       return 'detail-media-source-contain detail-media-full-contain detail-media-board-light';
     }
     return undefined;
+  };
+  const getFigureClass = (media) => {
+    const src = getMediaSrc(media);
+    const customClass = typeof media === 'string' ? '' : media?.className || '';
+    const legacyClass = getLegacyFigureClass(src);
+    return [customClass, legacyClass].filter(Boolean).join(' ') || undefined;
   };
 
   useEffect(() => {
@@ -4606,26 +4717,43 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
         {detailVideo ? (
           <figure className="detail-media-video-frame">
             <video src={detailVideo} autoPlay muted loop playsInline controls preload="metadata" />
-            <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
+            <figcaption>{detailMediaLabel}</figcaption>
           </figure>
         ) : null}
         {detailMedia.length ? (
-          detailMedia.map((src, index) => {
+          detailMedia.map((media, index) => {
+            const src = getMediaSrc(media);
+            const mediaType = getMediaType(media);
+            const mediaLabel = t(getMediaLabel(media), lang);
+            const showDefaultFigureLabel = index === 0 && !(project.id === 'momenta' && detailVideo);
+            const figureLabel = mediaLabel || (showDefaultFigureLabel ? detailMediaLabel : '');
             const mobileSrc = detailMobileSources[project.id]?.[src];
+            const narrative = mediaNarrative[index];
             return (
-              <figure key={`${src}-${index}`} className={getFigureClass(src)}>
-                {mobileSrc ? (
-                  <picture>
-                    <source media="(max-width: 700px)" srcSet={mobileSrc} />
+              <React.Fragment key={`${src}-${index}`}>
+                <figure className={getFigureClass(media)}>
+                  {mediaType === 'video' ? (
+                    <video src={src} autoPlay muted loop playsInline controls preload="metadata" />
+                  ) : mediaType === 'frameSequence' ? (
+                    <ScrollFrameSequence frames={media.frames || [src]} effect={media.effect} />
+                  ) : mobileSrc ? (
+                    <picture>
+                      <source media="(max-width: 700px)" srcSet={mobileSrc} />
+                      <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+                    </picture>
+                  ) : (
                     <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-                  </picture>
-                ) : (
-                  <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-                )}
-                {index === 0 ? (
-                  <figcaption>{getDetailMediaLabel(mediaKind, lang)}</figcaption>
+                  )}
+                  {figureLabel ? (
+                    <figcaption>{figureLabel}</figcaption>
+                  ) : null}
+                </figure>
+                {narrative ? (
+                  <div className="detail-media-note">
+                    <p>{t(narrative, lang)}</p>
+                  </div>
                 ) : null}
-              </figure>
+              </React.Fragment>
             );
           })
         ) : !detailVideo ? (
@@ -5176,7 +5304,7 @@ function buildAgentCandidateV2(project, score) {
 
 function buildAgentProfileSnapshotV2() {
   const publicProjects = projects.filter(hasProjectDetailMedia);
-  const representativeProjects = ['miro', 'palifood', 'libai', 'momenta', 'xiaomi-cmf']
+  const representativeProjects = ['miro', 'palifood', 'momenta', 'xiaomi-cmf']
     .map((id) => projects.find((project) => project.id === id))
     .filter(Boolean)
     .map((project) => ({
@@ -5335,8 +5463,7 @@ function buildAgentKnowledgeBaseV2() {
 
 const agentProjectAliases = {
   miro: ['miro', '协作', '治理', 'collaboration', 'prototype'],
-  palifood: ['拍立食', '拍历史', '派历史', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
-  libai: ['李白', 'libai', '互动网站', '诗歌', 'poetry'],
+  palifood: ['拍立食', '拍历史', '派历史', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
   'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
   'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
   sport: ['sport', 'sports', 'home form coach', 'fitness', 'pose tracking', '运动', '健身', '姿态', '动作质检'],
@@ -5354,8 +5481,7 @@ const agentProjectAliases = {
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
   cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],
   'miro-governance': ['miro governance', '系统', '治理', '协作'],
-  'tcm-systems': ['中医系统', '知识图谱系统', '数据结构'],
-  'libai-data': ['李白数据', '诗歌数据', '网络'],
+  'tcm-systems': ['中医系统', '知识图谱系统', '数据结构'],
   'food-health-model': ['食物健康', '健康模型', 'nutrition'],
 };
 
