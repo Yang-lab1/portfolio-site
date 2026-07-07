@@ -1,3 +1,11 @@
+# 2026-07-07 Production redeploy on user request
+- User asked "部署" after the Momenta software asset replacement and previous deployment work.
+- No runtime file changes were pending; `git status --short` was clean before and after deployment.
+- Local verification passed: `npm run build`.
+- Vercel production redeploy completed: `dpl_7cjLtecJQpeS7mkDv9vpScExo7Gi`.
+- Fixed production alias updated: `https://portfolio-site-three-rose.vercel.app/`.
+- Status: redeployed.
+
 # 2026-07-07 Momenta software white-background asset replacement
 - User supplied three corrected pure-white 21:9 Momenta software detail images and asked to replace the existing detail-page versions only.
 - Replaced the existing assets in place, preserving filenames and page order:
