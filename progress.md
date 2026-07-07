@@ -6,7 +6,11 @@
 - Verification passed locally: `npm run build`; local browser QA confirmed the new headline is visible, the old `device-render evidence` text is gone, there are 13 media figures / 23 images / 11 notes / 1 normal video / 2 scroll-driven image interactions / 0 sequence videos, final image 05, no forbidden visible text, no horizontal overflow, and no browser errors.
 - Interaction samples after the copy update still pass: radial-wave `1 -> 2 -> 1`; crossfade `1 -> 6 -> 11 -> 1`.
 - Evidence: `tmp/momenta-goal-audit-local-after-copy/audit.json` and `tmp/momenta-goal-audit-local-after-copy/local-momenta-after-copy.png`.
-- Status: ready for commit, push, and production redeploy.
+- Runtime copy-refinement commit `8544d3c` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_ETEo9ATAdbW5PQLKaNEQFZmCrTDM` is `Ready` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA evidence after deploy is in `tmp/momenta-production-final-qa/`: the fixed URL shows the new headline, removes old `device-render evidence` wording, keeps 13 media figures / 23 images / 11 notes / 1 normal video / 2 scroll-driven image interactions / 0 sequence videos, final image 05, no forbidden visible text, no horizontal overflow, and no browser errors.
+- Production interaction samples pass: radial-wave `1 -> 2 -> 1`; crossfade `1 -> 6 -> 11 -> 1`.
+- Status: deployed and verified.
 
 # 2026-07-07 Momenta software order correction
 

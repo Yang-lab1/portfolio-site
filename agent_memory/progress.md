@@ -4,7 +4,11 @@
 - No image order, gallery asset, Work menu entry, or scroll interaction code was changed.
 - Local verification passed after the copy update: `npm run build`; browser QA from Work menu -> Momenta confirmed 13 media figures, 23 images, 11 notes, one normal intro video, two no-video scroll interactions, final image 05, no Li Bai/libai/path/order-label residue, no old `device-render evidence` text, no horizontal overflow, and no browser errors.
 - Interaction samples still passed: 03->02 radial-wave `frame 1 -> frame 2 -> frame 1`; 11->21 crossfade `frame 1 -> 6 -> 11 -> 1`.
-- Status: ready to commit, push, and redeploy because the user already approved pushing/deploying this Momenta page work.
+- Runtime copy-refinement commit `8544d3c` was pushed to GitHub `main`.
+- Vercel production deployment `dpl_ETEo9ATAdbW5PQLKaNEQFZmCrTDM` is `Ready` and aliased to the fixed production URL `https://portfolio-site-three-rose.vercel.app/`.
+- Public QA against the fixed URL passed after deploy: 13 media figures, 23 images, 11 notes, one normal intro video, two scroll-driven image interactions, zero sequence videos, final image 05, no Li Bai/libai/path/order-label/old-headline residue, no horizontal overflow, and no browser errors.
+- Interaction samples on production passed: 03->02 radial-wave `frame 1 -> frame 2 -> frame 1`; 11->21 crossfade `frame 1 -> 6 -> 11 -> 1`.
+- Status: deployed and verified.
 
 # 2026-07-07 Momenta software order correction
 - User pointed out that `momenta-software-05.webp` is a final/closing page in the PPT sequence, not an early-process visual.

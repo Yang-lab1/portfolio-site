@@ -4,6 +4,7 @@
 - The existing `caseStudyOverrides.momenta.headline` still said "device-render evidence"; this was technically small but semantically risky because the portfolio also has a separate `momenta-touch` hardware/device project.
 - The safer wording emphasizes context signals, prototype evidence, generated output, testability, and replayability. This is better aligned with AI PM / AI evaluation / agent-adjacent interview positioning without overclaiming model capability.
 - Regression checks after changing this copy should still verify the two scroll-driven interactions, because the project page is sensitive to Momenta/Momenta Touch confusion and previous Li Bai residue.
+- Production QA after deployment confirmed the copy refinement did not disturb the Momenta detail structure: one normal intro video, two scroll-driven image interactions, zero sequence videos, final image 05, no visible Li Bai/libai/path/order-label residue, and no browser errors.
 
 # 2026-07-07 Momenta replaces Li Bai findings
 
