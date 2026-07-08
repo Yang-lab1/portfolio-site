@@ -876,8 +876,8 @@ const projects = [
     title: { en: 'Vertical High-Precision Cabinet', zh: '立式高精度柜' },
     type: { en: 'Industrial Equipment / Precision Storage', zh: '工业设备 / 精密暂存' },
     year: '2022-2023',
-    image: '/portfolio/ufei-precision-cabinet-render-crop.png',
-    imageFit: 'contain',
+    image: '/portfolio/miro-new-cover.png',
+    imageFit: 'cover',
     gallery: [
       '/portfolio/ufei-precision-cabinet-render-crop.png',
       '/portfolio/ufei-precision-cabinet-render.png',
@@ -1191,12 +1191,14 @@ const workMenuProjectLabels = {
   momenta: 'Momenta AI Music',
   'miro-governance': 'Miro Governance',
   'food-health-model': 'Food Health Model',
-  'tcm-systems': 'Formula Network',
+  'tcm-systems': 'Formula Network',
+
   'smart-waste': 'Smart Waste Tank',
   'ufei-precision-cabinet': 'Precision Cabinet',
   'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
-  'offer-quest': 'Offer Quest',
+  'offer-quest': 'Offer Quest',
+
   'tcm-kg': 'TCM Knowledge Graph',
   cbs5502: 'Feel NLP',
   'xiaomi-cmf': 'Xiaomi CMF',
@@ -1211,7 +1213,8 @@ const workMenuProjectLabels = {
 
 const projectKinds = {
   miro: 'digital',
-  palifood: 'digital',
+  palifood: 'digital',
+
   'tcm-kg': 'research',
   'offer-quest': 'digital',
   sport: 'digital',
@@ -1231,7 +1234,8 @@ const projectKinds = {
   'cmf-electronics': 'cmf',
   cbs5502: 'research',
   'miro-governance': 'research',
-  'tcm-systems': 'research',
+  'tcm-systems': 'research',
+
   'food-health-model': 'research',
 };
 
@@ -1252,7 +1256,7 @@ const detailMobileSources = {
     '/portfolio/capstone-device-views.png': '/portfolio/capstone-device-views-mobile.png',
   },
   'ufei-precision-cabinet': {
-    '/portfolio/ufei-precision-cabinet-render-crop.png': '/portfolio/ufei-precision-cabinet-mobile.png',
+    '/portfolio/miro-new-cover.png': '/portfolio/miro-new-cover.png',
   },
 };
 
@@ -5582,7 +5586,8 @@ function buildAgentKnowledgeBaseV2() {
 
 const agentProjectAliases = {
   miro: ['miro', '协作', '治理', 'collaboration', 'prototype'],
-  palifood: ['拍立食', '拍历史', '派历史', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
+  palifood: ['拍立食', '拍历史', '派历史', '食物识别', '健康反馈', 'palifood', 'pai li shi'],
+
   'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
   'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
   sport: ['sport', 'sports', 'home form coach', 'fitness', 'pose tracking', '运动', '健身', '姿态', '动作质检'],
@@ -5600,7 +5605,8 @@ const agentProjectAliases = {
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
   cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],
   'miro-governance': ['miro governance', '系统', '治理', '协作'],
-  'tcm-systems': ['中医系统', '知识图谱系统', '数据结构'],
+  'tcm-systems': ['中医系统', '知识图谱系统', '数据结构'],
+
   'food-health-model': ['食物健康', '健康模型', 'nutrition'],
 };
 
