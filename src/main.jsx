@@ -873,32 +873,40 @@ const projects = [
   {
     id: 'ufei-precision-cabinet',
     category: 'production',
-    title: { en: 'Vertical High-Precision Cabinet', zh: '立式高精度柜' },
-    type: { en: 'Industrial Equipment / Precision Storage', zh: '工业设备 / 精密暂存' },
-    year: '2022-2023',
+    title: { en: 'Miro AI Rehearsal System', zh: 'Miro AI 演练系统' },
+    type: { en: 'AI Product / Web / Backend', zh: 'AI 产品 / Web / 后端' },
+    year: '2026',
     image: '/portfolio/miro-new-cover.png',
     imageFit: 'cover',
     gallery: [
-      '/portfolio/ufei-precision-cabinet-render-crop.png',
-      '/portfolio/ufei-precision-cabinet-render.png',
-      '/portfolio/ufei-precision-cabinet-factory-01.png',
-      '/portfolio/ufei-precision-cabinet-factory-02.png',
-      '/portfolio/ufei-precision-cabinet-inspection-flow.png',
-      '/portfolio/ufei-precision-cabinet-operator.png',
+      '/portfolio/miro-new-cover.png',
+      '/portfolio/miro-software-detail-01.png',
+      '/portfolio/miro-software-detail-02.png',
+      '/portfolio/miro-software-detail-03.png',
+      '/portfolio/miro-software-detail-04.png',
+      '/portfolio/miro-software-detail-05.png',
+      '/portfolio/miro-software-detail-06.png',
+      '/portfolio/miro-software-detail-07.png',
+      '/portfolio/miro-software-detail-08.png',
     ],
+    detailMediaLabel: { en: 'Software system', zh: '软件系统' },
+    launchNote: {
+      en: 'Miro turns cross-cultural business rehearsal into a structured AI coaching flow, where users can practice difficult conversations, review repeated risks, and enter the system through a clear digital product story.',
+      zh: 'Miro 将跨文化沟通训练拆成可复盘的 AI 演练流程，让用户先练习高压对话，再回看风险信号与改进路径。',
+    },
     role: {
-      en: 'Industrial product design, CMF direction, equipment interface framing',
-      zh: '工业产品设计、CMF 方向、设备界面规划',
+      en: 'Product definition, UX structure, frontend prototype, AI workflow, deployment validation',
+      zh: '产品定义、UX 结构、前端原型、AI 流程、部署验证',
     },
     summary: {
-      en: 'A vertical precision cabinet for controlled material buffering, inspection flow, and clear operator interaction in industrial environments.',
-      zh: '一款面向工业场景的立式高精度柜，围绕材料暂存、检验流程与清晰的人机操作关系展开。',
+      en: 'A cross-cultural communication rehearsal product that moves beyond translation into pragmatics, pacing, taboo phrasing, and longitudinal improvement.',
+      zh: '一个跨文化沟通演练产品，不只处理翻译，还处理语用、节奏、禁忌表达和长期提升。',
     },
     evidence: {
-      en: ['Precision storage scenario', 'Factory context render', 'Operator interaction', 'Source-preserving imagery'],
-      zh: ['精密暂存场景', '工厂环境渲染', '操作员交互', '保留源图呈现'],
+      en: ['Static frontend plus FastAPI backend', 'Supabase auth and database', 'Vercel and ECS deployment path', 'PRD, schema, governance and handoff docs'],
+      zh: ['静态前端与 FastAPI 后端', 'Supabase 认证与数据库', 'Vercel 与 ECS 部署路径', 'PRD、Schema、治理与交付文档'],
     },
-    source: { en: 'Confirmed local source: Desktop/作品集/UFEI/立式高精度柜', zh: '本地资料已确认：Desktop/作品集/UFEI/立式高精度柜' },
+    source: { en: 'Confirmed local repo: Desktop/miro', zh: '已确认本地仓库：Desktop/miro' },
   },
   {
     id: 'baling-press',
@@ -1121,8 +1129,8 @@ const projectShortCopy = {
     zh: '基于原始渲染证据呈现的工业废料收集设备。',
   },
   'ufei-precision-cabinet': {
-    en: 'Vertical precision cabinet for material buffering, inspection flow, and operator interaction.',
-    zh: '围绕材料暂存、检验流程与操作交互展开的立式高精度柜。',
+    en: 'AI rehearsal system for cross-cultural communication and review.',
+    zh: '面向跨文化沟通的 AI 演练与复盘系统。',
   },
   'baling-press': {
     en: 'Compression equipment case focused on structure and use flow.',
@@ -1194,7 +1202,7 @@ const workMenuProjectLabels = {
   'tcm-systems': 'Formula Network',
 
   'smart-waste': 'Smart Waste Tank',
-  'ufei-precision-cabinet': 'Precision Cabinet',
+  'ufei-precision-cabinet': 'Miro AI',
   'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
   'offer-quest': 'Offer Quest',
@@ -1229,7 +1237,7 @@ const projectKinds = {
   'xiaomi-cmf': 'cmf',
   'cat-turntable': 'product',
   'smart-waste': 'product',
-  'ufei-precision-cabinet': 'product',
+  'ufei-precision-cabinet': 'digital',
   'baling-press': 'product',
   'cmf-electronics': 'cmf',
   cbs5502: 'research',
@@ -1488,38 +1496,38 @@ const caseStudyOverrides = {
 };
 
 caseStudyOverrides['ufei-precision-cabinet'] = {
-  label: { en: 'Industrial equipment case', zh: '工业设备案例' },
+  label: { en: 'AI product case', zh: 'AI 产品案例' },
   headline: {
-    en: 'The cabinet is presented as a controlled storage node: numbered access, visible interface, and factory-floor material flow.',
-    zh: '这组高精度柜以受控暂存节点呈现：编号舱门、可见操作界面，以及工厂现场的物料流转关系。',
+    en: 'Miro is framed as a rehearsal system: prepare, simulate, review, and improve across real cultural constraints.',
+    zh: 'Miro 被组织成一个演练系统：准备、模拟、复盘，并在真实跨文化限制中持续改进。',
   },
   sections: [
     {
-      title: { en: 'Storage Order', zh: '暂存秩序' },
+      title: { en: 'Communication Gap', zh: '沟通缺口' },
       body: {
-        en: 'The front layout keeps six numbered doors, a screen area, and access modules readable as one equipment face.',
-        zh: '正面布局把六个编号舱门、屏幕区域和取放模块组织在同一个清晰的设备立面里。',
+        en: 'The product target is not literal translation. It focuses on timing, taboo phrasing, tone, and how users learn from repeated conversations.',
+        zh: '项目目标不是字面翻译，而是处理节奏、禁忌表达、语气，以及用户如何在反复对话中学习。',
       },
     },
     {
-      title: { en: 'Factory Context', zh: '工厂场景' },
+      title: { en: 'Core Loop', zh: '核心闭环' },
       body: {
-        en: 'The gallery places the cabinet beside material bins, inspection benches, safety lines, and operator movement.',
-        zh: '图库把柜体放回料箱、检验台、安全动线和操作员移动关系里，而不是只展示单张产品渲染。',
+        en: 'The experience is built as a loop of scenario setup, AI role-play, transcript review, feedback, and next-session goals.',
+        zh: '体验被拆成场景设置、AI 角色演练、文本复盘、反馈和下一轮目标的闭环。',
       },
     },
     {
-      title: { en: 'Interaction Surface', zh: '交互表面' },
+      title: { en: 'Interface System', zh: '界面系统' },
       body: {
-        en: 'The interface zone is treated as part of the product form, linking touch input, access control, and visual feedback.',
-        zh: '界面区域被当作产品形态的一部分处理，连接触控输入、权限取放和视觉反馈。',
+        en: 'Dashboard, review states, device-facing UI, and backend records are treated as one product surface rather than separate demos.',
+        zh: 'Dashboard、复盘状态、设备界面和后端记录被当作同一个产品表面，而不是彼此独立的演示。',
       },
     },
     {
-      title: { en: 'Source Boundary', zh: '源图边界' },
+      title: { en: 'Evidence', zh: '结果证据' },
       body: {
-        en: 'The page uses the provided image set directly and only adapts crop, scale, and placement for the portfolio format.',
-        zh: '页面直接使用这组已提供图片，只调整裁切、比例和页面位置，不重新生成产品造型。',
+        en: 'The case is supported by frontend, FastAPI, Supabase, deployment notes, schema, governance, and handoff documents.',
+        zh: '案例由前端、FastAPI、Supabase、部署说明、Schema、治理和交付文档共同支撑。',
       },
     },
   ],
@@ -4726,7 +4734,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
       return 'detail-media-palifood-hero';
     }
     if (
-      src.includes('ufei-precision-cabinet-render-crop.png') ||
+      src.includes('miro-new-cover.png') ||
       src.includes('capstone-device-views.png') ||
       src.includes('cbs5502-evidence-board.png') ||
       src.includes('tcm-full-process-board.png')
