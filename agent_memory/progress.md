@@ -3,7 +3,9 @@
 - Current change scope is only the clicked Miro detail page: replace the old detail gallery with the 8 software images from `C:\Users\Yang\Desktop\作品集\旋转圆盘\miro\软件`, shown in order.
 - Detail page rules: no opening tilt animation for Miro, black transitions between images, and only three explanatory text blocks after images 03, 05, and 06.
 - Local QA before release confirmed external covers remain `/portfolio/miro-home-china.jpg`, `/portfolio/daima-work-cover-01.png`, and `/portfolio/miro-hifi-overview.jpg`; detail page uses `/portfolio/miro-software-detail-01.png` through `08.png`.
-- Status: ready for final build, push, and Vercel deployment.
+- Local build passed; GitHub push completed at commit `d65f27c`; Vercel production deployment `dpl_GCcwhpT5Ps8GWFhzrr7oRbaQN475` is Ready and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Production QA passed: Daima/Miro entry cover remains `/portfolio/daima-work-cover-01.png`; clicked Miro detail page shows `miro-software-detail-01.png` through `08.png`, 3 notes, no first-image tilt, no horizontal overflow, and no browser errors.
+- Status: deployed and verified.
 
 # 2026-07-07 Production redeploy on user request
 - User asked "部署" after the Momenta software asset replacement and previous deployment work.
