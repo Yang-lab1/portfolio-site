@@ -327,7 +327,37 @@ const projects = [
     image: '/portfolio/miro-home-china.jpg',
     wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
-    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
+    gallery: [
+      '/portfolio/miro-software-detail-01.png',
+      '/portfolio/miro-software-detail-02.png',
+      '/portfolio/miro-software-detail-03.png',
+      '/portfolio/miro-software-detail-04.png',
+      '/portfolio/miro-software-detail-05.png',
+      '/portfolio/miro-software-detail-06.png',
+      '/portfolio/miro-software-detail-07.png',
+      '/portfolio/miro-software-detail-08.png',
+    ],
+    detailMediaLabel: { en: 'Software system', zh: '软件系统' },
+    mediaNarrative: [
+      null,
+      null,
+      {
+        en: 'Miro is positioned for outbound business teams, not casual translation.\nThe focus is high-stakes conversations where timing, tone, and trust matter.',
+        zh: 'Miro 面向出海商务团队，而不是随手翻译。\n重点是高风险对话：时机、语气与信任都会影响结果。',
+        tone: 'dark',
+      },
+      null,
+      {
+        en: 'The mirror becomes useful when memory travels beyond rehearsal.\nSoftware builds the user’s capability, while hardware brings real meeting evidence back.',
+        zh: '当记忆不只停留在演练里，镜子才真正有用。\n软件训练用户能力，硬件则把真实会议证据带回系统。',
+        tone: 'dark',
+      },
+      {
+        en: 'Behind the loop is a context-grounded AI workflow.\nDocuments, scenarios, cultural cues, and prior reviews shape each coaching round.',
+        zh: '这一闭环背后是基于上下文的 AI 工作流。\n文档、场景、文化线索与历史复盘共同塑造每一轮辅导。',
+        tone: 'dark',
+      },
+    ],
     launchNote: {
       en: 'Miro turns cross-cultural business rehearsal into a structured AI coaching flow, where users can practice difficult conversations, review repeated risks, and enter the system through a clear digital product story.',
       zh: 'Miro 将跨文化沟通训练拆成可复盘的 AI 演练流程，让用户先练习高压对话，再回看风险信号与改进路径。',
@@ -950,7 +980,17 @@ const projects = [
     image: '/portfolio/miro-hifi-overview.jpg',
     wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
-    gallery: ['/portfolio/miro-hifi-overview.jpg', '/portfolio/miro-device-ui.png'],
+    gallery: [
+      '/portfolio/miro-software-detail-01.png',
+      '/portfolio/miro-software-detail-02.png',
+      '/portfolio/miro-software-detail-03.png',
+      '/portfolio/miro-software-detail-04.png',
+      '/portfolio/miro-software-detail-05.png',
+      '/portfolio/miro-software-detail-06.png',
+      '/portfolio/miro-software-detail-07.png',
+      '/portfolio/miro-software-detail-08.png',
+    ],
+    detailMediaLabel: { en: 'Software system', zh: '软件系统' },
     role: {
       en: 'Flow/state/API mapping, governance notes, deployment checklist',
       zh: '流程/状态/API 映射、治理说明、部署清单',
@@ -4649,9 +4689,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   const mediaGridRef = useRef(null);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
   const detailVideo = project.detailVideo || '';
-  const referenceHeroMedia = {
-    miro: '/portfolio/miro-detail-reference-dashboard.png',
-  };
+  const referenceHeroMedia = {};
   const heroMedia = referenceHeroMedia[project.id];
   const detailMedia =
     heroMedia
@@ -4713,7 +4751,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
     const root = mediaGridRef.current;
     const firstFigure = root?.querySelector('figure:first-child');
     const firstImage = firstFigure?.querySelector('img');
-    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital') || project.id === 'palifood') {
+    if (!firstFigure || !firstImage || !root.matches('.detail-media-digital') || project.id === 'palifood' || project.id === 'miro') {
       return undefined;
     }
 

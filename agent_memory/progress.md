@@ -1,3 +1,10 @@
+# 2026-07-08 Miro software detail replacement
+- User clarified the Miro external/entry covers must not be changed: the blue person hero cover, Daima panel cover, and scrolling wall cover should stay as before.
+- Current change scope is only the clicked Miro detail page: replace the old detail gallery with the 8 software images from `C:\Users\Yang\Desktop\作品集\旋转圆盘\miro\软件`, shown in order.
+- Detail page rules: no opening tilt animation for Miro, black transitions between images, and only three explanatory text blocks after images 03, 05, and 06.
+- Local QA before release confirmed external covers remain `/portfolio/miro-home-china.jpg`, `/portfolio/daima-work-cover-01.png`, and `/portfolio/miro-hifi-overview.jpg`; detail page uses `/portfolio/miro-software-detail-01.png` through `08.png`.
+- Status: ready for final build, push, and Vercel deployment.
+
 # 2026-07-07 Production redeploy on user request
 - User asked "部署" after the Momenta software asset replacement and previous deployment work.
 - No runtime file changes were pending; `git status --short` was clean before and after deployment.

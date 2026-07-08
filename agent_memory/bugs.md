@@ -1,3 +1,8 @@
+# 2026-07-08 Miro cover guardrail
+- Do not replace any external Miro entry/cover image when updating the Miro software detail page. The blue person cover, Daima section panel cover, and scrolling wall covers are user-approved entry visuals and must remain unchanged unless the user explicitly asks to replace those exact entry covers.
+- The folder image `C:\Users\Yang\Desktop\作品集\旋转圆盘\miro\软件\封面.png` is not allowed to replace the blue person Miro entry hero. If used at all, it can only be considered inside a detail-page context after explicit confirmation.
+- For Miro software updates, verify both entry surfaces and detail surfaces separately: entry images should remain old/original, while the clicked detail gallery may use `miro-software-detail-01.png` through `miro-software-detail-08.png`.
+
 # 2026-07-07 Momenta / Li Bai release guardrail
 - Momenta software replacement must not visibly carry Li Bai naming, IDs, or detail captures. Keep code/page checks for `Li Bai`, `李白`, `libai`, `libai-data`, and `libai-detail` before release.
 - The approved green cover is now a Momenta asset (`momenta-green-cover.png`). Do not point live project data back to `libai-background.png`.
