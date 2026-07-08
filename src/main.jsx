@@ -1067,11 +1067,44 @@ const projects = [
 ];
 
 const projectShortCopy = {
-  miro: {
-    en: 'AI rehearsal system for cross-cultural communication and review.',
-    zh: '面向跨文化沟通的 AI 演练与复盘系统。',
+  label: { en: 'Mobile AI case', zh: '移动 AI 案例' },
+    headline: {
+      en: 'Pai Li Shi turns food recognition into a mobile loop that is fast, visual, and easy to repeat in daily life.',
+      zh: '拍立食把食物识别变成一个快速、视觉化、可日常重复的移动端闭环。',
+    },
+    sections: [
+      {
+        title: { en: 'Capture Moment', zh: '拍摄时刻' },
+        body: {
+          en: 'The first interaction is designed around a low-friction camera action, not a data form.',
+          zh: '第一步围绕低摩擦的拍摄动作设计，而不是让用户先填写数据表。',
+        },
+      },
+      {
+        title: { en: 'Feedback Rhythm', zh: '反馈节奏' },
+        body: {
+          en: 'Recognition results, health feedback, and recommendations are sequenced so the user gets an answer before deeper exploration.',
+          zh: '识别结果、健康反馈和推荐按顺序出现，让用户先得到答案，再进入更深的信息。',
+        },
+      },
+      {
+        title: { en: 'Mobile Visual System', zh: '移动视觉系统' },
+        body: {
+          en: 'The prototype keeps compact controls, large food imagery, and short decision text for small screens.',
+          zh: '原型保留紧凑控件、大面积食物图像和短决策文案，适配手机屏幕。',
+        },
+      },
+      {
+        title: { en: 'Validation', zh: '验证' },
+        body: {
+          en: 'The H5 evidence shows login, capture, stage feedback, and formal mobile UI states.',
+          zh: 'H5 证据覆盖登录、拍摄、阶段反馈和正式移动端界面状态。',
+        },
+      },
+    ],
   },
-  palifood: {
+
+    palifood: {
     en: 'Mobile food-recognition flow from capture to health feedback.',
     zh: '从拍摄识别到健康反馈的移动端体验。',
   },
