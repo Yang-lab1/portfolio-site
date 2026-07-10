@@ -3,7 +3,8 @@
 - Updated `productShowcaseIds` to begin with `miro`, `smart-waste`, and set the carousel initial position to Miro.
 - Added the user-provided Miro software cover as `public/portfolio/miro-software-detail-cover.png` at the start of the clicked Miro detail gallery. External entry imagery remains unchanged.
 - Added a Miro first-image width rule so the detail cover fills the full viewport width. Browser QA confirmed active card `miro`, right card `smart-waste`, first detail image width `1920px`, horizontal overflow `0`, and no page errors.
-- Local `npm run build` passed. Pending commit, push, and production deployment.
+- Local and Vercel builds passed. GitHub push completed at `d9d029f`; Vercel production deployment completed at `https://portfolio-site-cc9rszx7v-yangs-projects-d2ad4c9e.vercel.app` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Status: deployed. The remote branch also contained unrelated Miro/UFEI and Pai Li Shi changes; those were preserved, and the remote syntax break in `projectShortCopy` was repaired before release.
 
 # 2026-07-08 Miro software detail replacement
 - User clarified the Miro external/entry covers must not be changed: the blue person hero cover, Daima panel cover, and scrolling wall cover should stay as before.
