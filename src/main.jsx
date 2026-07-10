@@ -324,7 +324,7 @@ const projects = [
     title: { en: 'Miro AI Rehearsal System', zh: 'Miro AI 演练系统' },
     type: { en: 'AI Product / Web / Backend', zh: 'AI 产品 / Web / 后端' },
     year: '2026',
-    image: '/portfolio/miro-home-china.jpg',
+    image: '/portfolio/miro-software-detail-cover.png',
     wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
     gallery: [
@@ -2121,7 +2121,7 @@ const achievementCards = [
   },
 ];
 
-const productShowcaseIds = ['miro', 'smart-waste', 'cross-ripple', 'ufei-precision-cabinet', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
+const productShowcaseIds = ['miro', 'smart-waste', 'cross-ripple', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['miro', 'palifood', 'momenta', 'sport'];
 const daimaWorkPanels = [
   {

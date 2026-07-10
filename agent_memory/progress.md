@@ -1,3 +1,10 @@
+# 2026-07-10 Miro single-entry correction
+- User clarified that the three-card rotating showcase layout from image 2 is correct; only the center Miro cover was wrong.
+- Updated the single retained `miro` showcase entry to use `public/portfolio/miro-software-detail-cover.png`, and removed the duplicate `ufei-precision-cabinet` Miro entry from `productShowcaseIds`.
+- Kept the existing right-side industrial equipment card and all other projects unchanged. The retained Miro card still opens the existing Miro detail page.
+- Browser QA confirmed `miroCardCount=1`, center image `/portfolio/miro-software-detail-cover.png`, right image `/portfolio/edited-smart-waste-cover.jpg`, detail first image full viewport width, overflow `0`, and no errors.
+- Build passed. Pending commit, push, and production deployment.
+
 # 2026-07-10 Miro / industrial showcase order and detail-cover fit
 - User requested the physical showcase order to put Miro first and the industrial compression equipment to its right, while keeping both projects and their detail pages.
 - Updated `productShowcaseIds` to begin with `miro`, `smart-waste`, and set the carousel initial position to Miro.

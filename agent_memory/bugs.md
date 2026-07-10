@@ -1,3 +1,8 @@
+# 2026-07-10 Miro duplicate-entry guardrail
+- In the three-card rotating showcase, `miro` is the only Miro entry. Do not re-add `ufei-precision-cabinet` there while it still carries the same Miro detail content.
+- Keep the image-2 layout and right-side industrial equipment card unchanged; the only approved visual swap is the center Miro card to `miro-software-detail-cover.png`.
+- Verify the rotating showcase has exactly one `[data-product-id="miro"]` card and that its click still opens `.detail-media-project-miro`.
+
 # 2026-07-10 Miro order and detail-cover scope
 - The latest request changes the showcase order only: keep the industrial compression project and Miro, with Miro as the initial center card and the industrial project on the right.
 - The external Miro entry image remains `/portfolio/miro-home-china.jpg`; the user-provided software cover is used only inside the clicked Miro detail page as its first figure.
