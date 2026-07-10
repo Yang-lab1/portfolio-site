@@ -1,3 +1,9 @@
+# 2026-07-10 Watch deployment verification
+- The watch card image now receives the same dynamic clip-path and skewY deformation as its side frame.
+- The watch detail page contains exactly two user-provided assets in order, with both figures rendered at 21:9; both assets load after scrolling into view.
+- Local and production Playwright checks passed with zero horizontal overflow and no browser errors.
+- GitHub commit `1f0f46c` is pushed. Vercel production deployment `dpl_HYRpPKzS898A5SXkLRBcJzo4QFns` is Ready at `https://portfolio-site-three-rose.vercel.app/`.
+
 # 2026-07-10 手表卡片形变与详情页素材替换
 - 将 `heart-bracelet` 手表项目详情页画廊替换为 `heart-bracelet-detail-01.png`、`heart-bracelet-detail-02.png`，按顺序展示。
 - 详情页两个 figure 统一使用 21:9 容器；第一张保持完整内容并在黑底中 contain，第二张按原比例铺满。

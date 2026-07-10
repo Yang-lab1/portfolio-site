@@ -1,3 +1,7 @@
+# 2026-07-10 Watch deployment verification
+- Watch card/image deformation and the two-image 21:9 detail gallery are deployed and verified on production.
+- GitHub commit `1f0f46c`; Vercel deployment `dpl_HYRpPKzS898A5SXkLRBcJzo4QFns`; fixed URL `https://portfolio-site-three-rose.vercel.app/`.
+
 # 2026-07-10 手表项目更新
 - 左侧三卡手表入口保留原有封面，只让图片随侧卡外框同步斜切/透视形变。
 - 手表详情页改为用户提供的两张素材，按顺序放入 21:9 容器；第一张完整保留在黑底中，第二张铺满。
