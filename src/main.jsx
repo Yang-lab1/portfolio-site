@@ -732,7 +732,7 @@ const projects = [
     image: '/portfolio/capstone-watch-wall-card.png',
     imageFit: 'contain',
     hiddenFromArchive: true,
-    gallery: ['/portfolio/capstone-watch-wall-card.png'],
+    gallery: ['/portfolio/heart-bracelet-detail-01.png', '/portfolio/heart-bracelet-detail-02.png'],
     role: {
       en: 'Product concept, kit structure, scenario exploration',
       zh: '产品概念、套件结构、场景探索',
@@ -3509,6 +3509,7 @@ function ProductShowcase3D({ lang, onOpenProject }) {
             : sideDirection > 0
               ? `polygon(0 0, 100% ${clipInset}%, 100% ${100 - clipInset}%, 0 100%)`
               : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
+          const imageSkewY = Number((sideDirection * clipInset * 0.9).toFixed(3));
           const containPaddingProgress = project.imageFit === 'contain' ? Math.max(0, 1 - sideProgress) : 0;
           const imagePadding = project.imageFit === 'contain'
             ? `clamp(${(16 * containPaddingProgress).toFixed(3)}px, ${(2 * containPaddingProgress).toFixed(3)}vw, ${(32 * containPaddingProgress).toFixed(3)}px)`
@@ -3532,6 +3533,8 @@ function ProductShowcase3D({ lang, onOpenProject }) {
                 '--orbit-side-progress': sideProgress,
                 '--orbit-image-padding': imagePadding,
                 '--orbit-image-scale': imageScale,
+                '--orbit-image-clip': clipPath,
+                '--orbit-image-skew-y': `${imageSkewY}deg`,
                 zIndex: Math.round(30 - absOffset * 10),
                 width,
                 transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center center',
@@ -4712,6 +4715,11 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   const getLegacyFigureClass = (src) => {
+    if (project.id === 'heart-bracelet' && src.includes('heart-bracelet-detail-')) {
+      return src.includes('heart-bracelet-detail-01')
+        ? 'detail-media-heart-bracelet-frame detail-media-heart-bracelet-fit'
+        : 'detail-media-heart-bracelet-frame detail-media-heart-bracelet-cover';
+    }
     if (project.id === 'cat-turntable' && src.includes('cat-toy-detail-')) {
       return 'detail-media-product-wide-frame';
     }

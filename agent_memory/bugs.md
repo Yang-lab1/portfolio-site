@@ -1,3 +1,8 @@
+# 2026-07-10 手表卡片同步形变 guardrail
+- 手表三卡入口对应 `heart-bracelet`，不要误改下方 Product Language 圆盘里的 `cmf-electronics` Watch 项目。
+- 侧卡不能只给父级外框加 clip-path；图片必须使用同一套动态 clip-path 与 skewY，才能跟随轮播透视变化。
+- 手表详情页只使用 `heart-bracelet-detail-01.png`、`heart-bracelet-detail-02.png` 两张素材；第一张源图不是原生 21:9，因此用 21:9 黑底容器 contain，禁止拉伸或强裁主体。
+
 # 2026-07-10 Miro duplicate-entry guardrail
 - In the three-card rotating showcase, `miro` is the only Miro entry. Do not re-add `ufei-precision-cabinet` there while it still carries the same Miro detail content.
 - Keep the image-2 layout and right-side industrial equipment card unchanged; the only approved visual swap is the center Miro card to `miro-software-detail-cover.png`.

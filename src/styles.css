@@ -2000,6 +2000,24 @@ img {
   height: 100%;
 }
 
+.detail-media-grid figure.detail-media-heart-bracelet-frame,
+.detail-media-grid figure.detail-media-heart-bracelet-frame:first-child {
+  height: auto;
+  aspect-ratio: 21 / 9;
+  background: #050505;
+}
+
+.detail-media-grid figure.detail-media-heart-bracelet-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.detail-media-grid figure.detail-media-heart-bracelet-fit img {
+  object-fit: contain;
+  background: #050505;
+}
+
 .detail-media-grid figure.detail-media-source-contain,
 .detail-media-grid figure.detail-media-source-contain:first-child {
   display: flex;
@@ -3519,6 +3537,12 @@ img {
     aspect-ratio: 1916 / 821;
   }
 
+  .detail-media-grid figure.detail-media-heart-bracelet-frame,
+  .detail-media-grid figure.detail-media-heart-bracelet-frame:first-child {
+    height: auto;
+    aspect-ratio: 21 / 9;
+  }
+
   .detail-media-grid figure.detail-media-source-contain,
   .detail-media-grid figure.detail-media-source-contain:first-child {
     height: auto;
@@ -4339,10 +4363,11 @@ img {
   object-fit: cover;
   padding: var(--orbit-image-padding, 0px);
   pointer-events: none;
-  transform: translateZ(0.01px) scale(var(--orbit-image-scale, 1));
+  clip-path: var(--orbit-image-clip, none);
+  transform: translateZ(0.01px) scale(var(--orbit-image-scale, 1)) skewY(var(--orbit-image-skew-y, 0deg));
   transform-origin: center;
   user-select: none;
-  will-change: transform, padding;
+  will-change: transform, padding, clip-path;
 }
 
 .product-orbit-card.is-contain img {

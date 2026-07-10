@@ -1,3 +1,8 @@
+# 2026-07-10 手表项目更新
+- 左侧三卡手表入口保留原有封面，只让图片随侧卡外框同步斜切/透视形变。
+- 手表详情页改为用户提供的两张素材，按顺序放入 21:9 容器；第一张完整保留在黑底中，第二张铺满。
+- 本地构建与 Playwright 桌面/移动端检查通过，准备推送并部署。
+
 # 2026-07-07 Momenta production redeploy confirmation
 
 - User approved release after clarifying that the temporary order-storyboard labels and asset paths are not live site content.

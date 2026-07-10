@@ -1,3 +1,9 @@
+# 2026-07-10 手表卡片形变与详情页素材替换
+- 将 `heart-bracelet` 手表项目详情页画廊替换为 `heart-bracelet-detail-01.png`、`heart-bracelet-detail-02.png`，按顺序展示。
+- 详情页两个 figure 统一使用 21:9 容器；第一张保持完整内容并在黑底中 contain，第二张按原比例铺满。
+- 三卡轮播的侧卡图片同步使用与外框相同的 clip-path 和动态 skewY，避免只变形边框而图片仍保持矩形。
+- 本地构建和 Playwright 桌面/移动端验证通过，横向溢出为 0；当前准备提交并部署。
+
 # 2026-07-10 Miro single-entry correction
 - User clarified that the three-card rotating showcase layout from image 2 is correct; only the center Miro cover was wrong.
 - Updated the single retained `miro` showcase entry to use `public/portfolio/miro-software-detail-cover.png`, and removed the duplicate `ufei-precision-cabinet` Miro entry from `productShowcaseIds`.
