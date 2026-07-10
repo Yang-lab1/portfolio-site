@@ -1624,4 +1624,7 @@
 - The first supplied image is the full-bleed showcase cover; six supplied images are used in numeric order on the detail page at approximately 21:9.
 - Desktop and mobile screenshots are available in `tmp/portable-case-qa/`.
 - `npm run build` and `git diff --check` passed.
-- Not pushed or deployed; waiting for visual approval.
+- User approved the release.
+- GitHub commit `b764fc8 feat: add portable business case showcase` was pushed to `main`.
+- Vercel production deployment completed and was aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Status: complete and deployed.

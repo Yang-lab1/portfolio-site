@@ -29,6 +29,7 @@
 - Desktop and mobile screenshots: `tmp/portable-case-qa/`.
 - Detail image order: `portable-business-case-01.png` through `portable-business-case-06.png`.
 - Browser QA: no horizontal overflow or page errors were observed in the captured desktop/mobile runs.
+- Production deployment: `https://portfolio-site-three-rose.vercel.app/`.
 
 ## Comparison History
 

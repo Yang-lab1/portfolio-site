@@ -1099,4 +1099,7 @@
 - 第一张素材作为旋转展示封面，使用满幅 `cover` 呈现，不增加四边留白或额外边框。
 - 详情页按 `1.png` 到 `6.png` 的顺序接入六张素材，统一保持约 21:9 的宽幅展示。
 - 桌面端与移动端截图已生成在 `tmp/portable-case-qa/`；`npm run build` 与 `git diff --check` 均通过。
-- 状态：本地完成，未 push，未 deploy；等待用户确认截图。
+- 用户已确认并授权发布。
+- GitHub 已推送 commit `b764fc8 feat: add portable business case showcase` 到 `main`。
+- Vercel production 已部署并别名到 `https://portfolio-site-three-rose.vercel.app/`；部署检查页为 `86HWD4ZsSYRQj6XijELmBdfzGend`。
+- 状态：已完成并部署。
