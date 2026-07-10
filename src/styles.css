@@ -2114,6 +2114,12 @@ img {
   padding-top: clamp(54px, 7vw, 118px);
 }
 
+.detail-media-grid.detail-media-project-miro figure:first-child img {
+  width: 100%;
+  max-width: none;
+  height: auto;
+}
+
 .detail-media-grid.detail-media-project-miro figure img,
 .detail-media-grid.detail-media-project-miro figure:first-child img {
   display: block;

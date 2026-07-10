@@ -1,3 +1,8 @@
+# 2026-07-10 Miro order and detail-cover scope
+- The latest request changes the showcase order only: keep the industrial compression project and Miro, with Miro as the initial center card and the industrial project on the right.
+- The external Miro entry image remains `/portfolio/miro-home-china.jpg`; the user-provided software cover is used only inside the clicked Miro detail page as its first figure.
+- Verify both surfaces separately after future edits: showcase order/targets and detail first-image full-width geometry.
+
 # 2026-07-08 Miro cover guardrail
 - Do not replace any external Miro entry/cover image when updating the Miro software detail page. The blue person cover, Daima section panel cover, and scrolling wall covers are user-approved entry visuals and must remain unchanged unless the user explicitly asks to replace those exact entry covers.
 - The folder image `C:\Users\Yang\Desktop\作品集\旋转圆盘\miro\软件\封面.png` is not allowed to replace the blue person Miro entry hero. If used at all, it can only be considered inside a detail-page context after explicit confirmation.

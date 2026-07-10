@@ -328,6 +328,7 @@ const projects = [
     wallImage: '/portfolio/daima-work-cover-01.png',
     wallGroup: 'miro',
     gallery: [
+      '/portfolio/miro-software-detail-cover.png',
       '/portfolio/miro-software-detail-01.png',
       '/portfolio/miro-software-detail-02.png',
       '/portfolio/miro-software-detail-03.png',
@@ -2157,7 +2158,7 @@ const achievementCards = [
   },
 ];
 
-const productShowcaseIds = ['cross-ripple', 'smart-waste', 'ufei-precision-cabinet', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
+const productShowcaseIds = ['miro', 'smart-waste', 'cross-ripple', 'ufei-precision-cabinet', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['miro', 'palifood', 'momenta', 'sport'];
 const daimaWorkPanels = [
   {
@@ -3390,7 +3391,7 @@ function AchievementCards({ lang }) {
 function ProductShowcase3D({ lang, onOpenProject }) {
   const productProjects = useMemo(() => getProjectsByIds(productShowcaseIds).filter((project) => project.image), []);
   const count = productProjects.length;
-  const initialPosition = count > 1 ? 1 : 0;
+  const initialPosition = 0;
   const [orbitPosition, setOrbitPosition] = useState(initialPosition);
   const [viewportWidth, setViewportWidth] = useState(() => (typeof window === 'undefined' ? 1440 : window.innerWidth));
   const positionRef = useRef(initialPosition);
