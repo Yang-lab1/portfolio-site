@@ -3,7 +3,8 @@
 - Updated the single retained `miro` showcase entry to use `public/portfolio/miro-software-detail-cover.png`, and removed the duplicate `ufei-precision-cabinet` Miro entry from `productShowcaseIds`.
 - Kept the existing right-side industrial equipment card and all other projects unchanged. The retained Miro card still opens the existing Miro detail page.
 - Browser QA confirmed `miroCardCount=1`, center image `/portfolio/miro-software-detail-cover.png`, right image `/portfolio/edited-smart-waste-cover.jpg`, detail first image full viewport width, overflow `0`, and no errors.
-- Build passed. Pending commit, push, and production deployment.
+- Build passed. GitHub push completed at `656f663`; Vercel production deployment completed at `https://portfolio-site-3lb1m6ssj-yangs-projects-d2ad4c9e.vercel.app` and aliased to `https://portfolio-site-three-rose.vercel.app/`.
+- Status: deployed.
 
 # 2026-07-10 Miro / industrial showcase order and detail-cover fit
 - User requested the physical showcase order to put Miro first and the industrial compression equipment to its right, while keeping both projects and their detail pages.
