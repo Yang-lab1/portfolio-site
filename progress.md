@@ -1618,3 +1618,10 @@
 - Other final images currently remain static unless the user identifies another source animation group.
 - Verification passed after correction: `npm run build`; Playwright captured active animation states in `tmp/momenta-wave-sequence-v15/`, with `radialWaveCount=1`, `crossfadeSequenceCount=1`, `normalVideos=1`, `sequenceVideos=0`, and `overflowX=0`.
 - Status: local preview only. Show `tmp/momenta-wave-sequence-v15/` screenshot/video evidence to the user; do not push/deploy until explicit approval.
+
+## 2026-07-10 Portable Business Case local preview
+- Replaced the `smart-waste` industrial-compressor entry with the user-supplied portable business case while preserving the existing showcase slot and interaction.
+- The first supplied image is the full-bleed showcase cover; six supplied images are used in numeric order on the detail page at approximately 21:9.
+- Desktop and mobile screenshots are available in `tmp/portable-case-qa/`.
+- `npm run build` and `git diff --check` passed.
+- Not pushed or deployed; waiting for visual approval.

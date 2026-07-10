@@ -1092,3 +1092,11 @@
 - Added a separating explanatory note between `momenta-software-23.webp` and final `momenta-software-05.webp`, so the two white-background closing visuals are not stacked directly together.
 - Verification passed locally: `npm run build`; production-preview Playwright QA reports sequences `[radial-wave:2, frame-snap:126, frame-snap:18]`, approved green cover present, tail order `22 -> 23 -> NOTE -> 05`, no horizontal overflow, and zero failed requests.
 - Status: ready to commit, push, and deploy per user instruction.
+
+# 2026-07-10 便携式业务手提箱替换工业压缩机
+- 用户要求把三卡旋转展示中的工业压缩机项目替换成 `C:\Users\Yang\Desktop\作品集\旋转圆盘\便携式业务手提箱`。
+- 当前本地将现有 `smart-waste` 项目改为 `Portable Business Case / 便携式业务手提箱`，没有新增重复项目，也没有改动 Miro 和手表项目。
+- 第一张素材作为旋转展示封面，使用满幅 `cover` 呈现，不增加四边留白或额外边框。
+- 详情页按 `1.png` 到 `6.png` 的顺序接入六张素材，统一保持约 21:9 的宽幅展示。
+- 桌面端与移动端截图已生成在 `tmp/portable-case-qa/`；`npm run build` 与 `git diff --check` 均通过。
+- 状态：本地完成，未 push，未 deploy；等待用户确认截图。

@@ -407,3 +407,8 @@
 - Do not split the photo capture interaction back into `photo-0` through `photo-6` as separate page blocks. The current source is the user-provided `7月7日.mp4`, converted to one scroll-driven 126-frame sequence under `scroll/photo-flow-video/`.
 - The photo-flow sequence must remain one no-controls page animation, not a normal video player and not a stack of multiple images.
 - Keep an explanatory text block between `momenta-software-23.webp` and final `momenta-software-05.webp` so the two white closing visuals do not collide visually.
+
+# 2026-07-10 便携式业务手提箱替换守卫
+- `smart-waste` 现在承担便携式业务手提箱项目，不要再把工业压缩机封面、名称或旧详情素材恢复到这个入口。
+- 旋转展示封面必须使用 `portable-business-case-01.png` 并满幅铺满卡面；不要增加 padding、白边或独立边框。
+- 详情页素材顺序固定为 `portable-business-case-01.png` 到 `portable-business-case-06.png`，不要重排或混入压缩机素材。

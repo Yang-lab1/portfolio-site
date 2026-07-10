@@ -5028,25 +5028,23 @@ body.is-palifood-showcase-active .language-toggle {
   }
 
   .product-orbit-stage {
-    display: grid;
-    height: auto;
-    gap: 14px;
-    padding: 0 var(--page-x);
+    display: block;
+    height: clamp(220px, 56vw, 470px);
+    min-height: 220px;
+    padding: 0;
   }
 
   .product-orbit-card {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100% !important;
-    height: auto;
-    aspect-ratio: 1.35 / 1;
-    opacity: 1 !important;
-    transform: none !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: clamp(220px, 56vw, 470px);
+    min-height: 0;
+    opacity: 1;
   }
 
   .product-orbit-card:not(.is-active) {
-    display: none;
+    display: block;
   }
 
   .digital-scroll-section {

@@ -852,24 +852,32 @@ const projects = [
   {
     id: 'smart-waste',
     category: 'production',
-    title: { en: 'Smart Waste Tank', zh: '智能废料箱' },
-    type: { en: 'Smart Hardware / Industrial Equipment', zh: '智能硬件 / 工业设备' },
+    title: { en: 'Portable Business Case', zh: '便携式业务手提箱' },
+    type: { en: 'Portable Product / Business Equipment', zh: '便携式产品 / 业务设备' },
     year: '2022-2023',
-    image: '/portfolio/edited-smart-waste-cover.jpg',
-    gallery: ['/portfolio/edited-smart-waste-cover.jpg', '/portfolio/smart-waste-source-cover.jpg', '/portfolio/smart-waste-panel-source.jpg'],
+    image: '/portfolio/portable-business-case-01.png',
+    imageFit: 'cover',
+    gallery: [
+      '/portfolio/portable-business-case-01.png',
+      '/portfolio/portable-business-case-02.png',
+      '/portfolio/portable-business-case-03.png',
+      '/portfolio/portable-business-case-04.png',
+      '/portfolio/portable-business-case-05.png',
+      '/portfolio/portable-business-case-06.png',
+    ],
     role: {
-      en: 'Hardware design thinking, equipment scenario, manufacturable structure',
-      zh: '硬件设计思维、设备场景、可制造结构',
+      en: 'Portable product structure, business-use scenario, and enclosure organization',
+      zh: '便携式产品结构、业务使用场景与箱体组织',
     },
     summary: {
-      en: 'A smart waste-equipment direction for factory waste collection, rebuilt from the original PDF product render without changing the equipment form.',
-      zh: '面向工厂废料收集的智能设备方向，已基于 PDF 原始产品渲染恢复封面，不改变设备形态。',
+      en: 'A portable business case concept presented through its carry logic, enclosure, and organized internal structure.',
+      zh: '围绕携带逻辑、箱体结构与内部组织展开的便携式业务手提箱概念。',
     },
     evidence: {
-      en: ['Equipment scenario', 'Hardware delivery evidence', 'Production-minded framing', 'Source-preserving cover'],
-      zh: ['设备场景', '硬件交付证据', '量产思维', '保留原产品形态封面'],
+      en: ['Portable product form', 'Business-use scenario', 'Storage and organization', 'Ordered detail views'],
+      zh: ['便携式产品形态', '业务使用场景', '收纳与组织', '按顺序的细节视图'],
     },
-    source: { en: 'Extracted from portfolio PDF; cover keeps the original product render unchanged', zh: '来自作品集 PDF 抽取图，封面保留原产品渲染形态' },
+    source: { en: 'Confirmed local folder: Desktop/作品集/旋转圆盘/便携式业务手提箱', zh: '已确认本地文件夹：Desktop/作品集/旋转圆盘/便携式业务手提箱' },
   },
   {
     id: 'ufei-precision-cabinet',
@@ -1122,8 +1130,8 @@ const projectShortCopy = {
     zh: '结合行为洞察与降本复用的量产宠物玩具。',
   },
   'smart-waste': {
-    en: 'Industrial waste-collection equipment rebuilt from source render evidence.',
-    zh: '基于原始渲染证据呈现的工业废料收集设备。',
+    en: 'Portable business case focused on carry logic, enclosure structure, and organized storage.',
+    zh: '围绕携带逻辑、箱体结构与收纳组织展开的便携式业务手提箱。',
   },
   'ufei-precision-cabinet': {
     en: 'AI rehearsal system for cross-cultural communication and review.',
@@ -1198,7 +1206,7 @@ const workMenuProjectLabels = {
   'food-health-model': 'Food Health Model',
   'tcm-systems': 'Formula Network',
 
-  'smart-waste': 'Smart Waste Tank',
+  'smart-waste': 'Portable Business Case',
   'ufei-precision-cabinet': 'Miro AI',
   'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
@@ -1380,38 +1388,38 @@ const caseStudyOverrides = {
     ],
   },
   'smart-waste': {
-    label: { en: 'Industrial equipment case', zh: '工业设备案例' },
+    label: { en: 'Portable product case', zh: '便携式产品案例' },
     headline: {
-      en: 'The smart waste tank is presented as an equipment system, with the original product form preserved from source renders.',
-      zh: '智能废料箱按设备系统呈现，产品形态来自原始渲染并保持不变。',
+      en: 'The portable business case is presented through carry, storage, and enclosure decisions that support work on the move.',
+      zh: '便携式业务手提箱围绕携带、收纳与箱体结构展开，服务于移动中的工作场景。',
     },
     sections: [
       {
-        title: { en: 'Factory Context', zh: '工厂场景' },
+        title: { en: 'Business Context', zh: '业务场景' },
         body: {
-          en: 'The case is positioned around waste collection in industrial environments, where clarity and durability matter more than styling tricks.',
-          zh: '案例围绕工业环境中的废料收集展开，清晰度和耐用性比造型噱头更重要。',
+          en: 'The object is framed as a working companion for people who need to carry tools, documents, and equipment between locations.',
+          zh: '这个物件服务于需要在不同地点之间携带工具、文件与设备的移动工作者。',
         },
       },
       {
-        title: { en: 'Equipment Logic', zh: '设备逻辑' },
+        title: { en: 'Carry Logic', zh: '携带逻辑' },
         body: {
-          en: 'The cover and gallery keep the source equipment geometry, using layout and contrast to explain the body, panel, and functional zones.',
-          zh: '封面与图库保留源设备几何关系，通过排版和对比解释机身、面板和功能区域。',
+          en: 'The exterior makes the carrying gesture legible, while the case silhouette keeps the product readable at a distance.',
+          zh: '外部形态让携带动作清晰可见，同时让手提箱在远距离下仍保持明确的产品识别度。',
         },
       },
       {
-        title: { en: 'Source Preservation', zh: '源图保形' },
+        title: { en: 'Organization', zh: '内部组织' },
         body: {
-          en: 'No new product angle is invented. Only page crop, fit, and presentation context are changed.',
-          zh: '不虚构新的产品角度，只调整页面裁切、适配和展示语境。',
+          en: 'The ordered views show how the enclosure, compartments, and working contents form one portable system.',
+          zh: '按顺序排列的视图说明箱体、分区与工作内容如何组成一个完整的便携式系统。',
         },
       },
       {
-        title: { en: 'Value', zh: '价值' },
+        title: { en: 'Product Story', zh: '产品叙事' },
         body: {
-          en: 'It demonstrates industrial hardware thinking and production-minded presentation from limited source evidence.',
-          zh: '它展示了在有限源图证据下组织工业硬件思维和量产表达的能力。',
+          en: 'The detail page keeps the original visual evidence in sequence, so the product reads as a complete work tool rather than a single image.',
+          zh: '详情页按顺序保留原始视觉证据，让产品呈现为完整的工作工具，而不是一张孤立的效果图。',
         },
       },
     ],
@@ -3382,8 +3390,13 @@ function ProductShowcase3D({ lang, onOpenProject }) {
   const dragUnit = () => Math.max(170, Math.min(340, window.innerWidth * 0.16));
 
   const cardWidthFor = (offset) => {
-    const centerWidth = clamp(620, viewportWidth * 0.46, 940);
-    const sideWidth = clamp(250, viewportWidth * 0.17, 330);
+    const compactLayout = viewportWidth <= 900;
+    const centerWidth = compactLayout
+      ? clamp(300, viewportWidth * 0.82, 620)
+      : clamp(620, viewportWidth * 0.46, 940);
+    const sideWidth = compactLayout
+      ? clamp(170, viewportWidth * 0.42, 300)
+      : clamp(250, viewportWidth * 0.17, 330);
     const progress = Math.min(1, Math.abs(offset));
     return centerWidth - (centerWidth - sideWidth) * progress;
   };
@@ -4715,6 +4728,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   const launchNote = project.launchNote ? t(project.launchNote, lang) : '';
   const liveUrl = project.liveUrl || project.externalUrl || project.websiteUrl || '';
   const getLegacyFigureClass = (src) => {
+    if (project.id === 'smart-waste' && src.includes('portable-business-case-')) {
+      return 'detail-media-product-wide-frame';
+    }
     if (project.id === 'heart-bracelet' && src.includes('heart-bracelet-detail-')) {
       return src.includes('heart-bracelet-detail-01')
         ? 'detail-media-heart-bracelet-frame detail-media-heart-bracelet-fit'
@@ -5612,7 +5628,7 @@ const agentProjectAliases = {
   'capstone-device': ['毕业设计', '水疗', '复健', '训练设备'],
   'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '量产'],
   'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],
-  'smart-waste': ['智能废料箱', '回收', 'waste'],
+  'smart-waste': ['便携式业务手提箱', 'portable business case', '便携', '业务', 'portable'],
   'ufei-precision-cabinet': ['立式高精度柜', '高精度柜', '精密暂存', '材料暂存', 'UFEI', '优废', '优费', 'precision cabinet'],
   'baling-press': ['压缩打包机', '打包机', 'baling', 'press'],
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
