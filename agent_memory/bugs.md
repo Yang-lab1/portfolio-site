@@ -412,3 +412,8 @@
 - `smart-waste` 现在承担便携式业务手提箱项目，不要再把工业压缩机封面、名称或旧详情素材恢复到这个入口。
 - 旋转展示封面必须使用 `portable-business-case-01.png` 并满幅铺满卡面；不要增加 padding、白边或独立边框。
 - 详情页素材顺序固定为 `portable-business-case-01.png` 到 `portable-business-case-06.png`，不要重排或混入压缩机素材。
+
+## 2026-07-13 详情头部宽度与标签 guardrail
+- 桌面 `.detail-hero` 不要恢复为两个都带固定上限的列，否则网格剩余宽度会全部留在右侧，导致详情头部整体偏左。
+- 当前共享规则应保持左栏 `minmax(0, 1fr)`、右栏 `minmax(340px, 420px)`，由左右 `var(--page-x)` 保证等距。
+- Portable Business Case 明确不显示 `Product evidence`；保持项目配置 `hideDetailMediaLabel: true`，不要用空 CSS 遮挡。

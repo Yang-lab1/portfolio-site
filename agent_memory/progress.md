@@ -1103,3 +1103,11 @@
 - GitHub 已推送 commit `b764fc8 feat: add portable business case showcase` 到 `main`。
 - Vercel production 已部署并别名到 `https://portfolio-site-three-rose.vercel.app/`；部署检查页为 `86HWD4ZsSYRQj6XijELmBdfzGend`。
 - 状态：已完成并部署。
+
+## 2026-07-13 Portable Business Case 详情头部修正
+- 已仅为 `smart-waste` / Portable Business Case 隐藏首张媒体的默认 `Product evidence` 标签。
+- 已修正共用 `.detail-hero` 桌面网格：左栏改为占满剩余宽度，右侧信息栏保持原宽度，页面左右外边距对称。
+- `npm run build` 与 `git diff --check` 通过。
+- Playwright QA：桌面左右边距均为 `76px`，移动端均为 `22px`，差值均为 `0px`；标签不存在、横向溢出为 `0`、浏览器错误为 `0`。
+- 截图位于 `tmp/portable-detail-header-v1/desktop-top.png` 和 `mobile-top.png`。
+- 用户已确认并要求推送 GitHub；状态：随本次修复提交推送 `main`，不额外手动部署。

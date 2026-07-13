@@ -218,6 +218,13 @@
 - Vercel inspect reports target `production`, status `Ready`, and aliases include the fixed production URL.
 - Status: complete and deployed.
 
+## 2026-07-13 Portable Business Case detail header cleanup
+- Removed the visible default `Product evidence` caption from the Portable Business Case detail page through an explicit project option.
+- Corrected the shared desktop detail header grid so its content reaches equal left/right page margins while preserving the fixed-width metadata column.
+- Build and Playwright desktop/mobile QA passed. Measured side-margin delta is `0px` at both `1920x900` and `390x844`; no label, overflow, or browser errors remain.
+- Evidence: `tmp/portable-detail-header-v1/desktop-top.png`, `mobile-top.png`, and `metrics.json`.
+- User approved the visual result and requested a GitHub push. Status: shipping to `main`; no separate manual deployment requested.
+
 # 2026-07-05 About metrics bottom transition cleanup
 
 - User flagged that the bottom of the metric cards also needs to be handled: the area below the cards had a subtle gray horizontal glow before the next dark intro text.

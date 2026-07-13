@@ -857,6 +857,7 @@ const projects = [
     year: '2022-2023',
     image: '/portfolio/portable-business-case-01.png',
     imageFit: 'cover',
+    hideDetailMediaLabel: true,
     gallery: [
       '/portfolio/portable-business-case-01.png',
       '/portfolio/portable-business-case-02.png',
@@ -4876,7 +4877,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
             const mediaType = getMediaType(media);
             const mediaLabel = t(getMediaLabel(media), lang);
             const showDefaultFigureLabel = index === 0 && !(project.id === 'momenta' && detailVideo);
-            const figureLabel = mediaLabel || (showDefaultFigureLabel ? detailMediaLabel : '');
+            const figureLabel = project.hideDetailMediaLabel
+              ? ''
+              : mediaLabel || (showDefaultFigureLabel ? detailMediaLabel : '');
             const mobileSrc = detailMobileSources[project.id]?.[src];
             const mediaNote = typeof media === 'string' ? null : media?.note || null;
             const narrative = project.id === 'momenta' ? mediaNote : mediaNarrative[index];

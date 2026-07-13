@@ -860,3 +860,12 @@ Phase 68 is active. The former Li Bai project/module has been replaced by the so
 - [x] Capture local screenshots and down/up scroll recording in `tmp/momenta-software-story-v7/`.
 - [ ] User approval before push/deploy.
 - **Status:** local preview complete; not pushed and not deployed.
+
+## Phase 56: Portable Business Case detail header cleanup
+- [x] Hide the default `Product evidence` media label only for Portable Business Case.
+- [x] Make the shared desktop detail header use equal outer margins instead of leaving unused space on the right.
+- [x] Run production build and diff validation.
+- [x] Verify desktop/mobile margins, label removal, overflow, and browser errors with Playwright.
+- [x] User visual approval received.
+- [x] Push the approved fix to GitHub `main`.
+- **Status:** approved for the current GitHub push; no separate manual deployment requested.

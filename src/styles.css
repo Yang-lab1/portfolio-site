@@ -1295,7 +1295,7 @@ img {
 
 .detail-hero {
   display: grid;
-  grid-template-columns: minmax(0, 820px) minmax(340px, 420px);
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 420px);
   gap: clamp(68px, 7vw, 118px);
   align-items: start;
   margin: clamp(40px, 3.2vw, 48px) 0 0;
