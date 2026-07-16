@@ -1,4 +1,11 @@
 # Portfolio Site Recovery Plan
+### Phase 69: Portable Business Case scroll narrative and annotations
+- [x] Keep the Portable Business Case project in the existing `smart-waste` slot without restoring industrial-compressor content.
+- [x] Add sparse explanatory text blocks that match the existing detail-page narrative style.
+- [x] Add Apple-like scroll-triggered annotations for the opening latch image and the operation-panel image.
+- [x] Apply the user-selected Product Design option 1 visual treatment: fine edge rails, small dots, no label cards.
+- [x] Verify production build, desktop layout, mobile layout, and no horizontal overflow.
+- [ ] Show screenshots/videos to the user and wait for confirmation before push/deploy.
 
 ## Goal
 Restore the portfolio homepage and work section to the user's confirmed direction: an independent black/white dynamic hero, a white-background work area with dense horizontal multi-card carousels, complete project hierarchy, and process-style project detail pages.

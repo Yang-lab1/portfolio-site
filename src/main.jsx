@@ -862,17 +862,103 @@ const projects = [
       '/portfolio/portable-business-case-01.png',
       '/portfolio/portable-business-case-02.png',
       '/portfolio/portable-business-case-03.png',
-      '/portfolio/portable-business-case-04.png',
       '/portfolio/portable-business-case-05.png',
+      '/portfolio/portable-business-case-04.png',
       '/portfolio/portable-business-case-06.png',
     ],
+    mediaNarrative: [
+      null,
+      {
+        en: 'Industrial recycling equipment cannot follow a sales team into a meeting room. The case compresses a full warehouse intake workflow into a portable, hands-on demonstration.',
+        zh: '大型固废回收设备无法随业务团队进入会议室。手提箱把完整的仓储入库流程压缩成可携带、可在桌面实际操作的演示终端。',
+      },
+      null,
+      {
+        en: 'Two rotary latches make the opening sequence immediately legible, while the internal architecture keeps every module in operational order. The enclosure was refined through 3D-printed validation before moving into ABS production.',
+        zh: '双侧旋转锁扣让开启方式一目了然，内部结构则按真实操作顺序组织各个模块。箱体先通过 3D 打印验证，再以 ABS 工艺完成量产落地。',
+      },
+      null,
+      {
+        en: 'The finished ABS product turns a large industrial process into a meeting-room experience. Yang led form, CMF, internal layout, HMI, and opening logic while coordinating software, electronics, assembly, and suppliers through delivery.',
+        zh: '最终量产的 ABS 产品，把庞大的工业流程带进了会议室。杨林负责造型、CMF、内部布局、人机交互与开合逻辑，并以项目经理身份推动软件、硬件、装配及供应商协同落地。',
+      },
+    ],
+    mediaAnnotations: {
+      '/portfolio/portable-business-case-05.png': [
+        {
+          point: [18.7, 50.5],
+          label: [12.5, 18.5],
+          side: 'left',
+          title: { en: 'Left rotary latch', zh: '左侧旋转锁扣' },
+          body: { en: 'Rotate outward to release the lid.', zh: '向外旋转，释放箱盖。' },
+        },
+        {
+          point: [68.2, 52],
+          label: [76, 10.5],
+          side: 'right',
+          title: { en: 'Right rotary latch', zh: '右侧旋转锁扣' },
+          body: { en: 'Both sides unlock before opening.', zh: '双侧解锁后开启箱体。' },
+        },
+      ],
+      '/portfolio/portable-business-case-06.png': [
+        {
+          point: [57.2, 68.5],
+          label: [71.8, 77],
+          side: 'right',
+          title: { en: 'RFID authorization', zh: 'RFID 权限确认' },
+          body: { en: 'Authorized staff enter and confirm records.', zh: '专业人员刷卡进入并复核数据。' },
+        },
+        {
+          point: [50.5, 32.5],
+          label: [24.5, 11.5],
+          side: 'left',
+          title: { en: 'Touchscreen', zh: '业务触控屏' },
+          body: { en: 'Select material and review live weight data.', zh: '选择废料类别并核对实时重量。' },
+        },
+        {
+          point: [43.5, 56],
+          label: [35.9, 90],
+          side: 'center',
+          title: { en: 'Simulated weighing', zh: '模拟称重台' },
+          body: { en: 'Place a sample to rehearse the intake step.', zh: '放置样品，演示真实入库称重。' },
+        },
+        {
+          point: [32, 37.5],
+          label: [19.5, 32],
+          side: 'left',
+          title: { en: 'Work phone', zh: '工作手机' },
+          body: { en: 'Receives the confirmed intake record.', zh: '接收确认后的入库记录。' },
+        },
+        {
+          point: [31, 52.5],
+          label: [22, 55],
+          side: 'left',
+          title: { en: 'QR scanner', zh: '二维码扫描' },
+          body: { en: 'Scans the record for workflow handoff.', zh: '扫描记录，完成流程衔接。' },
+        },
+        {
+          point: [72.2, 54],
+          label: [87.5, 52],
+          side: 'right',
+          title: { en: 'Side label output', zh: '侧置标签打印' },
+          body: { en: 'Prints the label attached to the material.', zh: '输出标签并粘贴到物料上。' },
+        },
+        {
+          point: [67.8, 35],
+          label: [76.5, 31],
+          side: 'right',
+          title: { en: 'Power and status', zh: '电源与状态' },
+          body: { en: 'Shows charge and operating state.', zh: '显示电量、指示灯与运行状态。' },
+        },
+      ],
+    },
     role: {
-      en: 'Portable product structure, business-use scenario, and enclosure organization',
-      zh: '便携式产品结构、业务使用场景与箱体组织',
+      en: 'Industrial design lead and project management: form, internal layout, HMI, opening logic, CMF, and cross-team delivery',
+      zh: '工业设计主导与项目管理：造型、内部布局、人机交互、开合逻辑、CMF 与跨团队落地',
     },
     summary: {
-      en: 'A portable business case concept presented through its carry logic, enclosure, and organized internal structure.',
-      zh: '围绕携带逻辑、箱体结构与内部组织展开的便携式业务手提箱概念。',
+      en: 'A mass-produced ABS demonstration terminal that compresses a full solid-waste intake workflow into a portable case for customer meetings.',
+      zh: '一套以 ABS 量产落地的移动演示终端，把完整的固废入库流程压缩进可带到客户会议现场的手提箱。',
     },
     evidence: {
       en: ['Portable product form', 'Business-use scenario', 'Storage and organization', 'Ordered detail views'],
@@ -4711,6 +4797,100 @@ function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
   );
 }
 
+function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
+  const overlayRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const overlay = overlayRef.current;
+    if (!overlay || !annotations.length) return undefined;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const callouts = Array.from(overlay.querySelectorAll('.detail-media-callout'));
+    const lines = Array.from(overlay.querySelectorAll('.detail-media-callout-line'));
+    const dots = callouts.map((callout) => callout.querySelector('.detail-media-callout-dot'));
+    const labels = callouts.map((callout) => callout.querySelector('.detail-media-callout-copy'));
+    const revealOrder = annotations
+      .map((annotation, index) => ({ index, y: annotation.point[1] }))
+      .sort((a, b) => a.y - b.y)
+      .map(({ index }) => index);
+    const ctx = gsap.context(() => {
+      if (!motionEnabled || prefersReducedMotion) {
+        gsap.set(lines, { strokeDashoffset: 0 });
+        gsap.set(dots, { opacity: 1, scale: 1 });
+        gsap.set(labels, { opacity: 1, x: 0 });
+        return;
+      }
+
+      gsap.set(lines, { strokeDashoffset: 1000 });
+      gsap.set(dots, { opacity: 0, scale: 0.6, transformOrigin: 'center' });
+      labels.forEach((label, index) => {
+        const enterFrom = callouts[index]?.dataset.enter;
+        gsap.set(label, { opacity: 0, x: enterFrom === 'left' ? -68 : 68, y: 6 });
+      });
+
+      const timeline = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: {
+          trigger: overlay,
+          start: 'top 72%',
+          end: 'center 55%',
+          scrub: 0.5,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      revealOrder.forEach((index, orderIndex) => {
+        const offset = orderIndex * 0.09;
+        timeline
+          .to(lines[index], { strokeDashoffset: 0, duration: 0.28 }, offset)
+          .to(dots[index], { opacity: 1, scale: 1, duration: 0.18 }, offset + 0.06)
+          .to(labels[index], { opacity: 1, x: 0, y: 0, duration: 0.38, ease: 'power3.out' }, offset + 0.08);
+      });
+    }, overlay);
+
+    return () => ctx.revert();
+  }, [annotations, lang, motionEnabled]);
+
+  return (
+    <div ref={overlayRef} className="detail-media-annotations">
+      <svg className="detail-media-callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        {annotations.map((annotation, index) => (
+          <line
+            className="detail-media-callout-line"
+            key={`line-${index}`}
+            x1={annotation.point[0]}
+            y1={annotation.point[1]}
+            x2={annotation.label[0]}
+            y2={annotation.label[1]}
+          />
+        ))}
+      </svg>
+      {annotations.map((annotation, index) => (
+        <div
+          className="detail-media-callout"
+          data-side={annotation.side || 'right'}
+          data-enter={annotation.label[0] < annotation.point[0] ? 'left' : 'right'}
+          key={`${t(annotation.title, lang)}-${index}`}
+          style={{
+            '--callout-point-x': `${annotation.point[0]}%`,
+            '--callout-point-y': `${annotation.point[1]}%`,
+            '--callout-label-x': `${annotation.label[0]}%`,
+            '--callout-label-y': `${annotation.label[1]}%`,
+          }}
+        >
+          <span className="detail-media-callout-dot" aria-hidden="true" />
+          <span className="detail-media-callout-label">
+            <span className="detail-media-callout-copy">
+              <strong>{t(annotation.title, lang)}</strong>
+              <span>{t(annotation.body, lang)}</span>
+            </span>
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) {
   const mediaGridRef = useRef(null);
   const rawDetailMedia = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
@@ -4884,9 +5064,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
             const mediaNote = typeof media === 'string' ? null : media?.note || null;
             const narrative = project.id === 'momenta' ? mediaNote : mediaNarrative[index];
             const narrativeTone = typeof narrative === 'object' && narrative?.tone ? narrative.tone : '';
+            const annotations = project.mediaAnnotations?.[src] || [];
+            const figureClassName = [getFigureClass(media), annotations.length ? 'detail-media-annotated' : '']
+              .filter(Boolean)
+              .join(' ') || undefined;
             return (
               <React.Fragment key={`${src}-${index}`}>
-                <figure className={getFigureClass(media)}>
+                <figure className={figureClassName}>
                   {mediaType === 'video' ? (
                     <video src={src} autoPlay muted loop playsInline controls preload="metadata" />
                   ) : mediaType === 'frameSequence' ? (
@@ -4899,6 +5083,13 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
                   ) : (
                     <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
                   )}
+                  {annotations.length ? (
+                    <DetailMediaAnnotations
+                      annotations={annotations}
+                      lang={lang}
+                      motionEnabled={motionEnabled}
+                    />
+                  ) : null}
                   {figureLabel ? (
                     <figcaption>{figureLabel}</figcaption>
                   ) : null}

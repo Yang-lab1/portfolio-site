@@ -1,4 +1,14 @@
 # 2026-07-10 Watch deployment verification
+# 2026-07-15 Portable Business Case scroll annotations
+- Added restrained explanatory narrative and scroll-triggered callouts to Portable Business Case.
+- The annotated figures are the latch/opening image and the internal operation-panel image; the rest of the gallery stays image-led.
+- User selected Product Design option 1: precision edge-rail callouts with fine lines, small dots, and no card-like label boxes.
+- Follow-up label placement pass moved latch, touchscreen, work-phone, and simulated-weighing copy into nearby white space so labels avoid covering the product body.
+- Final connector correction matches the latest panel/latch markup and removes the `200px` SVG dash-length clipping that made long lines look broken; connectors now run continuously from each external label to its component target.
+- Validation passed locally: `npm run build`, desktop QA, Chinese-language QA, mobile QA, no horizontal overflow, and `git diff --check`.
+- Preview evidence is in `tmp/portable-annotation-option1-qa/`, including `desktop-locks-final.png`, `desktop-panel-final.png`, `desktop-panel-zh-final.png`, `mobile-panel-final.png`, and `desktop-panel-scroll.webm`.
+- Status: local preview complete; not pushed or deployed yet.
+
 - Watch card/image deformation and the two-image 21:9 detail gallery are deployed and verified on production.
 - GitHub commit `1f0f46c`; Vercel deployment `dpl_HYRpPKzS898A5SXkLRBcJzo4QFns`; fixed URL `https://portfolio-site-three-rose.vercel.app/`.
 

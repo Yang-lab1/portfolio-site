@@ -1,3 +1,43 @@
+# Design QA: Portable Business Case Scroll Annotation Option 1
+
+- source visual direction: Product Design option 1, precision edge-rail callouts with small dots, fine connector lines, and no card-like label boxes.
+- panel placement reference: `C:\Users\Yang\AppData\Local\Temp\codex-clipboard-836ffb1a-2cb6-4227-9a9d-cb755ec122c8.png`
+- latch placement reference: `C:\Users\Yang\AppData\Local\Temp\codex-clipboard-f86d0ec3-235b-441d-a5ac-27b1d45a2123.png`
+- implementation screenshot path: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\desktop-panel-final.png`
+- latch screenshot path: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\desktop-locks-final.png`
+- Chinese screenshot path: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\desktop-panel-zh-final.png`
+- mobile screenshot path: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\mobile-panel-final.png`
+- scroll preview path: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\desktop-panel-scroll.webm`
+- panel comparison evidence: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\panel-latest-reference-vs-current.png`
+- latch comparison evidence: `C:\Users\Yang\Documents\New project\portfolio-site\tmp\portable-annotation-option1-qa\locks-latest-reference-vs-current.png`
+- viewport: desktop `1920x1080`; mobile `390x844`
+- state: Portable Business Case detail page, latch/opening image and operation-panel image with scroll-triggered callouts.
+
+## Findings
+
+- No actionable P0/P1/P2 visual mismatch remains for the selected option 1 direction.
+- Labels are bilingual through the existing language toggle: English and Chinese screenshots both render translated callout titles/body copy.
+- Mobile keeps the same image-anchored callout concept as desktop, with body copy hidden to avoid overflow.
+- Browser QA reported `overflowX: 0` on mobile.
+
+## Comparison History
+
+- The first option-1 pass still placed several labels over the product body, reducing legibility and weakening the user's intended edge-rail composition.
+- The final pass moved the touchscreen, work-phone, simulated-weighing, side-output, RFID, and both latch labels into the surrounding white field while preserving their exact component anchors.
+- The remaining short/broken-line appearance came from a fixed `200px` SVG dash animation length, which clipped connectors longer than that value. The animation range is now `1000px`, so every connector remains continuous from label edge to component target.
+- Combined reference/current comparisons show the requested external label placement, clear target endpoints, and full continuous connector runs without covering the product.
+
+## Verification
+
+- `npm run build`: passed.
+- `git diff --check`: passed.
+- Browser QA script: `tmp/portable-annotation-option1-qa.mjs`.
+- Production deployment: not performed for this annotation pass; pending user visual confirmation.
+
+final result: passed
+
+---
+
 # Design QA: Portable Business Case Replacement
 
 - source visual truth path: `C:\Users\Yang\Desktop\作品集\旋转圆盘\便携式业务手提箱\1.png`

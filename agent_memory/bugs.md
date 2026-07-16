@@ -413,6 +413,11 @@
 - 旋转展示封面必须使用 `portable-business-case-01.png` 并满幅铺满卡面；不要增加 padding、白边或独立边框。
 - 详情页素材顺序固定为 `portable-business-case-01.png` 到 `portable-business-case-06.png`，不要重排或混入压缩机素材。
 
+## 2026-07-15 Portable Business Case annotation guardrail
+- Portable Business Case 的解释文字必须保持克制，只在能帮助理解流程的位置出现；不要把每两张图片之间都填满说明。
+- 图 05 和图 06 的标注是滚动叙事的一部分，不是静态大段说明。修改时要验证桌面和移动端标签不溢出、不产生横向滚动。
+- 图 06 的七个标注点对应真实流程：RFID、触控屏、称重、工作手机、二维码扫描、标签打印、电源状态；不要改成无关营销文案。
+
 ## 2026-07-13 详情头部宽度与标签 guardrail
 - 桌面 `.detail-hero` 不要恢复为两个都带固定上限的列，否则网格剩余宽度会全部留在右侧，导致详情头部整体偏左。
 - 当前共享规则应保持左栏 `minmax(0, 1fr)`、右栏 `minmax(340px, 420px)`，由左右 `var(--page-x)` 保证等距。

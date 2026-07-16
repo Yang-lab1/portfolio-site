@@ -1,4 +1,11 @@
 # 2026-07-07 Momenta redeploy verification finding
+# 2026-07-15 Portable Business Case scroll annotation findings
+
+- The Portable Business Case page benefits from three narrative bridge notes rather than dense captions after every image: one for the meeting-room workflow compression, one for opening/internal architecture and 3D-print-to-ABS production, and one for Yang's design/project-management role.
+- Scroll annotations fit the Apple-like interaction request when they are triggered by viewport progress, not hover. The final local implementation reaches full visibility by the middle of the image and reverses on upward scroll.
+- Product Design option 1 was selected: use precise edge-rail labels with fine connector lines and small target dots, without card-like label boxes.
+- Chinese QA confirmed callout titles/body copy switch through the existing language toggle.
+- Desktop and mobile QA found no horizontal overflow; mobile keeps the same image-anchored callout concept but hides body copy to avoid crowding.
 
 - The current production alias now points to Vercel deployment `dpl_CmAkNqSLtLwb1BVfxtftxbyZ5pBt`.
 - The Momenta software detail page still renders as intended after redeploy: one normal intro video, two scroll-driven frame interactions, and no visible QA labels, resource paths, or Li Bai residue.

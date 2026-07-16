@@ -1,4 +1,14 @@
 # 2026-07-10 Watch deployment verification
+# 2026-07-15 Portable Business Case scroll annotations
+- Added three sparse narrative bridge blocks to the Portable Business Case detail page, following the site's existing image-to-image explanation style rather than adding text after every image.
+- Added scroll-linked annotation overlays to the rotary-latch image and the internal operation-panel image. The lock image has 2 callouts; the panel image has 7 callouts covering the workflow controls.
+- User selected Product Design option 1, so labels now use a precise edge-rail style: fine connector lines, small dots, no card-like label boxes, and subtle text halo only for readability.
+- Follow-up label placement pass moved latch, touchscreen, work-phone, and simulated-weighing copy into nearby white space so labels do not sit on top of the product body.
+- Final connector pass repositioned the touchscreen, side-output, and both latch labels to match the user's latest markup. It also fixed the underlying `200px` SVG dash animation limit that had truncated long connectors; the full line now reaches each target dot continuously.
+- Local build passed; desktop, Chinese-language, and mobile browser QA confirmed the annotated panels have no horizontal overflow.
+- Evidence generated: `tmp/portable-annotation-option1-qa/desktop-locks-final.png`, `tmp/portable-annotation-option1-qa/desktop-panel-final.png`, `tmp/portable-annotation-option1-qa/desktop-panel-zh-final.png`, `tmp/portable-annotation-option1-qa/mobile-panel-final.png`, and `tmp/portable-annotation-option1-qa/desktop-panel-scroll.webm`.
+- Status: local preview complete; waiting for user visual confirmation before push/deploy.
+
 - The watch card image now receives the same dynamic clip-path and skewY deformation as its side frame.
 - The watch detail page contains exactly two user-provided assets in order, with both figures rendered at 21:9; both assets load after scrolling into view.
 - Local and production Playwright checks passed with zero horizontal overflow and no browser errors.

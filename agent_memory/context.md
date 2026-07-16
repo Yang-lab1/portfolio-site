@@ -13,6 +13,12 @@
 - 当前本地规则：项目 hover/click 只在文字及周围小范围触发；列间空白、同行远处空白、分类标题、面板空白和下方页面点击都关闭菜单。
 - 最新确认资料在 `tmp/work-menu-hitbox-v1/`，包括 open/hover/detail 截图、交互视频和 metrics JSON。用户已确认，可推送 GitHub 并部署 Vercel production；发布后验证线上地址。
 
+## 2026-07-15 Portable Business Case scroll narrative
+- `smart-waste` 当前代表 `Portable Business Case / 便携式业务手提箱`，不要恢复旧工业压缩机名称、旧封面或旧详情页素材。
+- 详情页图片顺序已按讲解逻辑调整为 `01, 02, 03, 05, 04, 06`；只在必要节点加入三段桥接解释文字，不要每两张图之间都硬塞文字。
+- 当前滚动标注：图 05 是左右旋转锁扣 / 开合方式；图 06 是 RFID 授权、触控屏、模拟称重、工作手机、二维码扫描、侧边标签输出、电源状态。
+- 标注动效是 Apple-like 的 ScrollTrigger 叙事：滚到图片中段前到位，停住不继续动，向上滚自然回退；桌面和移动端都要避免标签溢出。
+
 ## 2026-06-30 当前作品集任务上下文
 - 2026-07-04 更新：顶部 `About / 关于` 导航现在全站回到首页新增的黑底头像介绍区（`#about`）；原黑色成就数据卡片段改为 `#about-metrics`，仍显示 51、20+、12+、4，并位于头像介绍区下方。Product Language 圆盘段当前锚点为 `#product-language`。
 - Header 的 Work/About 链接现在由 `App` 接管跳转，以便从项目详情页先返回主页再滚到目标段。不要直接恢复原生锚点行为，因为 Lenis `anchors: true` 会二次触发默认 `#about` 跳转并覆盖自定义落点。
