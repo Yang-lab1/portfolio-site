@@ -3609,12 +3609,6 @@ function ProductShowcase3D({ lang, onOpenProject }) {
             : sideDirection > 0
               ? `polygon(0 0, 100% ${clipInset}%, 100% ${100 - clipInset}%, 0 100%)`
               : 'polygon(0 0, 100% 0, 100% 100%, 0 100%)';
-          const imageSkewY = Number((sideDirection * clipInset * 0.9).toFixed(3));
-          const containPaddingProgress = project.imageFit === 'contain' ? Math.max(0, 1 - sideProgress) : 0;
-          const imagePadding = project.imageFit === 'contain'
-            ? `clamp(${(16 * containPaddingProgress).toFixed(3)}px, ${(2 * containPaddingProgress).toFixed(3)}vw, ${(32 * containPaddingProgress).toFixed(3)}px)`
-            : '0px';
-          const imageScale = Number((1 + sideProgress * 0.018).toFixed(4));
           const xPosition = offset * 43.4;
           const rotate = sideDirection * sideProgress * 8;
           const scale = 1;
@@ -3624,17 +3618,13 @@ function ProductShowcase3D({ lang, onOpenProject }) {
           return (
             <button
               type="button"
-              className={`product-orbit-card${isActive ? ' is-active' : ''}${sideClass}${project.imageFit === 'contain' ? ' is-contain' : ''}`}
+              className={`product-orbit-card${isActive ? ' is-active' : ''}${sideClass}`}
               data-product-id={project.id}
               key={project.id}
               aria-label={lang === 'zh' ? `打开${t(project.title, lang)}项目` : `Open ${t(project.title, lang)} project`}
               style={{
                 '--orbit-offset': offset,
                 '--orbit-side-progress': sideProgress,
-                '--orbit-image-padding': imagePadding,
-                '--orbit-image-scale': imageScale,
-                '--orbit-image-clip': clipPath,
-                '--orbit-image-skew-y': `${imageSkewY}deg`,
                 zIndex: Math.round(30 - absOffset * 10),
                 width,
                 transformOrigin: offset < 0 ? 'right center' : offset > 0 ? 'left center' : 'center center',
