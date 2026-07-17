@@ -4746,8 +4746,6 @@ function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
         '--reveal-radius': `${waveRadius.toFixed(2)}%`,
         '--reveal-solid': `${Math.max(0, waveRadius - 16).toFixed(2)}%`,
         '--reveal-soft': `${Math.max(0, waveRadius - 5).toFixed(2)}%`,
-        '--reveal-scale': (1.012 - waveProgress * 0.012).toFixed(4),
-        '--base-scale': (1 + waveProgress * 0.006).toFixed(4),
         '--wave-inner': `${Math.max(0, waveBand - 4).toFixed(2)}%`,
         '--wave-mid': `${waveBand.toFixed(2)}%`,
         '--wave-outer': `${Math.min(150, waveBand + 9).toFixed(2)}%`,
