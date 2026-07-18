@@ -750,27 +750,34 @@ const projects = [
   {
     id: 'opera-ruler',
     category: 'concept',
-    title: { en: 'Sichuan Opera Drawing Ruler', zh: '川剧儿童绘画尺' },
-    type: { en: 'Cultural Toy / Education', zh: '文化玩具 / 教育' },
+    title: { en: 'Sichuan Opera · Huaxi Cloud-Shaped Drawing Board', zh: '川剧·画戏云形板' },
+    type: { en: 'Cultural Learning Toy / Drawing Tool', zh: '文化启蒙玩具 / 绘画工具' },
     year: '2019-2020',
-    image: '/portfolio/opera-ruler-source-cover.jpg',
-    imageFit: 'contain',
-    wallImage: '/portfolio/opera-ruler-wall-card.jpg',
+    image: '/portfolio/sichuan-opera-huaxi-cover-wide.png',
+    imageFit: 'cover',
+    wallImage: '/portfolio/sichuan-opera-huaxi-cover-wide.png',
     wallImageFit: 'cover',
-    gallery: ['/portfolio/opera-ruler-source-cover.jpg', '/portfolio/opera-ruler-kit-source.jpg', '/portfolio/opera-ruler-use-source.jpg'],
+    hideDetailMediaLabel: true,
+    gallery: [
+      { src: '/portfolio/sichuan-opera-huaxi-detail-01.png', className: 'detail-media-product-wide-frame' },
+      { src: '/portfolio/sichuan-opera-huaxi-detail-02.png', className: 'detail-media-product-wide-frame' },
+      { src: '/portfolio/sichuan-opera-huaxi-detail-03.png', className: 'detail-media-product-wide-frame' },
+      { src: '/portfolio/sichuan-opera-huaxi-detail-04.png', className: 'detail-media-product-wide-frame' },
+      { src: '/portfolio/sichuan-opera-huaxi-detail-05.png', className: 'detail-media-product-wide-frame' },
+    ],
     role: {
-      en: 'Cultural translation, toy concept, test-model direction',
-      zh: '文化转译、玩具概念、测试模型方向',
+      en: 'Cultural translation, toy interaction, form and kit design · Two-designer team',
+      zh: '文化转译、玩具交互、形态与套件设计 · 2 人设计团队',
     },
     summary: {
-      en: 'A children-oriented drawing tool translating Sichuan opera face-changing colors and mask forms into cultural education play.',
-      zh: '把川剧变脸色彩与面具形态转译成儿童文化教育绘画工具。',
+      en: 'A modular drawing toy that translates Sichuan Opera mask colors, contours, and character symbolism into cloud-shaped rulers children can trace and combine into animal forms.',
+      zh: '一套把川剧脸谱的色彩、纹样与性格象征转译为云形画尺的儿童绘画玩具，让孩子描摹并组合出不同动物图形。',
     },
     evidence: {
-      en: ['Heritage translation', 'Children toy insight', 'Mask and animal mapping', 'Test-model evidence'],
-      zh: ['非遗转译', '儿童玩具洞察', '面具与动物映射', '测试模型证据'],
+      en: ['Sichuan Opera heritage translation', 'Five-color mask system', 'Modular tracing interaction', 'Animal-form composition'],
+      zh: ['川剧非遗转译', '五色脸谱系统', '模块化描摹交互', '动物图形组合'],
     },
-    source: { en: 'Confirmed from recovered portfolio evidence', zh: '来自已恢复作品集证据' },
+    source: { en: 'Final project boards supplied by the designer', zh: '设计师提供的最终项目展板' },
   },
   {
     id: 'capstone-device',
@@ -1201,8 +1208,8 @@ const projectShortCopy = {
     zh: '健康支持套件概念，原始产品图仍待补。',
   },
   'opera-ruler': {
-    en: 'Cultural drawing tool translating Sichuan opera masks into play.',
-    zh: '把川剧脸谱转译成儿童绘画工具。',
+    en: 'Cloud-shaped drawing rulers turn Sichuan Opera masks into traceable, combinable cultural play.',
+    zh: '用可描摹、可组合的云形画尺，把川剧脸谱转化为儿童文化游戏。',
   },
   'capstone-device': {
     en: 'AI hardware/service concept for guided rehearsal workflows.',
@@ -1307,7 +1314,7 @@ const workMenuProjectLabels = {
   'cup-cup': "Cup's Cup",
   'momenta-touch': 'Momenta Touch',
   'cross-ripple': 'Cross-ripple',
-  'opera-ruler': 'Opera Drawing Ruler',
+  'opera-ruler': 'Huaxi Cloud Board',
   'capstone-device': 'Capstone Device',
 };
 
@@ -1821,39 +1828,39 @@ caseStudyOverrides['cup-cup'] = {
 };
 
 caseStudyOverrides['opera-ruler'] = {
-  label: { en: 'Cultural toy case', zh: '文化玩具案例' },
-  displayTitle: { en: 'Heritage translated into drawing play', zh: '把非遗转译成绘画游戏' },
+  label: { en: 'Cultural learning toy', zh: '文化启蒙玩具' },
+  displayTitle: { en: 'Sichuan Opera becomes a drawing language', zh: '把川剧转化为儿童绘画语言' },
   headline: {
-    en: 'The Sichuan Opera Drawing Ruler turns mask color, face-changing rhythm, and animal cues into a child-friendly cultural tool.',
-    zh: '川剧儿童绘画尺把脸谱色彩、变脸节奏与动物线索转译成适合儿童使用的文化工具。',
+    en: 'Huaxi turns Sichuan Opera mask colors, contours, and character symbolism into modular cloud-shaped rulers that children can trace, combine, and use to create animals.',
+    zh: '画戏云形板把川剧脸谱的色彩、纹样与性格象征转译成模块化云形画尺，让孩子通过描摹与组合创造动物图形。',
   },
   sections: [
     {
-      title: { en: 'Cultural Entry', zh: '文化入口' },
+      title: { en: 'Learning Through Play', zh: '游戏中的文化启蒙' },
       body: {
-        en: 'The project avoids a museum-style explanation and uses drawing behavior as the entry point for heritage learning.',
-        zh: '项目不做博物馆式说明，而是用绘画行为作为进入非遗学习的入口。',
+        en: 'Rather than explaining heritage from a distance, the project lets children encounter Sichuan Opera through a familiar drawing activity.',
+        zh: '项目不从远距离讲解非遗，而是让儿童通过熟悉的绘画行为进入川剧文化。',
       },
     },
     {
-      title: { en: 'Pattern Translation', zh: '图形转译' },
+      title: { en: 'Five-Color Mask System', zh: '五色脸谱系统' },
       body: {
-        en: 'Mask shapes, color relationships, and animal associations become rules children can trace, combine, and remember.',
-        zh: '脸谱形态、色彩关系与动物联想被转化为儿童可以描摹、组合和记住的规则。',
+        en: 'Red, black, yellow, blue, and white mask traditions become a system of character traits and animal associations children can recognize and remember.',
+        zh: '红、黑、黄、蓝、白五种脸谱传统被整理为儿童可以识别和记忆的性格特征与动物联想系统。',
       },
     },
     {
-      title: { en: 'Play Object', zh: '玩具体验' },
+      title: { en: 'Modular Drawing Interaction', zh: '模块化绘画交互' },
       body: {
-        en: 'The ruler format keeps the object simple, repeatable, and close to a classroom or family drawing scene.',
-        zh: '尺子的形式让物件保持简单、可重复，并贴近课堂或家庭绘画场景。',
+        en: 'Each drawing board contains three rulers derived from mask contours. Children trace and recombine the curves to construct different animal forms.',
+        zh: '每套云形板由三把源自脸谱纹样的画尺组成，儿童通过描摹和重新组合曲线构成不同动物图形。',
       },
     },
     {
-      title: { en: 'Source Respect', zh: '源图尊重' },
+      title: { en: 'Cultural Memory', zh: '文化记忆' },
       body: {
-        en: 'Recovered product images stay as product evidence; the site only adapts crop and reading order.',
-        zh: '已恢复产品图保留为产品证据，网站只调整裁切与浏览顺序。',
+        en: 'Repeated drawing turns mask symbolism into an active memory, allowing traditional culture to be understood through making rather than observation alone.',
+        zh: '重复绘画把脸谱象征转化为主动记忆，让传统文化通过动手创造被理解，而不只是被观看。',
       },
     },
   ],
@@ -2274,8 +2281,8 @@ const expansionCards = [
   {
     id: 'opera-ruler',
     projectId: 'opera-ruler',
-    label: 'Opera',
-    image: '/portfolio/opera-ruler-orbit-fast.webp',
+    label: 'Huaxi Board',
+    image: '/portfolio/sichuan-opera-huaxi-orbit-fast.webp',
     imageFit: 'cover',
   },
   {
@@ -5806,7 +5813,7 @@ const agentProjectAliases = {
   'cross-ripple': ['水疗', 'watsu', '复健', '训练设备', 'hydrotherapy'],
   'cup-cup': ['cup', '复合转盘', '小家电'],
   'heart-bracelet': ['心脏病', '手环', '健康辅助', 'bracelet'],
-  'opera-ruler': ['川剧', '儿童', '绘画尺', '文化教育'],
+  'opera-ruler': ['川剧', '画戏', '云形板', '云形画尺', '儿童', '绘画工具', '文化启蒙', 'Sichuan Opera', 'Huaxi', 'cloud-shaped drawing board'],
   'capstone-device': ['毕业设计', '水疗', '复健', '训练设备'],
   'xiaomi-cmf': ['小米', 'cmf', '骨传导', '耳机', '量产'],
   'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],

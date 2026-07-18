@@ -1994,6 +1994,10 @@ img {
   object-fit: cover;
 }
 
+.detail-media-grid.detail-media-project-opera-ruler figure + figure {
+  border-top: 0;
+}
+
 .detail-media-grid figure.detail-media-annotated {
   isolation: isolate;
 }
