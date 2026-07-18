@@ -44,7 +44,7 @@ npm run build
 
 The public production site is:
 
-https://portfolio-site-three-rose.vercel.app
+https://portfolio-linyang.vercel.app
 
 The Hero source frames are committed in `source-helix-frames/`. The Remotion source is in `remotion-hero/`.
 

@@ -6,7 +6,7 @@
 - 当前任务：网站加载慢的首轮性能修复已提交/推送/部署；本轮最新追加修复是提前预取 Product Language 圆形转盘图片、把 Cup's Cup 本地素材更新到圆盘和详情页、加快圆盘滚轮旋转、把滚轮接管范围收窄到可见图片附近，并移除与 `miro-hardware` 相邻重复的白色 M 模块 `capstone-device` 圆盘入口。本地桌面/移动验证已通过，发布结果以最新 `git log` 与 Vercel 状态为准。
 - 当前工作目录：`C:\Users\Yang\Documents\New project\portfolio-site`
 - GitHub 仓库：`https://github.com/Yang-lab1/portfolio-site.git`
-- 固定线上地址：`https://portfolio-site-three-rose.vercel.app/`
+- 固定线上地址：`https://portfolio-linyang.vercel.app/`
 - 当前分支：`main`
 - 本轮开始时最新提交：`9130d94 Update agent handoff documentation`
 - 本轮开始前 Git 状态：干净；接手后先检查 `git status`、最新提交和 Vercel 部署状态。
@@ -631,5 +631,5 @@ Bottom ZH:
 可以直接把下面这段给新的 Codex：
 
 ```text
-你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-site-three-rose.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交从 9130d94 之后继续，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。网站加载慢的首轮修复已完成：底部圆盘首页展示图改为 640 WebP，圆盘双层图片初始 lazy + low，接近圆盘区后 eager + high，并新增页面稳定后的低优先级图片预热队列；已通过本地生产构建和桌面/移动 Playwright 验证。接手后先看 git status、最新提交和 Vercel 部署状态。
+你现在接手的是林杨 / Yang 的个人作品集网站。工作目录是 C:\Users\Yang\Documents\New project\portfolio-site，GitHub 是 https://github.com/Yang-lab1/portfolio-site.git，线上固定地址是 https://portfolio-linyang.vercel.app/。请先读取 AGENTS.md、NEXT_AGENT_HANDOFF.md、agent_memory/context.md、agent_memory/progress.md、agent_memory/bugs.md、task_plan.md、findings.md、progress.md，再开始任何修改。当前最新提交从 9130d94 之后继续，首页结构、Daima 四联、实体产品三卡、横向图片墙、产品语言圆盘、AGNES Agent 和邮箱浮球都已有大量确认规则，不要重写。网站加载慢的首轮修复已完成：底部圆盘首页展示图改为 640 WebP，圆盘双层图片初始 lazy + low，接近圆盘区后 eager + high，并新增页面稳定后的低优先级图片预热队列；已通过本地生产构建和桌面/移动 Playwright 验证。接手后先看 git status、最新提交和 Vercel 部署状态。
 ```

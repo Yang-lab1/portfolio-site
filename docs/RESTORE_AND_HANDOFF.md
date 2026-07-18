@@ -17,7 +17,7 @@ No files from the original workstation are required to build the current website
 Give the agent:
 
 - Repository: `https://github.com/Yang-lab1/portfolio-site`
-- Production site: `https://portfolio-site-three-rose.vercel.app`
+- Production site: `https://portfolio-linyang.vercel.app`
 
 Ask it to read:
 
