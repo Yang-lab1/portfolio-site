@@ -2464,6 +2464,36 @@ function hasProjectDetailMedia(project) {
   return Boolean(project?.image || project?.gallery?.length);
 }
 
+const projectRouteSlugs = {
+  momenta: 'momenta-software',
+  'momenta-touch': 'momenta-hardware',
+};
+
+const projectIdsByRouteSlug = Object.fromEntries(
+  Object.entries(projectRouteSlugs).map(([projectId, routeSlug]) => [routeSlug, projectId]),
+);
+
+function getProjectIdFromLocation() {
+  if (typeof window === 'undefined') return null;
+  const routeSlug = new URLSearchParams(window.location.search).get('project');
+  const projectId = projectIdsByRouteSlug[routeSlug] || routeSlug;
+  const project = projects.find((item) => item.id === projectId);
+  return hasProjectDetailMedia(project) ? project.id : null;
+}
+
+function syncProjectLocation(projectId, { replace = false } = {}) {
+  if (typeof window === 'undefined') return;
+  const url = new URL(window.location.href);
+  if (projectId) {
+    url.searchParams.set('project', projectRouteSlugs[projectId] || projectId);
+  } else {
+    url.searchParams.delete('project');
+  }
+  const nextPath = `${url.pathname}${url.search}${url.hash}`;
+  const method = replace ? 'replaceState' : 'pushState';
+  window.history[method]({ ...window.history.state, project: projectId || null }, '', nextPath);
+}
+
 function getMotionState() {
   if (typeof window === 'undefined') {
     return { reduced: false, mobile: false, finePointer: false };
@@ -2890,7 +2920,7 @@ function ModuleIntro({ content, lang, className = '', variant = 'light' }) {
 function App() {
   const appRef = useRef(null);
   const [lang, setLang] = useState('en');
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState(getProjectIdFromLocation);
   const [pendingScrollTarget, setPendingScrollTarget] = useState(null);
   const [workMenuOpen, setWorkMenuOpen] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -2904,6 +2934,11 @@ function App() {
   const motion = useMotionProfile();
   const pinEnabled = !selected && !motion.reduced && !motion.mobile;
 
+  const closeProject = useCallback(() => {
+    setSelectedId(null);
+    syncProjectLocation(null, { replace: true });
+  }, []);
+
   useHomepageMotion(appRef, {
     enabled: !selected,
     reduced: motion.reduced,
@@ -2916,6 +2951,12 @@ function App() {
     document.documentElement.lang = lang;
     document.body.classList.toggle('lang-zh', lang === 'zh');
   }, [lang]);
+
+  useEffect(() => {
+    const handlePopState = () => setSelectedId(getProjectIdFromLocation());
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     if (selected) return undefined;
@@ -2978,12 +3019,12 @@ function App() {
 
     if (selectedId) {
       setPendingScrollTarget(targetId);
-      setSelectedId(null);
+      closeProject();
       return;
     }
 
     scrollToPageSection(targetId);
-  }, [scrollToPageSection, selectedId]);
+  }, [closeProject, scrollToPageSection, selectedId]);
 
   const openProject = (id) => {
     const targetProject = projects.find((project) => project.id === id);
@@ -2991,6 +3032,7 @@ function App() {
 
     setWorkMenuOpen(false);
     setSelectedId(id);
+    syncProjectLocation(id);
     window.setTimeout(() => {
       const lenis = window.__portfolioLenis;
       if (lenis?.scrollTo) {
@@ -3011,7 +3053,7 @@ function App() {
         onOpenProject={openProject}
       />
       {selected ? (
-        <ProjectDetail lang={lang} project={selected} onBack={() => setSelectedId(null)} onOpenProject={openProject} motionEnabled={!motion.reduced} />
+        <ProjectDetail lang={lang} project={selected} onBack={closeProject} onOpenProject={openProject} motionEnabled={!motion.reduced} />
       ) : (
         <>
           <Hero lang={lang} />
