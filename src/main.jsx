@@ -806,13 +806,16 @@ const projects = [
   {
     id: 'xiaomi-cmf',
     category: 'production',
-    title: { en: 'Xiaomi Bone-conduction Earphones CMF', zh: '小米骨传导耳机 CMF' },
+    title: { en: 'Bone-conduction Earphones', zh: '骨传导耳机' },
     type: { en: 'CMF / Mass Production', zh: 'CMF / 量产' },
     year: '2022-2023',
     image: '/portfolio/xiaomi-cmf-first-gen-remastered.jpg',
     imageFit: 'contain',
     wallImageFit: 'cover',
-    gallery: ['/portfolio/xiaomi-cmf-first-gen-remastered.jpg', '/portfolio/xiaomi-cmf-breakdown-source.jpg', '/portfolio/xiaomi-cmf-detail-source.jpg'],
+    gallery: [
+      { src: '/portfolio/xiaomi-bone-conduction-01.png', className: 'detail-media-fit-light' },
+      { src: '/portfolio/xiaomi-bone-conduction-02.png', className: 'detail-media-fit-light' },
+    ],
     role: {
       en: 'CMF design, color rationale, material and finish specification',
       zh: 'CMF 设计、色彩逻辑、材料与工艺规格',
@@ -1308,7 +1311,7 @@ const workMenuProjectLabels = {
 
   'tcm-kg': 'TCM Knowledge Graph',
   cbs5502: 'Feel NLP',
-  'xiaomi-cmf': 'Xiaomi CMF',
+  'xiaomi-cmf': 'Bone-conduction Earphones',
   'cmf-electronics': 'CMF Electronics',
   'cat-turntable': 'CatToy',
   'cup-cup': "Cup's Cup",
