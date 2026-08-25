@@ -2223,6 +2223,10 @@ img {
   background: #ffffff;
 }
 
+.detail-media-grid figure.detail-media-bone-white img {
+  transform: translateX(-1.43%);
+}
+
 .detail-media-digital figure:first-child {
   height: 100svh;
   display: flex;
