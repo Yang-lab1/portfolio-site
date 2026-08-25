@@ -814,7 +814,7 @@ const projects = [
     wallImageFit: 'cover',
     gallery: [
       { src: '/portfolio/xiaomi-bone-conduction-01.png', className: 'detail-media-fit-light' },
-      { src: '/portfolio/xiaomi-bone-conduction-02.png', className: 'detail-media-fit-light' },
+      { src: '/portfolio/xiaomi-bone-conduction-02.png', className: 'detail-media-fit-light detail-media-bone-white' },
     ],
     role: {
       en: 'CMF design, color rationale, material and finish specification',

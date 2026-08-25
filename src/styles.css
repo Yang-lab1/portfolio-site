@@ -2218,6 +2218,11 @@ img {
   object-fit: contain;
 }
 
+.detail-media-grid figure.detail-media-bone-white,
+.detail-media-grid figure.detail-media-bone-white:first-child {
+  background: #ffffff;
+}
+
 .detail-media-digital figure:first-child {
   height: 100svh;
   display: flex;
