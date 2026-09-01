@@ -864,7 +864,7 @@ const projects = [
     category: 'production',
     title: { en: 'Portable Business Case', zh: '便携式业务手提箱' },
     type: { en: 'Portable Product / Business Equipment', zh: '便携式产品 / 业务设备' },
-    year: '2022-2023',
+    year: '2024-2025',
     image: '/portfolio/portable-business-case-01.png',
     imageFit: 'cover',
     hideDetailMediaLabel: true,
