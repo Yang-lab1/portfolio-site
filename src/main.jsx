@@ -2227,8 +2227,15 @@ const achievementCards = [
 ];
 
 const productShowcaseIds = ['miro', 'smart-waste', 'cross-ripple', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
-const digitalCaseIds = ['miro', 'palifood', 'momenta', 'sport'];
+const digitalCaseIds = ['sport', 'miro', 'palifood', 'momenta'];
 const daimaWorkPanels = [
+  {
+    id: 'daima-sport',
+    projectId: 'sport',
+    title: { en: 'Home Form Coach', zh: '居家运动姿态教练' },
+    category: { en: 'Fitness AI / Pose Tracking', zh: '运动 AI / 姿态追踪' },
+    image: '/portfolio/daima-work-cover-04.png',
+  },
   {
     id: 'daima-miro',
     projectId: 'miro',
@@ -2249,13 +2256,6 @@ const daimaWorkPanels = [
     title: { en: 'Momenta AI Music Interaction', zh: 'Momenta AI \u97f3\u4e50\u4ea4\u4e92' },
     category: { en: 'AI Music / iOS Interaction', zh: 'AI \u97f3\u4e50 / iOS \u4ea4\u4e92' },
     image: '/portfolio/momenta-green-cover.png',
-  },
-  {
-    id: 'daima-sport',
-    projectId: 'sport',
-    title: { en: 'Home Form Coach', zh: '居家运动姿态教练' },
-    category: { en: 'Fitness AI / Pose Tracking', zh: '运动 AI / 姿态追踪' },
-    image: '/portfolio/daima-work-cover-04.png',
   },
 ];
 
