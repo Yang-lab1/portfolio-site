@@ -206,32 +206,33 @@
   flex-direction: column;
 }
 
-/* connector arrow between column headers — bold line + solid triangle,
-   anchored to the header bottom like the 8K reference boards.
-   flow boards head = 5.9cqw, master (03) head = 6.6cqw → arrow at ~83% of head */
+/* connector arrow between column headers — short thin arrow floating
+   centered in the gap, clear of both column borders (matches the 8K
+   reference: ~1.1cqw total, hairline line + open chevron head).
+   --wf-arrow-y aligns with the header CN sub-label line. */
 .wf-col { --wf-arrow-y: 5.5cqw; }
 .wf-board--flow .wf-col { --wf-arrow-y: 4.9cqw; }
 
 .wf-col + .wf-col::before {
   content: "";
   position: absolute;
-  top: calc(var(--wf-arrow-y) - 0.15cqw);
-  left: calc(-1 * var(--wf-col-gap) - var(--wf-border-w));
-  width: calc(var(--wf-col-gap) + var(--wf-border-w));
-  height: 0.3cqw;
+  top: calc(var(--wf-arrow-y) - 0.05cqw);
+  left: calc(-0.5 * var(--wf-col-gap) - 0.5cqw);
+  width: 0.55cqw;
+  height: 0.1cqw;
   background: var(--wf-black);
 }
 
 .wf-col + .wf-col::after {
   content: "";
   position: absolute;
-  top: calc(var(--wf-arrow-y) - 0.45cqw);
-  left: -0.78cqw;
-  width: 0;
-  height: 0;
-  border-top: 0.45cqw solid transparent;
-  border-bottom: 0.45cqw solid transparent;
-  border-left: 0.78cqw solid var(--wf-black);
+  top: calc(var(--wf-arrow-y) - 0.24cqw);
+  left: calc(-0.5 * var(--wf-col-gap) + 0.02cqw);
+  width: 0.34cqw;
+  height: 0.34cqw;
+  border-top: 0.1cqw solid var(--wf-black);
+  border-right: 0.1cqw solid var(--wf-black);
+  transform: rotate(45deg);
 }
 
 .wf-col__head {
