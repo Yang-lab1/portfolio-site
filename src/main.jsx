@@ -17,6 +17,8 @@ import { warmSupabaseConnection } from './lib/supabaseClient.js';
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import './styles.css';
+import './wasteflow/wasteflow.css';
+import { WasteFlowCaseStudy } from './wasteflow/WasteFlowBoard.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -474,48 +476,40 @@ const projects = [
   {
     id: 'sport',
     category: 'digital',
-    title: { en: 'Home Form Coach', zh: 'Home Form Coach' },
-    type: { en: 'Fitness AI / Pose Tracking / Web App', zh: '运动姿态 AI / Web 应用' },
+    title: { en: 'WasteFlow Reuse Agent', zh: 'WasteFlow 设计复用智能体' },
+    type: { en: 'AI Agent / Design Reuse / Industrial Workflow', zh: 'AI 智能体 / 设计复用 / 工业设计流程' },
     year: '2026',
-    image: '/portfolio/sport-home-form-coach-cover.jpg',
-    wallImage: '/portfolio/sport-daima-wall-card.png',
+    image: '/portfolio/wasteflow/cover-35auto.png',
+    wallImage: '/portfolio/wasteflow/cover-35auto.png',
     wallGroup: 'sport',
-    gallery: [
-      '/portfolio/sport-home-form-coach-cover.jpg',
-      '/portfolio/sport-home-form-coach-coach.png',
-      '/portfolio/sport-home-form-coach-swim.jpg',
-      '/portfolio/sport-home-form-coach-tennis.jpg',
-    ],
-    liveUrl: 'https://sport-yangs-projects-d2ad4c9e.vercel.app',
-    launchNote: {
-      en: 'Home Form Coach is a local-first fitness form checker that uses browser camera pose tracking to guide home training, score movement quality, and turn each session into a structured report without uploading raw video.',
-      zh: 'Home Form Coach 是一个本地优先的居家健身动作质检器，用浏览器摄像头姿态追踪引导训练、评分动作质量，并在不上传原始视频的前提下生成结构化报告。',
-    },
     role: {
-      en: 'Product framing, motion-led landing page, pose-analysis interface, report workflow, deployment QA',
-      zh: '产品框定、运动视觉落地页、姿态分析界面、报告流程、部署验证',
+      en: 'Workflow research, agent system design, board visual system, HTML reconstruction',
+      zh: '工作流研究、智能体系统设计、板面视觉系统、HTML 重建',
     },
     summary: {
-      en: 'A camera-based home training prototype combining sport collage motion, real-time pose feedback, workout planning, set control, and local-first reporting.',
-      zh: '一个基于摄像头的居家训练原型，整合运动拼贴动效、实时姿态反馈、训练计划、组数控制和本地优先报告。',
+      en: 'An AI agent for industrial design reuse: it understands new briefs, retrieves and validates historical design assets, and helps designers quickly reuse single-case or multi-case solutions.',
+      zh: '面向工业设计方案复用的 AI 智能体：理解新需求，检索并验证历史设计资产，帮助设计师快速复用单案例或多案例方案。',
     },
     targetUser: {
-      en: 'Home fitness users who need lightweight form feedback, workout structure, and progress records without sending raw camera footage to a server.',
-      zh: '需要轻量动作反馈、训练结构和进度记录，同时不希望上传原始摄像头画面的居家健身用户。',
+      en: 'Industrial designers who need to locate, validate, and reuse past design assets when responding to similar new briefs.',
+      zh: '在面对相似新需求时，需要快速定位、验证并复用历史设计资产的工业设计师。',
     },
     painPoint: {
-      en: 'Home workouts often lack coaching eyes, so users cannot tell whether posture quality, rep rhythm, and training records are reliable.',
-      zh: '居家训练缺少教练视角，用户很难判断姿态质量、重复节奏和训练记录是否可靠。',
+      en: 'Years of client projects exist as scattered Rhino/KeyShot files and folders, so reusable solutions are hard to find, hard to trust, and hard to combine.',
+      zh: '多年客户项目以分散的 Rhino/KeyShot 文件和文件夹存在，可复用方案难找、难验证、难组合。',
     },
     solution: {
-      en: 'The prototype keeps video processing in the browser, combines pose landmarks with rule-based form checks, and saves only structured training reports.',
-      zh: '原型把视频处理留在浏览器本地，将姿态关键点与规则化动作判断结合，并仅保存结构化训练报告。',
+      en: 'WasteFlow parses requirement documents, retrieves historical assets through metadata and vector search, validates constraints, and outputs reviewable reuse plans with Rhino/KeyShot integration.',
+      zh: 'WasteFlow 解析需求文档，通过元数据与语义检索历史资产，校验约束，并输出可人工审核、可对接 Rhino/KeyShot 的复用方案。',
     },
     evidence: {
-      en: ['React and Vite prototype', 'MediaPipe pose tracking', 'Workout planner and set controls', 'Local-first report flow with optional Supabase sync'],
-      zh: ['React 与 Vite 原型', 'MediaPipe 姿态追踪', '训练计划与组数控制', '本地优先报告流程与可选 Supabase 同步'],
+      en: ['Agent system architecture', 'Searchable design asset pipeline', 'Single/multi-case reuse strategy', 'Agent workbench concept UI'],
+      zh: ['智能体系统架构', '可检索设计资产管线', '单/多案例复用策略', 'Agent 工作台概念界面'],
     },
-    source: { en: 'Confirmed GitHub repository: Yang-lab1/sport', zh: '已确认 GitHub 仓库：Yang-lab1/sport' },
+    source: {
+      en: 'Built on real industrial design archives: client folders, Rhino models, and KeyShot renders',
+      zh: '基于真实工业设计档案构建：客户文件夹、Rhino 模型与 KeyShot 渲染',
+    },
   },
   {
     id: 'momenta',
@@ -1297,7 +1291,7 @@ const workMenuCategories = [
 const workMenuProjectLabels = {
   miro: 'Miro',
   palifood: 'Pai Li Shi',
-  sport: 'Home Form Coach',
+  sport: 'WasteFlow',
   momenta: 'Momenta AI Music',
   'miro-governance': 'Miro Governance',
   'food-health-model': 'Food Health Model',
@@ -1447,39 +1441,39 @@ const caseStudyOverrides = {
   },
 
   sport: {
-    label: { en: 'Fitness AI case', zh: '运动 AI 案例' },
-    displayTitle: { en: 'Local posture coaching loop', zh: '本地姿态教练闭环' },
+    label: { en: 'AI agent case', zh: 'AI 智能体案例' },
+    displayTitle: { en: 'Design reuse agent loop', zh: '设计复用智能体闭环' },
     headline: {
-      en: 'Home Form Coach turns camera-based home exercise into a local-first coaching loop: plan, track posture, score form, and review a session report.',
-      zh: 'Home Form Coach 把摄像头居家训练组织成本地优先的教练闭环：规划训练、追踪姿态、评分动作，并复盘训练报告。',
+      en: 'WasteFlow Reuse Agent turns scattered historical design archives into searchable, validated, reusable solutions for new industrial design briefs.',
+      zh: 'WasteFlow Reuse Agent 把分散的历史设计档案变成可检索、可验证、可复用的方案，服务于新的工业设计需求。',
     },
     sections: [
       {
-        title: { en: 'Training Entry', zh: '训练入口' },
+        title: { en: 'Manual Workflow', zh: '人工工作流' },
         body: {
-          en: 'The motion-led landing page introduces the product rhythm before users enter workout planning or live form checking.',
-          zh: '动态落地页先建立产品节奏，再把用户带入训练规划或实时动作质检。',
+          en: 'Site input, requirement sorting, Rhino modeling, and KeyShot rendering form the manual process that WasteFlow learns from.',
+          zh: '现场输入、需求整理、Rhino 建模与 KeyShot 渲染构成人工流程，也是 WasteFlow 学习的对象。',
         },
       },
       {
-        title: { en: 'Pose Tracking', zh: '姿态追踪' },
+        title: { en: 'Design Assets', zh: '设计资产' },
         body: {
-          en: 'Browser camera input and MediaPipe landmarks keep pose analysis inside the session, without requiring raw video upload.',
-          zh: '浏览器摄像头与 MediaPipe 关键点把姿态分析留在当前训练会话里，不要求上传原始视频。',
+          en: 'Client folders, versions, and renders are organized into metadata and searchable design assets.',
+          zh: '客户文件夹、版本与渲染图被组织为元数据和可检索的设计资产。',
         },
       },
       {
-        title: { en: 'Form Feedback', zh: '动作反馈' },
+        title: { en: 'Agent System', zh: '智能体系统' },
         body: {
-          en: 'Scores, rep controls, set states, and rule-based checks translate movement quality into immediate coaching signals.',
-          zh: '评分、次数控制、组间状态和规则化检查，把动作质量转译成即时教练反馈。',
+          en: 'Parse, retrieve, validate, plan, and review: the agent loop turns a new brief into a reuse plan with human confirmation.',
+          zh: '解析、检索、验证、规划与审核：智能体闭环把新需求变成可人工确认的复用方案。',
         },
       },
       {
-        title: { en: 'Report Loop', zh: '报告闭环' },
+        title: { en: 'Reuse Strategy', zh: '复用策略' },
         body: {
-          en: 'Each session can become a structured report, with optional Supabase sync, so progress is reviewable without storing unnecessary video.',
-          zh: '每次训练都可以沉淀为结构化报告，并可选同步到 Supabase，让进展可复盘，同时避免保存不必要的视频。',
+          en: 'Single-case and multi-case reuse combine validated canopies, fences, equipment, and layout assets into new proposals.',
+          zh: '单案例与多案例复用把经过验证的顶棚、围栏、设备与布局资产组合成新方案。',
         },
       },
     ],
@@ -2232,8 +2226,8 @@ const daimaWorkPanels = [
   {
     id: 'daima-sport',
     projectId: 'sport',
-    title: { en: 'Home Form Coach', zh: '居家运动姿态教练' },
-    category: { en: 'Fitness AI / Pose Tracking', zh: '运动 AI / 姿态追踪' },
+    title: { en: 'WasteFlow Reuse Agent', zh: 'WasteFlow 设计复用智能体' },
+    category: { en: 'AI Agent / Design Reuse', zh: 'AI 智能体 / 设计复用' },
     image: '/portfolio/daima-work-cover-04.png',
   },
   {
@@ -5084,6 +5078,9 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
       {project.id === 'palifood' ? (
         <PaiFoodScrollShowcase motionEnabled={motionEnabled} />
       ) : null}
+      {project.id === 'sport' ? (
+        <WasteFlowCaseStudy />
+      ) : (
       <section ref={mediaGridRef} className={`detail-media-grid detail-media-${mediaKind} detail-media-project-${project.id}`}>
         {detailVideo ? (
           <figure className="detail-media-video-frame">
@@ -5148,6 +5145,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
           </figure>
         ) : null}
       </section>
+      )}
       {launchNote ? (
         <section className="project-launch-bridge">
           <div className="project-launch-bridge__copy">
@@ -5853,7 +5851,7 @@ const agentProjectAliases = {
 
   'tcm-kg': ['中医', '知识图谱', 'tcm', '药材'],
   'offer-quest': ['offer', '求职', '面试', 'job learning quest'],
-  sport: ['sport', 'sports', 'home form coach', 'fitness', 'pose tracking', '运动', '健身', '姿态', '动作质检'],
+  sport: ['wasteflow', 'waste flow', 'reuse agent', 'design reuse', 'ai agent', '设计复用', '方案复用', '智能体', '工业设计流程', 'rhino', 'keyshot'],
   momenta: ['momenta', '自动驾驶', '地图', 'map'],
   'cross-ripple': ['水疗', 'watsu', '复健', '训练设备', 'hydrotherapy'],
   'cup-cup': ['cup', '复合转盘', '小家电'],

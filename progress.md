@@ -1645,3 +1645,13 @@
 - GitHub commit `b764fc8 feat: add portable business case showcase` was pushed to `main`.
 - Vercel production deployment completed and was aliased to `https://portfolio-site-three-rose.vercel.app/`.
 - Status: complete and deployed.
+
+
+## 2026-09-12 WasteFlow Phase 2 (Page 03)
+- Replaced Home Form Coach (id sport) with WasteFlow Reuse Agent: project data, case study copy, shorts, work menu label, daima panel, agent aliases; deleted 6 old sport-* assets.
+- Added src/wasteflow/wasteflow.css (design tokens, cqw-based 21:9 board system) and src/wasteflow/WasteFlowBoard.jsx (WasteFlowBoard shell + Board03 + WasteFlowCaseStudy).
+- ProjectDetail renders WasteFlowCaseStudy for id sport; internal id/route ?project=sport kept.
+- Dev-only reference overlay: ?project=sport&wasteflowReference=1 (DEV builds only), ref image at public/wasteflow/reference/03.png.
+- QA: Playwright screenshots vs 8K reference; mean abs diff 116 -> 16.3; geometry within ~0.1cqw; 3-board stack verified seamless (no white rows).
+- npm run build passes; home/detail/back/miro/lang checks pass.
+- Pending user confirmation before Boards 01/02/04/05.
