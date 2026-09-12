@@ -207,7 +207,7 @@ const B01_COLUMNS = [
     icon: Search,
     en: 'Requirement Analysis',
     cn: '需求分析与场景理解',
-    media: { type: 'img', src: '/portfolio/wasteflow/site-warehouse.jpg' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/site-warehouse.jpg' },
     items: [
       { icon: Eye, en: 'Site Conditions', cn: '现场环境 / 建筑' },
       { icon: Box, en: 'Needs & Constraints', cn: '需求与限制条件' },
@@ -219,7 +219,7 @@ const B01_COLUMNS = [
     icon: Box,
     en: 'Rhino Modeling',
     cn: '三维建模',
-    media: { type: 'img', src: '/portfolio/wasteflow/render-racks.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/render-racks.png' },
     items: [
       { icon: Boxes, en: '3D Structure Modeling', cn: '整体结构建模' },
       { icon: Ruler, en: 'Dimension & Proportion', cn: '尺寸与比例控制' },
@@ -231,7 +231,7 @@ const B01_COLUMNS = [
     icon: LayoutGrid,
     en: 'KeyShot Visualization',
     cn: '材质渲染与表现',
-    media: { type: 'img', src: '/portfolio/wasteflow/render-machine.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/render-machine.png' },
     items: [
       { icon: Palette, en: 'Material & Color Setup', cn: '材质与颜色设置' },
       { icon: Lightbulb, en: 'Lighting & Environment', cn: '灯光与场景渲染' },
@@ -243,7 +243,7 @@ const B01_COLUMNS = [
     icon: Send,
     en: 'Proposal Output',
     cn: '设计方案输出',
-    media: { type: 'img', src: '/portfolio/wasteflow/cover-35auto.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/cover-35auto.png' },
     items: [
       { icon: Box, en: 'Final Render', cn: '最终效果图' },
       { icon: FileText, en: 'Presentation Boards', cn: '方案展板' },
@@ -253,12 +253,12 @@ const B01_COLUMNS = [
 ];
 
 const B01_GRID_SHOTS = [
-  '/portfolio/wasteflow/site-container.jpg',
-  '/portfolio/wasteflow/site-warehouse.jpg',
-  '/portfolio/wasteflow/site-factory.png',
-  '/portfolio/wasteflow/cover-35auto.png',
-  '/portfolio/wasteflow/render-indoor.png',
-  '/portfolio/wasteflow/render-canopy.png',
+  '/portfolio/wasteflow/opt/site-container.jpg',
+  '/portfolio/wasteflow/opt/site-warehouse.jpg',
+  '/portfolio/wasteflow/opt/site-factory.png',
+  '/portfolio/wasteflow/opt/cover-35auto.png',
+  '/portfolio/wasteflow/opt/render-indoor.png',
+  '/portfolio/wasteflow/opt/render-canopy.png',
 ];
 
 const B01_OUTPUT = [
@@ -342,18 +342,18 @@ const B02_FOLDERS = [
 ];
 
 const B02_THUMBS = [
-  { src: '/portfolio/wasteflow/render-door.png', name: '1.01.png' },
-  { src: '/portfolio/wasteflow/render-machine.png', name: '1.02.png' },
-  { src: '/portfolio/wasteflow/render-canopy.png', name: '1.03.png' },
+  { src: '/portfolio/wasteflow/opt/render-door.png', name: '1.01.png' },
+  { src: '/portfolio/wasteflow/opt/render-machine.png', name: '1.02.png' },
+  { src: '/portfolio/wasteflow/opt/render-canopy.png', name: '1.03.png' },
 ];
 
 const B02_RESULTS = [
-  { src: '/portfolio/wasteflow/render-door.png', name: '1.01.png' },
-  { src: '/portfolio/wasteflow/render-machine.png', name: '1.02.png' },
-  { src: '/portfolio/wasteflow/render-canopy.png', name: '1.03.png' },
-  { src: '/portfolio/wasteflow/render-racks.png', name: '1.04.png' },
-  { src: '/portfolio/wasteflow/render-indoor.png', name: '1.05.png' },
-  { src: '/portfolio/wasteflow/render-door-2.png', name: '1.06.png' },
+  { src: '/portfolio/wasteflow/opt/render-door.png', name: '1.01.png' },
+  { src: '/portfolio/wasteflow/opt/render-machine.png', name: '1.02.png' },
+  { src: '/portfolio/wasteflow/opt/render-canopy.png', name: '1.03.png' },
+  { src: '/portfolio/wasteflow/opt/render-racks.png', name: '1.04.png' },
+  { src: '/portfolio/wasteflow/opt/render-indoor.png', name: '1.05.png' },
+  { src: '/portfolio/wasteflow/opt/render-door-2.png', name: '1.06.png' },
 ];
 
 const B02_CATEGORIES = [
@@ -785,12 +785,12 @@ const B04_CASE_B = [
 ];
 
 const B04_TILES = [
-  { icon: PanelTop, en: 'Canopy Roof', cn: '遮雨棚', img: '/portfolio/wasteflow/render-canopy.png' },
-  { icon: Fence, en: 'Fence Module', cn: '围栏模块', img: '/portfolio/wasteflow/cover-35auto.png' },
-  { icon: Recycle, en: 'Information Panel', cn: '信息面板', img: '/portfolio/wasteflow/render-door.png' },
-  { icon: Package, en: 'Cabinet Module', cn: '箱体模块', img: '/portfolio/wasteflow/render-cuntian.png' },
-  { icon: TriangleAlert, en: 'Safety Marking', cn: '安全警示', img: '/portfolio/wasteflow/render-jieshiduo.png' },
-  { icon: Ruler, en: 'Scene Constraints', cn: '场地约束', img: '/portfolio/wasteflow/site-warehouse.jpg' },
+  { icon: PanelTop, en: 'Canopy Roof', cn: '遮雨棚', img: '/portfolio/wasteflow/opt/render-canopy.png' },
+  { icon: Fence, en: 'Fence Module', cn: '围栏模块', img: '/portfolio/wasteflow/opt/cover-35auto.png' },
+  { icon: Recycle, en: 'Information Panel', cn: '信息面板', img: '/portfolio/wasteflow/opt/render-door.png' },
+  { icon: Package, en: 'Cabinet Module', cn: '箱体模块', img: '/portfolio/wasteflow/opt/render-cuntian.png' },
+  { icon: TriangleAlert, en: 'Safety Marking', cn: '安全警示', img: '/portfolio/wasteflow/opt/render-jieshiduo.png' },
+  { icon: Ruler, en: 'Scene Constraints', cn: '场地约束', img: '/portfolio/wasteflow/opt/site-warehouse.jpg' },
 ];
 
 const B04_STEPS = [
@@ -801,12 +801,12 @@ const B04_STEPS = [
 ];
 
 const B04_PACK = [
-  { icon: Package, en: 'Cabinet Unit', cn: '箱体单元', qty: '×1–N', img: '/portfolio/wasteflow/render-cuntian.png' },
-  { icon: PanelTop, en: 'Canopy Unit', cn: '遮雨棚单元', qty: '×0–1', img: '/portfolio/wasteflow/render-canopy.png' },
-  { icon: Fence, en: 'Fence Unit', cn: '围栏单元', qty: '×0–N', img: '/portfolio/wasteflow/cover-35auto.png' },
-  { icon: Recycle, en: 'Info Panel', cn: '信息面板', qty: '×1–N', img: '/portfolio/wasteflow/render-door.png' },
-  { icon: TriangleAlert, en: 'Safety Unit', cn: '安全单元', qty: '×N', img: '/portfolio/wasteflow/render-jieshiduo.png' },
-  { icon: Layers, en: 'Base Option', cn: '基础适配', qty: '×1', img: '/portfolio/wasteflow/render-green-room.png' },
+  { icon: Package, en: 'Cabinet Unit', cn: '箱体单元', qty: '×1–N', img: '/portfolio/wasteflow/opt/render-cuntian.png' },
+  { icon: PanelTop, en: 'Canopy Unit', cn: '遮雨棚单元', qty: '×0–1', img: '/portfolio/wasteflow/opt/render-canopy.png' },
+  { icon: Fence, en: 'Fence Unit', cn: '围栏单元', qty: '×0–N', img: '/portfolio/wasteflow/opt/cover-35auto.png' },
+  { icon: Recycle, en: 'Info Panel', cn: '信息面板', qty: '×1–N', img: '/portfolio/wasteflow/opt/render-door.png' },
+  { icon: TriangleAlert, en: 'Safety Unit', cn: '安全单元', qty: '×N', img: '/portfolio/wasteflow/opt/render-jieshiduo.png' },
+  { icon: Layers, en: 'Base Option', cn: '基础适配', qty: '×1', img: '/portfolio/wasteflow/opt/render-green-room.png' },
 ];
 
 const B04_SCENARIOS = [
@@ -865,7 +865,7 @@ function WasteFlowBoard04() {
             label="Case A"
             cn="场景案例 A"
             items={B04_CASE_A}
-            photo="/portfolio/wasteflow/render-canopy.png"
+            photo="/portfolio/wasteflow/opt/render-canopy.png"
           />
           <div className="wf-extract">
             <div className="wf-extract__title">
@@ -890,7 +890,7 @@ function WasteFlowBoard04() {
             label="Case B"
             cn="场景案例 B"
             items={B04_CASE_B}
-            photo="/portfolio/wasteflow/cover-35auto.png"
+            photo="/portfolio/wasteflow/opt/cover-35auto.png"
           />
         </div>
         <LoopLine label="EXTRACT  →  RECOMBINE  →  REUSE  →  SCALABLE SOLUTIONS" />
@@ -917,7 +917,7 @@ function WasteFlowBoard04() {
                 })}
               </div>
               <figure className="wf-plan__photo">
-                <img src="/portfolio/wasteflow/render-indoor.png" alt="" />
+                <img src="/portfolio/wasteflow/opt/render-indoor.png" alt="" />
                 <figcaption>
                   <strong>Recombined Solution</strong>
                   <span>重组化方案</span>
@@ -1011,12 +1011,12 @@ const B05_FILTERS = [
 ];
 
 const B05_PRODUCTS = [
-  { src: '/portfolio/wasteflow/render-canopy.png', en: 'Modular Waste Station', cn: '模块化回收站', tags: ['Indoor', 'Modular', 'Steel'], picked: true },
-  { src: '/portfolio/wasteflow/render-haixin.png', en: 'Sorting Station', cn: '分类回收站', tags: ['Indoor', 'Modular', 'Steel'] },
-  { src: '/portfolio/wasteflow/render-cuntian.png', en: 'Compact Bin', cn: '紧凑型垃圾桶', tags: ['Indoor', 'Compact', 'Steel'] },
-  { src: '/portfolio/wasteflow/render-machine.png', en: 'Wall Mounted Bin', cn: '壁挂式垃圾桶', tags: ['Indoor', 'Wall', 'Aluminum'] },
-  { src: '/portfolio/wasteflow/render-jieshiduo.png', en: 'Outdoor Station', cn: '户外回收站', tags: ['Outdoor', 'Modular', 'Steel'] },
-  { src: '/portfolio/wasteflow/cover-35auto.png', en: 'Dual Stream Bin', cn: '双分类垃圾桶', tags: ['Indoor', 'Modular', 'Steel'] },
+  { src: '/portfolio/wasteflow/opt/render-canopy.png', en: 'Modular Waste Station', cn: '模块化回收站', tags: ['Indoor', 'Modular', 'Steel'], picked: true },
+  { src: '/portfolio/wasteflow/opt/render-haixin.png', en: 'Sorting Station', cn: '分类回收站', tags: ['Indoor', 'Modular', 'Steel'] },
+  { src: '/portfolio/wasteflow/opt/render-cuntian.png', en: 'Compact Bin', cn: '紧凑型垃圾桶', tags: ['Indoor', 'Compact', 'Steel'] },
+  { src: '/portfolio/wasteflow/opt/render-machine.png', en: 'Wall Mounted Bin', cn: '壁挂式垃圾桶', tags: ['Indoor', 'Wall', 'Aluminum'] },
+  { src: '/portfolio/wasteflow/opt/render-jieshiduo.png', en: 'Outdoor Station', cn: '户外回收站', tags: ['Outdoor', 'Modular', 'Steel'] },
+  { src: '/portfolio/wasteflow/opt/cover-35auto.png', en: 'Dual Stream Bin', cn: '双分类垃圾桶', tags: ['Indoor', 'Modular', 'Steel'] },
 ];
 
 const B05_DELIVERABLES = [
@@ -1201,12 +1201,12 @@ function WasteFlowBoard05() {
             <div className="wf-ui3">
               <div className="wf-preview">
                 <span className="wf-preview__main">
-                  <img src="/portfolio/wasteflow/render-machine.png" alt="" />
+                  <img src="/portfolio/wasteflow/opt/render-machine.png" alt="" />
                 </span>
                 <span className="wf-preview__thumbs">
-                  <img src="/portfolio/wasteflow/render-cuntian.png" alt="" />
-                  <img src="/portfolio/wasteflow/render-indoor.png" alt="" />
-                  <img src="/portfolio/wasteflow/render-door.png" alt="" />
+                  <img src="/portfolio/wasteflow/opt/render-cuntian.png" alt="" />
+                  <img src="/portfolio/wasteflow/opt/render-indoor.png" alt="" />
+                  <img src="/portfolio/wasteflow/opt/render-door.png" alt="" />
                   <span className="wf-preview__next">
                     <ChevronRight size="1.0cqw" {...ICON_PROPS} />
                   </span>

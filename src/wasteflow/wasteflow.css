@@ -5,6 +5,44 @@
    1cqw = 1% of board width; H = 42.857cqw.
    ============================================================ */
 
+/* self-hosted Manrope (latin subset) — declared stacks referenced it
+   but nothing ever loaded it, so EN silently fell back to Arial */
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-500-normal.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/manrope-latin-800-normal.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 .wf-scope {
   --wf-orange: #f6a528;        /* the one and only background orange */
   --wf-orange-deep: #e59435;   /* card fill */
@@ -14,8 +52,9 @@
   --wf-tan: #d9bd8a;           /* CN sublabels on black */
   --wf-font-sans: "Manrope", "Helvetica Neue", Arial, "PingFang SC",
     "Microsoft YaHei", sans-serif;
-  --wf-font-cn: "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei",
-    "Source Han Sans SC", "Noto Sans SC", "Hiragino Sans GB", sans-serif;
+  --wf-font-cn: "DengXian", "Microsoft YaHei UI", "Microsoft YaHei",
+    "PingFang SC", "Source Han Sans SC", "Noto Sans SC", "Hiragino Sans GB",
+    sans-serif;
   --wf-font-mono: "Geist Mono", "SFMono-Regular", "Roboto Mono", Consolas,
     monospace;
   --wf-border-w: max(1px, 0.065cqw);
@@ -104,8 +143,8 @@
 .wf-topbar__chapter-cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.826cqw;
-  font-weight: 600;
+  font-size: 0.743cqw;
+  font-weight: 500;
   letter-spacing: 0.193em;
   margin-top: 0.1cqw;
 }
@@ -130,8 +169,8 @@
 .wf-titlebar__subtitle {
   font-family: var(--wf-font-cn);
   margin: 0.2cqw 0 0;
-  font-size: 1.239cqw;
-  font-weight: 600;
+  font-size: 1.115cqw;
+  font-weight: 500;
   letter-spacing: 0.033em;
   color: var(--wf-black);
 }
@@ -167,28 +206,32 @@
   flex-direction: column;
 }
 
-/* connector arrow between column headers */
+/* connector arrow between column headers — bold line + solid triangle,
+   anchored to the header bottom like the 8K reference boards.
+   flow boards head = 5.9cqw, master (03) head = 6.6cqw → arrow at ~83% of head */
+.wf-col { --wf-arrow-y: 5.5cqw; }
+.wf-board--flow .wf-col { --wf-arrow-y: 4.9cqw; }
+
 .wf-col + .wf-col::before {
   content: "";
   position: absolute;
-  top: 3.2cqw;
-  left: calc(-0.5 * var(--wf-col-gap) - 0.72cqw);
-  width: 1.32cqw;
-  height: calc(var(--wf-border-w) + 0.02cqw);
+  top: calc(var(--wf-arrow-y) - 0.15cqw);
+  left: calc(-1 * var(--wf-col-gap) - var(--wf-border-w));
+  width: calc(var(--wf-col-gap) + var(--wf-border-w));
+  height: 0.3cqw;
   background: var(--wf-black);
 }
 
 .wf-col + .wf-col::after {
   content: "";
   position: absolute;
-  top: calc(3.2cqw - 0.28cqw);
-  left: calc(-0.5 * var(--wf-col-gap) + 0.44cqw);
-  width: 0.62cqw;
-  height: 0.62cqw;
-  border-top: calc(var(--wf-border-w) + 0.02cqw) solid var(--wf-black);
-  border-right: calc(var(--wf-border-w) + 0.02cqw) solid var(--wf-black);
-  transform: rotate(45deg);
-  transform-origin: center;
+  top: calc(var(--wf-arrow-y) - 0.45cqw);
+  left: -0.78cqw;
+  width: 0;
+  height: 0;
+  border-top: 0.45cqw solid transparent;
+  border-bottom: 0.45cqw solid transparent;
+  border-left: 0.78cqw solid var(--wf-black);
 }
 
 .wf-col__head {
@@ -233,8 +276,8 @@
 .wf-col__cn {
   font-family: var(--wf-font-cn);
   margin-top: 0.28cqw;
-  font-size: 0.897cqw;
-  font-weight: 600;
+  font-size: 0.807cqw;
+  font-weight: 500;
   letter-spacing: 0.165em;
   color: var(--wf-tan);
   white-space: nowrap;
@@ -285,8 +328,8 @@
   font-family: var(--wf-font-cn);
   display: block;
   margin-top: 0.12cqw;
-  font-size: 0.85cqw;
-  font-weight: 600;
+  font-size: 0.765cqw;
+  font-weight: 500;
   letter-spacing: 0.077em;
   color: var(--wf-black);
   opacity: 0.85;
@@ -380,8 +423,8 @@
 .wf-support__title-cn {
   font-family: var(--wf-font-cn);
   margin-top: 0.35cqw;
-  font-size: 0.85cqw;
-  font-weight: 600;
+  font-size: 0.765cqw;
+  font-weight: 500;
   letter-spacing: 0.165em;
   color: var(--wf-black);
 }
@@ -432,8 +475,8 @@
   font-family: var(--wf-font-cn);
   display: block;
   margin-top: 0.14cqw;
-  font-size: 0.826cqw;
-  font-weight: 600;
+  font-size: 0.743cqw;
+  font-weight: 500;
   letter-spacing: 0.11em;
   color: rgba(243, 234, 210, 0.62);
   white-space: nowrap;
@@ -611,8 +654,8 @@
 
 .wf-folder__name {
   font-family: var(--wf-font-cn);
-  font-size: 0.66cqw;
-  font-weight: 600;
+  font-size: 0.594cqw;
+  font-weight: 500;
   letter-spacing: 0;
   color: var(--wf-black);
   white-space: nowrap;
@@ -628,8 +671,8 @@
 
 .wf-notebook__label {
   font-family: var(--wf-font-cn);
-  font-size: 0.85cqw;
-  font-weight: 600;
+  font-size: 0.765cqw;
+  font-weight: 500;
   letter-spacing: 0.033em;
   margin: 0.35cqw 0 0.4cqw;
   padding-left: 0.3cqw;
@@ -722,8 +765,8 @@
 
 .wf-cattree__cat li {
   font-family: var(--wf-font-cn);
-  font-size: 0.708cqw;
-  font-weight: 600;
+  font-size: 0.637cqw;
+  font-weight: 500;
   line-height: 1.9;
   white-space: nowrap;
   position: relative;
@@ -758,8 +801,8 @@
 
 .wf-metaform__label {
   font-family: var(--wf-font-cn);
-  font-size: 0.708cqw;
-  font-weight: 600;
+  font-size: 0.637cqw;
+  font-weight: 500;
   text-align: right;
   white-space: nowrap;
 }
@@ -776,8 +819,8 @@
   background: #fffaef;
   border: max(1px, 0.05cqw) solid rgba(35, 35, 35, 0.4);
   padding: 0.18cqw 0.15cqw;
-  font-size: 0.59cqw;
-  font-weight: 600;
+  font-size: 0.531cqw;
+  font-weight: 500;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -799,8 +842,8 @@
   border: max(1px, 0.05cqw) solid rgba(35, 35, 35, 0.45);
   border-radius: 2cqw;
   padding: 0.24cqw 0.55cqw;
-  font-size: 0.708cqw;
-  font-weight: 600;
+  font-size: 0.637cqw;
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -820,8 +863,8 @@
   border: max(1px, 0.05cqw) solid rgba(35, 35, 35, 0.45);
   border-radius: 0.25cqw;
   padding: 0.1cqw 0.28cqw;
-  font-size: 0.614cqw;
-  font-weight: 600;
+  font-size: 0.553cqw;
+  font-weight: 500;
   background: rgba(255, 253, 246, 0.7);
 }
 
@@ -855,8 +898,8 @@
 .wf-kbitem__en {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.779cqw;
-  font-weight: 600;
+  font-size: 0.701cqw;
+  font-weight: 500;
   color: var(--wf-ink);
   white-space: nowrap;
 }
@@ -864,8 +907,8 @@
 .wf-kbitem__cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.614cqw;
-  font-weight: 600;
+  font-size: 0.553cqw;
+  font-weight: 500;
   letter-spacing: 0.033em;
   color: rgba(35, 35, 35, 0.65);
   white-space: nowrap;
@@ -882,8 +925,8 @@
 .wf-note p {
   font-family: var(--wf-font-cn);
   margin: 0;
-  font-size: 0.885cqw;
-  font-weight: 600;
+  font-size: 0.797cqw;
+  font-weight: 500;
   line-height: 1.5;
   letter-spacing: 0.022em;
   color: var(--wf-black);
@@ -937,15 +980,15 @@
 
 .wf-case__label {
   font-family: var(--wf-font-cn);
-  font-size: 1.239cqw;
-  font-weight: 600;
+  font-size: 1.115cqw;
+  font-weight: 500;
   color: var(--wf-orange);
 }
 
 .wf-case__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.85cqw;
-  font-weight: 600;
+  font-size: 0.765cqw;
+  font-weight: 500;
   letter-spacing: 0.138em;
   color: var(--wf-tan);
 }
@@ -997,8 +1040,8 @@
 .wf-case__item-cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.708cqw;
-  font-weight: 600;
+  font-size: 0.637cqw;
+  font-weight: 500;
   letter-spacing: 0.066em;
   color: rgba(243, 234, 210, 0.72);
   white-space: nowrap;
@@ -1036,8 +1079,8 @@
 
 .wf-extract__title-cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.826cqw;
-  font-weight: 600;
+  font-size: 0.743cqw;
+  font-weight: 500;
   letter-spacing: 0.121em;
   color: var(--wf-orange);
 }
@@ -1097,8 +1140,8 @@
 
 .wf-tile__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.732cqw;
-  font-weight: 600;
+  font-size: 0.659cqw;
+  font-weight: 500;
   letter-spacing: 0.077em;
   color: rgba(35, 35, 35, 0.78);
   text-align: center;
@@ -1165,8 +1208,8 @@
 .wf-step__cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.708cqw;
-  font-weight: 600;
+  font-size: 0.637cqw;
+  font-weight: 500;
   letter-spacing: 0.066em;
   color: rgba(35, 35, 35, 0.72);
   white-space: nowrap;
@@ -1262,8 +1305,8 @@
 
 .wf-pack-tile__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.661cqw;
-  font-weight: 600;
+  font-size: 0.595cqw;
+  font-weight: 500;
   letter-spacing: 0.044em;
   color: rgba(35, 35, 35, 0.72);
   white-space: nowrap;
@@ -1306,8 +1349,8 @@
 
 .wf-scen__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.732cqw;
-  font-weight: 600;
+  font-size: 0.659cqw;
+  font-weight: 500;
   letter-spacing: 0.121em;
   color: var(--wf-cream);
   white-space: nowrap;
@@ -1342,8 +1385,8 @@
 .wf-scen__item-cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.68cqw;
-  font-weight: 600;
+  font-size: 0.612cqw;
+  font-weight: 500;
   letter-spacing: 0.055em;
   color: rgba(243, 234, 210, 0.72);
   white-space: nowrap;
@@ -1481,8 +1524,8 @@
   font-family: var(--wf-font-cn);
   display: block;
   margin-top: 0.14cqw;
-  font-size: 0.802cqw;
-  font-weight: 600;
+  font-size: 0.722cqw;
+  font-weight: 500;
   letter-spacing: 0.154em;
   color: var(--wf-black);
   white-space: nowrap;
@@ -1507,8 +1550,8 @@
 .wf-wbhead__steps-cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.649cqw;
-  font-weight: 600;
+  font-size: 0.584cqw;
+  font-weight: 500;
   letter-spacing: 0.055em;
   color: rgba(35, 35, 35, 0.75);
   white-space: nowrap;
@@ -1544,8 +1587,8 @@
   align-items: center;
   gap: 0.45cqw;
   color: #b9b3a3;
-  font-size: 0.826cqw;
-  font-weight: 600;
+  font-size: 0.743cqw;
+  font-weight: 500;
   padding: 0.38cqw 0.5cqw;
   border-radius: 0.3cqw;
   white-space: nowrap;
@@ -1598,15 +1641,15 @@
 
 .wf-drop__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.755cqw;
-  font-weight: 600;
+  font-size: 0.68cqw;
+  font-weight: 500;
   letter-spacing: 0.066em;
   color: var(--wf-tan);
 }
 
 .wf-drop__hint {
   font-family: var(--wf-font-cn);
-  font-size: 0.637cqw;
+  font-size: 0.573cqw;
   line-height: 1.6;
   color: rgba(243, 234, 210, 0.45);
 }
@@ -1645,8 +1688,8 @@
 
 .wf-parse__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.732cqw;
-  font-weight: 600;
+  font-size: 0.659cqw;
+  font-weight: 500;
   letter-spacing: 0.077em;
   color: var(--wf-tan);
   margin: 0.12cqw 0 0.5cqw;
@@ -1687,8 +1730,8 @@
 .wf-parse__check-cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.56cqw;
-  font-weight: 600;
+  font-size: 0.52cqw;
+  font-weight: 500;
   letter-spacing: 0.044em;
   color: rgba(243, 234, 210, 0.72);
   white-space: nowrap;
@@ -1745,8 +1788,8 @@
   border: max(1px, 0.05cqw) solid #45423a;
   border-radius: 2cqw;
   padding: 0.28cqw 0.7cqw;
-  font-size: 0.826cqw;
-  font-weight: 600;
+  font-size: 0.743cqw;
+  font-weight: 500;
   color: var(--wf-cream);
   white-space: nowrap;
 }
@@ -1808,7 +1851,7 @@
 .wf-filter {
   background: #262522;
   border-radius: 0.35cqw;
-  padding: 0.45cqw 0.5cqw;
+  padding: 0.45cqw 0.42cqw;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -1832,7 +1875,7 @@
 
 .wf-filter__cn {
   font-family: var(--wf-font-cn);
-  font-size: 0.566cqw;
+  font-size: 0.52cqw;
   letter-spacing: 0.055em;
   color: rgba(243, 234, 210, 0.70);
   white-space: nowrap;
@@ -1928,7 +1971,7 @@
 }
 
 .wf-product__en {
-  padding: 0 0.4cqw;
+  padding: 0 0.25cqw;
   font-size: 0.54cqw;
   font-weight: 700;
   color: var(--wf-cream);
@@ -1940,7 +1983,7 @@
 .wf-product__cn {
   font-family: var(--wf-font-cn);
   padding: 0 0.4cqw;
-  font-size: 0.531cqw;
+  font-size: 0.52cqw;
   letter-spacing: 0.044em;
   color: rgba(243, 234, 210, 0.72);
   white-space: nowrap;
@@ -2058,8 +2101,8 @@
   font-family: var(--wf-font-cn);
   display: block;
   margin-top: 0.1cqw;
-  font-size: 0.684cqw;
-  font-weight: 600;
+  font-size: 0.616cqw;
+  font-weight: 500;
   letter-spacing: 0.11em;
   color: var(--wf-tan);
   white-space: nowrap;
@@ -2115,7 +2158,7 @@
 .wf-tab__cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.555cqw;
+  font-size: 0.52cqw;
   letter-spacing: 0.055em;
   color: rgba(243, 234, 210, 0.70);
   white-space: nowrap;
@@ -2164,7 +2207,7 @@
 .wf-file__cn {
   font-family: var(--wf-font-cn);
   display: block;
-  font-size: 0.555cqw;
+  font-size: 0.52cqw;
   letter-spacing: 0.044em;
   color: rgba(243, 234, 210, 0.72);
   white-space: nowrap;
