@@ -1655,3 +1655,12 @@
 - QA: Playwright screenshots vs 8K reference; mean abs diff 116 -> 16.3; geometry within ~0.1cqw; 3-board stack verified seamless (no white rows).
 - npm run build passes; home/detail/back/miro/lang checks pass.
 - Pending user confirmation before Boards 01/02/04/05.
+
+
+## WasteFlow Phase 3 - all five boards rebuilt (2026-09-12)
+- Rewrote WasteFlowBoard.jsx into five boards sharing one token set: 01 pipeline (5 stages, real site photos), 02 file-asset knowledge base (6 stages, real client folders/metadata/search), 03 master architecture (frozen), 04 multi-case reuse strategy (Case A/B + component extraction + reuse planning + module package + scenarios), 05 reuse agent workbench (3 dark UIs).
+- Root-cause fix: wf-cols--5 / wf-cols--6 grid variants were missing, so 5/6-column boards were laid out on the 7-track master grid, squeezing every column ~17%. Text clipping audit went 37 -> 8 (remaining 8 are benign line-box cases, zero horizontal overflow).
+- Flow boards get a shorter column head (5.9cqw) and taller media so proportions match the reference.
+- Verified: all five boards exactly 1680x720 (21:9, ratio 2.3333); seam gap = -1px and every seam row samples pure #F6A528 (zero white seam); 16 real assets all load; home/palifood/uav routes unaffected; 0 console errors; build passes.
+- QA deliverable: design-qa-wasteflow-board0X-vs-reference.png (reference on top, rebuild below) in the repo root.
+- Commit 823e483.

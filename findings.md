@@ -894,3 +894,6 @@
 - Ref key geometry (H fractions): header block 0.221-0.375, cards 0.391-0.721 (pitch 0.085), dashed loop 0.779, support layer 0.812-0.952, items 0.826-0.931.
 - Parallel edits to the same file in one batch can silently drop changes; edit files serially.
 - Bash env in this workspace lacks coreutils (use node/fs); npm shims fail (run node node_modules/vite/bin/vite.js directly).
+- 5/6-column boards must use .wf-cols--5 / .wf-cols--6; the base .wf-cols is 7 tracks and silently squeezes extra columns.
+- .wf-board--flow (flex column) lets a board fill the 21:9 frame exactly; board 03 keeps calibrated fixed geometry.
+- Playwright scripts here exit with SIGTERM after completing work; do not chain them with && or later commands are skipped.
