@@ -209,9 +209,10 @@
 /* connector arrow between column headers — short thin arrow floating
    centered in the gap, clear of both column borders (matches the 8K
    reference: ~1.1cqw total, hairline line + open chevron head).
-   --wf-arrow-y aligns with the header CN sub-label line. */
-.wf-col { --wf-arrow-y: 5.5cqw; }
-.wf-board--flow .wf-col { --wf-arrow-y: 4.9cqw; }
+   --wf-arrow-y centers the arrow on the header's vertical midline.
+   Measured: b03 header 6.6cqw → center 3.5cqw; flow boards 5.9cqw → 3.2cqw. */
+.wf-col { --wf-arrow-y: 3.5cqw; }
+.wf-board--flow .wf-col { --wf-arrow-y: 3.2cqw; }
 
 .wf-col + .wf-col::before {
   content: "";
