@@ -1062,6 +1062,106 @@
   display: block;
 }
 
+.wf-case__badge {
+  margin-left: auto;
+  font-size: 0.6cqw;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--wf-black);
+  background: var(--wf-orange);
+  padding: 0.12cqw 0.4cqw;
+  white-space: nowrap;
+}
+
+/* Historical-reuse placeholder card (right column of b04 top) */
+.wf-reuse {
+  border: var(--wf-border-w) solid var(--wf-black);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+
+.wf-reuse__title {
+  flex: none;
+  background: var(--wf-black);
+  color: var(--wf-cream);
+  padding: 0.14cqw 0.65cqw;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6cqw;
+  font-size: 1.0cqw;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.wf-reuse__title-cn {
+  font-family: var(--wf-font-cn);
+  font-size: 0.743cqw;
+  font-weight: 500;
+  letter-spacing: 0.121em;
+  color: var(--wf-orange);
+}
+
+.wf-reuse__body {
+  flex: 1;
+  min-height: 0;
+  padding: 0.5cqw;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4cqw;
+}
+
+.wf-reuse__item {
+  flex: 1;
+  background: var(--wf-cream);
+  border: var(--wf-border-w) solid var(--wf-black);
+  display: flex;
+  align-items: center;
+  gap: 0.45cqw;
+  padding: 0 0.5cqw;
+  min-height: 0;
+}
+
+.wf-reuse__item svg {
+  flex: none;
+  color: var(--wf-black);
+}
+
+.wf-reuse__text {
+  line-height: 1.25;
+  min-width: 0;
+}
+
+.wf-reuse__en {
+  display: block;
+  font-size: 0.72cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.wf-reuse__cn {
+  font-family: var(--wf-font-cn);
+  display: block;
+  font-size: 0.637cqw;
+  font-weight: 500;
+  letter-spacing: 0.066em;
+  color: rgba(35, 35, 35, 0.72);
+  white-space: nowrap;
+}
+
+.wf-reuse__note {
+  flex: none;
+  font-family: var(--wf-font-cn);
+  font-size: 0.62cqw;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: rgba(35, 35, 35, 0.66);
+  padding: 0.4cqw 0.5cqw;
+  border-top: 1px dashed rgba(35, 35, 35, 0.35);
+}
+
 .wf-extract__title,
 .wf-plan > .wf-extract__title,
 .wf-pack > .wf-extract__title {

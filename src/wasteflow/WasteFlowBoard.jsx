@@ -44,12 +44,14 @@ import {
   Recycle,
   Ruler,
   Scan,
+  Scale,
   ScanSearch,
   Search,
   Send,
   Settings,
   ShieldCheck,
   Shuffle,
+  Signpost,
   SlidersHorizontal,
   Tag,
   TrendingUp,
@@ -770,27 +772,26 @@ function WasteFlowBoard03() {
 const B04_META = ['SYS_ARCH_3226', 'MODULAR', 'SCALABLE', 'HUMAN-CENTERED'];
 const B04_TAGLINE = ['TURN EXISTING SOLUTIONS', 'INTO REUSABLE SOLUTIONS'];
 
-const B04_CASE_A = [
-  { icon: MapPin, en: 'Urban Facility', cn: '城市市区' },
-  { icon: PanelTop, en: 'With Canopy', cn: '带雨棚' },
-  { icon: LayoutGrid, en: 'Wall Installation', cn: '墙体安装' },
-  { icon: Box, en: 'Basic Unit', cn: '基础单元' },
+const B04_REQ = [
+  { icon: Factory, en: 'Req. 1 · Plant 1', cn: '需求一 · 厂房一 固废卡板秤' },
+  { icon: Factory, en: 'Req. 2 · Plant 2', cn: '需求二 · 厂房二 卡板秤' },
+  { icon: Warehouse, en: 'Req. 3 · Haz. Waste', cn: '需求三 · 危废仓 危废卡板秤' },
 ];
 
-const B04_CASE_B = [
-  { icon: MapPin, en: 'Outdoor Site', cn: '室外场地' },
-  { icon: Fence, en: 'With Fence', cn: '带围栏' },
-  { icon: LayoutGrid, en: 'Open Layout', cn: '开放布局' },
-  { icon: Box, en: 'Standard Space', cn: '标准空间' },
+const B04_REUSE = [
+  { icon: Factory, en: 'Solid Waste Point', cn: '固废点位' },
+  { icon: Factory, en: 'Mixed Stream Point', cn: '混投点位' },
+  { icon: Warehouse, en: 'Hazardous Point', cn: '危废仓点位' },
+  { icon: RefreshCw, en: 'One Module · 3 Sites', cn: '同一模块 · 三处复用' },
 ];
 
 const B04_TILES = [
-  { icon: PanelTop, en: 'Canopy Roof', cn: '遮雨棚', img: '/portfolio/wasteflow/opt/render-canopy.png' },
-  { icon: Fence, en: 'Fence Module', cn: '围栏模块', img: '/portfolio/wasteflow/opt/cover-35auto.png' },
-  { icon: Recycle, en: 'Information Panel', cn: '信息面板', img: '/portfolio/wasteflow/opt/render-door.png' },
-  { icon: Package, en: 'Cabinet Module', cn: '箱体模块', img: '/portfolio/wasteflow/opt/render-cuntian.png' },
-  { icon: TriangleAlert, en: 'Safety Marking', cn: '安全警示', img: '/portfolio/wasteflow/opt/render-jieshiduo.png' },
-  { icon: Ruler, en: 'Scene Constraints', cn: '场地约束', img: '/portfolio/wasteflow/opt/site-warehouse.jpg' },
+  { icon: Scale, en: 'Pallet Scale', cn: '卡板秤（核心）', img: '/portfolio/wasteflow/opt/tianke-req-product.jpg' },
+  { icon: Boxes, en: 'Storage Bin', cn: '料箱', img: '/portfolio/wasteflow/opt/tianke-bin.png' },
+  { icon: Recycle, en: 'Paper Baling', cn: '纸皮', img: '/portfolio/wasteflow/opt/tianke-paper.png' },
+  { icon: Signpost, en: 'Signage Board', cn: '指示板', img: '/portfolio/wasteflow/opt/tianke-sign.png' },
+  { icon: TriangleAlert, en: 'Warning Strip', cn: '警示条', img: '/portfolio/wasteflow/opt/tianke-warning.png' },
+  { icon: Ruler, en: 'Site Constraint', cn: '场地约束·图纸', img: '/portfolio/wasteflow/opt/tianke-req-drawing.png' },
 ];
 
 const B04_STEPS = [
@@ -801,28 +802,29 @@ const B04_STEPS = [
 ];
 
 const B04_PACK = [
-  { icon: Package, en: 'Cabinet Unit', cn: '箱体单元', qty: '×1–N', img: '/portfolio/wasteflow/opt/render-cuntian.png' },
-  { icon: PanelTop, en: 'Canopy Unit', cn: '遮雨棚单元', qty: '×0–1', img: '/portfolio/wasteflow/opt/render-canopy.png' },
-  { icon: Fence, en: 'Fence Unit', cn: '围栏单元', qty: '×0–N', img: '/portfolio/wasteflow/opt/cover-35auto.png' },
-  { icon: Recycle, en: 'Info Panel', cn: '信息面板', qty: '×1–N', img: '/portfolio/wasteflow/opt/render-door.png' },
-  { icon: TriangleAlert, en: 'Safety Unit', cn: '安全单元', qty: '×N', img: '/portfolio/wasteflow/opt/render-jieshiduo.png' },
-  { icon: Layers, en: 'Base Option', cn: '基础适配', qty: '×1', img: '/portfolio/wasteflow/opt/render-green-room.png' },
+  { icon: Scale, en: 'Pallet Scale Unit', cn: '卡板秤单元', qty: '×1–3', img: '/portfolio/wasteflow/opt/tianke-req-product.jpg' },
+  { icon: Boxes, en: 'Storage Bin Unit', cn: '料箱单元', qty: '×N', img: '/portfolio/wasteflow/opt/tianke-bin.png' },
+  { icon: Recycle, en: 'Paper Baling Unit', cn: '纸皮打包', qty: '×0–1', img: '/portfolio/wasteflow/opt/tianke-paper.png' },
+  { icon: Signpost, en: 'Signage Unit', cn: '指示牌单元', qty: '×1–N', img: '/portfolio/wasteflow/opt/tianke-sign.png' },
+  { icon: TriangleAlert, en: 'Warning Unit', cn: '警示条单元', qty: '×N', img: '/portfolio/wasteflow/opt/tianke-warning.png' },
+  { icon: Ruler, en: 'Site Constraint', cn: '场地约束·图纸', qty: '×1', img: '/portfolio/wasteflow/opt/tianke-req-drawing.png' },
 ];
 
 const B04_SCENARIOS = [
-  { icon: Factory, en: 'Industrial Park', cn: '产业园区' },
-  { icon: Warehouse, en: 'Logistics Center', cn: '物流中心' },
-  { icon: Building2, en: 'Commercial Site', cn: '商业场所' },
-  { icon: Landmark, en: 'Municipal Facility', cn: '市政设施' },
-  { icon: MoreHorizontal, en: 'More Possibilities', cn: '更多扩展' },
+  { icon: Factory, en: 'Smart Solid-Waste Bay', cn: '智能固废仓' },
+  { icon: Warehouse, en: 'Hazardous Waste', cn: '危废仓' },
+  { icon: Building2, en: 'In-plant Point', cn: '厂内点位' },
+  { icon: Landmark, en: 'Municipal Transfer', cn: '市政转运' },
+  { icon: MoreHorizontal, en: 'More Sites', cn: '更多点位' },
 ];
 
-function CaseCard({ label, cn, items, photo }) {
+function CaseCard({ label, cn, items, photo, badge }) {
   return (
     <div className="wf-case">
       <div className="wf-case__title">
         <span className="wf-case__label">{label}</span>
         <span className="wf-case__cn">{cn}</span>
+        {badge ? <span className="wf-case__badge">{badge}</span> : null}
       </div>
       <div className="wf-case__body">
         <div className="wf-case__list">
@@ -862,15 +864,16 @@ function WasteFlowBoard04() {
       <div className="wf-b04">
         <div className="wf-b04__top">
           <CaseCard
-            label="Case A"
-            cn="场景案例 A"
-            items={B04_CASE_A}
-            photo="/portfolio/wasteflow/opt/render-canopy.png"
+            label="New Requirement"
+            cn="新需求 · 深圳重投天科"
+            badge="需求单 240625"
+            items={B04_REQ}
+            photo="/portfolio/wasteflow/opt/tianke-req-site.jpg"
           />
           <div className="wf-extract">
             <div className="wf-extract__title">
-              <span>Component Extraction</span>
-              <span className="wf-extract__title-cn">可复用组件提取</span>
+              <span>Reused Extracts</span>
+              <span className="wf-extract__title-cn">复用的可提取组件</span>
             </div>
             <div className="wf-extract__grid">
               {B04_TILES.map((tile) => {
@@ -886,12 +889,29 @@ function WasteFlowBoard04() {
               })}
             </div>
           </div>
-          <CaseCard
-            label="Case B"
-            cn="场景案例 B"
-            items={B04_CASE_B}
-            photo="/portfolio/wasteflow/opt/cover-35auto.png"
-          />
+          <div className="wf-reuse">
+            <div className="wf-reuse__title">
+              <span>Historical Reuse</span>
+              <span className="wf-reuse__title-cn">历史案例复用 · 待确认</span>
+            </div>
+            <div className="wf-reuse__body">
+              {B04_REUSE.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div className="wf-reuse__item" key={item.en}>
+                    <Icon size="1.05cqw" {...ICON_PROPS} />
+                    <span className="wf-reuse__text">
+                      <span className="wf-reuse__en">{item.en}</span>
+                      <span className="wf-reuse__cn">{item.cn}</span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="wf-reuse__note">
+              历史公司案例与具体可复用素材，待与素材确认后补入，此处不虚构客户。
+            </p>
+          </div>
         </div>
         <LoopLine label="EXTRACT  →  RECOMBINE  →  REUSE  →  SCALABLE SOLUTIONS" />
         <div className="wf-b04__bottom">
@@ -917,10 +937,10 @@ function WasteFlowBoard04() {
                 })}
               </div>
               <figure className="wf-plan__photo">
-                <img src="/portfolio/wasteflow/opt/render-indoor.png" alt="" />
+                <img src="/portfolio/wasteflow/opt/tianke-final.jpg" alt="" />
                 <figcaption>
-                  <strong>Recombined Solution</strong>
-                  <span>重组化方案</span>
+                  <strong>Reused Output</strong>
+                  <span>复用成稿 · 天科智能卡板秤现场</span>
                 </figcaption>
               </figure>
             </div>
@@ -946,8 +966,8 @@ function WasteFlowBoard04() {
             </div>
             <div className="wf-scen">
               <span className="wf-scen__title">
-                <span className="wf-scen__en">Application Scenarios</span>
-                <span className="wf-scen__cn">应用场景</span>
+                <span className="wf-scen__en">Application Sites</span>
+                <span className="wf-scen__cn">应用点位</span>
               </span>
               {B04_SCENARIOS.map((s) => {
                 const Icon = s.icon;
