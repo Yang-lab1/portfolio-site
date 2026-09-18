@@ -4188,6 +4188,14 @@ function AirFooter({ lang }) {
       </div>
       <small>{copy[lang].footerNote}</small>
       <small>© 2026</small>
+      <a
+        className="air-footer-icp"
+        href="https://beian.miit.gov.cn/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        粤ICP备2026141255号-1
+      </a>
     </footer>
   );
 }

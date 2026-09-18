@@ -5105,6 +5105,24 @@ body.is-palifood-showcase-active .language-toggle {
   transform: translate(50%, -50%);
 }
 
+.air-footer-icp {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.air-footer-icp:hover,
+.air-footer-icp:focus-visible {
+  color: rgba(255, 255, 255, 0.9);
+}
+
 @media (max-width: 900px) {
   .air-hero {
     min-height: 130svh;
@@ -5373,5 +5391,13 @@ body.is-palifood-showcase-active .language-toggle {
 
   .air-footer small:last-child {
     bottom: 58px;
+  }
+
+  .air-footer-icp {
+    bottom: 30px;
+    width: max-content;
+    max-width: calc(100% - 28px);
+    text-align: center;
+    font-size: 0.68rem;
   }
 }
