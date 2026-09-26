@@ -1,0 +1,531 @@
+/* ============================================================
+   MOBILE-ONLY LAYER — applies ONLY to real phones (max 480px).
+   Desktop / tablet (>480px) are completely untouched.
+
+   Design intent: on a phone, KEEP the desktop 2-D composition
+   (cards in a row, portrait | copy side by side) but scale it
+   down proportionally — do NOT collapse it into a vertical stack.
+   Whole page stays a smooth single-column vertical scroll.
+
+   EVERY value below references a token from mobile-spec.css.
+   This file holds NO hardcoded px/weight/letter-spacing — so
+   re-tuning the phone look is a one-file (spec) job.
+   Imported AFTER styles.css so it overrides tablet collapse rules.
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+  /* ==========================================================
+     HERO — light background (#fff). Restrained.
+     Title + floating letters stay dark (site ink); only shrink
+     size and quiet the sub line. Do NOT force white.
+     ========================================================== */
+  .air-hero-title {
+    font-size: var(--mob-t-h1);
+    font-weight: var(--mob-w-reg);
+    letter-spacing: var(--mob-ls-tight);
+  }
+
+  .air-hero-sub {
+    color: var(--mob-ink-soft-l);
+    font-size: var(--mob-t-body);
+    line-height: var(--mob-lh-body);
+  }
+
+  /* decorative floating Y/A/N/G letters — stay dark, just smaller */
+  .air-letter {
+    font-size: var(--mob-t-display);
+    font-weight: var(--mob-w-light);
+    color: var(--mob-ink-mute-l);
+  }
+
+  .air-letter-y,
+  .air-letter-a,
+  .air-letter-n,
+  .air-letter-g {
+    bottom: var(--mob-space-xl);
+  }
+
+  /* ==========================================================
+     ACHIEVEMENT — 4 cards kept in ONE row, scaled down
+     ========================================================== */
+  .achievement-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--mob-space-2xs);
+    min-height: 0;
+    padding: var(--mob-space-sm) var(--mob-space-sm);
+  }
+
+  .achievement-card {
+    min-height: 0;
+    padding: var(--mob-space-sm) var(--mob-space-xs) var(--mob-space-xs);
+    border-radius: var(--mob-radius);
+  }
+
+  .achievement-card .achievement-value {
+    font-size: var(--mob-ach-val);
+    line-height: 0.9;
+    font-weight: var(--mob-w-light);
+  }
+
+  .achievement-card .achievement-suffix {
+    font-size: 0.66em;
+  }
+
+  /* drop the long note — no room inside a 4-across row */
+  .achievement-card p {
+    display: none;
+  }
+
+  .achievement-card .achievement-label {
+    align-self: flex-start;
+    text-align: left;
+    max-width: none;
+    margin-top: var(--mob-space-2xs);
+    font-size: var(--mob-ach-label);
+    line-height: 1.05;
+    font-weight: var(--mob-w-mid);
+  }
+
+  /* ==========================================================
+     ABOUT — portrait | copy stay SIDE BY SIDE, scaled down
+     ========================================================== */
+  .about-profile-section,
+  .about-profile-grid {
+    min-height: 0;
+  }
+
+  .about-profile-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: var(--mob-about-gap);
+    padding: 96px 18px 88px;
+  }
+
+  .about-profile-portrait {
+    flex: 0 0 var(--mob-portrait-w);
+    width: var(--mob-portrait-w);
+    height: auto;
+    aspect-ratio: var(--mob-portrait-ar);
+    margin: 0;
+    align-self: flex-end;
+  }
+
+  .about-profile-copy {
+    flex: 1 1 0;
+    min-width: 0;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .about-profile-copy h2 {
+    font-size: clamp(1.25rem, 6.4vw, 1.95rem);
+    font-weight: var(--mob-w-reg);
+    letter-spacing: var(--mob-ls-tight);
+    line-height: 1.08;
+  }
+
+  .about-profile-kicker {
+    margin: 0 0 12px;
+    color: var(--mob-ink-ghost);
+    font-size: var(--mob-t-micro);
+    font-weight: var(--mob-w-bold);
+    letter-spacing: var(--mob-ls-wide);
+  }
+
+  .about-profile-line {
+    margin-top: 24px;
+    color: var(--mob-ink-soft);
+    font-size: 9.5px;
+    font-weight: 440;
+    line-height: 1.75;
+  }
+
+  .about-profile-line span {
+    white-space: normal;
+  }
+
+  .about-profile-signals {
+    margin-top: var(--mob-space-lg);
+    /* BULLETPROOF one row: 4 equal cells. A long word can never push
+       anything to a second row, at ANY phone width (320px and up).
+       6px + tight tracking so all four words read fully, no clipping. */
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 4px;
+    color: var(--mob-ink-mute);
+    font-size: 6px;
+    letter-spacing: 0;
+  }
+
+  .about-profile-signals span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+    text-align: center;
+  }
+
+  /* ==========================================================
+     WORKS — horizontal drag rail. Cards stay a row; on phone
+     one card is ~62vw so the next peeks in (signals "draggable").
+     Section title scales down; keep the air.
+     ========================================================== */
+  .work-category {
+    margin-bottom: var(--mob-work-sec-gap, var(--mob-space-2xl));
+  }
+
+  .work-category-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: var(--mob-space-xs);
+  }
+
+  .work-category-head h3 {
+    font-size: var(--mob-work-head);
+    font-weight: var(--mob-work-head-w);
+    letter-spacing: var(--mob-work-head-ls);
+  }
+
+  .work-category-head p {
+    color: var(--mob-ink-soft-l);
+    font-size: var(--mob-work-sub);
+  }
+
+  .project-row {
+    gap: var(--mob-work-gap);
+    padding: 0 var(--mob-page-x) var(--mob-space-sm);
+  }
+
+  .project-card {
+    flex: 0 0 var(--mob-work-card-w);
+    height: var(--mob-work-card-h);
+  }
+
+  .project-year {
+    font-size: var(--mob-work-year);
+  }
+
+  /* ==========================================================
+     LOCK 2-D — re-lock the two-column blocks that tablet
+     breakpoints (820/900) collapse into a single column.
+     On phone: keep them side-by-side, just shrink the gap.
+     (scale-down, not stack — the core design intent)
+     ========================================================== */
+  .product-orbit-copy {
+    grid-template-columns: var(--mob-2d-cols);
+    gap: var(--mob-2d-gap);
+  }
+
+  .digital-scroll-layout {
+    position: static;
+    grid-template-columns: var(--mob-2d-cols);
+    gap: var(--mob-2d-gap);
+  }
+
+  .case-study-head {
+    grid-template-columns: var(--mob-2d-cols);
+    gap: var(--mob-2d-gap);
+  }
+
+  .project-launch-bridge {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--mob-2d-gap);
+  }
+
+  /* ==========================================================
+     SECTION KICKERS + MODULE INTRO — small, muted, spaced out
+     ========================================================== */
+  .air-section-kicker {
+    color: var(--mob-ink-mute);
+    font-size: var(--mob-t-caption);
+    letter-spacing: var(--mob-ls-wide);
+  }
+
+  .module-intro {
+    width: min(360px, calc(100vw - 36px));
+    margin: var(--mob-space-xl) auto 26px;
+    font-size: var(--mob-t-body);
+    line-height: var(--mob-lh-body);
+  }
+
+  .module-intro-dark {
+    width: 100%;
+    padding: var(--mob-space-2xl) var(--mob-page-x);
+  }
+
+  .module-intro-dark span {
+    font-size: var(--mob-t-body);
+    color: var(--mob-ink-soft);
+  }
+
+  .module-intro-dark span:first-child {
+    color: var(--mob-ink);
+  }
+
+  /* ==========================================================
+     GLOBAL WHITESPACE — room to breathe between blocks
+     ========================================================== */
+  :root {
+    --page-x: var(--mob-page-x);
+  }
+
+  /* ==========================================================
+     HEADER — keep brand | actions in a row, just shorter.
+     Desktop bar is 68px; phone is 52px. Nothing stacks.
+     ========================================================== */
+  .site-header {
+    height: var(--mob-header-h);
+  }
+
+  .brand-button {
+    gap: 8px;
+    font-size: var(--mob-brand-fs);
+  }
+
+  .brand-mark {
+    width: var(--mob-brand-size);
+    height: var(--mob-brand-size);
+    font-size: var(--mob-brand-fs);
+  }
+
+  .site-header .header-actions {
+    gap: var(--mob-action-gap);
+    font-size: var(--mob-action-fs);
+  }
+
+  .gooey-nav-container a {
+    font-size: var(--mob-action-fs);
+  }
+
+  /* ==========================================================
+     MEGA MENU — desktop is 6 columns. On phone lock to 2 cols,
+     shrink the items. Keep it a 2-D grid, do not collapse.
+     ========================================================== */
+  .work-mega-menu__panel {
+    padding: 72px 16px 32px;
+    min-height: 0;
+  }
+
+  .work-mega-menu__grid {
+    grid-template-columns: var(--mob-mega-cols);
+    gap: var(--mob-mega-gap);
+  }
+
+  .work-mega-menu__column h2 {
+    font-size: var(--mob-mega-head);
+    margin-bottom: 10px;
+  }
+
+  .work-mega-menu__items {
+    gap: 8px;
+  }
+
+  .work-mega-menu__item {
+    font-size: var(--mob-mega-item);
+  }
+
+  /* ==========================================================
+     FOOTER — scale the giant decorative letters down to phone
+     ========================================================== */
+  .air-footer {
+    min-height: 62svh;
+  }
+
+  .air-footer-letters {
+    font-size: var(--mob-footer-letter);
+  }
+
+  .air-footer small {
+    font-size: var(--mob-footer-small);
+  }
+
+  /* ==========================================================
+     FLOATING BUTTONS — Agent orb + Email copy.
+     Shrink both and tuck them so they never cover the copy.
+     ========================================================== */
+  .agent-orb {
+    width: var(--mob-orb-size);
+    height: var(--mob-orb-size);
+  }
+
+  .agent-orb-icon {
+    width: var(--mob-orb-icon);
+    height: var(--mob-orb-icon);
+  }
+
+  .agent-layer {
+    gap: 8px;
+  }
+
+  .agent-panel {
+    width: calc(100vw - 28px);
+    max-width: 340px;
+  }
+
+  .email-copy-layer {
+    right: var(--mob-orb-inset);
+    bottom: var(--mob-orb-inset);
+  }
+
+  .email-copy-button {
+    width: var(--mob-email-w);
+    height: var(--mob-email-w);
+    border-radius: var(--mob-email-w);
+  }
+
+  .email-copy-button.is-copied {
+    width: var(--mob-email-open);
+  }
+
+  .email-copy-icon {
+    width: var(--mob-orb-icon);
+    height: var(--mob-orb-icon);
+    right: 16px;
+  }
+
+  .email-copy-label {
+    font-size: var(--mob-email-fs);
+    right: var(--mob-email-w);
+  }
+
+  /* ==========================================================
+     EXPANSION — keep the big display title, just fit to phone
+     ========================================================== */
+  .expansion-section {
+    min-height: 620px;
+  }
+
+  .expansion-title-stack {
+    top: 120px;
+  }
+
+  .expansion-title-stack h2 {
+    font-size: var(--mob-expansion-h2);
+  }
+
+  .expansion-title-stack > span {
+    font-size: var(--mob-t-caption);
+  }
+
+  .expansion-card {
+    width: clamp(70px, 22vw, 96px);
+  }
+
+  /* ==========================================================
+     DAIMA — full-bleed sticky panels; shrink the title line
+     ========================================================== */
+  .daima-work-panel__title-line {
+    font-size: clamp(26px, 7vw, 40px);
+    line-height: 1.08;
+  }
+
+  .daima-work-panel__category {
+    font-size: 9px;
+  }
+
+  /* ==========================================================
+     SHOWCASE — drag rail of cards; keep the rail, shrink card
+     ========================================================== */
+  .showcase-card {
+    width: 64vw;
+    max-width: 300px;
+  }
+
+  /* ==========================================================
+     WORK SECTION — already tokenised; quiet the card copy
+     ========================================================== */
+  .project-card-copy p {
+    -webkit-line-clamp: 2;
+  }
+
+  .rail-controls button {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* ==========================================================
+     PIN STORY — keep the 2-D copy | stage, shrink the media
+     ========================================================== */
+  .pin-story-copy,
+  .pin-story-stage {
+    grid-template-columns: var(--mob-2d-cols);
+    gap: var(--mob-2d-gap);
+  }
+
+  .pin-story-static-grid {
+    grid-template-columns: 1fr;
+    gap: var(--mob-space-sm);
+  }
+
+  .pin-story-meta {
+    font-size: var(--mob-t-caption);
+  }
+
+  /* ==========================================================
+     DETAIL PAGE — lock the hero 2-D, shrink the title stack
+     ========================================================== */
+  .detail-page {
+    padding: var(--mob-detail-pad);
+  }
+
+  .detail-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+    gap: var(--mob-2d-gap);
+  }
+
+  .detail-title h1 {
+    font-size: var(--mob-detail-h1);
+    line-height: 1.02;
+  }
+
+  .detail-title span {
+    font-size: var(--mob-detail-kicker);
+  }
+
+  .detail-title p {
+    font-size: var(--mob-detail-sub);
+    max-width: none;
+  }
+
+  .detail-meta {
+    padding-left: 14px;
+  }
+
+  .detail-meta dt {
+    font-size: var(--mob-detail-kicker);
+  }
+
+  .detail-meta dd {
+    font-size: var(--mob-t-body);
+  }
+
+  .back-button {
+    min-height: 34px;
+    font-size: var(--mob-t-caption);
+    padding: 0 12px 0 9px;
+  }
+
+  /* ==========================================================
+     CAPABILITY — lock 2-D + shrink the list copy
+     ========================================================== */
+  .capability-heading,
+  .capability-panel {
+    grid-template-columns: var(--mob-2d-cols);
+    gap: var(--mob-2d-gap);
+  }
+
+  .capability-list article > div {
+    gap: 4px;
+  }
+
+  .capability-list h3 {
+    font-size: var(--mob-t-h2);
+  }
+
+  .capability-list p,
+  .capability-list span {
+    font-size: var(--mob-t-caption);
+  }
+
+} /* @media */

@@ -18,6 +18,8 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import './styles.css';
 import './wasteflow/wasteflow.css';
+import './mobile-spec.css';
+import './mobile.css';
 import { WasteFlowCaseStudy } from './wasteflow/WasteFlowBoard.jsx';
 
 gsap.registerPlugin(ScrollTrigger);
