@@ -174,6 +174,37 @@
     /* expansion title — big display, but fit the ~358px phone width
        so the pre-broken lines (each is a block span) don't wrap mid-word */
     --mob-expansion-h2:  clamp(1.7rem, 9vw, 2.4rem);
+
+    /* ────────────────────────────────────────────────────────
+       11. HERO 3D STRUCTURE (the rotating "staircase") + PORTRAIT
+       + DAIMA FULL-SCREEN PANELS + PRODUCT ORBIT.
+       All the "scaled-down, not cut" fixes, as tokens.
+       ──────────────────────────────────────────────────────── */
+    /* the 3D staircase is a faint desktop ghost (opacity .04-.055).
+       On a phone it disappears; pull it back to a visible-but-quiet
+       level and scale it down so it reads as a backdrop, not noise. */
+    --mob-struct-op:     0.15;
+    --mob-struct-w:      88vw;
+    --mob-struct-h:      60svh;
+
+    /* portrait: the desktop img carries a darkening filter + edge-fade
+       mask that washes the face out at phone size. Drop both so the
+       face is crisp. */
+    --mob-portrait-filter: none;
+    --mob-portrait-mask:   none;
+
+    /* daima digital-works panels: desktop forces 480px tall with a
+       640px media layer -> top/bottom clip. Give each panel a full
+       phone screen so the image frames "just right", no cut. */
+    --mob-daima-panel-h:  100svh;
+    --mob-daima-media-h:  100svh;
+
+    /* product orbit (Miro / Huaxi rotating cards): desktop keeps the
+       620px-wide card on phone -> it overflows. Scale to the phone
+       width, preserving the desktop ~1.32 landscape aspect. */
+    --mob-orbit-stage-h:  58vw;   /* stage height                 */
+    --mob-orbit-card-w:   68vw;   /* card width (~265px @390)     */
+    --mob-orbit-card-h:   51vw;   /* card height (~200px @390)   */
   } /* :root */
 
 } /* @media */
