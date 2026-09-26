@@ -529,9 +529,11 @@
   }
 
   /* ==========================================================
-     HERO — the 3D "staircase" structure. Desktop ghosts it to
-     opacity .04 (invisible). On phone, make it visible + quiet
-     and scale it down so the rotating structure actually reads.
+     HERO — the 3D "staircase". Desktop ghosts it to opacity .04.
+     C-scheme: show the whole 16:9 helix with `contain` on a soft
+     light-grey gradient so it has quiet contrast (not two pale
+     dots on a flat white void), + pull the structure layers up a
+     touch so the rotating staircase reads.
      ========================================================== */
   .air-structure-stage {
     opacity: 1;
@@ -539,20 +541,18 @@
 
   .air-structure-slot {
     opacity: var(--mob-struct-op);
-    width: var(--mob-struct-w);
-    height: var(--mob-struct-h);
     filter: blur(0.2px);
   }
 
-  /* the hero video is a 16:9 landscape clip. On a portrait phone,
-     `cover` zooms it ~4x so only a narrow central slice shows ->
-     "nothing visible". Switch to `contain` so the whole rotating
-     helix reads, scaled down, with the white hero showing through
-     the transparent letterbox (breathing room, not a black bar). */
+  .air-hero {
+    background: var(--mob-hero-bg);
+  }
+
   .air-hero-video {
     object-fit: contain;
     object-position: center;
     opacity: 1;
+    filter: var(--mob-hero-video-filter);
   }
 
   /* ==========================================================
