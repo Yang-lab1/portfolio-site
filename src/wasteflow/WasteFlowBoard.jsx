@@ -284,35 +284,35 @@ const B00_TAGLINE = ['FROM INPUT', 'TO REUSABLE ASSETS'];
 
 const B00_COLUMNS = [
   {
-    no: '01', icon: FilePlus, en: 'Project Input', cn: '项目输入',
+    no: '02', icon: FilePlus, en: 'Project Input', cn: '项目输入',
     items: [
       { icon: Camera, en: 'Site Scan', cn: '现场录入' },
       { icon: FileText, en: 'Req Parsing', cn: '需求解析' },
     ],
   },
   {
-    no: '02', icon: Folder, en: 'Asset Base', cn: '资产化',
+    no: '03', icon: Folder, en: 'Asset Base', cn: '资产化',
     items: [
       { icon: Folder, en: 'Standardize', cn: '目录标准化' },
       { icon: Search, en: 'Semantic Index', cn: '语义检索' },
     ],
   },
   {
-    no: '03', icon: LayoutGrid, en: 'Architecture', cn: '系统架构',
+    no: '04', icon: LayoutGrid, en: 'Architecture', cn: '系统架构',
     items: [
       { icon: Boxes, en: '7 Modules', cn: '7 大模块' },
       { icon: ShieldCheck, en: 'Human-in-loop', cn: '人工把关' },
     ],
   },
   {
-    no: '04', icon: Recycle, en: 'Reuse', cn: '多场景复用',
+    no: '05', icon: Recycle, en: 'Reuse', cn: '多场景复用',
     items: [
       { icon: Recycle, en: '3 Scenes', cn: '3 类场景' },
       { icon: Shuffle, en: 'Module Mix', cn: '模块组合' },
     ],
   },
   {
-    no: '05', icon: PanelTop, en: 'Workbench', cn: '复用工作台',
+    no: '06', icon: PanelTop, en: 'Workbench', cn: '复用工作台',
     items: [
       { icon: ScanSearch, en: 'Scene Match', cn: '场景匹配' },
       { icon: Package, en: 'Singles Fit', cn: '单品装配' },
@@ -1015,7 +1015,7 @@ function WasteFlowBoard04() {
           <div className="wf-plan">
             <div className="wf-extract__title">
               <span>Reuse Planning</span>
-              <span className="wf-extract__title-cn">复用规划</span>
+              <span className="wf-extract__title-cn">复用规划 · 4 步从策略到落地</span>
             </div>
             <div className="wf-plan__body">
               <div className="wf-steps">
@@ -1040,44 +1040,6 @@ function WasteFlowBoard04() {
                   <span>复用成稿 · 天科智能卡板秤现场</span>
                 </figcaption>
               </figure>
-            </div>
-          </div>
-          <div className="wf-pack">
-            <div className="wf-extract__title">
-              <span>Reusable Module Package</span>
-              <span className="wf-extract__title-cn">可复用模块包</span>
-            </div>
-            <div className="wf-pack__grid">
-              {B04_PACK.map((tile) => {
-                return (
-                  <div className="wf-pack-tile" key={tile.en}>
-                    <span className="wf-pack-tile__img">
-                      <img src={tile.img} alt="" />
-                    </span>
-                    <span className="wf-pack-tile__en">{tile.en}</span>
-                    <span className="wf-pack-tile__cn">{tile.cn}</span>
-                    <span className="wf-pack-tile__qty">{tile.qty}</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="wf-scen">
-              <span className="wf-scen__title">
-                <span className="wf-scen__en">Application Sites</span>
-                <span className="wf-scen__cn">应用点位</span>
-              </span>
-              {B04_SCENARIOS.map((s) => {
-                const Icon = s.icon;
-                return (
-                  <span className="wf-scen__item" key={s.en}>
-                    <Icon size="1.05cqw" {...ICON_PROPS} />
-                    <span className="wf-scen__text">
-                      <span className="wf-scen__item-en">{s.en}</span>
-                      <span className="wf-scen__item-cn">{s.cn}</span>
-                    </span>
-                  </span>
-                );
-              })}
             </div>
           </div>
         </div>

@@ -1592,13 +1592,14 @@
   height: 5.0cqw;
 }
 
-/* board 04 rows are fixed-height in the reference, not proportional */
+/* board 05 rows are fixed-height in the reference, not proportional */
 [data-wasteflow-page="05"] .wf-b04__top {
   flex: 0 0 17.8cqw;
 }
 
 [data-wasteflow-page="05"] .wf-b04__bottom {
   flex: 0 0 14.4cqw;
+  grid-template-columns: 1fr;
 }
 
 [data-wasteflow-page="05"] .wf-b04 {
