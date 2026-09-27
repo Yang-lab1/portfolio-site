@@ -1424,7 +1424,7 @@ const B06_TAGLINE = ['FROM ONE CASE', 'TO A REUSABLE SYSTEM'];
 const B06_COLUMNS = [
   {
     no: '01', icon: TrendingUp, en: 'Reuse Rate', cn: '复用命中率',
-    metric: '92%',
+    metric: '92%', unit: '场景匹配命中',
     items: [
       { icon: ScanSearch, en: 'Scene Match', cn: '场景匹配' },
       { icon: CheckCircle2, en: 'No Redesign', cn: '免重做' },
@@ -1432,7 +1432,7 @@ const B06_COLUMNS = [
   },
   {
     no: '02', icon: Clock, en: 'Time Saved', cn: '省工时',
-    metric: '50%',
+    metric: '50%', unit: '较纯手工建模',
     items: [
       { icon: Boxes, en: 'Singles Fit', cn: '单品装配' },
       { icon: RefreshCw, en: 'Iterate', cn: '快速迭代' },
@@ -1440,7 +1440,7 @@ const B06_COLUMNS = [
   },
   {
     no: '03', icon: Package, en: 'Scenes Shipped', cn: '交付场景',
-    metric: '3 类',
+    metric: '3', unit: '可复用场景',
     items: [
       { icon: Warehouse, en: 'Solid Waste', cn: '固废仓' },
       { icon: Factory, en: 'Outdoor Yard', cn: '户外仓' },
@@ -1448,7 +1448,7 @@ const B06_COLUMNS = [
   },
   {
     no: '04', icon: UserCheck, en: 'Human-in-loop', cn: '人工把关',
-    metric: '100%',
+    metric: '100%', unit: '逐条人工审核',
     items: [
       { icon: ShieldCheck, en: 'Reviewed', cn: '逐条审核' },
       { icon: Send, en: 'Rhino Hand-off', cn: '交付 Rhino' },
@@ -1480,8 +1480,9 @@ function WasteFlowBoard06() {
         {B06_COLUMNS.map((column) => (
           <section className="wf-col" key={column.no}>
             <ColHead no={column.no} icon={column.icon} en={column.en} cn={column.cn} />
-            <div className="wf-media">
-              <span className="wf-metric wf-metric--big">{column.metric}</span>
+            <div className="wf-media wf-media--stat">
+              <span className="wf-stat__num">{column.metric}</span>
+              <span className="wf-stat__unit">{column.unit}</span>
             </div>
             <div className="wf-cards wf-cards--under-media">
               {column.items.map((item) => {

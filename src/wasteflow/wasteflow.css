@@ -624,18 +624,30 @@
   color: var(--wf-ink);
 }
 
-.wf-metric--big {
-  font-size: 1.9cqw;
-  font-weight: 700;
-  min-height: 2.2cqw;
-}
-
-/* board 07 media holds the big stat number */
-[data-wasteflow-page="07"] .wf-media {
+/* board 07 stat block: black media holding a big orange number + tiny unit */
+.wf-media--stat {
+  height: 4.6cqw;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 2.6cqw;
+  gap: 0.14cqw;
+}
+
+.wf-stat__num {
+  font-family: var(--wf-font-mono);
+  font-size: 1.55cqw;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--wf-orange);
+}
+
+.wf-stat__unit {
+  font-family: var(--wf-font-cn);
+  font-size: 0.56cqw;
+  font-weight: 500;
+  letter-spacing: 0.044em;
+  color: rgba(243, 234, 210, 0.55);
 }
 
 .wf-cards--under-media {
