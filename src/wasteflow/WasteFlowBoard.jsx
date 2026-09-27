@@ -277,9 +277,8 @@ function WasteFlowBoard01() {
   return (
     <WasteFlowBoard
       page="01"
-      chapterMain="PAGE 01 / 05"
-      chapterSub="FROM REAL WORLD TO DESIGN PROPOSAL"
-      chapterMono
+      chapterMain="Chapter 01"
+      chapterSub="项目输入"
       meta={B01_META}
       title="From Real-World Input to Design Proposal"
       subtitle="从现场信息到设计方案的完整流程"
