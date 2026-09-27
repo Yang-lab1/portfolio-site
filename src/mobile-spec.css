@@ -1,0 +1,214 @@
+/* ============================================================
+   MOBILE UI SPEC — the single design-token source of truth
+   for the phone UI (applies ONLY to real phones, max 480px).
+   Desktop / tablet (>480px) are NOT affected.
+
+   HOW IT WORKS
+   - This file defines every number the phone UI is built from:
+     type scale, weights, spacing, colour, radius, letter-spacing.
+   - mobile.css (imported AFTER this) uses ONLY these tokens.
+     No hardcoded px anywhere in the phone layer.
+   - To re-tune the whole phone experience, edit a token HERE and
+     it propagates to every section. That is the "one spec" goal.
+
+   DESIGN PRINCIPLES (restrained, breathable, coherent)
+   - Small screen  →  less text, more whitespace, quiet hierarchy.
+   - Keep the desktop 2-D composition (cards in a row,
+     portrait | copy side-by-side); only scale it down.
+   - Muted white levels, not everything at full opacity.
+   - Breathing room > density. Never "fill the screen".
+
+   Reference viewport: ~390px (iPhone-class).
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+  :root {
+
+    /* ────────────────────────────────────────────────────────
+       1. TYPE SCALE — one ramp, used everywhere.
+       display > h1 > h2 > body > caption > micro
+       Values already verified at 390px (Yang Lin / hero shots).
+       ──────────────────────────────────────────────────────── */
+    --mob-t-display: clamp(2.0rem,  10.2vw, 2.8rem);  /* hero "YANG" floating letters */
+    --mob-t-h1:      clamp(1.5rem,  8.4vw,  2.35rem); /* name / big heading */
+    --mob-t-h2:      clamp(1.05rem, 5.2vw,  1.4rem);  /* section sub-heading */
+    --mob-t-cardnum: clamp(1.35rem, 6.4vw,  1.9rem);  /* achievement card numbers */
+    --mob-t-cardlbl: clamp(0.66rem, 3.0vw,  0.85rem); /* card labels (Works, Clients) */
+    --mob-t-body:    10.5px;                           /* paragraph / description */
+    --mob-t-caption: 8.5px;                            /* kickers, small notes */
+    --mob-t-micro:   8px;                              /* smallest — signal chips */
+
+    /* ────────────────────────────────────────────────────────
+       2. LINE HEIGHTS
+       ──────────────────────────────────────────────────────── */
+    --mob-lh-display: 0.95;
+    --mob-lh-heading: 1.10;
+    --mob-lh-body:    1.55;   /* generous — part of the "breathing" goal */
+
+    /* ────────────────────────────────────────────────────────
+       3. SPACING SCALE — the whitespace system.
+       Bumped larger than before so sections can breathe.
+       Every section padding / gap / card pad references these.
+       ──────────────────────────────────────────────────────── */
+    --mob-space-2xs: 4px;    /* hairline gaps                     */
+    --mob-space-xs:  7px;    /* chip-to-chip, tiny item gaps      */
+    --mob-space-sm:  12px;   /* inner padding, tight line gaps    */
+    --mob-space-md:  18px;   /* side-by-side block gap            */
+    --mob-space-lg:  28px;   /* stack gap between text blocks     */
+    --mob-space-xl:  44px;   /* section inner top/bottom padding   */
+    --mob-space-2xl: 88px;   /* section outer top/bottom (room)    */
+    --mob-page-x:    16px;   /* left/right page margin             */
+
+    /* ────────────────────────────────────────────────────────
+       4. LETTER SPACING
+       ──────────────────────────────────────────────────────── */
+    --mob-ls-tight: -0.01em;  /* big headings, name */
+    --mob-ls-wide:   0.12em;  /* uppercase kickers */
+    --mob-ls-chip:   0.08em;  /* small chips / labels */
+
+    /* ────────────────────────────────────────────────────────
+       5. COLOUR — muted 4-level hierarchy.
+       (dark surface set, and light surface set for hero)
+       ──────────────────────────────────────────────────────── */
+    /* on dark backgrounds */
+    --mob-ink:       rgba(255,255,255, 0.92);  /* primary          */
+    --mob-ink-soft:  rgba(255,255,255, 0.55);  /* body / describe  */
+    --mob-ink-mute:  rgba(255,255,255, 0.30);  /* secondary label  */
+    --mob-ink-ghost: rgba(255,255,255, 0.22);  /* kicker, subtle   */
+    /* on light backgrounds (hero is white) */
+    --mob-ink-l:       rgba(0,0,0, 0.92);
+    --mob-ink-soft-l:  rgba(0,0,0, 0.55);
+    --mob-ink-mute-l:  rgba(0,0,0, 0.30);
+    --mob-ink-ghost-l: rgba(0,0,0, 0.18);
+
+    /* ────────────────────────────────────────────────────────
+       6. FONT WEIGHTS (restrained, matches the site's look)
+       ──────────────────────────────────────────────────────── */
+    --mob-w-light: 430;  /* display */
+    --mob-w-reg:   460;  /* headings / name */
+    --mob-w-mid:   520;  /* card labels */
+    --mob-w-bold:  720;  /* uppercase kicker */
+
+    /* ────────────────────────────────────────────────────────
+       7. RADIUS + SURFACE
+       ──────────────────────────────────────────────────────── */
+    --mob-radius:    5px;  /* card corners — keep = desktop */
+    --mob-card-pad:  var(--mob-space-sm);
+
+    /* ────────────────────────────────────────────────────────
+       8. COMPONENT TOKENS — per-block convenience wrappers.
+       Change the block look by editing these only.
+       ──────────────────────────────────────────────────────── */
+    /* achievement cards (one row of 4 on phone) — compact, no empty space */
+    --mob-ach-card-h:  0px;         /* let card size to its content */
+    --mob-ach-val:     var(--mob-t-cardnum);
+    --mob-ach-label:   var(--mob-t-cardlbl);
+
+    /* about — portrait | copy side by side */
+    --mob-about-pady:   var(--mob-space-2xl);
+    --mob-portrait-w:   46%;  /* = copy width (twin blocks, equal volume) at 390px */
+    --mob-portrait-ar:  3 / 4;
+    --mob-about-gap:    28px; /* breathing gap between the two blocks */
+
+    /* generic section vertical rhythm */
+    --mob-section-pad:  var(--mob-space-2xl) var(--mob-page-x);
+
+    /* works — horizontal drag rail (cards stay a rail on phone) */
+    --mob-work-sec-gap:  var(--mob-space-2xl);  /* breathing room between work blocks */
+    --mob-work-head:     var(--mob-t-h2);
+    --mob-work-head-w:   var(--mob-w-mid);
+    --mob-work-head-ls:  0;
+    --mob-work-sub:      var(--mob-t-caption);
+    --mob-work-card-w:   62vw;   /* one card ~62vw so next peeks in → "can drag" */
+    --mob-work-card-h:   clamp(300px, 68vw, 420px);
+    --mob-work-gap:      var(--mob-space-md);
+    --mob-work-year:     var(--mob-t-micro);
+
+    /* ────────────────────────────────────────────────────────
+       9. LOCK 2-D LAYOUT — shared by every two-column block.
+       Desktop = 2 columns; tablet breakpoints collapse to 1.
+       On phone we LOCK back to 2 columns, just shrink the gap
+       (scale-down, not stack). Drives the 2-D rules in mobile.css.
+       ──────────────────────────────────────────────────────── */
+    --mob-2d-gap:      var(--mob-space-md);  /* gap between the two columns */
+    --mob-2d-cols:     0.9fr 0.7fr;          /* left col slightly wider */
+    --mob-2d-head:     var(--mob-t-h2);
+    --mob-2d-copy:     var(--mob-t-body);
+
+    /* ────────────────────────────────────────────────────────
+       10. HEADER + FLOATING BUTTONS + MEGA + FOOTER + DETAIL
+       Everything else is wired here so re-tuning is one file.
+       ──────────────────────────────────────────────────────── */
+    /* header bar */
+    --mob-header-h:      52px;
+    --mob-brand-size:    26px;
+    --mob-brand-fs:      7.5px;
+    --mob-action-gap:    16px;
+    --mob-action-fs:     9px;
+
+    /* floating trigger buttons — small on phone, out of the way */
+    --mob-orb-size:      54px;
+    --mob-orb-icon:      24px;
+    --mob-orb-inset:     14px;     /* distance from the bottom-right corner */
+    --mob-email-w:       54px;     /* collapsed trigger width */
+    --mob-email-open:    168px;    /* expanded (showing the email) width */
+    --mob-email-fs:      8.5px;
+
+    /* mega menu — desktop is 6 cols; on phone lock to 2 grouped cols */
+    --mob-mega-cols:     repeat(2, minmax(0, 1fr));
+    --mob-mega-gap:      20px;
+    --mob-mega-item:     10px;
+    --mob-mega-head:     8px;
+
+    /* footer decorative letters — scale the big Y A N G */
+    --mob-footer-letter: clamp(4.5rem, 20vw, 7.5rem);
+    --mob-footer-small:  9px;
+
+    /* detail page */
+    --mob-detail-h1:     clamp(1.7rem, 8.2vw, 2.5rem);
+    --mob-detail-sub:    var(--mob-t-body);
+    --mob-detail-kicker: var(--mob-t-caption);
+    --mob-detail-pad:    var(--mob-space-xl) var(--mob-page-x);
+
+    /* expansion title — big display, but fit the ~358px phone width
+       so the pre-broken lines (each is a block span) don't wrap mid-word */
+    --mob-expansion-h2:  clamp(1.7rem, 9vw, 2.4rem);
+
+    /* ────────────────────────────────────────────────────────
+       11. HERO 3D STRUCTURE (the rotating "staircase") + PORTRAIT
+       + DAIMA FULL-SCREEN PANELS + PRODUCT ORBIT.
+       All the "scaled-down, not cut" fixes, as tokens.
+       ──────────────────────────────────────────────────────── */
+    /* the 3D staircase is a faint desktop ghost (opacity .04-.055).
+       On a phone it disappears; pull it back to a visible-but-quiet
+       level so it reads as a backdrop, not noise. */
+    --mob-struct-op:     0.16;
+
+    /* C-scheme hero: the 16:9 helix is shown whole with `contain`
+       on a light-grey gradient, so it has quiet contrast instead of
+       two pale dots on a flat white void. */
+    --mob-hero-bg:           linear-gradient(180deg, #ededec 0%, #f6f6f5 60%, #ffffff 100%);
+    --mob-hero-video-filter: contrast(1.3);
+
+    /* portrait: the desktop img carries a darkening filter + edge-fade
+       mask that washes the face out at phone size. Drop both so the
+       face is crisp. */
+    --mob-portrait-filter: none;
+    --mob-portrait-mask:   none;
+
+    /* daima digital-works panels: desktop forces 480px tall with a
+       640px media layer -> top/bottom clip. Give each panel a full
+       phone screen so the image frames "just right", no cut. */
+    --mob-daima-panel-h:  100svh;
+    --mob-daima-media-h:  100svh;
+
+    /* product orbit (Miro / Huaxi rotating cards): desktop keeps the
+       620px-wide card on phone -> it overflows. Scale to the phone
+       width, preserving the desktop ~1.32 landscape aspect. */
+    --mob-orbit-stage-h:  58vw;   /* stage height                 */
+    --mob-orbit-card-w:   68vw;   /* card width (~265px @390)     */
+    --mob-orbit-card-h:   51vw;   /* card height (~200px @390)   */
+  } /* :root */
+
+} /* @media */
