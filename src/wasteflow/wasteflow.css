@@ -1416,9 +1416,11 @@
 }
 
 .wf-pack-tile__en {
-  font-size: 0.66cqw;
+  font-size: 0.62cqw;
   font-weight: 700;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.2;
 }
 
 .wf-pack-tile__cn {

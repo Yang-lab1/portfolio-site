@@ -270,7 +270,7 @@ const B01_OUTPUT = [
   { icon: FileText, main: 'Design Boards', sub: '方案展板' },
   { icon: Boxes, main: '3D Source Files', sub: '三维源文件' },
   { icon: Layers, main: 'Materials & Settings', sub: '材质与渲染设置' },
-  { icon: Send, main: 'Ready for Implementation', sub: '支持落地' },
+  { icon: Send, main: 'Deliverable', sub: '支持落地' },
 ];
 
 function WasteFlowBoard01() {
