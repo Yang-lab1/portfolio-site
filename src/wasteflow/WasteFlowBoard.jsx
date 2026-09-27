@@ -59,7 +59,9 @@ import {
   UserCheck,
   Users,
   Warehouse,
+  Weight,
   Wrench,
+  Gauge,
   X,
 } from 'lucide-react';
 import './wasteflow.css';
@@ -197,7 +199,7 @@ const B01_COLUMNS = [
     icon: FileText,
     en: 'Brief & Site Input',
     cn: '需求与现场输入',
-    media: { type: 'grid' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/tianke-req-site.jpg' },
     items: [
       { icon: FileText, en: 'Requirement Document', cn: '需求文档' },
       { icon: ImageIcon, en: 'Site Photos', cn: '现场照片' },
@@ -209,7 +211,7 @@ const B01_COLUMNS = [
     icon: Search,
     en: 'Requirement Analysis',
     cn: '需求分析与场景理解',
-    media: { type: 'img', src: '/portfolio/wasteflow/opt/site-warehouse.jpg' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/tianke-b01-req.png' },
     items: [
       { icon: Eye, en: 'Site Conditions', cn: '现场环境 / 建筑' },
       { icon: Box, en: 'Needs & Constraints', cn: '需求与限制条件' },
@@ -221,7 +223,7 @@ const B01_COLUMNS = [
     icon: Box,
     en: 'Rhino Modeling',
     cn: '三维建模',
-    media: { type: 'img', src: '/portfolio/wasteflow/opt/render-racks.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/tianke-rhino.png' },
     items: [
       { icon: Boxes, en: '3D Structure Modeling', cn: '整体结构建模' },
       { icon: Ruler, en: 'Dimension & Proportion', cn: '尺寸与比例控制' },
@@ -233,7 +235,7 @@ const B01_COLUMNS = [
     icon: LayoutGrid,
     en: 'KeyShot Visualization',
     cn: '材质渲染与表现',
-    media: { type: 'img', src: '/portfolio/wasteflow/opt/render-machine.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/tianke-keyshot.jpg' },
     items: [
       { icon: Palette, en: 'Material & Color Setup', cn: '材质与颜色设置' },
       { icon: Lightbulb, en: 'Lighting & Environment', cn: '灯光与场景渲染' },
@@ -245,7 +247,7 @@ const B01_COLUMNS = [
     icon: Send,
     en: 'Proposal Output',
     cn: '设计方案输出',
-    media: { type: 'img', src: '/portfolio/wasteflow/opt/cover-35auto.png' },
+    media: { type: 'img', src: '/portfolio/wasteflow/opt/tianke-final.jpg' },
     items: [
       { icon: Box, en: 'Final Render', cn: '最终效果图' },
       { icon: FileText, en: 'Presentation Boards', cn: '方案展板' },
@@ -350,12 +352,12 @@ const B02_THUMBS = [
 ];
 
 const B02_RESULTS = [
-  { src: '/portfolio/wasteflow/opt/render-door.png', name: '1.01.png' },
-  { src: '/portfolio/wasteflow/opt/render-machine.png', name: '1.02.png' },
-  { src: '/portfolio/wasteflow/opt/render-canopy.png', name: '1.03.png' },
+  { src: '/portfolio/wasteflow/opt/render-haixin.png', name: 'haixin_4.6.png' },
+  { src: '/portfolio/wasteflow/opt/render-cuntian.png', name: 'cuntian_1.2.png' },
+  { src: '/portfolio/wasteflow/opt/render-jieshiduo.png', name: 'jieshiduo_1.1.png' },
+  { src: '/portfolio/wasteflow/opt/cover-35auto.png', name: 'gz35auto_1.png' },
   { src: '/portfolio/wasteflow/opt/render-racks.png', name: '1.04.png' },
   { src: '/portfolio/wasteflow/opt/render-indoor.png', name: '1.05.png' },
-  { src: '/portfolio/wasteflow/opt/render-door-2.png', name: '1.06.png' },
 ];
 
 const B02_CATEGORIES = [
@@ -430,7 +432,7 @@ function WasteFlowBoard02() {
         {/* 02 naming & versioning */}
         <section className="wf-col">
           <ColHead no="02" icon={FileText} en="NAMING & VERSIONING" cn="命名规则与版本结构" />
-          <div className="wf-notebook">
+          <div className="wf-notebook wf-notebook--even">
             <p className="wf-notebook__label">版本目录结构</p>
             <div className="wf-versionrow">
               {B02_VERSIONS.map((v) => (
@@ -460,7 +462,7 @@ function WasteFlowBoard02() {
         {/* 03 categorized assets */}
         <section className="wf-col">
           <ColHead no="03" icon={FolderOpen} en="CATEGORIZED ASSETS" cn="分类的设计资产" />
-          <div className="wf-notebook">
+          <div className="wf-notebook wf-notebook--even">
             <div className="wf-cattree">
               {B02_CATEGORIES.map((cat) => (
                 <div className="wf-cattree__cat" key={cat.name}>
@@ -489,7 +491,7 @@ function WasteFlowBoard02() {
         {/* 04 metadata tags */}
         <section className="wf-col">
           <ColHead no="04" icon={Tag} en="METADATA TAGS" cn="元数据标签" />
-          <div className="wf-notebook">
+          <div className="wf-notebook wf-notebook--even">
             <div className="wf-metaform">
               {B02_META_ROWS.map((row) => (
                 <div className="wf-metaform__row" key={row.label}>
@@ -802,12 +804,14 @@ const B04_STEPS = [
 ];
 
 const B04_PACK = [
-  { icon: Scale, en: 'Pallet Scale Unit', cn: '卡板秤单元', qty: '×1–3', img: '/portfolio/wasteflow/opt/tianke-req-product.jpg' },
-  { icon: Boxes, en: 'Storage Bin Unit', cn: '料箱单元', qty: '×N', img: '/portfolio/wasteflow/opt/tianke-bin.png' },
-  { icon: Recycle, en: 'Paper Baling Unit', cn: '纸皮打包', qty: '×0–1', img: '/portfolio/wasteflow/opt/tianke-paper.png' },
-  { icon: Signpost, en: 'Signage Unit', cn: '指示牌单元', qty: '×1–N', img: '/portfolio/wasteflow/opt/tianke-sign.png' },
-  { icon: TriangleAlert, en: 'Warning Unit', cn: '警示条单元', qty: '×N', img: '/portfolio/wasteflow/opt/tianke-warning.png' },
-  { icon: Ruler, en: 'Site Constraint', cn: '场地约束·图纸', qty: '×1', img: '/portfolio/wasteflow/opt/tianke-req-drawing.png' },
+  // 场景资产（旧案例整场景 · 匹配度高直接打开）
+  { icon: Factory, en: 'Scene · Solid Waste Bay', cn: '场景 · 固废称重仓', qty: '可整体复用', img: '/portfolio/wasteflow/opt/render-green-room.png', kind: 'scene' },
+  { icon: Warehouse, en: 'Scene · Haixin Yard', cn: '场景 · 海新户外仓', qty: '可整体复用', img: '/portfolio/wasteflow/opt/render-haixin.png', kind: 'scene' },
+  { icon: Building2, en: 'Scene · Cuntian Shading', cn: '场景 · 村田外棚仓', qty: '可整体复用', img: '/portfolio/wasteflow/opt/render-cuntian.png', kind: 'scene' },
+  // 自研单品（公司自研 · 有 logo · 外买不到）
+  { icon: Scale, en: 'Pallet Scale', cn: '单品 · 卡板秤', qty: '可放入场景', img: '/portfolio/wasteflow/opt/ufei-pallet-scale.png', kind: 'product' },
+  { icon: Weight, en: '500kg Floor Scale', cn: '单品 · 500kg 地秤', qty: '可放入场景', img: '/portfolio/wasteflow/opt/ufei-500kg.png', kind: 'product' },
+  { icon: Gauge, en: 'Solid-Waste Head', cn: '单品 · 固废表头', qty: '可放入场景', img: '/portfolio/wasteflow/opt/ufei-solid-head.png', kind: 'product' },
 ];
 
 const B04_SCENARIOS = [
@@ -997,10 +1001,10 @@ const B05_META = ['SYS_ARCH_3234', 'MODULAR', 'SCALABLE', 'HUMAN-CENTERED'];
 const B05_TAGLINE = ['TOOL LAYER · INTERFACE', 'REUSE AGENT WORKBENCH'];
 
 const B05_CHECKS = [
-  { en: 'Extract product information', cn: '提取产品信息' },
-  { en: 'Identify key components', cn: '识别关键部件' },
-  { en: 'Analyze design intent', cn: '分析设计意图' },
-  { en: 'Generate search keywords', cn: '生成检索关键词' },
+  { en: 'Target scene traits', cn: '目标场景特征 · 墙/窗/门/围栏' },
+  { en: 'Required self-made singles', cn: '所需自研单品清单' },
+  { en: 'Match old case scenes', cn: '匹配旧案例场景' },
+  { en: 'Open Rhino workfiles', cn: '打开对应 Rhino 工程' },
 ];
 
 const B05_FILTERS = [
@@ -1028,6 +1032,26 @@ const B05_FILTERS = [
     { name: 'Modular', on: true },
     { name: 'Other', on: false },
   ] },
+];
+
+const B05_SCENES = [
+  { src: '/portfolio/wasteflow/opt/render-green-room.png', en: 'Solid Waste Bay', cn: '固废称重仓 · 旧案例', match: 92, picked: true },
+  { src: '/portfolio/wasteflow/opt/render-cuntian.png', en: 'Cuntian Shading Bay', cn: '村田外棚仓 · 旧案例', match: 78 },
+  { src: '/portfolio/wasteflow/opt/render-haixin.png', en: 'Haixin Outdoor Yard', cn: '海新户外仓 · 旧案例', match: 65 },
+];
+
+const B05_SINGLES = [
+  { src: '/portfolio/wasteflow/opt/ufei-pallet-scale.png', en: 'Pallet Scale', cn: '卡板秤' },
+  { src: '/portfolio/wasteflow/opt/ufei-500kg.png', en: '500kg Floor Scale', cn: '500kg 地秤' },
+  { src: '/portfolio/wasteflow/opt/ufei-solid-head.png', en: 'Solid-Waste Head', cn: '固废表头' },
+  { src: '/portfolio/wasteflow/opt/ufei-haz-head.png', en: 'Hazard Waste Head', cn: '危废表头' },
+  { src: '/portfolio/wasteflow/opt/ufei-bin.png', en: 'Storage Bin', cn: '料箱' },
+  { src: '/portfolio/wasteflow/opt/ufei-baler.png', en: 'Paper Baler', cn: '压缩打包机' },
+];
+
+const B05_DESKTOP = [
+  { icon: FileBox, en: 'Solid-Waste Bay · 旧案例工程', cn: '场景窗口 ①', status: 'Opened', badge: '92%' },
+  { icon: Package, en: 'Blank Scene · 已放入自研单品', cn: '单品窗口 ②', status: '6 items in', badge: 'N' },
 ];
 
 const B05_PRODUCTS = [
@@ -1104,14 +1128,9 @@ function WasteFlowBoard05() {
               <span className="wf-drop__fileicon">
                 <FileText size="1.4cqw" {...ICON_PROPS} />
               </span>
-              <strong className="wf-drop__title">Drag and drop your project files here</strong>
-              <span className="wf-drop__cn">拖放文件至此区域</span>
-              <span className="wf-drop__hint">
-                Supports CAD, PDF, images, specs, etc.
-                <br />
-                支持 CAD、PDF、图片、规格书等
-              </span>
-              <span className="wf-btn-orange">Select Files 选择文件</span>
+              <strong className="wf-drop__title">Drop files</strong>
+              <span className="wf-drop__hint">CAD / PDF / 图片</span>
+              <span className="wf-btn-orange">选择文件</span>
             </div>
             <div className="wf-parse">
               <span className="wf-parse__title">Parsing...</span>
@@ -1135,142 +1154,146 @@ function WasteFlowBoard05() {
           </div>
         </div>
 
-        {/* 02 retrieval & case comparison */}
+        {/* 02 scene matching */}
         <div className="wf-wbcol">
           <WbHead
             no="02"
-            en="Retrieval & Case Comparison"
-            cn="检索与案例对比"
-            steps="SEARCH → COMPARE → EVALUATE"
-            stepsCn="智能检索 / 案例对比 / 综合选择"
+            en="Scene Matching & Retrieval"
+            cn="场景比对 · 匹配旧案例"
+            steps="PARSE → MATCH → PICK"
+            stepsCn="解析特征 / 匹配场景 / 打开工程"
           />
           <div className="wf-wb wf-wb--col">
-            <div className="wf-ui__bar">
-              <span className="wf-searchpill2">
-                <Search size="0.85cqw" {...ICON_PROPS} />
-                waste bin
-                <X size="0.7cqw" {...ICON_PROPS} />
+            <div className="wf-ui__bar wf-ui__bar--scene">
+              <span className="wf-scenepill">
+                <ScanSearch size="0.85cqw" {...ICON_PROPS} />
+                目标场景特征 · 现场物件比对
               </span>
-              <span className="wf-btn-orange wf-btn-orange--sm">Search</span>
-              <span className="wf-results-num">
-                <strong>12 results</strong> 12 个结果
+              <span className="wf-matchcount">
+                <strong>3</strong> 个匹配旧案例
               </span>
-              <span className="wf-select">
-                Relevance <ChevronDown size="0.75cqw" {...ICON_PROPS} />
-              </span>
-              <LayoutGrid size="0.9cqw" color="#f6a528" {...ICON_PROPS} />
-              <AlignJustify size="0.9cqw" color="#8a867a" {...ICON_PROPS} />
             </div>
-            <div className="wf-ui__body">
-              <div className="wf-filters">
-                {B05_FILTERS.map((group) => (
-                  <div className="wf-filter" key={group.en}>
-                    <span className="wf-filter__title">
-                      <span className="wf-filter__en">{group.en}</span>
-                      <span className="wf-filter__cn">{group.cn}</span>
-                    </span>
-                    {group.options.map((option) => (
-                      <span className="wf-checkrow" key={option.name}>
-                        <span className={option.on ? 'wf-box wf-box--on' : 'wf-box'} />
-                        <span className={option.on ? 'wf-checkrow__name wf-checkrow__name--on' : 'wf-checkrow__name'}>
-                          {option.name}
+            <div className="wf-ui__body wf-ui__body--stack">
+              <div className="wf-scenecmp">
+                <span className="wf-scenecmp__label">
+                  <span className="wf-scenecmp__label-en">Matched Scenes</span>
+                  <span className="wf-scenecmp__label-cn">匹配到旧案例场景 · 按匹配度排序</span>
+                </span>
+                <div className="wf-scenecmp__list">
+                  {B05_SCENES.map((scene) => (
+                    <div
+                      key={scene.en}
+                      className={scene.picked ? 'wf-scene wf-scene--picked' : 'wf-scene'}
+                    >
+                      {scene.picked ? (
+                        <span className="wf-scene__open">
+                          <FolderOpen size="0.8cqw" {...ICON_PROPS} /> 已打开
                         </span>
+                      ) : null}
+                      <span className="wf-scene__img">
+                        <img src={scene.src} alt="" />
                       </span>
-                    ))}
-                  </div>
-                ))}
+                      <span className="wf-scene__text">
+                        <span className="wf-scene__en">{scene.en}</span>
+                        <span className="wf-scene__cn">{scene.cn}</span>
+                      </span>
+                      <span className="wf-scene__match">{scene.match}%</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="wf-resultsgrid">
-                {B05_PRODUCTS.map((product) => (
-                  <div
-                    className={product.picked ? 'wf-product wf-product--picked' : 'wf-product'}
-                    key={product.en}
-                  >
-                    {product.picked ? (
-                      <span className="wf-product__badge">
-                        <CheckCircle2 size="0.9cqw" color="#232323" strokeWidth={2.4} />
+              <div className="wf-singles">
+                <span className="wf-singles__label">
+                  <span className="wf-singles__label-en">Self-Developed Singles</span>
+                  <span className="wf-singles__label-cn">需求所需 · 公司自研单品</span>
+                </span>
+                <div className="wf-singles__row">
+                  {B05_SINGLES.map((s) => (
+                    <span className="wf-single" key={s.en}>
+                      <span className="wf-single__img">
+                        <img src={s.src} alt="" />
                       </span>
-                    ) : null}
-                    <span className="wf-product__img">
-                      <img src={product.src} alt="" />
+                      <span className="wf-single__cn">{s.cn}</span>
                     </span>
-                    <span className="wf-product__en">{product.en}</span>
-                    <span className="wf-product__cn">{product.cn}</span>
-                    <span className="wf-product__tags">
-                      {product.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
-                    </span>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 03 reusable package output */}
+        {/* 03 completion & handoff */}
         <div className="wf-wbcol">
           <WbHead
             no="03"
-            en="Reusable Package Output"
-            cn="可复用成果输出"
-            steps="PACKAGE → EXPORT → NEXT STEPS"
-            stepsCn="打包生成 / 导出文件 / 后续支持"
+            en="Completed & Handoff"
+            cn="已完成 · 交付"
+            steps="OPENED → HANDOFF → NEXT STEPS"
+            stepsCn="已打开工程 / 交接清单 / 人工拼接渲染"
           />
           <div className="wf-wb wf-wb--col">
-            <div className="wf-ui3">
-              <div className="wf-preview">
-                <span className="wf-preview__main">
-                  <img src="/portfolio/wasteflow/opt/render-machine.png" alt="" />
-                </span>
-                <span className="wf-preview__thumbs">
-                  <img src="/portfolio/wasteflow/opt/render-cuntian.png" alt="" />
-                  <img src="/portfolio/wasteflow/opt/render-indoor.png" alt="" />
-                  <img src="/portfolio/wasteflow/opt/render-door.png" alt="" />
-                  <span className="wf-preview__next">
-                    <ChevronRight size="1.0cqw" {...ICON_PROPS} />
+            <div className="wf-ui3 wf-ui3--done">
+              <div className="wf-done">
+                <span className="wf-done__badge">
+                  <CheckCircle2 size="1.4cqw" color="#7ac142" strokeWidth={2} />
+                  <span className="wf-done__text">
+                    <span className="wf-done__en">Task Complete</span>
+                    <span className="wf-done__cn">Agent 已完成，交人工拼接</span>
                   </span>
                 </span>
+                <p className="wf-done__hint">
+                  拼接（把单品挪入场景 + 加门等缺件）与渲染出图由设计师手动完成，Agent 只到"打开工程 + 放好单品"为止。
+                </p>
               </div>
-              <div className="wf-detail">
-                <div className="wf-detail__head">
-                  <span className="wf-detail__titles">
-                    <span className="wf-detail__en">Modular Waste Station</span>
-                    <span className="wf-detail__cn">模块化回收站</span>
-                  </span>
-                  <span className="wf-detail__badge">
-                    <span>Reusable Module</span>
-                    <span>可复用模块</span>
-                  </span>
+              <div className="wf-opened">
+                <span className="wf-opened__label">
+                  <span className="wf-opened__label-en">Opened Documents</span>
+                  <span className="wf-opened__label-cn">已打开文件 · 按文档</span>
+                </span>
+                <div className="wf-opened__list">
+                  <div className="wf-opened__row">
+                    <FolderOpen size="0.95cqw" {...ICON_PROPS} />
+                    <span className="wf-opened__path">cases/solid-waste-bay/old-case_92%.3dm</span>
+                    <span className="wf-opened__badge wf-opened__badge--ok">Opened</span>
+                  </div>
+                  <div className="wf-opened__row">
+                    <Package size="0.95cqw" {...ICON_PROPS} />
+                    <span className="wf-opened__path">singles/blank-scene_3dm（已放入自研单品）</span>
+                    <span className="wf-opened__badge wf-opened__badge--ok">Ready</span>
+                  </div>
                 </div>
-                <div className="wf-tabs">
-                  <span className="wf-tab wf-tab--on">
-                    <span className="wf-tab__en">Deliverables</span>
-                    <span className="wf-tab__cn">交付文件</span>
-                  </span>
-                  <span className="wf-tab">
-                    <span className="wf-tab__en">Specifications</span>
-                    <span className="wf-tab__cn">技术参数</span>
-                  </span>
-                  <span className="wf-tab">
-                    <span className="wf-tab__en">Usage Notes</span>
-                    <span className="wf-tab__cn">使用说明</span>
-                  </span>
-                </div>
-                <div className="wf-files">
-                  {B05_DELIVERABLES.map((file) => {
-                    const Icon = file.icon;
-                    return (
-                      <div className="wf-file" key={file.en}>
-                        <Icon size="1.0cqw" {...ICON_PROPS} />
-                        <span className="wf-file__text">
-                          <span className="wf-file__en">{file.en}</span>
-                          <span className="wf-file__cn">{file.cn}</span>
-                        </span>
-                        <span className="wf-file__btn">Download</span>
-                      </div>
-                    );
-                  })}
+              </div>
+              <div className="wf-desktop">
+                <span className="wf-desktop__label">
+                  <span className="wf-desktop__label-en">Desktop · 2 Rhino Windows</span>
+                  <span className="wf-desktop__label-cn">桌面 2 个 Rhino 窗口</span>
+                </span>
+                <div className="wf-desktop__row">
+                  <div className="wf-rhinowin wf-rhinowin--scene">
+                    <span className="wf-rhinowin__head">
+                      <span className="wf-rhinowin__dot" />
+                      Rhino · 固废称重仓场景
+                    </span>
+                    <span className="wf-rhinowin__view">
+                      <img src="/portfolio/wasteflow/opt/render-green-room.png" alt="" />
+                    </span>
+                    <span className="wf-rhinowin__tag">窗口 ① · 旧案例</span>
+                  </div>
+                  <div className="wf-rhinowin wf-rhinowin--blank">
+                    <span className="wf-rhinowin__head">
+                      <span className="wf-rhinowin__dot" />
+                      Rhino · 空白（已放入单品）
+                    </span>
+                    <span className="wf-rhinowin__view">
+                      <img src="/portfolio/wasteflow/opt/ufei-pallet-scale.png" alt="" />
+                      <img src="/portfolio/wasteflow/opt/ufei-500kg.png" alt="" />
+                      <img src="/portfolio/wasteflow/opt/ufei-solid-head.png" alt="" />
+                      <img src="/portfolio/wasteflow/opt/ufei-haz-head.png" alt="" />
+                      <img src="/portfolio/wasteflow/opt/ufei-bin.png" alt="" />
+                      <img src="/portfolio/wasteflow/opt/ufei-baler.png" alt="" />
+                    </span>
+                    <span className="wf-rhinowin__tag">窗口 ② · 自研单品 ×6</span>
+                  </div>
                 </div>
               </div>
             </div>
