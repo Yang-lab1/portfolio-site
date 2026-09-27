@@ -11,6 +11,7 @@ import {
   ChevronDown,
   ChevronRight,
   ClipboardList,
+  Clock,
   Cloud,
   Component,
   Database,
@@ -273,11 +274,104 @@ const B01_OUTPUT = [
   { icon: Send, main: 'Deliverable', sub: '支持落地' },
 ];
 
-function WasteFlowBoard01() {
+/* ==================================================================
+   BOARD 01 — OVERVIEW / READING MAP  (new, inserted before old 01)
+   One screen that links all six chapters into a single line.
+   ================================================================== */
+
+const B00_META = ['OVERVIEW', '6 CHAPTERS', 'ONE LINE', 'READ ME'];
+const B00_TAGLINE = ['FROM INPUT', 'TO REUSABLE ASSETS'];
+
+const B00_COLUMNS = [
+  {
+    no: '01', icon: FilePlus, en: 'Project Input', cn: '项目输入',
+    items: [
+      { icon: Camera, en: 'Site Scan', cn: '现场录入' },
+      { icon: FileText, en: 'Req Parsing', cn: '需求解析' },
+    ],
+  },
+  {
+    no: '02', icon: Folder, en: 'Asset Base', cn: '资产化',
+    items: [
+      { icon: Folder, en: 'Standardize', cn: '目录标准化' },
+      { icon: Search, en: 'Semantic Index', cn: '语义检索' },
+    ],
+  },
+  {
+    no: '03', icon: LayoutGrid, en: 'Architecture', cn: '系统架构',
+    items: [
+      { icon: Boxes, en: '7 Modules', cn: '7 大模块' },
+      { icon: ShieldCheck, en: 'Human-in-loop', cn: '人工把关' },
+    ],
+  },
+  {
+    no: '04', icon: Recycle, en: 'Reuse', cn: '多场景复用',
+    items: [
+      { icon: Recycle, en: '3 Scenes', cn: '3 类场景' },
+      { icon: Shuffle, en: 'Module Mix', cn: '模块组合' },
+    ],
+  },
+  {
+    no: '05', icon: PanelTop, en: 'Workbench', cn: '复用工作台',
+    items: [
+      { icon: ScanSearch, en: 'Scene Match', cn: '场景匹配' },
+      { icon: Package, en: 'Singles Fit', cn: '单品装配' },
+    ],
+  },
+];
+
+const B00_OUTPUT = [
+  { icon: FilePlus, main: 'Input', sub: '看输入' },
+  { icon: Folder, main: 'Assets', sub: '看资产化' },
+  { icon: LayoutGrid, main: 'Arch', sub: '看架构' },
+  { icon: Recycle, main: 'Reuse', sub: '看复用' },
+  { icon: PanelTop, main: 'Workbench', sub: '看工作台' },
+];
+
+function WasteFlowBoard00() {
   return (
     <WasteFlowBoard
       page="01"
       chapterMain="Chapter 01"
+      chapterSub="总览地图"
+      meta={B00_META}
+      title="WasteFlow at a Glance"
+      subtitle="一张图看懂六章如何连成一条线"
+      tagline={B00_TAGLINE}
+      flow
+    >
+      <div className="wf-cols wf-cols--5 wf-cols--flow">
+        {B00_COLUMNS.map((column) => (
+          <section className="wf-col" key={column.no}>
+            <ColHead no={column.no} icon={column.icon} en={column.en} cn={column.cn} />
+            <div className="wf-cards wf-cards--under-media">
+              {column.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div className="wf-card" key={item.en}>
+                    <Icon className="wf-card__icon" size="1.15cqw" {...ICON_PROPS} />
+                    <span className="wf-card__text">
+                      <span className="wf-card__en">{item.en}</span>
+                      <span className="wf-card__cn">{item.cn}</span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+      <LoopLine label="INPUT  →  ASSETS  →  ARCHITECTURE  →  REUSE  →  WORKBENCH" />
+      <SupportBar labelEn="READING MAP" labelCn="阅读地图" items={B00_OUTPUT} />
+    </WasteFlowBoard>
+  );
+}
+
+function WasteFlowBoard01() {
+  return (
+    <WasteFlowBoard
+      page="02"
+      chapterMain="Chapter 02"
       chapterSub="项目输入"
       meta={B01_META}
       title="From Real-World Input to Design Proposal"
@@ -397,8 +491,8 @@ function WfFolder({ name, small = false }) {
 function WasteFlowBoard02() {
   return (
     <WasteFlowBoard
-      page="02"
-      chapterMain="Chapter 02"
+      page="03"
+      chapterMain="Chapter 03"
       chapterSub="文件资产化"
       meta={B02_META}
       title="From Files to a Reusable Knowledge Base"
@@ -697,8 +791,8 @@ const BOARD03_SUPPORT = [
 function WasteFlowBoard03() {
   return (
     <WasteFlowBoard
-      page="03"
-      chapterMain="Chapter 03"
+      page="04"
+      chapterMain="Chapter 04"
       chapterSub="系统架构"
       meta={BOARD03_META}
       title="WasteFlow Reuse Agent System"
@@ -855,8 +949,8 @@ function CaseCard({ label, cn, items, photo, badge }) {
 function WasteFlowBoard04() {
   return (
     <WasteFlowBoard
-      page="04"
-      chapterMain="Chapter 04"
+      page="05"
+      chapterMain="Chapter 05"
       chapterSub="多场景复用"
       meta={B04_META}
       title="Multi-Case Reuse Strategy"
@@ -1089,8 +1183,8 @@ function WbHead({ no, en, cn, steps, stepsCn }) {
 function WasteFlowBoard05() {
   return (
     <WasteFlowBoard
-      page="05"
-      chapterMain="Chapter 05"
+      page="06"
+      chapterMain="Chapter 06"
       chapterSub="工具层设计"
       meta={B05_META}
       title="Reuse Agent Workbench"
@@ -1319,14 +1413,109 @@ function WasteFlowBoard05() {
    Boards stack with zero seam, one shared design system.
    ------------------------------------------------------------------ */
 
+/* ==================================================================
+   BOARD 07 — IMPACT / OUTCOME  (new, closes the narrative)
+   Quantified result + why it matters, same shell/tokens as 01-06.
+   ================================================================== */
+
+const B06_META = ['OUTCOME', '92% MATCH', 'REUSABLE', 'HAND-OFF'];
+const B06_TAGLINE = ['FROM ONE CASE', 'TO A REUSABLE SYSTEM'];
+
+const B06_COLUMNS = [
+  {
+    no: '01', icon: TrendingUp, en: 'Reuse Rate', cn: '复用命中率',
+    metric: '92%',
+    items: [
+      { icon: ScanSearch, en: 'Scene Match', cn: '场景匹配' },
+      { icon: CheckCircle2, en: 'No Redesign', cn: '免重做' },
+    ],
+  },
+  {
+    no: '02', icon: Clock, en: 'Time Saved', cn: '省工时',
+    metric: '50%',
+    items: [
+      { icon: Boxes, en: 'Singles Fit', cn: '单品装配' },
+      { icon: RefreshCw, en: 'Iterate', cn: '快速迭代' },
+    ],
+  },
+  {
+    no: '03', icon: Package, en: 'Scenes Shipped', cn: '交付场景',
+    metric: '3 类',
+    items: [
+      { icon: Warehouse, en: 'Solid Waste', cn: '固废仓' },
+      { icon: Factory, en: 'Outdoor Yard', cn: '户外仓' },
+    ],
+  },
+  {
+    no: '04', icon: UserCheck, en: 'Human-in-loop', cn: '人工把关',
+    metric: '100%',
+    items: [
+      { icon: ShieldCheck, en: 'Reviewed', cn: '逐条审核' },
+      { icon: Send, en: 'Rhino Hand-off', cn: '交付 Rhino' },
+    ],
+  },
+];
+
+const B06_OUTPUT = [
+  { icon: TrendingUp, main: 'Faster', sub: '更快' },
+  { icon: Recycle, main: 'Reusable', sub: '可复用' },
+  { icon: UserCheck, main: 'Reviewable', sub: '可审核' },
+  { icon: Boxes, main: 'Scalable', sub: '可扩展' },
+  { icon: Send, main: 'Deliverable', sub: '可落地' },
+];
+
+function WasteFlowBoard06() {
+  return (
+    <WasteFlowBoard
+      page="07"
+      chapterMain="Chapter 07"
+      chapterSub="成果价值"
+      meta={B06_META}
+      title="What the Agent Delivers"
+      subtitle="复用命中率、省工时、可审核、可落地"
+      tagline={B06_TAGLINE}
+      flow
+    >
+      <div className="wf-cols wf-cols--4 wf-cols--flow">
+        {B06_COLUMNS.map((column) => (
+          <section className="wf-col" key={column.no}>
+            <ColHead no={column.no} icon={column.icon} en={column.en} cn={column.cn} />
+            <div className="wf-media">
+              <span className="wf-metric wf-metric--big">{column.metric}</span>
+            </div>
+            <div className="wf-cards wf-cards--under-media">
+              {column.items.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div className="wf-card" key={item.en}>
+                    <Icon className="wf-card__icon" size="1.15cqw" {...ICON_PROPS} />
+                    <span className="wf-card__text">
+                      <span className="wf-card__en">{item.en}</span>
+                      <span className="wf-card__cn">{item.cn}</span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        ))}
+      </div>
+      <LoopLine label="FASTER  /  REUSABLE  /  REVIEWABLE  /  DELIVERABLE" />
+      <SupportBar labelEn="WHY IT MATTERS" labelCn="价值" items={B06_OUTPUT} />
+    </WasteFlowBoard>
+  );
+}
+
 export function WasteFlowCaseStudy() {
   return (
     <div className="wf-casestudy wf-scope">
+      <WasteFlowBoard00 />
       <WasteFlowBoard01 />
       <WasteFlowBoard02 />
       <WasteFlowBoard03 />
       <WasteFlowBoard04 />
       <WasteFlowBoard05 />
+      <WasteFlowBoard06 />
     </div>
   );
 }

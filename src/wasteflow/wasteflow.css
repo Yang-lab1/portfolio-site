@@ -503,6 +503,10 @@
 }
 
 /* grid track variants — boards 01 / 02 must not inherit the 7-track master grid */
+.wf-cols--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
 .wf-cols--5 {
   grid-template-columns: repeat(5, 1fr);
 }
@@ -537,21 +541,21 @@
  *   - let grid tracks shrink (minmax(0, 1fr))
  *   - tighter chip gap + a hair smaller EN/CN
  */
-[data-wasteflow-page="02"] .wf-support__title {
+[data-wasteflow-page="03"] .wf-support__title {
   width: 10.5cqw;
 }
-[data-wasteflow-page="02"] .wf-support--five .wf-support__items {
+[data-wasteflow-page="03"] .wf-support--five .wf-support__items {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.5cqw;
 }
-[data-wasteflow-page="02"] .wf-support-item {
+[data-wasteflow-page="03"] .wf-support-item {
   gap: 0.5cqw;
   padding: 0 0.6cqw;
 }
-[data-wasteflow-page="02"] .wf-support-item__en {
+[data-wasteflow-page="03"] .wf-support-item__en {
   font-size: 0.74cqw;
 }
-[data-wasteflow-page="02"] .wf-support-item__cn {
+[data-wasteflow-page="03"] .wf-support-item__cn {
   font-size: 0.72cqw;
 }
 
@@ -618,6 +622,20 @@
   font-size: 0.8cqw;
   font-weight: 700;
   color: var(--wf-ink);
+}
+
+.wf-metric--big {
+  font-size: 1.9cqw;
+  font-weight: 700;
+  min-height: 2.2cqw;
+}
+
+/* board 07 media holds the big stat number */
+[data-wasteflow-page="07"] .wf-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.6cqw;
 }
 
 .wf-cards--under-media {
@@ -1525,71 +1543,71 @@
    board 05: panels 197-593px, next-step bar 610-694px
    ============================================================ */
 
-[data-wasteflow-page="01"] .wf-titlebar {
+[data-wasteflow-page="02"] .wf-titlebar {
   height: 5.48cqw;
   padding-top: 0.2cqw;
 }
 
-[data-wasteflow-page="02"] .wf-titlebar {
+[data-wasteflow-page="03"] .wf-titlebar {
   height: 6.25cqw;
   padding-top: 0.55cqw;
 }
 
-[data-wasteflow-page="04"] .wf-titlebar {
+[data-wasteflow-page="05"] .wf-titlebar {
   height: 4.46cqw;
   padding-top: 0.2cqw;
 }
 
-[data-wasteflow-page="05"] .wf-titlebar {
+[data-wasteflow-page="06"] .wf-titlebar {
   height: 6.13cqw;
   padding-top: 0.5cqw;
 }
 
-[data-wasteflow-page="01"] .wf-titlebar__title,
-[data-wasteflow-page="02"] .wf-titlebar__title {
+[data-wasteflow-page="02"] .wf-titlebar__title,
+[data-wasteflow-page="03"] .wf-titlebar__title {
   font-size: 2.5cqw;
 }
 
-[data-wasteflow-page="01"] .wf-support {
+[data-wasteflow-page="02"] .wf-support {
   height: 5.35cqw;
 }
 
-[data-wasteflow-page="02"] .wf-support {
+[data-wasteflow-page="03"] .wf-support {
   height: 4.76cqw;
 }
 
-[data-wasteflow-page="05"] .wf-support {
+[data-wasteflow-page="06"] .wf-support {
   height: 5.0cqw;
 }
 
 /* board 04 rows are fixed-height in the reference, not proportional */
-[data-wasteflow-page="04"] .wf-b04__top {
+[data-wasteflow-page="05"] .wf-b04__top {
   flex: 0 0 17.8cqw;
 }
 
-[data-wasteflow-page="04"] .wf-b04__bottom {
+[data-wasteflow-page="05"] .wf-b04__bottom {
   flex: 0 0 14.4cqw;
 }
 
-[data-wasteflow-page="04"] .wf-b04 {
+[data-wasteflow-page="05"] .wf-b04 {
   justify-content: flex-start;
 }
 
 /* board 05 panels end higher than the flex box would allow */
-[data-wasteflow-page="05"] .wf-wbrow {
+[data-wasteflow-page="06"] .wf-wbrow {
   margin-bottom: 0;
 }
 
 /* bottom gap below the closing bar: ref 18px / 20px / 26px */
-[data-wasteflow-page="01"] .wf-support {
+[data-wasteflow-page="02"] .wf-support {
   margin-bottom: 1.07cqw;
 }
 
-[data-wasteflow-page="02"] .wf-support {
+[data-wasteflow-page="03"] .wf-support {
   margin-bottom: 1.19cqw;
 }
 
-[data-wasteflow-page="05"] .wf-support {
+[data-wasteflow-page="06"] .wf-support {
   margin-bottom: 1.55cqw;
 }
 /* ---------- board 05 ---------- */
