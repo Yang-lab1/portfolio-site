@@ -480,7 +480,7 @@ const projects = [
     category: 'digital',
     title: { en: 'WasteFlow Reuse Agent', zh: 'WasteFlow 设计复用智能体' },
     type: { en: 'AI Agent / Design Reuse / Industrial Workflow', zh: 'AI 智能体 / 设计复用 / 工业设计流程' },
-    year: '2026',
+    year: '2025-2026',
     image: '/portfolio/wasteflow/cover-35auto.png',
     wallImage: '/portfolio/wasteflow/cover-35auto.png',
     wallGroup: 'sport',
