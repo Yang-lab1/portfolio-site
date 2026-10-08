@@ -973,6 +973,53 @@ const projects = [
     source: { en: 'Confirmed local folder: Desktop/作品集/旋转圆盘/便携式业务手提箱', zh: '已确认本地文件夹：Desktop/作品集/旋转圆盘/便携式业务手提箱' },
   },
   {
+    id: 'wafer-crusher',
+    category: 'production',
+    title: { en: 'Wafer Crusher', zh: '晶圆破碎机' },
+    type: { en: 'Industrial Design / Commercial Equipment', zh: '工业设计 / 商业设备' },
+    image: '/portfolio/wafer-crusher/01-opening.png',
+    imageFit: 'cover',
+    mediaOnlyDetail: true,
+    hideDetailMediaLabel: true,
+    gallery: [
+      { src: '/portfolio/wafer-crusher/01-opening.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/02-factory.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/03-guide.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/04-feed-detail.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/05-control.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/06-enclosure.png', className: 'detail-media-native-frame' },
+    ],
+    mediaNarrative: [
+      null,
+      {
+        en: 'The factory views establish the relationship between the equipment, people, and its surroundings. The following guide locates the visible exterior areas before moving into close-up views.',
+        zh: '通过人与设备、工厂环境建立整机的场景关系，再用标签导览定位外部区域，逐步进入局部细节。',
+      },
+      null,
+      {
+        en: 'The feed-area close-up focuses on the opening, hopper, and warning markings. The next view shows the arrangement of the screen, physical buttons, and status light; its existing screen content is retained as source artwork, not a description of wafer-processing functions.',
+        zh: '投料区特写聚焦入口、料斗与警示标识。接下来展示屏幕、实体按钮与状态灯的排列；屏幕保留原始素材内容，仅用于展示控制面板布局，不作为晶圆处理功能的说明。',
+      },
+      null,
+      {
+        en: 'The closing detail view brings the yellow side line, cabinet seams, openings, and support feet into focus. The equipment geometry, materials, and markings remain unchanged from the source images.',
+        zh: '最后聚焦侧面黄色折线、柜体分缝、孔位与支脚。设备形态、材质及原有标识均保留，仅调整展示背景与构图。',
+      },
+    ],
+    summary: {
+      en: 'A wafer crusher presented through people, factory context, an exterior guide, and close-up views of the feed area, control panel, and enclosure.',
+      zh: '从人与设备的场景关系出发，通过整机导览、投料区域、控制面板与外壳细节，展示晶圆破碎机的产品形态。',
+    },
+    evidence: {
+      en: ['Factory context', 'Exterior guide', 'Feed-area detail', 'Control layout', 'Enclosure details'],
+      zh: ['工厂场景', '整机导览', '投料区域细节', '控制面板布局', '外壳与支脚细节'],
+    },
+    source: {
+      en: 'Original UFEI equipment renders and scene composites',
+      zh: 'UFEI 原始设备渲染与场景合成',
+    },
+  },
+  {
     id: 'ufei-precision-cabinet',
     category: 'production',
     title: { en: 'Miro AI Rehearsal System', zh: 'Miro AI 演练系统' },
@@ -1271,7 +1318,7 @@ const workMenuCategories = [
   {
     id: 'b2b-products',
     title: 'B2B Products',
-    projectIds: ['smart-waste', 'ufei-precision-cabinet', 'baling-press', 'miro-hardware'],
+    projectIds: ['smart-waste', 'wafer-crusher', 'ufei-precision-cabinet', 'baling-press', 'miro-hardware'],
   },
   {
     id: 'c2c-products',
@@ -1300,6 +1347,7 @@ const workMenuProjectLabels = {
   'tcm-systems': 'Formula Network',
 
   'smart-waste': 'Portable Business Case',
+  'wafer-crusher': 'Wafer Crusher',
   'ufei-precision-cabinet': 'Miro AI',
   'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
@@ -1335,6 +1383,7 @@ const projectKinds = {
   'xiaomi-cmf': 'cmf',
   'cat-turntable': 'product',
   'smart-waste': 'product',
+  'wafer-crusher': 'product',
   'ufei-precision-cabinet': 'digital',
   'baling-press': 'product',
   'cmf-electronics': 'cmf',
@@ -2222,7 +2271,7 @@ const achievementCards = [
   },
 ];
 
-const productShowcaseIds = ['miro', 'smart-waste', 'cross-ripple', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
+const productShowcaseIds = ['wafer-crusher', 'smart-waste', 'cross-ripple', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['sport', 'miro', 'palifood', 'momenta'];
 const daimaWorkPanels = [
   {
@@ -5053,7 +5102,7 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
   }, [project.id, caseStudy.kind, detailMedia.length]);
 
   return (
-    <main className="detail-page">
+    <main className="detail-page" data-project-id={project.id}>
       <button className="back-button" type="button" onClick={onBack}>
         <ChevronLeft size={18} />
         {copy[lang].back}
@@ -5066,14 +5115,14 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
         </div>
         <div className="detail-meta">
           <dl>
-            <div>
+            {project.year ? <div>
               <dt>{copy[lang].year}</dt>
               <dd>{project.year}</dd>
-            </div>
-            <div>
+            </div> : null}
+            {project.role ? <div>
               <dt>{copy[lang].role}</dt>
               <dd>{t(project.role, lang)}</dd>
-            </div>
+            </div> : null}
             <div>
               <dt>{heroCopy.statusLabel}</dt>
               <dd>

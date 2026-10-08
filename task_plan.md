@@ -1,4 +1,10 @@
 # Portfolio Site Recovery Plan
+
+### 2026-10-08 Wafer Crusher release
+- [x] Add approved six-image project using the shared industrial detail layout.
+- [x] Replace only the Miro hero carousel slot; keep Miro elsewhere.
+- [x] Verify desktop/mobile images, native ratios, navigation, console and clipping.
+- [ ] Push scoped changes and verify custom-domain + Vercel production release.
 ### Phase 69: Portable Business Case scroll narrative and annotations
 - [x] Keep the Portable Business Case project in the existing `smart-waste` slot without restoring industrial-compressor content.
 - [x] Add sparse explanatory text blocks that match the existing detail-page narrative style.

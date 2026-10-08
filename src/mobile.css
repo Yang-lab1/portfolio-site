@@ -500,6 +500,18 @@
     font-size: var(--mob-t-body);
   }
 
+  .detail-page[data-project-id='wafer-crusher'] .detail-meta div {
+    display: block;
+  }
+
+  .detail-page[data-project-id='wafer-crusher'] .detail-meta dt {
+    margin-bottom: 8px;
+  }
+
+  .detail-page[data-project-id='wafer-crusher'] .detail-meta dd {
+    overflow-wrap: anywhere;
+  }
+
   .back-button {
     min-height: 34px;
     font-size: var(--mob-t-caption);

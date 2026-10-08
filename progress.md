@@ -1,4 +1,10 @@
 # 2026-07-10 Watch deployment verification
+
+## 2026-10-08 Wafer Crusher release checkpoint
+- Implemented independent wafer-crusher project and replaced the requested hero carousel slot, keeping Miro intact.
+- Added six approved source PNGs; detail layout follows existing industrial projects with native ratios.
+- Build / desktop-mobile browser QA passed; no image failures, runtime errors, horizontal overflow or header clipping.
+- Scoped commit/push and custom-domain/Vercel verification follow this checkpoint. Existing .gitignore changes and unrelated untracked files are excluded.
 # 2026-07-15 Portable Business Case scroll annotations
 - Added restrained explanatory narrative and scroll-triggered callouts to Portable Business Case.
 - The annotated figures are the latch/opening image and the internal operation-panel image; the rest of the gallery stays image-led.

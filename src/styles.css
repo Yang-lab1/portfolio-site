@@ -1722,6 +1722,21 @@ img {
   object-fit: contain;
 }
 
+/* Preserve each approved source ratio without cropping the equipment or adding side bars. */
+.detail-media-grid.detail-media-project-wafer-crusher figure.detail-media-native-frame,
+.detail-media-grid.detail-media-project-wafer-crusher figure.detail-media-native-frame:first-child {
+  height: auto;
+  aspect-ratio: auto;
+  background: #111;
+}
+
+.detail-media-grid.detail-media-project-wafer-crusher figure.detail-media-native-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
 .detail-media-grid.detail-media-project-palifood figure.detail-media-palifood-hero,
 .detail-media-grid.detail-media-project-palifood figure.detail-media-palifood-hero:first-child {
   width: 100vw;
@@ -4535,6 +4550,10 @@ img {
   transform: translateZ(0);
   user-select: none;
   will-change: transform;
+}
+
+.product-orbit-card[data-product-id='wafer-crusher'] img {
+  object-position: 75% center;
 }
 
 .product-orbit-card.is-active {

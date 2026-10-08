@@ -1,4 +1,11 @@
 # 2026-07-07 Momenta redeploy verification finding
+
+## 2026-10-08 Wafer Crusher implementation findings
+- Approved v3 sources copied exactly; no image regeneration, equipment modifications or forced detail cropping.
+- Reused ProjectDetail with native-height image frames and sparse existing narrative blocks, not the standalone draft HTML layout.
+- Miro remains in digitalCaseIds, daima panels, work menu, archive and direct route; only productShowcaseIds slot 0 changed.
+- Missing year/role metadata is now conditionally omitted rather than invented; existing populated project metadata is unaffected.
+- Build and browser QA passed. Fixed wafer-only mobile metadata clipping observed in screenshot despite page overflow being zero.
 # 2026-07-15 Portable Business Case scroll annotation findings
 
 - The Portable Business Case page benefits from three narrative bridge notes rather than dense captions after every image: one for the meeting-room workflow compression, one for opening/internal architecture and 3D-print-to-ABS production, and one for Yang's design/project-management role.

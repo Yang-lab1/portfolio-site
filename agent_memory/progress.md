@@ -1,4 +1,12 @@
 # 2026-07-10 Watch deployment verification
+
+## 2026-10-08 Wafer Crusher
+- User authorized implementation and production deployment; shared industrial-project layout required.
+- Added six exact PNG copies under public/portfolio/wafer-crusher; all hashes match the approved v3 package.
+- Hero carousel slot 0 now opens wafer-crusher. Miro data and six homepage entries remain.
+- Build passed using bundled Node and Vite CLI (npm shim unavailable); Playwright desktop 1440x1000 / mobile 390x844 passed: six images, native ratios, header bounds, no overflow, no errors, language/back navigation.
+- Browser plugin unavailable; regular Playwright used. Evidence outside repository: ../wafer-release-qa/.
+- GitHub push and production verification pending at this checkpoint.
 # 2026-07-15 Portable Business Case scroll annotations
 - Added three sparse narrative bridge blocks to the Portable Business Case detail page, following the site's existing image-to-image explanation style rather than adding text after every image.
 - Added scroll-linked annotation overlays to the rotary-latch image and the internal operation-panel image. The lock image has 2 callouts; the panel image has 7 callouts covering the workflow controls.

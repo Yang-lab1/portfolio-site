@@ -1,4 +1,10 @@
 # 2026-07-10 手表卡片同步形变 guardrail
+
+## 2026-10-08 Wafer Crusher guardrails
+- Do not replace or remove Miro's project data when changing the homepage carousel slot.
+- Second source is 1672x941; keep its native ratio, not a 21:9 contain frame with black bars.
+- Mobile shared 2-column header + metadata's nested 88px label grid can clip source copy; wafer-only stacked metadata rows fix this without changing other projects.
+- Preserve all equipment text/geometry; source HMI content does not establish wafer-processing functionality.
 - 手表三卡入口对应 `heart-bracelet`，不要误改下方 Product Language 圆盘里的 `cmf-electronics` Watch 项目。
 - 侧卡不能只给父级外框加 clip-path；图片必须使用同一套动态 clip-path 与 skewY，才能跟随轮播透视变化。
 - 手表详情页只使用 `heart-bracelet-detail-01.png`、`heart-bracelet-detail-02.png` 两张素材；第一张源图不是原生 21:9，因此用 21:9 黑底容器 contain，禁止拉伸或强裁主体。
