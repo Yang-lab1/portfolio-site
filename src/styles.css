@@ -1737,6 +1737,58 @@ img {
   object-fit: contain;
 }
 
+.detail-media-project-wafer-crusher .detail-media-callout-line {
+  stroke: rgba(230, 234, 240, 0.83);
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout {
+  color: #f1f3f6;
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout-dot {
+  background: #f5b71b;
+  border-color: #111820;
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout-label {
+  width: 14vw;
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout-copy,
+.detail-media-project-wafer-crusher .detail-media-callout[data-side='left'] .detail-media-callout-copy {
+  padding: 0;
+  border: 0;
+  text-align: left;
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout-label strong {
+  font-size: clamp(0.76rem, 1.28vw, 1.7rem);
+  line-height: 1.2;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+}
+
+.detail-media-project-wafer-crusher .detail-media-callout-copy > span {
+  color: #acb4bf;
+  font-size: clamp(0.58rem, 0.8vw, 1.06rem);
+  line-height: 1.4;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 700px) {
+  .detail-media-project-wafer-crusher .detail-media-callout-label {
+    width: 16vw;
+  }
+
+  .detail-media-project-wafer-crusher .detail-media-callout[data-side='right'] .detail-media-callout-label {
+    left: var(--callout-label-x);
+  }
+
+  .detail-media-project-wafer-crusher .detail-media-callout-label strong {
+    font-size: clamp(0.37rem, 1.6vw, 0.65rem);
+    line-height: 1.2;
+  }
+}
+
 .detail-media-grid.detail-media-project-palifood figure.detail-media-palifood-hero,
 .detail-media-grid.detail-media-project-palifood figure.detail-media-palifood-hero:first-child {
   width: 100vw;

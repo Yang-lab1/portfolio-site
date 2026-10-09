@@ -981,14 +981,50 @@ const projects = [
     imageFit: 'cover',
     mediaOnlyDetail: true,
     hideDetailMediaLabel: true,
+    annotationExitOnLeave: true,
+    annotationEnterFromEdge: true,
     gallery: [
-      { src: '/portfolio/wafer-crusher/01-opening.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/02-factory-grounded-hd-v13.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/03-guide.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/04-feed-detail.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/05-control.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/06-enclosure.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/01-opening.png', width: 1916, height: 821, className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/02-factory-grounded-hd-v13.png', width: 3200, height: 1800, className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/03-guide-grounded-v11.png', width: 3360, height: 1440, className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/04-feed-detail.png', width: 2520, height: 1080, className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/05-control.png', width: 2560, height: 1096, className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/06-enclosure.png', width: 3984, height: 1707, className: 'detail-media-native-frame' },
     ],
+    mediaAnnotations: {
+      '/portfolio/wafer-crusher/03-guide-grounded-v11.png': [
+        {
+          point: [35.12, 38.06], label: [18.15, 27.08], bends: [[28.27, 27.08]], side: 'left',
+          title: { en: 'Control panel', zh: '控制面板' },
+          body: { en: 'Screen · buttons · status light', zh: '屏幕 · 实体按钮 · 状态灯' },
+        },
+        {
+          point: [53.27, 36.11], label: [69.2, 8.54], bends: [[56.25, 8.54], [56.25, 22.57]], side: 'right',
+          title: { en: 'Feed area', zh: '投料区域' },
+          body: { en: 'Opening · hopper · warning markings', zh: '入口 · 料斗 · 警示标识' },
+        },
+        {
+          point: [46.43, 72.22], label: [18.15, 63.54], bends: [[29.17, 63.54]], side: 'left',
+          title: { en: 'Viewing windows & retrieval doors', zh: '观察窗 & 取料门' },
+          body: { en: 'Windows · paired doors · handles', zh: '观察窗 · 双柜门 · 把手' },
+        },
+        {
+          point: [70, 35], label: [83.9, 32], bends: [[79, 32]], side: 'right',
+          title: { en: 'Service door', zh: '检修门' },
+          body: { en: 'Side access panel', zh: '侧面检修区域' },
+        },
+        {
+          point: [74.11, 79.86], label: [83.9, 73.61], bends: [[80.95, 73.61]], side: 'right',
+          title: { en: 'Side openings', zh: '侧面孔位' },
+          body: { en: 'Arrangement of side openings', zh: '侧面开孔的布局' },
+        },
+        {
+          point: [62.89, 92.5], label: [83.9, 91.53], bends: [[73.21, 91.53]], side: 'right',
+          title: { en: 'Adjustable feet', zh: '可调支脚' },
+          body: { en: 'Support at the base', zh: '设备底部支撑' },
+        },
+      ],
+    },
     mediaNarrative: [
       null,
       {
@@ -4890,7 +4926,7 @@ function ScrollFrameSequence({ frames, effect = 'crossfade' }) {
   );
 }
 
-function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
+function DetailMediaAnnotations({ annotations, lang, motionEnabled, exitOnLeave = false, enterFromEdge = false }) {
   const overlayRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -4902,6 +4938,15 @@ function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
     const lines = Array.from(overlay.querySelectorAll('.detail-media-callout-line'));
     const dots = callouts.map((callout) => callout.querySelector('.detail-media-callout-dot'));
     const labels = callouts.map((callout) => callout.querySelector('.detail-media-callout-copy'));
+    const getEntryOffset = (index) => {
+      const enterFrom = callouts[index]?.dataset.enter;
+      if (!enterFromEdge) return enterFrom === 'left' ? -68 : 68;
+      const overlayBounds = overlay.getBoundingClientRect();
+      const labelBounds = labels[index].parentElement.getBoundingClientRect();
+      return enterFrom === 'left'
+        ? -(labelBounds.right - overlayBounds.left + 24)
+        : overlayBounds.right - labelBounds.left + 24;
+    };
     const revealOrder = annotations
       .map((annotation, index) => ({ index, y: annotation.point[1] }))
       .sort((a, b) => a.y - b.y)
@@ -4910,15 +4955,14 @@ function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
       if (!motionEnabled || prefersReducedMotion) {
         gsap.set(lines, { strokeDashoffset: 0 });
         gsap.set(dots, { opacity: 1, scale: 1 });
-        gsap.set(labels, { opacity: 1, x: 0 });
+        gsap.set(labels, { opacity: 1, x: 0, y: 0 });
         return;
       }
 
       gsap.set(lines, { strokeDashoffset: 1000 });
       gsap.set(dots, { opacity: 0, scale: 0.6, transformOrigin: 'center' });
       labels.forEach((label, index) => {
-        const enterFrom = callouts[index]?.dataset.enter;
-        gsap.set(label, { opacity: 0, x: enterFrom === 'left' ? -68 : 68, y: 6 });
+        gsap.set(label, { opacity: 0, x: () => getEntryOffset(index), y: enterFromEdge ? 0 : 6 });
       });
 
       const timeline = gsap.timeline({
@@ -4926,7 +4970,7 @@ function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
         scrollTrigger: {
           trigger: overlay,
           start: 'top 72%',
-          end: 'center 55%',
+          end: exitOnLeave ? 'bottom 8%' : 'center 55%',
           scrub: 0.5,
           invalidateOnRefresh: true,
         },
@@ -4936,25 +4980,46 @@ function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
         const offset = orderIndex * 0.09;
         timeline
           .to(lines[index], { strokeDashoffset: 0, duration: 0.28 }, offset)
-          .to(dots[index], { opacity: 1, scale: 1, duration: 0.18 }, offset + 0.06)
-          .to(labels[index], { opacity: 1, x: 0, y: 0, duration: 0.38, ease: 'power3.out' }, offset + 0.08);
+          .to(dots[index], { opacity: 1, scale: 1, duration: 0.18 }, offset + 0.06);
+        if (enterFromEdge) {
+          timeline.fromTo(labels[index],
+            { opacity: 0, x: () => getEntryOffset(index), y: 0 },
+            { opacity: 1, x: 0, y: 0, duration: 0.5, ease: 'power3.out', immediateRender: false },
+            offset + 0.08);
+        } else {
+          timeline.to(labels[index], { opacity: 1, x: 0, y: 0, duration: 0.38, ease: 'power3.out' }, offset + 0.08);
+        }
       });
+      if (exitOnLeave) {
+        revealOrder.forEach((index, orderIndex) => {
+          const offset = 1.8 + orderIndex * 0.055;
+          timeline
+            .to(labels[index], {
+              opacity: 0,
+              x: () => enterFromEdge ? getEntryOffset(index) : (callouts[index]?.dataset.enter === 'left' ? -28 : 28),
+              y: enterFromEdge ? 0 : -4,
+              duration: 0.3,
+              ease: 'power2.in',
+            }, offset)
+            .to(dots[index], { opacity: 0, scale: 0.6, duration: 0.22 }, offset + 0.05)
+            .to(lines[index], { strokeDashoffset: 1000, duration: 0.28 }, offset + 0.02);
+        });
+      }
     }, overlay);
 
     return () => ctx.revert();
-  }, [annotations, lang, motionEnabled]);
+  }, [annotations, lang, motionEnabled, exitOnLeave, enterFromEdge]);
 
   return (
-    <div ref={overlayRef} className="detail-media-annotations">
+    <div ref={overlayRef} className="detail-media-annotations" data-exit-on-leave={exitOnLeave} data-enter-from-edge={enterFromEdge}>
       <svg className="detail-media-callout-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         {annotations.map((annotation, index) => (
-          <line
+          <polyline
             className="detail-media-callout-line"
             key={`line-${index}`}
-            x1={annotation.point[0]}
-            y1={annotation.point[1]}
-            x2={annotation.label[0]}
-            y2={annotation.label[1]}
+            points={[annotation.point, ...(annotation.bends || []).slice().reverse(), annotation.label]
+              .map((point) => point.join(','))
+              .join(' ')}
           />
         ))}
       </svg>
@@ -4962,7 +5027,7 @@ function DetailMediaAnnotations({ annotations, lang, motionEnabled }) {
         <div
           className="detail-media-callout"
           data-side={annotation.side || 'right'}
-          data-enter={annotation.label[0] < annotation.point[0] ? 'left' : 'right'}
+          data-enter={enterFromEdge ? annotation.side || 'right' : (annotation.label[0] < annotation.point[0] ? 'left' : 'right')}
           key={`${t(annotation.title, lang)}-${index}`}
           style={{
             '--callout-point-x': `${annotation.point[0]}%`,
@@ -5053,6 +5118,25 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
     const legacyClass = getLegacyFigureClass(src);
     return [customClass, legacyClass].filter(Boolean).join(' ') || undefined;
   };
+
+  useEffect(() => {
+    const grid = mediaGridRef.current;
+    if (!grid || !project.annotationExitOnLeave) return undefined;
+    let frame = 0;
+    const refresh = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => ScrollTrigger.refresh());
+    };
+    const observer = new ResizeObserver(refresh);
+    observer.observe(grid);
+    grid.addEventListener('load', refresh, true);
+    refresh();
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      grid.removeEventListener('load', refresh, true);
+    };
+  }, [project.id, project.annotationExitOnLeave]);
 
   useEffect(() => {
     const root = mediaGridRef.current;
@@ -5177,13 +5261,15 @@ function ProjectDetail({ lang, project, onBack, onOpenProject, motionEnabled }) 
                       <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
                     </picture>
                   ) : (
-                    <img src={src} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
+                    <img src={src} width={media?.width} height={media?.height} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
                   )}
                   {annotations.length ? (
                     <DetailMediaAnnotations
                       annotations={annotations}
                       lang={lang}
                       motionEnabled={motionEnabled}
+                      exitOnLeave={project.annotationExitOnLeave}
+                      enterFromEdge={project.annotationEnterFromEdge}
                     />
                   ) : null}
                   {figureLabel ? (
