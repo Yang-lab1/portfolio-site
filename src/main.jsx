@@ -983,7 +983,7 @@ const projects = [
     hideDetailMediaLabel: true,
     gallery: [
       { src: '/portfolio/wafer-crusher/01-opening.png', className: 'detail-media-native-frame' },
-      { src: '/portfolio/wafer-crusher/02-factory-original-hd-v12.png', className: 'detail-media-native-frame' },
+      { src: '/portfolio/wafer-crusher/02-factory-grounded-hd-v13.png', className: 'detail-media-native-frame' },
       { src: '/portfolio/wafer-crusher/03-guide.png', className: 'detail-media-native-frame' },
       { src: '/portfolio/wafer-crusher/04-feed-detail.png', className: 'detail-media-native-frame' },
       { src: '/portfolio/wafer-crusher/05-control.png', className: 'detail-media-native-frame' },
