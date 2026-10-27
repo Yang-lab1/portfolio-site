@@ -1094,28 +1094,6 @@ const projects = [
     source: { en: 'Confirmed local repo: Desktop/miro', zh: '已确认本地仓库：Desktop/miro' },
   },
   {
-    id: 'baling-press',
-    category: 'production',
-    title: { en: 'Compression Baling Press', zh: '压缩打包机' },
-    type: { en: 'Industrial Equipment / Production Logic', zh: '工业设备 / 生产逻辑' },
-    year: '2022-2023',
-    image: '/portfolio/edited-baling-press-cover.jpg',
-    gallery: ['/portfolio/edited-baling-press-cover.jpg', '/portfolio/baling-press-source-cover.jpg', '/portfolio/baling-press-vi-source.jpg', '/portfolio/baling-press-panel-source.jpg'],
-    role: {
-      en: 'Equipment structure, use flow, production proposal',
-      zh: '设备结构、使用流程、生产提案',
-    },
-    summary: {
-      en: 'A production-oriented compression baling press project rebuilt from the original PDF product render without changing the equipment form.',
-      zh: '面向生产的压缩打包机项目，已基于 PDF 原始产品渲染恢复封面，不改变设备形态。',
-    },
-    evidence: {
-      en: ['Equipment structure', 'Use-flow thinking', 'Client proposal evidence', 'Source-preserving cover'],
-      zh: ['设备结构', '使用流程思维', '客户提案证据', '保留原产品形态封面'],
-    },
-    source: { en: 'Extracted from portfolio PDF; cover keeps the original product render unchanged', zh: '来自作品集 PDF 抽取图，封面保留原产品渲染形态' },
-  },
-  {
     id: 'cmf-electronics',
     category: 'production',
     title: { en: 'CMF Electronics Archive', zh: '电子产品 CMF 档案' },
@@ -1313,10 +1291,6 @@ const projectShortCopy = {
     en: 'AI rehearsal system for cross-cultural communication and review.',
     zh: '面向跨文化沟通的 AI 演练与复盘系统。',
   },
-  'baling-press': {
-    en: 'Compression equipment case focused on structure and use flow.',
-    zh: '围绕结构与使用流程展开的压缩设备案例。',
-  },
   'cmf-electronics': {
     en: 'Electronics CMF archive for material and supplier communication.',
     zh: '用于材料和供应链沟通的电子产品 CMF 档案。',
@@ -1354,7 +1328,7 @@ const workMenuCategories = [
   {
     id: 'b2b-products',
     title: 'B2B Products',
-    projectIds: ['smart-waste', 'wafer-crusher', 'ufei-precision-cabinet', 'baling-press', 'miro-hardware'],
+    projectIds: ['smart-waste', 'wafer-crusher', 'ufei-precision-cabinet', 'miro-hardware'],
   },
   {
     id: 'c2c-products',
@@ -1385,7 +1359,6 @@ const workMenuProjectLabels = {
   'smart-waste': 'Portable Business Case',
   'wafer-crusher': 'Wafer Crusher',
   'ufei-precision-cabinet': 'Miro AI',
-  'baling-press': 'Baling Press',
   'miro-hardware': 'Miro Hardware',
   'offer-quest': 'Offer Quest',
 
@@ -1421,7 +1394,6 @@ const projectKinds = {
   'smart-waste': 'product',
   'wafer-crusher': 'product',
   'ufei-precision-cabinet': 'digital',
-  'baling-press': 'product',
   'cmf-electronics': 'cmf',
   cbs5502: 'research',
   'miro-governance': 'research',
@@ -1598,43 +1570,6 @@ const caseStudyOverrides = {
         body: {
           en: 'The detail page keeps the original visual evidence in sequence, so the product reads as a complete work tool rather than a single image.',
           zh: '详情页按顺序保留原始视觉证据，让产品呈现为完整的工作工具，而不是一张孤立的效果图。',
-        },
-      },
-    ],
-  },
-  'baling-press': {
-    label: { en: 'Production equipment case', zh: '生产设备案例' },
-    headline: {
-      en: 'The baling press case focuses on pressure structure, use flow, and source-preserving industrial presentation.',
-      zh: '压缩打包机案例聚焦压力结构、使用流程和源图保形的工业展示。',
-    },
-    sections: [
-      {
-        title: { en: 'Use Flow', zh: '使用流程' },
-        body: {
-          en: 'The case reads from equipment role to operator movement, rather than treating the machine as a single render.',
-          zh: '案例从设备角色读到操作者动作，而不是只把机器当作单张效果图。',
-        },
-      },
-      {
-        title: { en: 'Structure', zh: '结构' },
-        body: {
-          en: 'The product body, compression volume, and control area are kept visible with contain-fit previews.',
-          zh: '通过 contain 预览保留机身、压缩空间和控制区域的可读性。',
-        },
-      },
-      {
-        title: { en: 'Proposal Evidence', zh: '提案证据' },
-        body: {
-          en: 'Gallery images show original render evidence, detail pages, visual identity context, and panel information.',
-          zh: '图库包含原始渲染、细节页、视觉识别语境和版面信息。',
-        },
-      },
-      {
-        title: { en: 'Boundary', zh: '边界' },
-        body: {
-          en: 'Because only source views are available, the site does not generate new sides or mechanisms.',
-          zh: '因为当前只有这些源视图，网站不生成新的侧面或机械结构。',
         },
       },
     ],
@@ -2307,7 +2242,7 @@ const achievementCards = [
   },
 ];
 
-const productShowcaseIds = ['wafer-crusher', 'smart-waste', 'cross-ripple', 'baling-press', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
+const productShowcaseIds = ['wafer-crusher', 'smart-waste', 'cross-ripple', 'xiaomi-cmf', 'cat-turntable', 'heart-bracelet'];
 const digitalCaseIds = ['sport', 'miro', 'palifood', 'momenta'];
 const daimaWorkPanels = [
   {
@@ -6007,7 +5942,6 @@ const agentProjectAliases = {
   'cat-turntable': ['猫玩具', '复合转盘', '宠物', 'cat toy'],
   'smart-waste': ['便携式业务手提箱', 'portable business case', '便携', '业务', 'portable'],
   'ufei-precision-cabinet': ['立式高精度柜', '高精度柜', '精密暂存', '材料暂存', 'UFEI', '优废', '优费', 'precision cabinet'],
-  'baling-press': ['压缩打包机', '打包机', 'baling', 'press'],
   'cmf-electronics': ['电子产品', 'cmf', '材料档案', '色板'],
   cbs5502: ['cbs5502', '耳机', '量产', '骨传导'],
   'miro-governance': ['miro governance', '系统', '治理', '协作'],

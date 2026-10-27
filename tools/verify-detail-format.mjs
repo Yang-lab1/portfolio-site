@@ -40,7 +40,6 @@ const visibleProjects = [
     detailTitle: 'Vertical High-Precision Cabinet',
     kind: 'product',
   },
-  { id: 'baling-press', triggerTitle: 'Compression Baling Press', detailTitle: 'Compression Baling Press', kind: 'product' },
   { id: 'cmf-electronics', triggerTitle: 'CMF Electronics Archive', detailTitle: 'CMF Electronics Archive', kind: 'cmf' },
   { id: 'cbs5502', triggerTitle: 'Feel Disambiguation NLP', detailTitle: 'Feel Disambiguation NLP', kind: 'research' },
   { id: 'miro-governance', triggerTitle: 'Miro AI Governance Notes', detailTitle: 'Miro AI Governance Notes', kind: 'digital' },
